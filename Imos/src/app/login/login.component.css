@@ -1,0 +1,19 @@
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    height: 50%;
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.label{
+    display: inline-block;
+    text-align: center;
+    line-height: 150%;
+    width: 100%;
+}
