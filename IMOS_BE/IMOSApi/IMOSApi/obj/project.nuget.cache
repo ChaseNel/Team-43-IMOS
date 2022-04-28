@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "dinIS9b9gbHrtuT/vhCqWTFXPq4/yTSWkA4c3ZOldrp0lef/Q6laI8OZdbbidbl727Vne9xuLNTGEI4SOmUxGw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\user-pc\\Desktop\\IMOSCode\\IMOS_FE\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user-pc\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\user-pc\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\user-pc\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\user-pc\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\user-pc\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\user-pc\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
