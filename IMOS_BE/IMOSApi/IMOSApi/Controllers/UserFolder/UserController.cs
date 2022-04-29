@@ -12,10 +12,28 @@ namespace IMOSApi.Controllers.UserFolder
     [ApiController]
     public class UserController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public UserController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpGet("GetUsers")]
         public IActionResult Get()
         {
-            return Ok();
+            try
+            {
+                var users = _dbContext.Users.ToList();
+                if(users.Count == 0)
+                {
+                    return StatusCode(404, "No User was found.");
+                }
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, "Error");
+            }
         }
 
         [HttpPost("CreateUser")]

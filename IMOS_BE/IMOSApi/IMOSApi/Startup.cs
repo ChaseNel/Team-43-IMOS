@@ -1,7 +1,10 @@
+using IMOSApi.Data;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +31,8 @@ namespace IMOSApi
         {
 
             services.AddControllers();
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
