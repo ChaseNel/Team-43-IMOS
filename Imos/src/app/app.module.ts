@@ -14,7 +14,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PopUpComponent } from './pop-up/pop-up.component';
+import { PopUpComponent } from './logout/pop-up/pop-up.component';
 
 @NgModule({
   declarations: [

@@ -1,4 +1,4 @@
-import { PopUpComponent } from './../pop-up/pop-up.component';
+import { PopUpComponent } from './pop-up/pop-up.component';
 import { Router } from '@angular/router';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
