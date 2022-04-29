@@ -29,7 +29,7 @@
                     <form [formGroup]="LoginForm" class="form-container">
                         <div class="example-container">
                             <mat-form-field appearance="fill" class="username">
-                                <mat-label>Enter your username</mat-label>
+                                <mat-label>Enter your Username</mat-label>
                                 <input matInput formControlName="username" name="username" placeholder="Chase123">
                                 <mat-error *ngIf="loginform.username.errors?.required">
                                     Username is required
@@ -37,7 +37,7 @@
                             </mat-form-field>
 
                             <mat-form-field appearance="fill">
-                                <mat-label>Enter your password</mat-label>
+                                <mat-label>Enter your Password</mat-label>
                                 <input formControlName="password" matInput [type]="hide ? 'password' : 'text'">
                                 <mat-error *ngIf="loginform.password.errors?.required">
                                     Passwrd is required
