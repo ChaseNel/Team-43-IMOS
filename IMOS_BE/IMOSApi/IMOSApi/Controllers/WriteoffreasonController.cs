@@ -10,42 +10,42 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DocumentController : ControllerBase
+    public class WriteoffreasonController : ControllerBase
     {
-        [HttpGet("GetDocuments")]
-        public IEnumerable<Document> Retrieve()
+        [HttpGet("GetWriteoffreasons")]
+        public IEnumerable<Writeoffreason> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Documents.ToList();
+                return context.Writeoffreasons.ToList();
             }
         }
-        [HttpGet("GetDocument/{id}")]
-        public IEnumerable<Document> Get(int id)
+        [HttpGet("GetWriteoffreason/{id}")]
+        public IEnumerable<Writeoffreason> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Document> tmp = context.Documents.Where(emp => emp.DocumentId == id).ToList();
+                IEnumerable<Writeoffreason> tmp = context.Writeoffreasons.Where(emp => emp.WriteoffreasonId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateDocument")]
-        public IActionResult Create([FromBody] Document Document)
+        [HttpPost("CreateWriteoffreason")]
+        public IActionResult Create([FromBody] Writeoffreason Writeoffreason)
         {
             using (var context = new IMOSContext())
             {
-                context.Documents.Add(Document);
+                context.Writeoffreasons.Add(Writeoffreason);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateDocument/{Id}")]
-        public void Update([FromBody] Document Document, [FromRoute] int Id)
+        [HttpPut("UpdateWriteoffreason/{Id}")]
+        public void Update([FromBody] Writeoffreason Writeoffreason, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == Id).ToList().FirstOrDefault();
+                var clie = context.Writeoffreasons.Where(clie => clie.WriteoffreasonId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == id).ToList().FirstOrDefault(); ;
-                context.Documents.Remove(clie);
+                var clie = context.Writeoffreasons.Where(clie => clie.WriteoffreasonId == id).ToList().FirstOrDefault(); ;
+                context.Writeoffreasons.Remove(clie);
                 context.SaveChanges();
             }
         }

@@ -10,42 +10,42 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DocumentController : ControllerBase
+    public class TaskmaterialController : ControllerBase
     {
-        [HttpGet("GetDocuments")]
-        public IEnumerable<Document> Retrieve()
+        [HttpGet("GetTaskmaterials")]
+        public IEnumerable<Taskmaterial> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Documents.ToList();
+                return context.Taskmaterials.ToList();
             }
         }
-        [HttpGet("GetDocument/{id}")]
-        public IEnumerable<Document> Get(int id)
+        [HttpGet("GetTaskmaterial/{id}")]
+        public IEnumerable<Taskmaterial> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Document> tmp = context.Documents.Where(emp => emp.DocumentId == id).ToList();
+                IEnumerable<Taskmaterial> tmp = context.Taskmaterials.Where(emp => emp.TaskId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateDocument")]
-        public IActionResult Create([FromBody] Document Document)
+        [HttpPost("CreateTaskmaterial")]
+        public IActionResult Create([FromBody] Taskmaterial Taskmaterial)
         {
             using (var context = new IMOSContext())
             {
-                context.Documents.Add(Document);
+                context.Taskmaterials.Add(Taskmaterial);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateDocument/{Id}")]
-        public void Update([FromBody] Document Document, [FromRoute] int Id)
+        [HttpPut("UpdateTaskmaterial/{Id}")]
+        public void Update([FromBody] Taskmaterial Taskmaterial, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == Id).ToList().FirstOrDefault();
+                var clie = context.Taskmaterials.Where(clie => clie.TaskId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == id).ToList().FirstOrDefault(); ;
-                context.Documents.Remove(clie);
+                var clie = context.Taskmaterials.Where(clie => clie.TaskId == id).ToList().FirstOrDefault();
+                context.Taskmaterials.Remove(clie);
                 context.SaveChanges();
             }
         }

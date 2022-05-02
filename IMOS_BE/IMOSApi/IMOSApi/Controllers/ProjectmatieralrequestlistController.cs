@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class ProjectmaterialrequestlistController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetProjectmaterialrequestlists")]
+        public IEnumerable<Projectmaterialrequestlist> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Projectmaterialrequestlists.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetProjectmaterialrequestlist/{id}")]
+        public IEnumerable<Projectmaterialrequestlist> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Projectmaterialrequestlist> tmp = context.Projectmaterialrequestlists.Where(emp => emp.ProjectmaterialrequestId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateProjectmaterialrequestlist")]
+        public IActionResult Create([FromBody] Projectmaterialrequestlist Projectmaterialrequestlist)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Projectmaterialrequestlists.Add(Projectmaterialrequestlist);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateProjectmaterialrequestlist/{Id}")]
+        public void Update([FromBody] Projectmaterialrequestlist Projectmaterialrequestlist, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Projectmaterialrequestlists.Where(clie => clie.ProjectmaterialrequestId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteProjectmaterialrequestlist/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Projectmaterialrequestlists.Where(clie => clie.ProjectmaterialrequestId == id).ToList().FirstOrDefault(); ;
+                context.Projectmaterialrequestlists.Remove(clie);
                 context.SaveChanges();
             }
         }

@@ -10,42 +10,42 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DocumentController : ControllerBase
+    public class UrgencylevelController : ControllerBase
     {
-        [HttpGet("GetDocuments")]
-        public IEnumerable<Document> Retrieve()
+        [HttpGet("GetUrgencylevels")]
+        public IEnumerable<Urgencylevel> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Documents.ToList();
+                return context.Urgencylevels.ToList();
             }
         }
-        [HttpGet("GetDocument/{id}")]
-        public IEnumerable<Document> Get(int id)
+        [HttpGet("GetUrgencylevel/{id}")]
+        public IEnumerable<Urgencylevel> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Document> tmp = context.Documents.Where(emp => emp.DocumentId == id).ToList();
+                IEnumerable<Urgencylevel> tmp = context.Urgencylevels.Where(emp => emp.UrgencylevelId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateDocument")]
-        public IActionResult Create([FromBody] Document Document)
+        [HttpPost("CreateUrgencylevel")]
+        public IActionResult Create([FromBody] Urgencylevel Urgencylevel)
         {
             using (var context = new IMOSContext())
             {
-                context.Documents.Add(Document);
+                context.Urgencylevels.Add(Urgencylevel);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateDocument/{Id}")]
-        public void Update([FromBody] Document Document, [FromRoute] int Id)
+        [HttpPut("UpdateUrgencylevel/{Id}")]
+        public void Update([FromBody] Urgencylevel Urgencylevel, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == Id).ToList().FirstOrDefault();
+                var clie = context.Urgencylevels.Where(clie => clie.UrgencylevelId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == id).ToList().FirstOrDefault(); ;
-                context.Documents.Remove(clie);
+                var clie = context.Urgencylevels.Where(clie => clie.UrgencylevelId == id).ToList().FirstOrDefault(); ;
+                context.Urgencylevels.Remove(clie);
                 context.SaveChanges();
             }
         }

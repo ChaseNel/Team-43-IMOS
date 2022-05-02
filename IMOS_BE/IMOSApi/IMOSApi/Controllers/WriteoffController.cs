@@ -10,42 +10,42 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DocumentController : ControllerBase
+    public class WriteoffController : ControllerBase
     {
-        [HttpGet("GetDocuments")]
-        public IEnumerable<Document> Retrieve()
+        [HttpGet("GetWriteoffs")]
+        public IEnumerable<Writeoff> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Documents.ToList();
+                return context.Writeoffs.ToList();
             }
         }
-        [HttpGet("GetDocument/{id}")]
-        public IEnumerable<Document> Get(int id)
+        [HttpGet("GetWriteoff/{id}")]
+        public IEnumerable<Writeoff> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Document> tmp = context.Documents.Where(emp => emp.DocumentId == id).ToList();
+                IEnumerable<Writeoff> tmp = context.Writeoffs.Where(emp => emp.WriteoffId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateDocument")]
-        public IActionResult Create([FromBody] Document Document)
+        [HttpPost("CreateWriteoff")]
+        public IActionResult Create([FromBody] Writeoff Writeoff)
         {
             using (var context = new IMOSContext())
             {
-                context.Documents.Add(Document);
+                context.Writeoffs.Add(Writeoff);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateDocument/{Id}")]
-        public void Update([FromBody] Document Document, [FromRoute] int Id)
+        [HttpPut("UpdateWriteoff/{Id}")]
+        public void Update([FromBody] Writeoff Writeoff, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == Id).ToList().FirstOrDefault();
+                var clie = context.Writeoffs.Where(clie => clie.WriteoffId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == id).ToList().FirstOrDefault(); ;
-                context.Documents.Remove(clie);
+                var clie = context.Writeoffs.Where(clie => clie.WriteoffId == id).ToList().FirstOrDefault(); ;
+                context.Writeoffs.Remove(clie);
                 context.SaveChanges();
             }
         }

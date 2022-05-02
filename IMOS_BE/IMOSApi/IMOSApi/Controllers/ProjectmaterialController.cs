@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class ProjectmaterialController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetProjectmaterials")]
+        public IEnumerable<Projectmaterial> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Projectmaterials.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetProjectmaterial/{id}")]
+        public IEnumerable<Projectmaterial> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Projectmaterial> tmp = context.Projectmaterials.Where(emp => emp.ProjectId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateProjectmaterial")]
+        public IActionResult Create([FromBody] Projectmaterial Projectmaterial)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Projectmaterials.Add(Projectmaterial);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateProjectmaterial/{Id}")]
+        public void Update([FromBody] Projectmaterial Projectmaterial, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Projectmaterials.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteProjectmaterial/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Projectmaterials.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
+                context.Projectmaterials.Remove(clie);
                 context.SaveChanges();
             }
         }

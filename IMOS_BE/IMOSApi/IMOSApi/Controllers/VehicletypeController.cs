@@ -10,42 +10,42 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class DocumentController : ControllerBase
+    public class VehicletypeController : ControllerBase
     {
-        [HttpGet("GetDocuments")]
-        public IEnumerable<Document> Retrieve()
+        [HttpGet("GetVehicletypes")]
+        public IEnumerable<Vehicletype> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Documents.ToList();
+                return context.Vehicletypes.ToList();
             }
         }
-        [HttpGet("GetDocument/{id}")]
-        public IEnumerable<Document> Get(int id)
+        [HttpGet("GetVehicletype/{id}")]
+        public IEnumerable<Vehicletype> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Document> tmp = context.Documents.Where(emp => emp.DocumentId == id).ToList();
+                IEnumerable<Vehicletype> tmp = context.Vehicletypes.Where(emp => emp.VehicletypeId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateDocument")]
-        public IActionResult Create([FromBody] Document Document)
+        [HttpPost("CreateVehicletype")]
+        public IActionResult Create([FromBody] Vehicletype Vehicletype)
         {
             using (var context = new IMOSContext())
             {
-                context.Documents.Add(Document);
+                context.Vehicletypes.Add(Vehicletype);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateDocument/{Id}")]
-        public void Update([FromBody] Document Document, [FromRoute] int Id)
+        [HttpPut("UpdateVehicletype/{Id}")]
+        public void Update([FromBody] Vehicletype Vehicletype, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == Id).ToList().FirstOrDefault();
+                var clie = context.Vehicletypes.Where(clie => clie.VehicletypeId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Documents.Where(clie => clie.DocumentId == id).ToList().FirstOrDefault(); ;
-                context.Documents.Remove(clie);
+                var clie = context.Vehicletypes.Where(clie => clie.VehicletypeId == id).ToList().FirstOrDefault(); ;
+                context.Vehicletypes.Remove(clie);
                 context.SaveChanges();
             }
         }

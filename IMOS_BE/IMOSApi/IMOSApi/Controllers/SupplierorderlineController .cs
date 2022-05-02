@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class SupplierorderlineController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetSupplierorderlines")]
+        public IEnumerable<Supplierorderline> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Supplierorderlines.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetSupplierorderline/{id}")]
+        public IEnumerable<Supplierorderline> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Supplierorderline> tmp = context.Supplierorderlines.Where(emp => emp.SupplierId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateSupplierorderline")]
+        public IActionResult Create([FromBody] Supplierorderline Supplierorderline)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Supplierorderlines.Add(Supplierorderline);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateSupplierorderline/{Id}")]
+        public void Update([FromBody] Supplierorderline Supplierorderline, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Supplierorderlines.Where(clie => clie.SupplierId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteSupplierorderline/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Supplierorderlines.Where(clie => clie.SupplierId == id).ToList().FirstOrDefault(); ;
+                context.Supplierorderlines.Remove(clie);
                 context.SaveChanges();
             }
         }

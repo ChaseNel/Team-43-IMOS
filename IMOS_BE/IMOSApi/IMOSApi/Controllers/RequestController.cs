@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class RequestController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetRequests")]
+        public IEnumerable<Request> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Requests.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetRequest/{id}")]
+        public IEnumerable<Request> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Request> tmp = context.Requests.Where(emp => emp.RequestId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateRequest")]
+        public IActionResult Create([FromBody] Request Request)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Requests.Add(Request);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateRequest/{Id}")]
+        public void Update([FromBody] Request Request, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Requests.Where(clie => clie.RequestId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteRequest/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Requests.Where(clie => clie.RequestId == id).ToList().FirstOrDefault(); ;
+                context.Requests.Remove(clie);
                 context.SaveChanges();
             }
         }

@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class EquipmentcheckController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetEquipmentchecks")]
+        public IEnumerable<Equipmentcheck> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Equipmentchecks.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetEquipmentcheck/{id}")]
+        public IEnumerable<Equipmentcheck> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Equipmentcheck> tmp = context.Equipmentchecks.Where(emp => emp.EquipmentcheckId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateEquipmentcheck")]
+        public IActionResult Create([FromBody] Equipmentcheck Equipmentcheck)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Equipmentchecks.Add(Equipmentcheck);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateEquipmentcheck/{Id}")]
+        public void Update([FromBody] Equipmentcheck Equipmentcheck, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Equipmentchecks.Where(clie => clie.EquipmentcheckId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteEquipmentcheck/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Equipmentchecks.Where(clie => clie.EquipmentcheckId == id).ToList().FirstOrDefault(); ;
+                context.Equipmentchecks.Remove(clie);
                 context.SaveChanges();
             }
         }

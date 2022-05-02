@@ -10,53 +10,53 @@ namespace IMOSApi.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ClientController : ControllerBase
+    public class SafetyfileitemController : ControllerBase
     {
-        [HttpGet("GetClients")]
-        public IEnumerable<Client> Retrieve()
+        [HttpGet("GetSafetyfileitems")]
+        public IEnumerable<Safetyfileitem> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Clients.ToList();
+                return context.Safetyfileitems.ToList();
             }
         }
-        [HttpGet("GetClient/{id}")]
-        public IEnumerable<Client> Get(int id)
+        [HttpGet("GetSafetyfileitem/{id}")]
+        public IEnumerable<Safetyfileitem> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Client> tmp = context.Clients.Where(emp => emp.ClientId == id).ToList();
+                IEnumerable<Safetyfileitem> tmp = context.Safetyfileitems.Where(emp => emp.SafetyfileitemId == id).ToList();
                 return tmp;
             }
         }
-        [HttpPost("CreateClient")]
-        public IActionResult Create([FromBody] Client client)
+        [HttpPost("CreateSafetyfileitem")]
+        public IActionResult Create([FromBody] Safetyfileitem Safetyfileitem)
         {
             using (var context = new IMOSContext())
             {
-                context.Clients.Add(client);
+                context.Safetyfileitems.Add(Safetyfileitem);
                 context.SaveChanges();
                 return Ok();
             }
         }
 
-        [HttpPut("UpdateClient/{Id}")]
-        public void Update([FromBody] Client client, [FromRoute] int Id)
+        [HttpPut("UpdateSafetyfileitem/{Id}")]
+        public void Update([FromBody] Safetyfileitem Safetyfileitem, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == Id).ToList().FirstOrDefault();
+                var clie = context.Safetyfileitems.Where(clie => clie.SafetyfileitemId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteClient/{Id}")]
+        [HttpDelete("DeleteSafetyfileitem/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Clients.Where(clie => clie.ClientId == id).ToList().FirstOrDefault(); ;
-                context.Clients.Remove(clie);
+                var clie = context.Safetyfileitems.Where(clie => clie.SafetyfileitemId == id).ToList().FirstOrDefault(); ;
+                context.Safetyfileitems.Remove(clie);
                 context.SaveChanges();
             }
         }
