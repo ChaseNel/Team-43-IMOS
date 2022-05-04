@@ -7,12 +7,18 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { EmployeeComponent } from './employee/employee.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    EmployeeComponent
+    EmployeeComponent,
+    HomeComponent,
+    UserComponent,
+    UserRoleComponent
   ],
   imports: [
     BrowserModule,
