@@ -18,7 +18,16 @@ namespace IMOSApi.Controllers.UserFolder
             _dbContext = dbContext;
         }
 
-        [HttpGet("GetUsers")]
+        [HttpGet]
+        public IEnumerable<User> Get()
+        {
+            using (var context = new IMOSContext())
+            {
+                return _dbContext.Users.ToList();
+            }
+        }
+
+        /*[HttpGet("GetUsers")]
         public IActionResult Get()
         {
             try
@@ -34,7 +43,7 @@ namespace IMOSApi.Controllers.UserFolder
             {
                 return StatusCode(500, "Error");
             }
-        }
+        }*/
 
         [HttpPost("CreateUser")]
         public IActionResult Create([FromBody] User user
