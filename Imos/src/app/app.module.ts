@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from "@angular/common/http";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +16,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
+import { HomeComponent } from './home/home.component';
+import { SuccessComponent } from './login/Dialogs/success/success.component';
+import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,9 @@ import { PopUpComponent } from './logout/pop-up/pop-up.component';
     LogoutComponent,
     HeaderComponent,
     PopUpComponent,
+    HomeComponent,
+    SuccessComponent,
+    UnsuccessfulComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,8 @@ import { PopUpComponent } from './logout/pop-up/pop-up.component';
     MatButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -26,7 +26,7 @@
                 <div class="col-lg-7 text-center py-5">
                     <h1>Welcome to IMOS</h1>
                     <br>
-                    <form [formGroup]="LoginForm" class="form-container">
+                    <form [formGroup]="LoginForm" class="form-container" (ngSubmit)="onLogin(LoginForm)">
                         <div class="example-container">
                             <mat-form-field appearance="fill" class="username">
                                 <mat-label>Enter your Username</mat-label>

@@ -1,5 +1,10 @@
+import { UnsuccessfulComponent } from './Dialogs/unsuccessful/unsuccessful.component';
+import { PopUpComponent } from './../logout/pop-up/pop-up.component';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormControl, NgForm, FormGroup } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { ServiceService } from '../services/service.service';
 
 @Component({
   selector: 'app-login',
@@ -8,22 +13,51 @@ import { FormBuilder, Validators, ReactiveFormsModule, FormControl } from '@angu
 })
 export class LoginComponent implements OnInit {
   hide = true;
-
-  constructor(private formBuilder:FormBuilder) { }
+  loggedIn: boolean | undefined;
+  constructor(
+    private formBuilder: FormBuilder, 
+    private service: ServiceService, 
+    private route: Router,
+    private diologRef: MatDialog
+    ) { }
 
   LoginForm = this.formBuilder.group({
     username: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
 
-  get loginform(){
+  get loginform() {
     return this.LoginForm.controls
   }
 
-  login(){
+  login() {
+    let userName = "Chase3325";
+    let password = "123456789";
+
+    if (this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value == password) {
+      this.loggedIn = true
+      console.log('yes');
+      this.route.navigateByUrl("/home");
+    }
+    else if(this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value !== password)
+    {
+      this.loggedIn = false
+      this.diologRef.open(UnsuccessfulComponent)
+      console.log("wrong p");
+    }
+    else {
+      this.loggedIn = false
+      console.log('No');
+    }
+
     console.log('Login values are: ', this.LoginForm.value);
   }
-  
+
+  onLogin(LoginForm: FormGroup) {
+    //console.log(LoginForm.value)
+
+  }
+
   ngOnInit(): void {
   }
 

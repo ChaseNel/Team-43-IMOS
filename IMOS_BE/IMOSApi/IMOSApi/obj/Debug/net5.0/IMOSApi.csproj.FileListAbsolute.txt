@@ -268,3 +268,12 @@ C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.d
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\ref\IMOSApi.dll
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.pdb
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.genruntimeconfig.cache
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.AspNet.Identity.Core.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.AspNet.Identity.Owin.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Cors.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Host.SystemWeb.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Security.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Security.Cookies.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Security.OAuth.dll
+C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Owin.dll
