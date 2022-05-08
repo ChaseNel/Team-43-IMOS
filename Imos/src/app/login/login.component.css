@@ -1,0 +1,71 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.login{
+    position: relative; 
+    top: 18%;
+    left: 0%;
+}
+
+.row {
+    background-color: lightgrey;
+    border-radius: 30px;
+    box-shadow: 12px, 12px, 22px;
+    display: flex;
+    left: 50px;
+}
+
+
+.login img {
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    height: 285px;
+    width: 300px;
+}
+
+.login h1 {
+    font-size: 4rem;
+    font-weight: 550;
+    font-family: 'Oxygen', sans-serif;
+    text-align: center;
+    position: relative;
+    right: 10%;
+}
+
+.example-container .mat-form-field+.mat-form-field {
+    margin-left: 8px;
+    position: relative;
+    right: 10%;
+}
+
+.example-right-align {
+    text-align: right;
+    position: relative;
+    right: 10%;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+    position: relative;
+    right: 10%;
+}
+
+input.example-right-align {
+    -moz-appearance: textfield;
+    position: relative;
+    right: 10%;
+}
+
+.username {
+    position: relative;
+    right: 10%;
+}
+
+button {
+    position: relative;
+    right: 8%;
+}
