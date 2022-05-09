@@ -59,7 +59,7 @@ import { UserRoleComponent } from './user-role/user-role.component';
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
