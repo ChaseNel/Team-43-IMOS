@@ -1,3 +1,4 @@
+import { ServiceService } from './services/service.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
@@ -24,6 +25,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
+import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 
 
 @NgModule({
@@ -38,6 +40,7 @@ import { UpdateEmployeeComponent } from './employee/update-employee/update-emplo
     UnsuccessfulComponent,
     EmployeeComponent,
     UpdateEmployeeComponent,
+    AddEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,9 @@ import { UpdateEmployeeComponent } from './employee/update-employee/update-emplo
     MatGridListModule,
     MatTableModule
   ],
-  providers: [],
+  providers: [
+    ServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

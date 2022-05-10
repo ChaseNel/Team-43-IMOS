@@ -12,12 +12,18 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class EmployeeController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public EmployeeController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpGet]
         public IEnumerable<Employee> Get()
         {
-            using ( var context = new IMOSContext())
+            using (var context = new IMOSContext())
             {
-                return context.Employees.ToList();
+                return _dbContext.Employees.ToList();
             }
         }
     }

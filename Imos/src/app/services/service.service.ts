@@ -1,40 +1,44 @@
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+
+//Employee Interface
+export interface employee {
+  employeeID: number,
+  documentId: number,
+  name: string,
+  email: string,
+  contactNumber: number,
+  document: null,
+  projectEmp: null,
+  users: null
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ServiceService {
+
+  //URL from API
+  readonly Root_URL = 'https://localhost:44381/api'
 
   constructor(private http: HttpClient) {
   }
 
+  //User
+  //Get
   getUser() {
     let url = "https://localhost:44381/api/User";
     return this.http.get(url);
   }
 
-  authUser(user: any) {
-
-    // type User = {
-    //   userName: string,
-    //   password: string
-    // };
-
-    // let users = new Map<'1', User>();
-    // users.set('1', {
-    //   userName: "Didi321",
-    //   password: "Didi123"
-    // })
-
-  //   let UserArray: any[] =[];
-  //   if(localStorage.getItem("key")){
-  //     UserArray = JSON.parse(localStorage.getItem('key'));
-  //   }
-  //   else{
-  //     return UserArray.find(p => p.username === user.userName && p.password === user.password)
-  //   }
+  //Employee
+  //Get
+  getEmployees(): Observable<employee[]> {
+    return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
-} 
+
+}
 
 

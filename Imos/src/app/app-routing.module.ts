@@ -1,3 +1,4 @@
+import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -8,12 +9,18 @@ import { RouterModule, Routes } from '@angular/router';
 import { EmployeeComponent } from './employee/employee.component';
 
 const routes: Routes = [
+  
+  //Header
+  { path: 'header', component: HeaderComponent},
+  //Home
+  { path: 'home', component: HomeComponent},
+  //User
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
-  { path: 'header', component: HeaderComponent},
-  { path: 'home', component: HomeComponent},
+  //Employee
   { path: 'employee', component: EmployeeComponent},
   { path: 'UpdateEmployee', component: UpdateEmployeeComponent},
+  { path: 'AddEmployee', component: AddEmployeeComponent},
 ];
 
 @NgModule({
