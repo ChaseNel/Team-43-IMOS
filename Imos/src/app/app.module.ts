@@ -19,6 +19,12 @@ import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
+import { EmployeeComponent } from './employee/employee.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatTableModule} from '@angular/material/table';
+import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +36,8 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
     HomeComponent,
     SuccessComponent,
     UnsuccessfulComponent,
+    EmployeeComponent,
+    UpdateEmployeeComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +51,10 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatGridListModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
