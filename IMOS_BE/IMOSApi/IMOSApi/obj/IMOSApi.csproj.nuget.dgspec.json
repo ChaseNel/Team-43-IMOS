@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
+    "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
+    "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "projectUniqueName": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
         "projectName": "IMOSApi",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
+        "projectPath": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "packagesPath": "C:\\Users\\chase\\.nuget\\packages\\",
+        "outputPath": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNet.Identity.Owin": {
+              "target": "Package",
+              "version": "[2.2.3, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[5.0.16, )"
@@ -53,6 +57,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[5.0.16, )"
+            },
+            "Microsoft.Owin.Cors": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "Microsoft.Owin.Host.SystemWeb": {
+              "target": "Package",
+              "version": "[4.2.1, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
@@ -81,7 +93,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
