@@ -1,6 +1,7 @@
+import { Component, OnInit } from '@angular/core';
+
 import { employee, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
 
 export interface Employee {
   name: string;
