@@ -29,7 +29,7 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
+import { UserroleComponent } from './user/userrole/userrole.component';
 
 
 @NgModule({
@@ -46,7 +46,7 @@ import { UserRoleComponent } from './user/user-role/user-role.component';
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
-    UserRoleComponent,
+    UserroleComponent,
   ],
   imports: [
     BrowserModule,
