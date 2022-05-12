@@ -2,7 +2,6 @@ table {
     width: 100%;
   }
 
-
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
@@ -13,5 +12,10 @@ table {
   font-size: 30px;
   position: relative;
   left: 95%;
-  bottom: 49%;
+  bottom: 34%;
+}
+
+.URbtn{
+  position: relative;
+  bottom: 5px;
 }

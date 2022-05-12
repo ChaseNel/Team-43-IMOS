@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     if (this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value == password) {
       this.loggedIn = true
       console.log('yes');
-      this.route.navigateByUrl("");
+      this.route.navigateByUrl("/home");
     }
     else if(this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value !== password)
     {
