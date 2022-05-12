@@ -14,6 +14,28 @@ export interface employee {
   users: null
 }
 
+//User Interface
+export interface user{
+    userId: number,
+    userRole: number,
+    employeeId: number,
+    userName: string,
+    userPassword: string,
+    employee: null,
+    userroleNavigation: null,
+    equipmentchecks: [],
+    stocktakes: [],
+    tasks:[],
+    userincidents:[],
+    vehicles: []
+}
+
+//User Role Interface
+export interface userrole{
+  userRole: number,
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,9 +50,14 @@ export class ServiceService {
 
   //User
   //Get
-  getUser() {
-    let url = "https://localhost:44381/api/User";
-    return this.http.get(url);
+  getUser(): Observable<user[]> {
+    return this.http.get<user[]>(this.Root_URL + '/User')
+  }
+
+  //UserRole
+  //Get
+  getUserRole(): Observable<userrole[]> {
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole')
   }
 
   //Employee

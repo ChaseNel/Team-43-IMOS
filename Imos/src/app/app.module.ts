@@ -22,16 +22,16 @@ import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
-import { EmployeeComponent } from './employee/employee.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatGridListModule} from '@angular/material/grid-list';
-import {MatTableModule} from '@angular/material/table';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { UserroleComponent } from './user/userrole/userrole.component';
+import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
+
 
 
 @NgModule({
@@ -47,11 +47,12 @@ import { UserroleComponent } from './user/userrole/userrole.component';
     HomeComponent,
     SuccessComponent,
     UnsuccessfulComponent,
-    EmployeeComponent,
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
-    UserroleComponent,
+    AddUserRoleComponent,
+    UpdateUserRoleComponent,
+
   ],
   imports: [
     BrowserModule,
