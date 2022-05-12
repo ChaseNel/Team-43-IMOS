@@ -26,6 +26,10 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import {MatTableModule} from '@angular/material/table';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { UserComponent } from './user/user.component';
+import { UserRoleComponent } from './user/user-role/user-role.component';
 
 
 @NgModule({
@@ -41,6 +45,8 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
     EmployeeComponent,
     UpdateEmployeeComponent,
     AddEmployeeComponent,
+    UserComponent,
+    UserRoleComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +63,9 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
     HttpClientModule,
     MatToolbarModule,
     MatGridListModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [
     ServiceService

@@ -2,14 +2,12 @@ import { employee, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
-
-export interface PeriodicElement {
+export interface Employee {
   name: string;
   position: number;
   weight: number;
   symbol: string;
 }
-
 
 @Component({
   selector: 'app-employee',
@@ -38,6 +36,8 @@ export class EmployeeComponent implements OnInit {
   addEmployee(){
     this.route.navigateByUrl('/AddEmployee')
   }
+
+  applyFilter(event: Event) {}
 
   ngOnInit(): void {
   }
