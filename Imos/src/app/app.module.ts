@@ -31,8 +31,7 @@ import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
 import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
-
-
+import { UserRoleComponent } from './user/user-role/user-role.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +51,7 @@ import { UpdateUserRoleComponent } from './user/user-role/update-user-role/updat
     UserComponent,
     AddUserRoleComponent,
     UpdateUserRoleComponent,
-
+    UserRoleComponent
   ],
   imports: [
     BrowserModule,

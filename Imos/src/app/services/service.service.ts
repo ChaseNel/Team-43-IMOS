@@ -33,6 +33,7 @@ export interface user{
 //User Role Interface
 export interface userrole{
   userRole: number,
+  description: string
 }
 
 
