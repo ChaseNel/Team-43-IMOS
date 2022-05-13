@@ -1,3 +1,4 @@
+import { ServiceService } from './services/service.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {MatTableModule} from '@angular/material/table';
@@ -21,6 +22,16 @@ import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
+import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import { UserComponent } from './user/user.component';
+import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
+import { UserRoleComponent } from './user/user-role/user-role.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +46,12 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
     HomeComponent,
     SuccessComponent,
     UnsuccessfulComponent,
+    UpdateEmployeeComponent,
+    AddEmployeeComponent,
+    UserComponent,
+    AddUserRoleComponent,
+    UpdateUserRoleComponent,
+    UserRoleComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +65,16 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatGridListModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
-  providers: [],
+  providers: [
+    ServiceService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
