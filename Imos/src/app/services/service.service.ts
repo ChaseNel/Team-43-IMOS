@@ -58,7 +58,7 @@ export class ServiceService {
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + '/UserRole')
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
   //Employee

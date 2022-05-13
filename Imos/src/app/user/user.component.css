@@ -10,9 +10,9 @@ table {
   'opsz' 48;
 
   font-size: 30px;
-  position: relative;
+  position: fixed;
   left: 95%;
-  bottom: 34%;
+  bottom: 70%;
 }
 
 .URbtn{

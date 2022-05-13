@@ -11,7 +11,7 @@ table {
   'opsz' 48;
 
   font-size: 30px;
-  position: relative;
+  position: fixed;
   left: 95%;
-  bottom: 26%;
+  bottom: 76%;
 }
