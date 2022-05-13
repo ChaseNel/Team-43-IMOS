@@ -33,6 +33,7 @@ export interface user{
 //User Role Interface
 export interface userrole{
   userRole: number,
+  description: string
 }
 
 
@@ -57,7 +58,7 @@ export class ServiceService {
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + '/UserRole')
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
   //Employee

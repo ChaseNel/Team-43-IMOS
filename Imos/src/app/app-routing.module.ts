@@ -15,7 +15,8 @@ import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-ro
 import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
 
 const routes: Routes = [
-  
+  //Default
+  { path: '', component: LoginComponent},
   //Header
   { path: 'header', component: HeaderComponent},
   //Home
