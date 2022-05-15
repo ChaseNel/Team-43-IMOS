@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from 'src/app/services/service.service';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user-role',
@@ -7,9 +10,46 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddUserRoleComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service: ServiceService, private formB: FormBuilder) { }
+
+  Description: any;
+  public userRoleFrm!: FormGroup;
+
 
   ngOnInit(): void {
+    this.userRoleFrm = new FormGroup({
+      Description: new FormControl('', [Validators.required]),
+    }
+    );
+    
   }
+
+
+  
+
+  addUserR(){
+
+   
+    var val = {Description: this.Description}
+    this.service.addUserRole(val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
+    this.userRoleFrm.clearValidators;
+    console.log(val);
+    }
+
+    
+     
+    
+
+    
+    
+  
+
+
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.userRoleFrm.controls[controlName].hasError(errorName);
+}
+
+
+
 
 }

@@ -61,6 +61,14 @@ export class ServiceService {
     return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
+  //UserRole
+  //Add
+  addUserRole(val: any){
+
+    return this.http.post(this.Root_URL + '/UserRole/AddRole',val)
+
+  }
+
   //Employee
   //Get
   getEmployees(): Observable<employee[]> {

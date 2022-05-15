@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from 'src/app/services/service.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-user',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddUserComponent implements OnInit {
 
-  constructor() { }
+  Description: any;
+
+  constructor(private service: ServiceService) { }
 
   ngOnInit(): void {
   }
 
+
+
 }
+

@@ -16,7 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
@@ -32,6 +32,7 @@ import { UserComponent } from './user/user.component';
 import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
 import { UserRoleComponent } from './user/user-role/user-role.component';
+
 
 @NgModule({
   declarations: [
