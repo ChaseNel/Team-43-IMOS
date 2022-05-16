@@ -17,7 +17,7 @@
                     <input [(ngModel)]='Description' matInput placeholder="User Role Name" name="Description" formControlName="Description">
                     
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Description', 'required')">User Role is required</mat-error>
+                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
 
                 <mat-card-actions>
                     <button (click)="addUserR()" mat-raised-button color="primary">Add</button>

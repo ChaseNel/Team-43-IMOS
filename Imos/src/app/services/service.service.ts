@@ -75,6 +75,14 @@ export class ServiceService {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
 
+//Employee
+  //Add
+  addEmployee(val: any){
+
+    return this.http.post(this.Root_URL + '/Employee/CreateEmployee',val)
+
+  }
+
 }
 
 
