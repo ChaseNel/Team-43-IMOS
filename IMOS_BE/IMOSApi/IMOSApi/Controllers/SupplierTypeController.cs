@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class SuppliertypeController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public SuppliertypeController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetSuppliertype")]
         public IEnumerable<Suppliertype> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Suppliertypes.ToList();
+                return _dbContext.Suppliertypes.ToList();
             }
         }
         [HttpGet("GetSuppliertype/{id}")]
