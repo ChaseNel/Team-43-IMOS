@@ -32,6 +32,18 @@ import { UserComponent } from './user/user.component';
 import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
 import { UserRoleComponent } from './user/user-role/user-role.component';
+import { MaterialComponent } from './material/material.component';
+import { SupplierComponent } from './supplier/supplier.component';
+import { MaterialTypeComponent } from './material/material-type/material-type.component';
+import { SupplierTypeComponent } from './supplier/supplier-type/supplier-type.component';
+import { AddMaterialComponent } from './material/add-material/add-material.component';
+import { UpdateMaterialComponent } from './material/update-material/update-material.component';
+import { UpdateMaterialTypeComponent } from './material/material-type/update-material-type/update-material-type.component';
+import { AddMaterialTypeComponent } from './material/material-type/add-material-type/add-material-type.component';
+import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.component';
+import { UpdateSupplierComponent } from './supplier/update-supplier/update-supplier.component';
+import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
+import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +63,19 @@ import { UserRoleComponent } from './user/user-role/user-role.component';
     UserComponent,
     AddUserRoleComponent,
     UpdateUserRoleComponent,
-    UserRoleComponent
+    UserRoleComponent,
+    MaterialComponent,
+    SupplierComponent,
+    MaterialTypeComponent,
+    SupplierTypeComponent,
+    AddMaterialComponent,
+    UpdateMaterialComponent,
+    UpdateMaterialTypeComponent,
+    AddMaterialTypeComponent,
+    AddSupplierComponent,
+    UpdateSupplierComponent,
+    UpdateSupplierTypeComponent,
+    AddSupplierTypeComponent
   ],
   imports: [
     BrowserModule,
