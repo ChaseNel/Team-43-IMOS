@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class MaterialtypeController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public MaterialtypeController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetMaterialtypes")]
         public IEnumerable<Materialtype> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Materialtypes.ToList();
+                return _dbContext.Materialtypes.ToList();
             }
         }
         [HttpGet("GetMaterialtype/{id}")]
