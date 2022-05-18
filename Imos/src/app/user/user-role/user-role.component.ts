@@ -19,6 +19,9 @@ export interface UserRole {
 })
 export class UserRoleComponent implements OnInit {
 
+  role: any;
+  ActUpdate: boolean = false;
+
   // API Test
   data: userrole[] = [];
 
@@ -28,6 +31,7 @@ export class UserRoleComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
+  
 
   posts: any;
 
@@ -82,6 +86,13 @@ export class UserRoleComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       })
+      
+
+      
+
+
+      
+
       
 
 
