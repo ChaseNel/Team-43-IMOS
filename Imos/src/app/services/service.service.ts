@@ -108,6 +108,10 @@ export class ServiceService {
   getEmployees(): Observable<employee[]> {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
+  //Delete
+  deleteEmployee(id: number){
+    return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
+  }
 
   //Material
   //Get
