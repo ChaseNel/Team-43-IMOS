@@ -1,6 +1,8 @@
+
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-add-employee',
@@ -33,13 +35,28 @@ export class AddEmployeeComponent implements OnInit {
 
   }
 
+  Name: any;
+  Email: any;
+  ContactNumber: any;
+  public employeeFrm!: FormGroup;
+
   ngOnInit(): void {
+
     this.addEmployeeForm = this.formBuilder.group({
       'name': new FormControl(''),
       'email': new FormControl(''),
       'contact': new FormControl(''),
       'document': new FormControl('')
     })
+
   }
+
+
+
+
+
+
+    
+
 
 }

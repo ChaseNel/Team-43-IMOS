@@ -16,7 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
@@ -44,6 +44,10 @@ import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.compo
 import { UpdateSupplierComponent } from './supplier/update-supplier/update-supplier.component';
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -94,7 +98,9 @@ import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    
+   
   ],
   providers: [
     ServiceService

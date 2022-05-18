@@ -103,11 +103,30 @@ export class ServiceService {
     return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
+  //UserRole
+  //Add
+  addUserRole(val: any){
+
+    return this.http.post(this.Root_URL + '/UserRole/AddRole',val)
+
+  }
+
+   //User Role
+  //Delete User Role
+
+  deleteUserRole(id: any): Observable<any>{
+    console.log(id);
+    const deleteEndpoint = this.Root_URL + '/UserRole/RemoveUserRole/' + id;
+    return this.http.delete(deleteEndpoint);
+
+  }
+
   //Employee
   //Get
   getEmployees(): Observable<employee[]> {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
+
 
   //Material
   //Get
@@ -132,6 +151,7 @@ export class ServiceService {
   getSupplierType(): Observable<suppliertype[]> {
     return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetSuppliertype')
   }
+
 }
 
 
