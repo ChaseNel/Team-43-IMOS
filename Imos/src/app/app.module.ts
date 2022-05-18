@@ -34,6 +34,9 @@ import { UpdateUserRoleComponent } from './user/user-role/update-user-role/updat
 import { UserRoleComponent } from './user/user-role/user-role.component';
 
 
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +74,9 @@ import { UserRoleComponent } from './user/user-role/user-role.component';
     MatGridListModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    
+   
   ],
   providers: [
     ServiceService

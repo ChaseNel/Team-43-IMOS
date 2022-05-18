@@ -69,6 +69,16 @@ export class ServiceService {
 
   }
 
+   //User Role
+  //Delete User Role
+
+  deleteUserRole(id: any): Observable<any>{
+    console.log(id);
+    const deleteEndpoint = this.Root_URL + '/UserRole/RemoveUserRole/' + id;
+    return this.http.delete(deleteEndpoint);
+
+  }
+
   //Employee
   //Get
   getEmployees(): Observable<employee[]> {
@@ -82,6 +92,8 @@ export class ServiceService {
     return this.http.post(this.Root_URL + '/Employee/CreateEmployee',val)
 
   }
+
+ 
 
 }
 

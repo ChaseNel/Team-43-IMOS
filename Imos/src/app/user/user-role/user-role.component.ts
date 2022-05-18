@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService, userrole } from 'src/app/services/service.service';
 
 
+
 export interface UserRole {
   userrole: number,
   description: string
@@ -64,4 +65,31 @@ export class UserRoleComponent implements OnInit {
   ngOnInit(): void {
   }
 
-}
+
+  deleteUserRole(element: any){
+  
+      var id = element.userrole1;
+      this.service.deleteUserRole(id).subscribe(data => { alert(data.toString())});
+
+
+      this.service.getUserRole().subscribe(x => {
+        this.data = x;
+        console.log(this.data);
+        this.posts = x
+  
+        this.dataSource = new MatTableDataSource(this.posts)
+  
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+      
+
+
+     
+ 
+  }
+
+
+  }
+
+

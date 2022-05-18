@@ -3,6 +3,8 @@ import { ServiceService } from 'src/app/services/service.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 
+
+
 @Component({
   selector: 'app-add-user-role',
   templateUrl: './add-user-role.component.html',
@@ -14,6 +16,7 @@ export class AddUserRoleComponent implements OnInit {
 
   Description: any;
   public userRoleFrm!: FormGroup;
+  alert: boolean = false;
 
 
   ngOnInit(): void {
@@ -32,8 +35,14 @@ export class AddUserRoleComponent implements OnInit {
    
     var val = {Description: this.Description}
     this.service.addUserRole(val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    this.userRoleFrm.clearValidators;
+    this.Description= '';
     console.log(val);
+    this.alert = true;
+    
+    }
+
+    closeAlert(){
+      this.alert = false;
     }
 
     

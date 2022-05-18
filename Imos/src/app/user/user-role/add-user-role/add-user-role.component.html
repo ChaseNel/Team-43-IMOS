@@ -1,8 +1,16 @@
 
 
     <mat-card>
-    <button mat-raised-button color="warn" routerLink="userrole" >Back</button>
+    <button mat-raised-button color="warn" routerLink="/userrole" >Back</button>
     </mat-card>
+
+
+    <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success !</strong> User Role Added Successfully
+        <button (click)="closeAlert()" type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
 
 
 <form [formGroup]="userRoleFrm" class="form-container">
