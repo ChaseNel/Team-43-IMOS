@@ -1,1 +1,24 @@
-<p>add-user works!</p>
+<h1 style="text-align: center;">Add User</h1>
+<div class="container">
+  <form action="action_page.php"  [formGroup]="addForm" >
+    <label for="subject">Select User Roles</label>
+    <select id="country"  formControlName="userRole"  (change)="changeUserRole($event)"  >
+      <option *ngFor="let item of data"  [value]="item.userrole1"> {{item.description}}</option>
+
+    </select>
+    <label for="subject">Select Employee</label>
+    <select   id="country" formControlName="employeeId" (change)="changeEmployee($event)" >
+      <option *ngFor="let item of employee"  [value]="item.employeeId"> {{item.name}}</option>
+
+    </select>
+    <label for="subject">Username</label>
+    <textarea id="subject" formControlName="userName" placeholder="username"></textarea>
+
+    <label for="subject">password</label>
+    <textarea id="subject"  formControlName="userPassword"  name="password" placeholder="password"></textarea>
+
+    <input type="button" value="Submit" (click)="onAddSubmit()">
+
+  </form>
+</div>
+

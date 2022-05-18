@@ -28,13 +28,13 @@
     <!-- UserRole Column -->
     <ng-container matColumnDef="userrole">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> User Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.userrole}} </td>
+        <td mat-cell *matCellDef="let element"> {{rolelist[element.userrole-1]?.description}} </td>
     </ng-container>
 
     <!-- EmployeeID Column -->
     <ng-container matColumnDef="employeeid">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee ID </th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeId}} </td>
+        <td mat-cell *matCellDef="let element"> {{employeelist[element.employeeId-2]?.name}} </td>
     </ng-container>
 
     <!-- UserName Column -->
@@ -56,7 +56,7 @@
         <td mat-cell *matCellDef="let element">
             <button (click)="UpdateUser()" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn">Delete</button>
+            <button mat-flat-button color="warn" (click)="deleteUser">Delete</button>
         </td>
     </ng-container>
 
