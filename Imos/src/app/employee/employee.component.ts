@@ -72,8 +72,6 @@ export class EmployeeComponent implements OnInit {
           duration: 3000,
           verticalPosition: 'bottom',
         });
-
-
       });
     }
   }
