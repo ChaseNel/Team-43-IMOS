@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -31,8 +32,11 @@ dataSource!: MatTableDataSource<MaterialType>;
 
 posts: any;
 
-  constructor(private route: Router, private service: ServiceService) { 
-    
+  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) { 
+    this.GetAllMaterialType();
+  }
+
+  GetAllMaterialType(){
     this.service.getMaterialType().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -60,6 +64,19 @@ posts: any;
 
   addMaterialType() {
     this.route.navigateByUrl('/AddMaterialType')
+  }
+
+  deleteMaterialType(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this Material Type?')) {
+      this.service.deleteMaterialType(id).subscribe(res => {
+        this.GetAllMaterialType();
+        this._snackBar.open("Success", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
   }
 
   ngOnInit(): void {

@@ -27,26 +27,6 @@ namespace IMOSApi.Controllers.UserFolder
             }
         }
 
-        /*[HttpGet("GetUsers")]
-         * 
-         * 
-         * 
-        public IActionResult Get()
-        {
-            try
-            {
-                var users = _dbContext.Users.ToList();
-                if(users.Count == 0)
-                {
-                    return StatusCode(404, "No User was found.");
-                }
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Error");
-            }
-        }*/
 
         [HttpPost("CreateUser")]
         public IActionResult Create([FromBody] User user
@@ -62,10 +42,12 @@ namespace IMOSApi.Controllers.UserFolder
         }
 
 
-        [HttpDelete("DeleteUser")]
-        public IActionResult Delete()
+        [HttpDelete("DeleteUser/{id}")]
+        public void Delete(int id)
         {
-            return Ok();
+            var emp = _dbContext.Users.Where(emp => emp.UserId == id).ToList().FirstOrDefault(); ;
+            _dbContext.Users.Remove(emp);
+            _dbContext.SaveChanges();
         }
     }
 }

@@ -96,11 +96,19 @@ export class ServiceService {
   getUser(): Observable<user[]> {
     return this.http.get<user[]>(this.Root_URL + '/User')
   }
+  //Delete
+  deleteUser(id: number) {
+    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
+  }
 
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
     return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
+  }
+  //Delete
+  deleteUserRole(id: number) {
+    return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
   }
 
   //Employee
@@ -109,7 +117,7 @@ export class ServiceService {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
   //Delete
-  deleteEmployee(id: number){
+  deleteEmployee(id: number) {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
   }
 
@@ -118,11 +126,19 @@ export class ServiceService {
   getMaterial(): Observable<material[]> {
     return this.http.get<material[]>(this.Root_URL + '/Material/GetMaterials')
   }
+  //Delete
+  deleteMaterial(id: number) {
+    return this.http.delete(this.Root_URL + '/Material/DeleteMaterial/' + id);
+  }
 
   //Material Type
   //Get
   getMaterialType(): Observable<materialType[]> {
     return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetMaterialtypes')
+  }
+  //Delete
+  deleteMaterialType(id: number) {
+    return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
 
   //Supplier
@@ -130,11 +146,19 @@ export class ServiceService {
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
+  //Delete
+  deleteSupplier(id: number) {
+    return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
+  }
 
   //Supplier Type
   //Get
   getSupplierType(): Observable<suppliertype[]> {
     return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetSuppliertype')
+  }
+  //Delete
+  deleteSupplierType(id: number) {
+    return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
   }
 }
 
