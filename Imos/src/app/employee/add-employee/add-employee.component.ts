@@ -10,7 +10,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 })
 export class AddEmployeeComponent implements OnInit {
 
-  constructor(private service: ServiceService) { }
+  constructor() { }
 
   Name: any;
   Email: any;
@@ -19,28 +19,13 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.employeeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
-      Email: new FormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
-      ContactNumber: new FormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
-    }
-    );
+    
     
    
   }
 
 
 
-  addEmployee(){
-    var val = {Name: this.Name, Email: this.Email, ContactNumber: this.ContactNumber}
-    this.service.addEmployee(val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    console.log(val);
-    }
-
-
-    public hasError = (controlName: string, errorName: string) =>{
-      return this.employeeFrm.controls[controlName].hasError(errorName);
-  }
 
 
 
