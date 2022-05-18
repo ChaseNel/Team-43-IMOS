@@ -1,7 +1,17 @@
 .form-container{
     margin: auto;
-    max-width: 350px;
+    max-width: 500px;
     padding: 10px;
     border-radius: 4px;
+    background-color: lightgray;
+}
 
+form{
+    background-color: lightgrey;
+}
+
+.btnBack{
+    position:sticky;
+    left: 63%;
+    top: 54%;
 }

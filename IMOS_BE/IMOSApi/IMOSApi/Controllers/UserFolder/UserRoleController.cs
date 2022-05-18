@@ -39,8 +39,8 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using (var context = new IMOSContext())
             {
-                context.Userroles.Add(userrole);
-                context.SaveChanges();
+                _dbContext.Userroles.Add(userrole);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }
