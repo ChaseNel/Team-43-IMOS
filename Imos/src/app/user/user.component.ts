@@ -4,6 +4,7 @@ import { ServiceService } from '../services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export interface User {
   userId: number,
@@ -32,8 +33,11 @@ export class UserComponent implements OnInit {
 
   posts: any;
 
-  constructor(private route: Router, private service: ServiceService) {
+  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+    this.GetAllUsers();
+  }
 
+  GetAllUsers() {
     this.service.getUser().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -61,6 +65,20 @@ export class UserComponent implements OnInit {
 
   addUser() {
     this.route.navigateByUrl('adduser')
+  }
+
+
+  deleteUser(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this User?')) {
+      this.service.deleteUser(id).subscribe(res => {
+        this.GetAllUsers();
+        this._snackBar.open("Success", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
   }
 
   userRole() {

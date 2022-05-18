@@ -44,10 +44,7 @@ import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.compo
 import { UpdateSupplierComponent } from './supplier/update-supplier/update-supplier.component';
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
-
-
-
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -79,7 +76,7 @@ import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-
     AddSupplierComponent,
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
-    AddSupplierTypeComponent
+    AddSupplierTypeComponent,
   ],
   imports: [
     BrowserModule,
@@ -99,8 +96,7 @@ import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    
-   
+    MatSnackBarModule
   ],
   providers: [
     ServiceService

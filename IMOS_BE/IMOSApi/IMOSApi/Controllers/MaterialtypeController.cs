@@ -60,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Materialtypes.Where(clie => clie.MaterialtypeId == id).ToList().FirstOrDefault(); ;
-                context.Materialtypes.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Materialtypes.Where(clie => clie.MaterialtypeId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Materialtypes.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

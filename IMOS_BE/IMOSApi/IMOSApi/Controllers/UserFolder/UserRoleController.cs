@@ -70,13 +70,13 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using(var context=new IMOSContext())
             {
-                var recordInDb = await context.Userroles.FindAsync(Id);
+                var recordInDb = await _dbContext.Userroles.FindAsync(Id);
                     if (recordInDb == null)
                     {
                         return NotFound();
                     }
-                context.Userroles.Remove(recordInDb);
-                await context.SaveChangesAsync();
+                _dbContext.Userroles.Remove(recordInDb);
+                await _dbContext.SaveChangesAsync();
                 return Ok();
             }
             

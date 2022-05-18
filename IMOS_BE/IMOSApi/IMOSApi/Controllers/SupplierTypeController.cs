@@ -60,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Suppliertypes.Where(clie => clie.SuppliertypeId == id).ToList().FirstOrDefault(); ;
-                context.Suppliertypes.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Suppliertypes.Where(clie => clie.SuppliertypeId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Suppliertypes.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

@@ -62,9 +62,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var mat = context.Materials.Where(mat => mat.MaterialId == id).ToList().FirstOrDefault(); ;
-                context.Materials.Remove(mat);
-                context.SaveChanges();
+                var mat = _dbContext.Materials.Where(mat => mat.MaterialId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Materials.Remove(mat);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }

@@ -65,9 +65,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var emp = context.Employees.Where(emp => emp.EmployeeId == id).ToList().FirstOrDefault(); ;
-                context.Employees.Remove(emp);
-                context.SaveChanges();
+                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Employees.Remove(emp);
+                _dbContext.SaveChanges();
             }
         }
     }
