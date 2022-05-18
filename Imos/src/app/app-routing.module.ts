@@ -7,8 +7,13 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EmployeeComponent } from './employee/employee.component';
+import { UserComponent } from './user/user.component';
+import { UserRoleComponent } from './userrole/user-role.component';
 
 const routes: Routes = [
+
+    //Default
+    { path: '', component: LoginComponent},
   
   //Header
   { path: 'header', component: HeaderComponent},
@@ -17,6 +22,10 @@ const routes: Routes = [
   //User
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
+  { path: 'user', component: UserComponent},
+// UserRole
+{ path: 'userrole', component: UserRoleComponent},
+
   //Employee
   { path: 'employee', component: EmployeeComponent},
   { path: 'UpdateEmployee', component: UpdateEmployeeComponent},

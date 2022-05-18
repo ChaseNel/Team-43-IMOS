@@ -1,4 +1,6 @@
-﻿using IMOSApi.Models;
+﻿
+
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -33,7 +35,7 @@ namespace IMOSApi.Controllers.UserFolder
             try
             {
                 var users = _dbContext.Users.ToList();
-                if(users.Count == 0)
+                if (users.Count == 0)
                 {
                     return StatusCode(404, "No User was found.");
                 }
@@ -47,7 +49,7 @@ namespace IMOSApi.Controllers.UserFolder
 
         [HttpPost("CreateUser")]
         public IActionResult Create([FromBody] User user
-            )
+             )
         {
             return Ok();
         }

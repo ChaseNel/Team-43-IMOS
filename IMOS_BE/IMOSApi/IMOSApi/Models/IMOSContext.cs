@@ -11,6 +11,7 @@ namespace IMOSApi.Models
         public IMOSContext()
         {
         }
+
         public IMOSContext(DbContextOptions<IMOSContext> options)
             : base(options)
         {
@@ -64,8 +65,8 @@ namespace IMOSApi.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=IMOS;Trusted_Connection=True;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=.;Database=IMOS;Trusted_Connection=True;");
             }
         }
 
@@ -166,20 +167,24 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Document>(entity =>
             {
-                entity.ToTable("DOCUMENT");
+                entity.ToTable("Document");
 
-                entity.Property(e => e.DocumentId).HasColumnName("DOCUMENT_ID");
+                entity.Property(e => e.DocumentId).HasColumnName("Document_ID");
 
-                entity.Property(e => e.Contractfile)
-                    .HasColumnType("image")
-                    .HasColumnName("CONTRACTFILE");
+                entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
+
+                entity.Property(e => e.FileUrl).IsRequired();
+
+                entity.HasOne(d => d.Employee)
+                    .WithMany(p => p.Documents)
+                    .HasForeignKey(d => d.EmployeeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__Documnt__Employe__634EBE90");
             });
 
             modelBuilder.Entity<Employee>(entity =>
             {
                 entity.ToTable("EMPLOYEE");
-
-                entity.HasIndex(e => e.DocumentId, "HAS__________________FK");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EMPLOYEE_ID");
 
@@ -187,8 +192,6 @@ namespace IMOSApi.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("CONTACTNUMBER");
-
-                entity.Property(e => e.DocumentId).HasColumnName("DOCUMENT_ID");
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(255)
@@ -199,11 +202,6 @@ namespace IMOSApi.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
-
-                entity.HasOne(d => d.Document)
-                    .WithMany(p => p.Employees)
-                    .HasForeignKey(d => d.DocumentId)
-                    .HasConstraintName("FK_EMPLOYEE_HAS_______DOCUMENT");
             });
 
             modelBuilder.Entity<Equipment>(entity =>
@@ -754,7 +752,7 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("USER");
 
-                entity.HasIndex(e => e.Userrole, "IS_ASSIGNED_FK");
+                entity.HasIndex(e => e.UserroleId, "IS_ASSIGNED_FK");
 
                 entity.HasIndex(e => e.EmployeeId, "IS_FK");
 
@@ -765,16 +763,18 @@ namespace IMOSApi.Models
                 entity.Property(e => e.EmployeeId).HasColumnName("EMPLOYEE_ID");
 
                 entity.Property(e => e.Username)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("USERNAME");
 
                 entity.Property(e => e.Userpassword)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("USERPASSWORD");
 
-                entity.Property(e => e.Userrole).HasColumnName("USERROLE");
+                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Users)
@@ -782,9 +782,9 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_USER_IS_EMPLOYEE");
 
-                entity.HasOne(d => d.UserroleNavigation)
+                entity.HasOne(d => d.Userrole)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.Userrole)
+                    .HasForeignKey(d => d.UserroleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_USER_IS_ASSIGN_USERROLE");
             });
@@ -818,13 +818,12 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Userrole>(entity =>
             {
-                entity.HasKey(e => e.Userrole1);
-
                 entity.ToTable("USERROLE");
 
-                entity.Property(e => e.Userrole1).HasColumnName("USERROLE");
+                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
 
                 entity.Property(e => e.Description)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DESCRIPTION");

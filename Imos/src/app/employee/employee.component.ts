@@ -22,7 +22,7 @@ export class EmployeeComponent implements OnInit {
   // API Test
   data: employee[] = [];
 
-  displayedColumns: string[] = ['id', 'document', 'name', 'email', 'number', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
 
   constructor(private route: Router, private service: ServiceService) {
 

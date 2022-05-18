@@ -1,4 +1,5 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos.Employee;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -35,6 +36,46 @@ namespace IMOSApi.Controllers
                 return tmp;
             }
         }
+
+        [HttpPost("AddEmployee")]
+        public  IActionResult AddEmployee(AddEmployeeDto model )
+        {
+            var message = "";
+            if (!ModelState.IsValid)
+            {
+                message = "Something went wrong on your side.";
+                return BadRequest(new { message });
+            }
+            using (var _dbContext = new IMOSContext())
+            {
+              /* var recordInDb = _dbContext.Employees;
+                if (recordInDb != null)
+                {
+                    message = "Employee  already exists in Database";
+                    return BadRequest(new { message });
+                }*/
+
+                var newEmployee = new Employee()
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Contactnumber = model.ContactNumber
+                };
+                _dbContext.Employees.Add(newEmployee);
+                _dbContext.SaveChanges();
+
+                var document = new Document()
+                {
+                    EmployeeId = newEmployee.EmployeeId,
+                    FileUrl = model.FilePath
+                };
+
+                _dbContext.Documents.Add(document);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+        }
+
         [HttpPost("CreateEmployee")]
         public IActionResult Create([FromBody] Employee employee)
         {
@@ -52,7 +93,7 @@ namespace IMOSApi.Controllers
             using (var context = new IMOSContext())
             {
                 var emp = context.Employees.Where(emp => emp.EmployeeId == Id).ToList().FirstOrDefault(); ;
-                emp.DocumentId = employee.DocumentId;
+                //emp.DocumentId = employee.DocumentId;
                 emp.Contactnumber = employee.Contactnumber;
                 emp.Name = employee.Name;
                 emp.Email = employee.Email;

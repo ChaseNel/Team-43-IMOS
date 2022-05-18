@@ -17,13 +17,13 @@ namespace IMOSApi.Models
         }
 
         public int UserId { get; set; }
-        public int Userrole { get; set; }
+        public int UserroleId { get; set; }
         public int EmployeeId { get; set; }
         public string Username { get; set; }
         public string Userpassword { get; set; }
 
         public virtual Employee Employee { get; set; }
-        public virtual Userrole UserroleNavigation { get; set; }
+        public virtual Userrole Userrole { get; set; }
         public virtual ICollection<Equipmentcheck> Equipmentchecks { get; set; }
         public virtual ICollection<Stocktake> Stocktakes { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }

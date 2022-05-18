@@ -14,6 +14,10 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/employee");
 
   }
+  user() {
+    this.route.navigateByUrl("/user");
+
+  }
 
   ngOnInit(): void {
   }

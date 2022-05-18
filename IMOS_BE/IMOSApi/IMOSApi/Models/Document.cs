@@ -7,14 +7,9 @@ namespace IMOSApi.Models
 {
     public partial class Document
     {
-        public Document()
-        {
-            Employees = new HashSet<Employee>();
-        }
-
         public int DocumentId { get; set; }
-        public byte[] Contractfile { get; set; }
-
-        public virtual ICollection<Employee> Employees { get; set; }
+        public string FileUrl { get; set; }
+        public int EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
