@@ -13,7 +13,7 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatInputModule} from '@angular/material/input';
+import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -46,6 +46,8 @@ import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-sup
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
+import { CommonModule } from '@angular/common';
+import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,6 +79,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
+    //AddUserComponent
+
   ],
   imports: [
     BrowserModule,
@@ -96,7 +100,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    CommonModule
   ],
   providers: [
     ServiceService
