@@ -35,6 +35,8 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import { UserComponent } from './user/user.component';
 import { UserRoleComponent } from './userrole/user-role.component';
 import { AddUserRoleComponent } from './userrole/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './userrole/update-user-role/update-user-role.component';
+
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { AddUserRoleComponent } from './userrole/add-user-role/add-user-role.com
     AddEmployeeComponent,
     UserComponent,
     UserRoleComponent,
-    AddUserRoleComponent
+    AddUserRoleComponent,
+    UpdateUserRoleComponent
    
     
   ],

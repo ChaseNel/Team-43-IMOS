@@ -1,3 +1,4 @@
+import { UpdateUserRoleComponent } from './userrole/update-user-role/update-user-role.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { HomeComponent } from './home/home.component';
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'user', component: UserComponent},
 // UserRole
 { path: 'userrole', component: UserRoleComponent},
+{path:'updateUserRole',component:UpdateUserRoleComponent},
 
   //Employee
   { path: 'employee', component: EmployeeComponent},

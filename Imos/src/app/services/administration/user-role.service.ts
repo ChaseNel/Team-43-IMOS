@@ -27,7 +27,7 @@ export class UserRoleService {
   }
 
   updateUserRole(payload:any,id: string) {
-    return this.http.put(this.endpointBase.concat("UserRole/EditUserRole/"+ "/" +id),
+    return this.http.put(this.endpointBase.concat("UserRole/EditUserRole/"+id),
       payload,
       { reportProgress: true, observe: 'events' });
   }

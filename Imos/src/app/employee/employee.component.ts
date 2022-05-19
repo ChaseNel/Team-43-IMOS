@@ -37,7 +37,7 @@ export class EmployeeComponent implements OnInit {
   }
 
   addEmployee(){
-    this.route.navigateByUrl('/AddEmployee')
+    this.route.navigateByUrl('AddEmployee')
   }
 
   ngOnInit(): void {
