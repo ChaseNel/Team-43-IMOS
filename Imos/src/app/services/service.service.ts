@@ -132,11 +132,8 @@ export class ServiceService {
   deleteUserRole(id: number) {
     return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
   }
-
-  //UserRole
   //Add
   addUserRole(val: any) {
-
     return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
   }
 
