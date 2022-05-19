@@ -1,4 +1,4 @@
-using IMOSApi.Models;
+﻿using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,17 +12,12 @@ namespace IMOSApi.Controllers.UserFolder
     [ApiController]
     public class UserRoleController : ControllerBase
     {
-        private IMOSContext _dbContext;
-        public UserRoleController(IMOSContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
         [HttpGet("Roles/GetAll")]
-        public IEnumerable<Userrole> GetAllRoles()
+        public ActionResult<IEnumerable<Userrole>> GetAllRoles()
         {
             using (var context = new IMOSContext())
 
-                return _dbContext.Userroles.ToList();
+                return context.Userroles.ToList();
         }
         [HttpGet("GetUserRole/{id}")]
         public IEnumerable<Userrole> GetRecord(int id)
@@ -84,3 +79,4 @@ namespace IMOSApi.Controllers.UserFolder
 
     }
 }
+

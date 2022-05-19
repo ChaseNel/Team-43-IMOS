@@ -1,10 +1,15 @@
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+
+import { User } from './../user/user.component';
+
+import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 //Employee Interface
 export interface employee {
-  employeeID: number,
+  employeeId: number,
   documentId: number,
   name: string,
   email: string,
@@ -21,13 +26,14 @@ export interface user {
   employeeId: number,
   userName: string,
   userPassword: string,
-  employee: null,
-  userroleNavigation: null,
+
+
+ /* userroleNavigation: null,
   equipmentchecks: [],
   stocktakes: [],
   tasks: [],
   userincidents: [],
-  vehicles: []
+  vehicles: []*/
 }
 
 //Material Interface
@@ -54,7 +60,7 @@ export interface materialType {
 
 //User Role Interface
 export interface userrole {
-  userRole: number,
+  userrole1: number,
   description: string
 }
 
@@ -86,7 +92,13 @@ export interface suppliertype {
 export class ServiceService {
 
   //URL from API
-  readonly Root_URL = 'https://localhost:44381/api'
+  readonly Root_URL = 'https://localhost:5001/api'
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      contentType: 'application/json'
+    })
+  };
 
   constructor(private http: HttpClient) {
   }
@@ -100,6 +112,38 @@ export class ServiceService {
   deleteUser(id: number) {
     return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
+
+/*addUser(obj: any): Observable<any>{
+  return this.http
+  .post<any>(`${this.Root_URL}User/CreateUser`, obj);
+}*/
+
+addUsers(payload: any){
+  return this.http.post(this.Root_URL.concat("User/"), payload,
+  {reportProgress:true, observe: 'events'}
+  );
+}
+
+updateUser(payload: any, id:number ){
+  return this.http.put(this.Root_URL.concat("User/"+ "/"+id),
+  payload,
+  { reportProgress: true, observe: 'events' });
+}
+
+
+deleteUser(id:number){
+  return this.http.delete(this.Root_URL.concat("User/" + "/" + id)
+  ,
+  {reportProgress: true, observe:'events'}
+)
+}
+
+deleteUsers(id: number){
+return this.http.delete(this.Root_URL + '/User' + id)
+}
+
+
+
 
   //UserRole
   //Get
