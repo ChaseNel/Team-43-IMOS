@@ -48,6 +48,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +81,7 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
   ],
   imports: [
     BrowserModule,
