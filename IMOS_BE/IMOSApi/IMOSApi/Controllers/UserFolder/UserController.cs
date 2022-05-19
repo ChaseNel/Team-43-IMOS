@@ -27,42 +27,72 @@ namespace IMOSApi.Controllers.UserFolder
             }
         }
 
-        /*[HttpGet("GetUsers")]
-        public IActionResult Get()
-        {
-            try
-            {
-                var users = _dbContext.Users.ToList();
-                if(users.Count == 0)
-                {
-                    return StatusCode(404, "No User was found.");
-                }
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Error");
-            }
-        }*/
-
         [HttpPost("CreateUser")]
-        public IActionResult Create([FromBody] User user
-            )
+        public ActionResult Add([FromBody] User model)
         {
-            return Ok();
+            var message = "";
+            if (ModelState.IsValid)
+
+
+            { 
+                
+                var recordInDb = _dbContext.Users.FirstOrDefault(x => x.UserId == model.UserId);
+                var User = _dbContext.Users
+                    .FirstOrDefault(item =>
+                    string.Equals(item.Username, model.Username));
+
+                if (recordInDb != null)
+                {
+                    message = "Record already exist";
+                    return BadRequest(new { message });
+                }
+
+                var newUser = new User()
+                {
+                    Username = model.Username,
+                    Userpassword = model.Userpassword,
+                    EmployeeId = model.EmployeeId,  
+                    Userrole=model.Userrole,
+                };
+
+                _dbContext.Users.Add(newUser);
+                _dbContext.SaveChanges();
+                return Ok();    
+            }
+
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
         }
 
         [HttpPut("UpdateUser")]
-        public IActionResult Update()
+        public IActionResult Update(User model, int id)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                var recordInDb = _dbContext.Users.FirstOrDefault(item => item.UserId == id);
+
+                if (recordInDb != null)
+                {
+                    return NotFound();
+                }
+                recordInDb.EmployeeId = model.EmployeeId;
+                recordInDb.Userrole = model.Userrole;
+                recordInDb.Username = model.Username;
+                recordInDb.Userpassword = model.Userpassword;
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
         }
 
-
-        [HttpDelete("DeleteUser")]
-        public IActionResult Delete()
+        [HttpDelete("DeleteUser/{id}")]
+        public void Delete(int id)
         {
-            return Ok();
+            var emp = _dbContext.Users.Where(emp => emp.UserId == id).ToList().FirstOrDefault(); ;
+            _dbContext.Users.Remove(emp);
+            _dbContext.SaveChanges();
         }
     }
 }
+

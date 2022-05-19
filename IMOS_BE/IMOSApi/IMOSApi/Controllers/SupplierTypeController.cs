@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class SuppliertypeController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public SuppliertypeController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetSuppliertype")]
         public IEnumerable<Suppliertype> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Suppliertypes.ToList();
+                return _dbContext.Suppliertypes.ToList();
             }
         }
         [HttpGet("GetSuppliertype/{id}")]
@@ -55,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Suppliertypes.Where(clie => clie.SuppliertypeId == id).ToList().FirstOrDefault(); ;
-                context.Suppliertypes.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Suppliertypes.Where(clie => clie.SuppliertypeId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Suppliertypes.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

@@ -1,0 +1,38 @@
+
+<form [formGroup]="addEmployeeForm" (submit)="createEmployee()">
+    <div class="example-container">
+        <h3>Create an Employee</h3>
+
+        <mat-form-field hintLabel="Max 20 characters" appearance="fill">
+            <mat-label>Enter your full name</mat-label>
+            <input matInput #input maxlength="20" placeholder="Ex. Chase Nel">
+            <mat-hint align="end">{{input.value?.length || 0}}/20</mat-hint>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="pat@example.com" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field>
+
+        <br>
+
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Contact Number</mat-label>
+            <span matPrefix>+27 &nbsp;</span>
+            <input type="tel" matInput placeholder="082-555-1234">
+            <mat-icon matSuffix>mode_edit</mat-icon>
+        </mat-form-field>
+
+        <br>
+
+    </div>
+
+    <button mat-raised-button color="primary">Add Employee</button>
+    &nbsp;
+    <button mat-raised-button color="warn">Cancel</button>
+</form>
+
+

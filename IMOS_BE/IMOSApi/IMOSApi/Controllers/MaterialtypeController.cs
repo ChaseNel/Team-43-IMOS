@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class MaterialtypeController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public MaterialtypeController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetMaterialtypes")]
         public IEnumerable<Materialtype> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Materialtypes.ToList();
+                return _dbContext.Materialtypes.ToList();
             }
         }
         [HttpGet("GetMaterialtype/{id}")]
@@ -55,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Materialtypes.Where(clie => clie.MaterialtypeId == id).ToList().FirstOrDefault(); ;
-                context.Materialtypes.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Materialtypes.Where(clie => clie.MaterialtypeId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Materialtypes.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }
