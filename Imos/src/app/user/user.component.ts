@@ -109,24 +109,4 @@ export class UserComponent implements OnInit {
     this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist",this.employeelist)} );
   }
 
-  onDeleteSubmit(): void {
- if (this.itemToDelete != null){
-   this.service.deleteUser(this.itemToDelete.userId)
-   .subscribe(event => {
-     if (event.type === HttpEventType.Response){
-       console.log(this.itemToDelete.userId)
-     }
-   })
- }
-  }
-
-  deleteUser(id: number){
-    this.service.deleteUsers(id).subscribe(res => {
-this.route.navigateByUrl('/user')
-console.log(id)
-    });
-  }
-
-
-
 }

@@ -24,39 +24,34 @@ export class AddUserRoleComponent implements OnInit {
       Description: new FormControl('', [Validators.required]),
     }
     );
-    
+
+  }
+
+  addUserR() {
+    var val = { Description: this.Description }
+    this.service.addUserRole(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
+    this.Description = '';
+    console.log(val);
+    this.alert = true;
+
+  }
+
+  closeAlert() {
+    this.alert = false;
   }
 
 
-  
-
-  addUserR(){
-
-   
-    var val = {Description: this.Description}
-    this.service.addUserRole(val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    this.Description= '';
-    console.log(val);
-    this.alert = true;
-    
-    }
-
-    closeAlert(){
-      this.alert = false;
-    }
-
-    
-     
-    
-
-    
-    
-  
 
 
-  public hasError = (controlName: string, errorName: string) =>{
+
+
+
+
+
+
+  public hasError = (controlName: string, errorName: string) => {
     return this.userRoleFrm.controls[controlName].hasError(errorName);
-}
+  }
 
 
 

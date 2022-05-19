@@ -12,12 +12,18 @@ namespace IMOSApi.Controllers.UserFolder
     [ApiController]
     public class UserRoleController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public UserRoleController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpGet("Roles/GetAll")]
         public ActionResult<IEnumerable<Userrole>> GetAllRoles()
         {
             using (var context = new IMOSContext())
 
-                return context.Userroles.ToList();
+                return _dbContext.Userroles.ToList();
         }
         [HttpGet("GetUserRole/{id}")]
         public IEnumerable<Userrole> GetRecord(int id)
@@ -34,8 +40,8 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using (var context = new IMOSContext())
             {
-                context.Userroles.Add(userrole);
-                context.SaveChanges();
+                _dbContext.Userroles.Add(userrole);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }
@@ -46,13 +52,13 @@ namespace IMOSApi.Controllers.UserFolder
             {
                 using(var context= new IMOSContext())
                 {
-                    var recordInDb = context.Userroles.FirstOrDefault();
+                    var recordInDb = _dbContext.Userroles.FirstOrDefault();
                     if (recordInDb == null)
                     {
                         return NotFound();
                     }
                     recordInDb.Description = userrole.Description;
-                    context.SaveChanges();
+                    _dbContext.SaveChanges();
                     return Ok();
                 }
             }

@@ -27,13 +27,6 @@ namespace IMOSApi.Controllers.UserFolder
             }
         }
 
-
-      /*  [HttpPost("CreateUser")]
-        public IActionResult Create([FromBody] User user)
-        {
-            return Ok();
-        }*/
-
         [HttpPost("CreateUser")]
         public ActionResult Add([FromBody] User model)
         {
@@ -92,43 +85,6 @@ namespace IMOSApi.Controllers.UserFolder
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
-
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
-        {
-            var recordInDb = await _dbContext.Users.FindAsync(id);
-            if (recordInDb == null)
-            {
-                return NotFound();
-            }
-
-            _dbContext.Users.Remove(recordInDb);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
-        }
-
-
-    }
-
-
-
-    /*
-        [HttpPut("UpdateUser")]
-        public IActionResult Update()
-        {
-            return Ok();
-        }*/
-
-
-    /*  [HttpDelete("DeleteUser")]
-      public IActionResult Delete()
-      {
-          return Ok();
-      }*/
-
-
 
         [HttpDelete("DeleteUser/{id}")]
         public void Delete(int id)

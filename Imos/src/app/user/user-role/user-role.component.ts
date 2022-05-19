@@ -36,7 +36,7 @@ export class UserRoleComponent implements OnInit {
     this.GetAllUserRoles();
   }
 
-  GetAllUserRoles(){
+  GetAllUserRoles() {
     this.service.getUserRole().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -53,16 +53,16 @@ export class UserRoleComponent implements OnInit {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
 
-    if(this.dataSource.paginator){
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage()
     }
   }
 
-  UpdateUserRole(){
+  UpdateUserRole() {
     this.route.navigateByUrl('updateuserrole')
   }
 
-  addUserRole(){
+  addUserRole() {
     this.route.navigateByUrl('adduserrole')
   }
 
@@ -81,32 +81,6 @@ export class UserRoleComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
-  deleteUserRole(element: any){
-  
-      var id = element.userrole1;
-      this.service.deleteUserRole(id).subscribe(data => { alert(data.toString())});
-
-
-      this.service.getUserRole().subscribe(x => {
-        this.data = x;
-        console.log(this.data);
-        this.posts = x
-  
-        this.dataSource = new MatTableDataSource(this.posts)
-  
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      })
-      
-
-
-     
- 
-  }
-
-
-  }
+}
 
 

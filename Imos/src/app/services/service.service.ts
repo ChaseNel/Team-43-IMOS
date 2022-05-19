@@ -28,12 +28,12 @@ export interface user {
   userPassword: string,
 
 
- /* userroleNavigation: null,
-  equipmentchecks: [],
-  stocktakes: [],
-  tasks: [],
-  userincidents: [],
-  vehicles: []*/
+  /* userroleNavigation: null,
+   equipmentchecks: [],
+   stocktakes: [],
+   tasks: [],
+   userincidents: [],
+   vehicles: []*/
 }
 
 //Material Interface
@@ -112,38 +112,16 @@ export class ServiceService {
   deleteUser(id: number) {
     return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
-
-/*addUser(obj: any): Observable<any>{
-  return this.http
-  .post<any>(`${this.Root_URL}User/CreateUser`, obj);
-}*/
-
-addUsers(payload: any){
-  return this.http.post(this.Root_URL.concat("User/"), payload,
-  {reportProgress:true, observe: 'events'}
-  );
-}
-
-updateUser(payload: any, id:number ){
-  return this.http.put(this.Root_URL.concat("User/"+ "/"+id),
-  payload,
-  { reportProgress: true, observe: 'events' });
-}
-
-
-deleteUser(id:number){
-  return this.http.delete(this.Root_URL.concat("User/" + "/" + id)
-  ,
-  {reportProgress: true, observe:'events'}
-)
-}
-
-deleteUsers(id: number){
-return this.http.delete(this.Root_URL + '/User' + id)
-}
-
-
-
+  //Add
+  addUser(obj: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/User/CreateUser', obj);
+  }
+  //Update
+  updateUser(payload: any, id: number) {
+    return this.http.put(this.Root_URL.concat("User/" + "/" + id),
+      payload,
+      { reportProgress: true, observe: 'events' });
+  }
 
   //UserRole
   //Get
@@ -157,9 +135,9 @@ return this.http.delete(this.Root_URL + '/User' + id)
 
   //UserRole
   //Add
-  addUserRole(val: any){
+  addUserRole(val: any) {
 
-    return this.http.post(this.Root_URL + '/UserRole/AddRole',val)
+    return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
   }
 
   //Employee
@@ -213,5 +191,3 @@ return this.http.delete(this.Root_URL + '/User' + id)
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
   }
 }
-
-

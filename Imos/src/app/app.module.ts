@@ -79,7 +79,7 @@ import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
-    //AddUserComponent
+    AddUserComponent
 
   ],
   imports: [
