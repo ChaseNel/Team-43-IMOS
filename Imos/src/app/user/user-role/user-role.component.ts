@@ -6,8 +6,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ServiceService, userrole } from 'src/app/services/service.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-
-
 export interface UserRole {
   userrole: number,
   description: string

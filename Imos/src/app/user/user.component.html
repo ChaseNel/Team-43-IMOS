@@ -29,6 +29,7 @@
     <ng-container matColumnDef="userrole">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> User Role </th>
         <td mat-cell *matCellDef="let element"> {{rolelist[element.userrole-1]?.description}} </td>
+        <td mat-cell *matCellDef="let element" > {{element.userrole}} </td>
     </ng-container>
 
     <!-- EmployeeID Column -->
