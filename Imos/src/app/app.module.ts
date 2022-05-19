@@ -45,9 +45,9 @@ import { UpdateSupplierComponent } from './supplier/update-supplier/update-suppl
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
 import { CommonModule } from '@angular/common';
 import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
+import { UpdateUserComponent } from './user/update-user/update-user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,8 +79,8 @@ import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
-    AddUserComponent
-
+    AddUserComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
