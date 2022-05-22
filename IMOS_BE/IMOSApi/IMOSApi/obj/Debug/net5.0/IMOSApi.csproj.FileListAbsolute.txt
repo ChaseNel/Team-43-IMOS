@@ -277,7 +277,6 @@ C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Security.Cookies.dll
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Owin.Security.OAuth.dll
 C:\Team-43-IMOS\IMOS_FrontEnd\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Owin.dll
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.csproj.AssemblyReference.cache
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfoInputs.cache
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfo.cs
@@ -421,3 +420,4 @@ C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\ne
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\ref\IMOSApi.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.pdb
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.csproj.AssemblyReference.cache

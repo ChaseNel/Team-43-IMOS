@@ -10,6 +10,7 @@ namespace IMOSApi.Models
     {
         public IMOSContext()
         {
+
         }
 
         public IMOSContext(DbContextOptions<IMOSContext> options)
@@ -303,7 +304,7 @@ namespace IMOSApi.Models
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MATERIAL___________MATERIAL");
+                    .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -321,6 +322,14 @@ namespace IMOSApi.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Materialtypes)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MATERIALTYPE_SUPPLIER");
             });
 
             modelBuilder.Entity<Project>(entity =>
