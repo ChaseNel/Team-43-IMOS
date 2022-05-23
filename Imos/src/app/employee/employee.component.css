@@ -10,9 +10,8 @@ table {
   'GRAD' 0,
   'opsz' 48;
 
-  font-size: 40px;
-  size: 10px;
-  position: relative;
-  left: 82%;
-  bottom: 10px
+  font-size: 30px;
+  position: fixed;
+  left: 95%;
+  bottom: 76%;
 }

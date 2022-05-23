@@ -12,7 +12,18 @@ export class HomeComponent implements OnInit {
 
   employee() {
     this.route.navigateByUrl("/employee");
+  }
 
+  user() {
+    this.route.navigateByUrl("/user");
+  }
+
+  material() {
+    this.route.navigateByUrl("/material");
+  }
+
+  supplier() {
+    this.route.navigateByUrl("/supplier");
   }
   user() {
     this.route.navigateByUrl("/user");
