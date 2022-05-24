@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceService } from '../services/service.service';
+import { employee, ServiceService, user, userrole } from '../services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -10,7 +10,7 @@ export interface User {
   userId: number,
   userRole: number,
   employeeId: number,
-  userName: string,
+  name: string,
   userPassword: string
 }
 
@@ -22,7 +22,7 @@ export interface User {
 export class UserComponent implements OnInit {
 
   // API Test
-  data: User[] = [];
+  data: user[] = [];
 
   displayedColumns: string[] = ['id', 'userrole', 'employeeid', 'name', 'password', 'actions'];
 
@@ -32,6 +32,8 @@ export class UserComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+  rolelist: userrole[] = [];
+  employeelist: employee[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllUsers();
@@ -73,7 +75,7 @@ export class UserComponent implements OnInit {
     if (confirm('Are you sure you want to delete this User?')) {
       this.service.deleteUser(id).subscribe(res => {
         this.GetAllUsers();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a User!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
@@ -86,6 +88,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getUserRole().subscribe(x => { this.rolelist = x; console.log("rolelist", this.rolelist) });
+    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
   }
 
 }

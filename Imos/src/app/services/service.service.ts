@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 //Employee Interface
 export interface employee {
-  employeeID: number,
+  employeeId: number,
   documentId: number,
   name: string,
   email: string,
@@ -19,7 +19,7 @@ export interface user {
   userId: number,
   userRole: number,
   employeeId: number,
-  userName: string,
+  username: string,
   userPassword: string,
   employee: null,
   userroleNavigation: null,
@@ -76,6 +76,22 @@ export interface suppliertype {
   suppliertypeId: number,
   Material: string,
   suppliers: []
+}
+
+//Vehicle Interface
+export interface vehicle {
+  vehivelID: number,
+  userID: number,
+  vehicleTypeID: number,
+  user: string,
+  vehcileType: string
+}
+
+//Vehicle Type Interface
+export interface vehicletype {
+  vehicleTypeID: number,
+  description: string,
+  vehicle: []
 }
 
 
@@ -167,6 +183,27 @@ export class ServiceService {
   //Delete
   deleteSupplierType(id: number) {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
+  }
+
+  //Vehicle
+  //Get
+  getVehicle(): Observable<vehicle[]> {
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetVehicles')
+  }
+  //Delete
+  deleteVehicle(id: number) {
+    return this.http.delete(this.Root_URL + '/Vehicle/DeleteVehicle/' + id);
+  }
+
+
+  //Vehicle Type
+  //Get
+  getVehicleType(): Observable<vehicletype[]> {
+    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetVehicletypes')
+  }
+  //Delete
+  deleteVehicleType(id: number) {
+    return this.http.delete(this.Root_URL + '/VehicleType/DeleteVehicleType/' + id);
   }
 }
 

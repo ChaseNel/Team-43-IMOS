@@ -45,6 +45,11 @@ import { UpdateSupplierComponent } from './supplier/update-supplier/update-suppl
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
+import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
+import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +82,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
+    AddVehicleComponent,
+    UpdateVehicleComponent,
+    VehicleTypeComponent,
+    AddVehicleTypeComponent,
+    UpdateVehicleTypeComponent,
   ],
   imports: [
     BrowserModule,
