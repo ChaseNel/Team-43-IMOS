@@ -24,7 +24,7 @@ export interface user {
   userId: number,
   userRole: number,
   employeeId: number,
-  userName: string,
+  username: string,
   userPassword: string,
 
 
@@ -80,8 +80,24 @@ export interface supplier {
 //User Role Interface
 export interface suppliertype {
   suppliertypeId: number,
-  Material: string,
+  name: string,
   suppliers: []
+}
+
+//Vehicle Interface
+export interface vehicle {
+  vehivelID: number,
+  userID: number,
+  vehicleTypeID: number,
+  user: string,
+  vehcileType: string
+}
+
+//Vehicle Type Interface
+export interface vehicletype {
+  vehicleTypeID: number,
+  description: string,
+  vehicle: []
 }
 
 
@@ -186,5 +202,26 @@ export class ServiceService {
   //Delete
   deleteSupplierType(id: number) {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
+  }
+
+  //Vehicle
+  //Get
+  getVehicle(): Observable<vehicle[]> {
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetVehicles')
+  }
+  //Delete
+  deleteVehicle(id: number) {
+    return this.http.delete(this.Root_URL + '/Vehicle/DeleteVehicle/' + id);
+  }
+
+
+  //Vehicle Type
+  //Get
+  getVehicleType(): Observable<vehicletype[]> {
+    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetVehicletypes')
+  }
+  //Delete
+  deleteVehicleType(id: number) {
+    return this.http.delete(this.Root_URL + '/VehicleType/DeleteVehicleType/' + id);
   }
 }

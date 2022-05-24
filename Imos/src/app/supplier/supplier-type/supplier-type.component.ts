@@ -71,7 +71,7 @@ export class SupplierTypeComponent implements OnInit {
     if (confirm('Are you sure you want to delete this Supplier Type?')) {
       this.service.deleteSupplierType(id).subscribe(res => {
         this.GetAllSupplierTypes();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a Supplier Type!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });

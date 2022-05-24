@@ -69,7 +69,7 @@ export class UserRoleComponent implements OnInit {
     if (confirm('Are you sure you want to delete this User Role?')) {
       this.service.deleteUserRole(id).subscribe(res => {
         this.GetAllUserRoles();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a User Role!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
