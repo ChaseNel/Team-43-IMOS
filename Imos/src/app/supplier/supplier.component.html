@@ -24,13 +24,13 @@
     <!-- SupplierID Column -->
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.supplierId}} </td>
+        <td mat-cell *matCellDef="let element"> {{[element.supplierId]}} </td>
     </ng-container>
 
     <!-- Supplier Type Column -->
     <ng-container matColumnDef="suppliertype">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier Type </th>
-        <td mat-cell *matCellDef="let element"> {{element.materialtype}} </td>
+        <td mat-cell *matCellDef="let element"> {{TypeList[element.suppliertypeId-1]?.name}} </td>
     </ng-container>
 
     <!-- Supplier Name Column -->

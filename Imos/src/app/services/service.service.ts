@@ -74,7 +74,7 @@ export interface supplier {
 //User Role Interface
 export interface suppliertype {
   suppliertypeId: number,
-  Material: string,
+  name: string,
   suppliers: []
 }
 
