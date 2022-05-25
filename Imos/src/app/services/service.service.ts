@@ -181,10 +181,21 @@ export class ServiceService {
   getMaterialType(): Observable<materialType[]> {
     return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetMaterialtypes')
   }
+
+  //Add
+  addMaterialType(val: any) {
+    return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
+
+  }
+
+
+
   //Delete
   deleteMaterialType(id: number) {
     return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
+
+
 
   //Supplier
   //Get
