@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ServiceService } from 'src/app/services/service.service';
-import { FormGroup } from '@angular/forms';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-add-employee',
@@ -10,7 +11,29 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 })
 export class AddEmployeeComponent implements OnInit {
 
-  constructor() { }
+  addEmployeeForm: FormGroup = new FormGroup({
+  })
+
+  email = new FormControl('', [Validators.required, Validators.email]);
+
+  getErrorMessage() {
+    if (this.email.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return this.email.hasError('email') ? 'Not a valid email' : '';
+  }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+  ) { }
+
+
+
+  createEmployee() {
+
+  }
 
   Name: any;
   Email: any;
@@ -19,9 +42,13 @@ export class AddEmployeeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-    
-   
+    this.addEmployeeForm = this.formBuilder.group({
+      'name': new FormControl(''),
+      'email': new FormControl(''),
+      'contact': new FormControl(''),
+      'document': new FormControl('')
+    })
+
   }
 
 

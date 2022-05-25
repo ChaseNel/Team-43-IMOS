@@ -1,4 +1,4 @@
-using IMOSApi.Models;
+﻿using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,8 +17,9 @@ namespace IMOSApi.Controllers.UserFolder
         {
             _dbContext = dbContext;
         }
+
         [HttpGet("Roles/GetAll")]
-        public IEnumerable<Userrole> GetAllRoles()
+        public ActionResult<IEnumerable<Userrole>> GetAllRoles()
         {
             using (var context = new IMOSContext())
 
@@ -39,8 +40,8 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using (var context = new IMOSContext())
             {
-                context.Userroles.Add(userrole);
-                context.SaveChanges();
+                _dbContext.Userroles.Add(userrole);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }
@@ -51,13 +52,13 @@ namespace IMOSApi.Controllers.UserFolder
             {
                 using(var context= new IMOSContext())
                 {
-                    var recordInDb = context.Userroles.FirstOrDefault();
+                    var recordInDb = _dbContext.Userroles.FirstOrDefault();
                     if (recordInDb == null)
                     {
                         return NotFound();
                     }
                     recordInDb.Description = userrole.Description;
-                    context.SaveChanges();
+                    _dbContext.SaveChanges();
                     return Ok();
                 }
             }
@@ -70,13 +71,13 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using(var context=new IMOSContext())
             {
-                var recordInDb = await context.Userroles.FindAsync(Id);
+                var recordInDb = await _dbContext.Userroles.FindAsync(Id);
                     if (recordInDb == null)
                     {
                         return NotFound();
                     }
-                context.Userroles.Remove(recordInDb);
-                await context.SaveChangesAsync();
+                _dbContext.Userroles.Remove(recordInDb);
+                await _dbContext.SaveChangesAsync();
                 return Ok();
             }
             
@@ -84,3 +85,4 @@ namespace IMOSApi.Controllers.UserFolder
 
     }
 }
+

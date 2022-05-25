@@ -1,3 +1,4 @@
+import { user } from './../services/service.service';
 import { UnsuccessfulComponent } from './Dialogs/unsuccessful/unsuccessful.component';
 import { PopUpComponent } from './../logout/pop-up/pop-up.component';
 import { Component, OnInit } from '@angular/core';
@@ -14,6 +15,8 @@ import { ServiceService } from '../services/service.service';
 export class LoginComponent implements OnInit {
   hide = true;
   loggedIn: boolean | undefined;
+  data: user[] = [];
+
   constructor(
     private formBuilder: FormBuilder, 
     private service: ServiceService, 
@@ -34,7 +37,8 @@ export class LoginComponent implements OnInit {
     let userName = "Chase3325";
     let password = "123456789";
 
-    if (this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value == password) {
+    if (this.LoginForm.controls["username"].value == userName
+     && this.LoginForm.controls["password"].value == password) {
       this.loggedIn = true
       console.log('yes');
       this.route.navigateByUrl("/home");
@@ -58,7 +62,15 @@ export class LoginComponent implements OnInit {
 
   }
 
+  log(){
+    this.service.getUser().subscribe(x =>{
+      this.data = x;
+      console.log(this.data);
+    });
+  }
+
   ngOnInit(): void {
+
   }
 
 }

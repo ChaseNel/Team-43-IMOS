@@ -1,17 +1,27 @@
+import { HttpEventType } from '@angular/common/http';
+import { user, employee } from './../services/service.service';
+import { userrole } from 'src/app/services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceService } from '../services/service.service';
+import { employee, ServiceService, user, userrole } from '../services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ArrayType } from '@angular/compiler';
+
 
 export interface User {
   userId: number,
   userRole: number,
+  RoleDescription?: string,
   employeeId: number,
-  userName: string,
+  name: string,
   userPassword: string
 }
+
+
+
 
 @Component({
   selector: 'app-user',
@@ -22,6 +32,10 @@ export class UserComponent implements OnInit {
 
   // API Test
   data: User[] = [];
+  userRolematch!: boolean;
+  itemToDelete!: User;
+
+  data: user[] = [];
 
   displayedColumns: string[] = ['id', 'userrole', 'employeeid', 'name', 'password', 'actions'];
 
@@ -31,19 +45,28 @@ export class UserComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+  rolelist: userrole[] = [];
+  employeelist: employee[] = [];
 
-  constructor(private route: Router, private service: ServiceService) {
+  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+    this.GetAllUsers();
+  }
 
+  GetAllUsers() {
     this.service.getUser().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x;
+
+
 
       this.dataSource = new MatTableDataSource(this.posts)
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+
+
   }
 
   applyFilter(event: Event) {
@@ -56,11 +79,25 @@ export class UserComponent implements OnInit {
   }
 
   UpdateUser() {
-    this.route.navigateByUrl('/updateuser')
+    this.route.navigate(['/updateuser', ])
   }
 
   addUser() {
     this.route.navigateByUrl('adduser')
+  }
+
+
+  deleteUser(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this User?')) {
+      this.service.deleteUser(id).subscribe(res => {
+        this.GetAllUsers();
+        this._snackBar.open("Success, you have deleted a User!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
   }
 
   userRole() {
@@ -68,6 +105,8 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getUserRole().subscribe(x => { this.rolelist = x; console.log("rolelist", this.rolelist) });
+    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
   }
 
 }
