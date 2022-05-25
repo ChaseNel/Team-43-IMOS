@@ -1,3 +1,4 @@
+import { materialType } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -37,6 +38,7 @@ export class MaterialComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+  typelist: materialType[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllMaterials();
@@ -77,7 +79,7 @@ export class MaterialComponent implements OnInit {
     if (confirm('Are you sure you want to delete this Material?')) {
       this.service.deleteMaterial(id).subscribe(res => {
         this.GetAllMaterials();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a Material!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
@@ -90,6 +92,8 @@ export class MaterialComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+
   }
 
 }

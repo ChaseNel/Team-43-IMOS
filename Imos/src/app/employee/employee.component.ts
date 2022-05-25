@@ -70,7 +70,7 @@ export class EmployeeComponent implements OnInit {
     if (confirm('Are you sure you want to delete this employee?')) {
       this.service.deleteEmployee(id).subscribe(res => {
         this.GetAllEmployees();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted an Employee", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });

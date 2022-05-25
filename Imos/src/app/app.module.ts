@@ -48,7 +48,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
-import {MatSelectModule} from '@angular/material/select';
+import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
+import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
+import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +86,12 @@ import {MatSelectModule} from '@angular/material/select';
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
     AddUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    AddVehicleComponent,
+    UpdateVehicleComponent,
+    VehicleTypeComponent,
+    AddVehicleTypeComponent,
+    UpdateVehicleTypeComponent,
   ],
   imports: [
     BrowserModule,
@@ -102,8 +112,7 @@ import {MatSelectModule} from '@angular/material/select';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    CommonModule,
-    MatSelectModule
+    CommonModule
   ],
   providers: [
     ServiceService

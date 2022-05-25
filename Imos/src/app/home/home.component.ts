@@ -27,6 +27,10 @@ export class HomeComponent implements OnInit {
 
   }
 
+  vehicle() {
+    this.route.navigateByUrl('/vehicle')
+  }
+
   ngOnInit(): void {
   }
 

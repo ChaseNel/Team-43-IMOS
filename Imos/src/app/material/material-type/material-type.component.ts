@@ -71,7 +71,7 @@ posts: any;
     if (confirm('Are you sure you want to delete this Material Type?')) {
       this.service.deleteMaterialType(id).subscribe(res => {
         this.GetAllMaterialType();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a Material Type!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
