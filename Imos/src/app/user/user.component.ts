@@ -1,6 +1,4 @@
 import { HttpEventType } from '@angular/common/http';
-import { user, employee } from './../services/service.service';
-import { userrole } from 'src/app/services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { employee, ServiceService, user, userrole } from '../services/service.service';
@@ -31,7 +29,7 @@ export interface User {
 export class UserComponent implements OnInit {
 
   // API Test
-  data: User[] = [];
+  
   userRolematch!: boolean;
   itemToDelete!: User;
 
