@@ -49,7 +49,7 @@ namespace IMOSApi
 
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
+           services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });

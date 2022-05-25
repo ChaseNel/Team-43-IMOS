@@ -32,7 +32,7 @@ namespace IMOSApi.Controllers.MaterialManagent
                 {
                     Name=model.Name,
                     Description= model.Description,
-                    SupplierId=SupplierId
+                   // SupplierId=SupplierId
                 };
                 _context.Materialtypes.Add(newMaterialType);
                 _context.SaveChanges();
@@ -47,14 +47,14 @@ namespace IMOSApi.Controllers.MaterialManagent
         {
             var recordIndb = _context.Materialtypes
                 .Where(item => item.MaterialtypeId == id)
-                .Include(item => item.Supplier)
+               // .Include(item => item.Supplier)
                 .Select(item => new GetMaterialTypeDto
                 {
                     MaterialtypeId = item.MaterialtypeId,
                     Name = item.Name,
                     Description = item.Description,
-                    SupplierId = item.Supplier.SupplierId,
-                    SupplierName=item.Supplier.Name
+                   // SupplierId = item.Supplier.SupplierId,
+                   // SupplierName=item.Supplier.Name
                 }).OrderBy(item => item.Name).First();
 
             if (recordIndb == null)
@@ -69,15 +69,15 @@ namespace IMOSApi.Controllers.MaterialManagent
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllSupplierMaterialTypes(int supplierId)
         {
             var recordsInDb = _context.Materialtypes
-                .Where(item => item.SupplierId == supplierId)
-                .Include(item => item.Supplier)
+                //.Where(item => item.SupplierId == supplierId)
+               // .Include(item => item.Supplier)
                 .Select(item => new GetMaterialTypeDto
                 {
                     MaterialtypeId = item.MaterialtypeId,
                     Name = item.Name,
                     Description=item.Description,
-                    SupplierId = item.Supplier.SupplierId,
-                    SupplierName = item.Supplier.Name
+                    //SupplierId = item.Supplier.SupplierId,
+                   // SupplierName = item.Supplier.Name
                 }).OrderBy(item => item.Name).ToList();
 
             return recordsInDb;
@@ -87,14 +87,14 @@ namespace IMOSApi.Controllers.MaterialManagent
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllMaterialTypes()
         {
             var recordsInDb = _context.Materialtypes
-                .Include(item => item.Supplier)
+                //.Include(item => item.Supplier)
                 .Select(item => new GetMaterialTypeDto
                 {
                     MaterialtypeId = item.MaterialtypeId,
                     Name = item.Name,
                     Description = item.Description,
-                    SupplierId = item.Supplier.SupplierId,
-                    SupplierName = item.Supplier.Name
+                 //   SupplierId = item.Supplier.SupplierId,
+                 //   SupplierName = item.Supplier.Name
                 }).OrderBy(item => item.Name).ToList();
 
             return recordsInDb;
