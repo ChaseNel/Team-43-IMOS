@@ -48,6 +48,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
+import {MatSelectModule} from '@angular/material/select';
 @NgModule({
   declarations: [
     AppComponent,
@@ -101,7 +102,8 @@ import { UpdateUserComponent } from './user/update-user/update-user.component';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   providers: [
     ServiceService

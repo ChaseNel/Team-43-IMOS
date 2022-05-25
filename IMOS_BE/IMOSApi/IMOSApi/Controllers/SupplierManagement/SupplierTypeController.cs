@@ -100,7 +100,7 @@ namespace IMOSApi.Controllers.SupplierManagement
 
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] 
         public async Task<ActionResult<Suppliertype>>DeleteRecord(int id)
         {
             var recordInDb = await _context.Suppliertypes.FindAsync(id);

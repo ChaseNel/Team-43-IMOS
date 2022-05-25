@@ -1,1 +1,56 @@
-<p>add-supplier works!</p>
+<div class="container">
+    <mat-card>Add New Supplier </mat-card>
+
+    <form [formGroup]="form" (ngSubmit)="addSupplier">
+    
+            <mat-form-field appearance="standard">
+                <mat-label>Supplier type</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let type of Suppliertypes">
+                      {{type.suppliertypeId}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput  placeholder="Type name" formControlName="name" #nameInput>
+                <mat-error>Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput maxlength="15" placeholder="Type address" formControlName="name" #nameInput>
+                <mat-error>Name is required</mat-error>
+                <mat-error **ngIf="(form.get('name')).errors?.minlength">
+                    Please enter more than 10 character
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                       placeholder="Ex. pat@example.com">
+                <mat-hint>Errors appear instantly!</mat-hint>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <mat-form-field appearance="standard">
+            <mat-label>Contact</mat-label>
+            <input matInput  placeholder="Type contact number" formControlName="name" #nameInput>
+            <mat-error>ContactNumber is required</mat-error>
+        </mat-form-field>
+        <div >
+                <button mat-raised-button color="primary" type="submit" onclick="AddSupplier">Add </button>
+                <button mat-raised-button color="warn">Cancel</button>
+        </div>
+    </form>
+</div>

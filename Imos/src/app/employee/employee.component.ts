@@ -1,14 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-
+import { MatPaginator } from '@angular/material/paginator';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { employee, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 
-export interface PeriodicElement {
+export interface Employee {
+  employeeId: number;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  email: string;
+  contactnumber: string;
 }
 
 
@@ -24,13 +28,34 @@ export class EmployeeComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
 
-  constructor(private route: Router, private service: ServiceService) {
+  dataSource!: MatTableDataSource<Employee>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+  @ViewChild(MatSort) sort!: MatSort
+  posts: any;
+
+  constructor(private route: Router, private service: ServiceService,
+    private _snackBar:MatSnackBar,
+    public dialog: MatDialog
+    ) {
 
     this.service.getEmployees().subscribe(x => {
       this.data = x;
       console.log(this.data);
     })
    }
+   GetAllEmployees() {
+    this.service.getEmployees().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+  }
+   
 
   UpdateEmployee() {
     this.route.navigateByUrl("UpdateEmployee")
@@ -39,8 +64,30 @@ export class EmployeeComponent implements OnInit {
   addEmployee(){
     this.route.navigateByUrl('AddEmployee')
   }
+ 
+  deleteEmployee(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this employee?')) {
+      this.service.deleteEmployee(id).subscribe(res => {
+        this.GetAllEmployees();
+        this._snackBar.open("Success", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
+  }
 
+  applyFilter(event: Event) {
+    const FilterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage()
+    }
+  }
   ngOnInit(): void {
+    this.GetAllEmployees()
   }
 
 }

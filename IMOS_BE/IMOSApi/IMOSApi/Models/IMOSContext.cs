@@ -761,7 +761,7 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("USER");
 
-                entity.HasIndex(e => e.UserroleId, "IS_ASSIGNED_FK");
+                entity.HasIndex(e => e.Userrole, "IS_ASSIGNED_FK");
 
                 entity.HasIndex(e => e.EmployeeId, "IS_FK");
 
@@ -783,7 +783,7 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("USERPASSWORD");
 
-                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
+                entity.Property(e => e.Userrole).HasColumnName("USERROLE_ID");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Users)
@@ -791,11 +791,11 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_USER_IS_EMPLOYEE");
 
-                entity.HasOne(d => d.Userrole)
+              /*  entity.HasOne(d => d.Userrole)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.UserroleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_USER_IS_ASSIGN_USERROLE");
+                    .HasConstraintName("FK_USER_IS_ASSIGN_USERROLE");*/
             });
 
             modelBuilder.Entity<Userincident>(entity =>

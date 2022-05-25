@@ -80,7 +80,8 @@ export interface supplier {
 //User Role Interface
 export interface suppliertype {
   suppliertypeId: number,
-  Material: string,
+  name:string 
+  Material: string,// for supplier type only name and Id
   suppliers: []
 }
 
@@ -100,7 +101,7 @@ export class ServiceService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private _router: Router) {
   }
 
   //User
@@ -136,6 +137,10 @@ export class ServiceService {
   addUserRole(val: any) {
     return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
   }
+  //Get
+  GetAllEmployees(): Observable<employee[]> {
+    return this.http.get<employee[]>(this.Root_URL + '/Employee')
+  }
 
   //Employee
   //Get
@@ -146,7 +151,11 @@ export class ServiceService {
   deleteEmployee(id: number) {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
   }
+  // Add Employee
+  addEmployee(val: any){
 
+    return this.http.post(this.Root_URL + 'Employee/AddEmployee',val)
+  }
 
   //Material
   //Get
@@ -168,11 +177,22 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
 
-  //Supplier
+  //Supplier 
+//Get by Id
+
   //Get
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
+  // Add 
+  addSupplier(val:any){
+    return this.http.post(this.Root_URL + '/AddSupplier',val)
+
+  }
+  //put OR update 
+
+
+
   //Delete
   deleteSupplier(id: number) {
     return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
@@ -181,7 +201,7 @@ export class ServiceService {
   //Supplier Type
   //Get
   getSupplierType(): Observable<suppliertype[]> {
-    return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetSuppliertype')
+    return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetAll')
   }
   //Delete
   deleteSupplierType(id: number) {

@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ServiceService, supplier } from '../services/service.service';
 
@@ -15,6 +16,10 @@ export interface Supplier {
   contactnumber: number,
   suppliertype: string,
   supplierorderlines: []
+}
+export interface Suppliertype{
+  id:number,
+  name: string
 }
 
 @Component({
@@ -86,9 +91,6 @@ export class SupplierComponent implements OnInit {
   supplierType() {
     this.route.navigateByUrl('/suppliertype')
   }
-
-
   ngOnInit(): void {
   }
-
 }

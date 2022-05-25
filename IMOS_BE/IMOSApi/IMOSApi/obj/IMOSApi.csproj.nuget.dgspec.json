@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
   },
   "projects": {
-    "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
         "projectName": "IMOSApi",
-        "projectPath": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
-        "packagesPath": "C:\\Users\\chase\\.nuget\\packages\\",
-        "outputPath": "C:\\Team-43-IMOS\\IMOS_FrontEnd\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -97,7 +97,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

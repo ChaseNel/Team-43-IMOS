@@ -44,7 +44,7 @@ namespace IMOSApi.Controllers.SupplierManagement
             return recordInDb;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("GetSuppliers")]
         public ActionResult<IEnumerable<GetSupplierDto>> GetAll()
         {
             var recordsInDb = _context.Suppliers

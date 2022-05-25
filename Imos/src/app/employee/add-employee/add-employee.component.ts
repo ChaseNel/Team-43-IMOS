@@ -34,6 +34,7 @@ export class AddEmployeeComponent implements OnInit {
     }
     );
   }
+  
   // 
   addEmployee(){
     console.log(this.employeeFrm.value);
