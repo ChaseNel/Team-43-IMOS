@@ -142,8 +142,17 @@ export class ServiceService {
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
+    return this.http.get<userrole[]>(this.Root_URL + 'UserRole/Roles/GetAll')
   }
+
+  //Update
+  editUserRole(id:any, val:any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/UserRole/EditUserRole/' + id;
+    return this.http.put(endPointUrl, val);
+
+  }
+
   //Delete
   deleteUserRole(id: number) {
     return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
@@ -154,6 +163,8 @@ export class ServiceService {
     return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
 
   }
+
+
 
   //Employee
   //Get
@@ -179,12 +190,22 @@ export class ServiceService {
   //Material Type
   //Get
   getMaterialType(): Observable<materialType[]> {
-    return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetMaterialtypes')
+    return this.http.get<materialType[]>(this.Root_URL + '/Materialtype/GetMaterialtypes')
   }
+
+  
 
   //Add
   addMaterialType(val: any) {
     return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
+
+  }
+
+  //Update
+  editMaterialType(id:any, val:any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Materialtype/UpdateMaterialtype/' + id;
+    return this.http.put(endPointUrl, val);
 
   }
 

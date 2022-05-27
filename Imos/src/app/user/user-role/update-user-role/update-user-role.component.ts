@@ -11,10 +11,12 @@ import { FormGroup, FormBuilder, FormControl, Validators  } from '@angular/forms
 })
 export class UpdateUserRoleComponent implements OnInit {
 
-  
+  Id: any;
   Description: any;
   public userRoleFrm!: FormGroup;
   hide: boolean = false;
+  alert: boolean = false;
+  @Input()type: any;
   
 
   constructor( private service: ServiceService) { }
@@ -26,11 +28,17 @@ export class UpdateUserRoleComponent implements OnInit {
     }
     );
 
+    this.Id = this.type.materialtypeId;
+    this.Description = this.type.description;
+
     
   }
  updateUserRole(){
 
-  this.hide= true;
+  var id = this.type.userrole1;
+    var val = {Description: this.Description};
+    this.service.editUserRole(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
+    this.alert = true;
 
  }
 
@@ -42,7 +50,7 @@ export class UpdateUserRoleComponent implements OnInit {
 }
 
 closeAlert(){
-  this.hide = false;
+  this.alert = false;
 }
 
 }
