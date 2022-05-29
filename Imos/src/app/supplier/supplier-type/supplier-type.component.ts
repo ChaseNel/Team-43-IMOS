@@ -20,6 +20,9 @@ export interface SupplierType {
 })
 export class SupplierTypeComponent implements OnInit {
 
+  type: any;
+  hide: boolean = false;
+
   // API Test
   data: suppliertype[] = [];
 
@@ -58,9 +61,28 @@ export class SupplierTypeComponent implements OnInit {
     }
   }
 
-  UpdateSupplierType() {
-    this.route.navigateByUrl('/UpdateSupplierType')
+  UpdateSupplierType(element: any) {
+    this.type = element;
+    this.hide = true;
   }
+
+   closeClick(){
+    this.hide= false;
+    this.service.getSupplierType().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+} 
+
+
+
+
 
   addSupplierType() {
     this.route.navigateByUrl('/AddSupplierType')

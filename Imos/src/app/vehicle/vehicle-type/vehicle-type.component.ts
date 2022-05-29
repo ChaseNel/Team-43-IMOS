@@ -13,6 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class VehicleTypeComponent implements OnInit {
 
+  type: any;
+  hide: boolean = false;
+
   // API Test
   data: vehicletype[] = [];
 
@@ -51,9 +54,28 @@ export class VehicleTypeComponent implements OnInit {
     }
   }
 
-  UpdateVehicleType() {
-    this.route.navigateByUrl('/updateVehicleType')
+  UpdateVehicleType(element: any) {
+    this.type = element;
+    this.hide = true;
   }
+
+   closeClick(){
+    this.hide= false;
+    this.service.getVehicleType().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+} 
+
+
+
+
 
   addVehicleType() {
     this.route.navigateByUrl('/addVehicleType')
@@ -71,6 +93,8 @@ export class VehicleTypeComponent implements OnInit {
       });
     }
   }
+
+
   ngOnInit(): void {
   }
 

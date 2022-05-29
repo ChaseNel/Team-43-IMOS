@@ -238,6 +238,22 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
   }
 
+
+  //Add
+  addSupplierType(val: any) {
+    return this.http.post(this.Root_URL + '/Suppliertype/CreateSuppliertype', val)
+
+  }
+
+  //Update
+  editSupplierType(id:any, val:any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL +  '/Suppliertype/UpdateSuppliertype/' + id;
+    return this.http.put(endPointUrl, val);
+
+  }
+
+
   //Vehicle
   //Get
   getVehicle(): Observable<vehicle[]> {
@@ -252,10 +268,28 @@ export class ServiceService {
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetVehicletypes')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetVehicletypes')
   }
+
+
+  //Add
+  addVehicleType(val: any) {
+    return this.http.post(this.Root_URL + '/api/Vehicletype/CreateVehicletype', val)
+
+  }
+
+  //Update
+  editVehicleType(id:any, val:any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Vehicletype/UpdateVehicletype/' + id;
+    return this.http.put(endPointUrl, val);
+
+  }
+
+
+
   //Delete
   deleteVehicleType(id: number) {
-    return this.http.delete(this.Root_URL + '/VehicleType/DeleteVehicleType/' + id);
+    return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
   }
 }
