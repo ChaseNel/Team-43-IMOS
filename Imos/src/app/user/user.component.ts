@@ -1,12 +1,11 @@
 import { HttpEventType } from '@angular/common/http';
-import { user, employee } from './../services/service.service';
-import { userrole } from 'src/app/services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServiceService } from '../services/service.service';
+import { employee, ServiceService, user, userrole } from '../services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ArrayType } from '@angular/compiler';
 
 
@@ -15,7 +14,7 @@ export interface User {
   userRole: number,
   RoleDescription?: string,
   employeeId: number,
-  userName: string,
+  name: string,
   userPassword: string
 }
 
@@ -30,10 +29,11 @@ export interface User {
 export class UserComponent implements OnInit {
 
   // API Test
-  data: User[] = [];
+  
   userRolematch!: boolean;
   itemToDelete!: User;
 
+  data: user[] = [];
 
   displayedColumns: string[] = ['id', 'userrole', 'employeeid', 'name', 'password', 'actions'];
 
@@ -46,8 +46,11 @@ export class UserComponent implements OnInit {
   rolelist: userrole[] = [];
   employeelist: employee[] = [];
 
-  constructor(private route: Router, private service: ServiceService) {
+  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+    this.GetAllUsers();
+  }
 
+  GetAllUsers() {
     this.service.getUser().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -81,34 +84,27 @@ export class UserComponent implements OnInit {
     this.route.navigateByUrl('adduser')
   }
 
+
+  deleteUser(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this User?')) {
+      this.service.deleteUser(id).subscribe(res => {
+        this.GetAllUsers();
+        this._snackBar.open("Success, you have deleted a User!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
+  }
+
   userRole() {
     this.route.navigateByUrl('userrole')
   }
 
   ngOnInit(): void {
-
-    this.service.getUserRole().subscribe(x => {  this.rolelist = x;  console.log("rolelist",this.rolelist)});
-    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist",this.employeelist)} );
+    this.service.getUserRole().subscribe(x => { this.rolelist = x; console.log("rolelist", this.rolelist) });
+    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
   }
-
-  onDeleteSubmit(): void {
- if (this.itemToDelete != null){
-   this.service.deleteUser(this.itemToDelete.userId)
-   .subscribe(event => {
-     if (event.type === HttpEventType.Response){
-       console.log(this.itemToDelete.userId)
-     }
-   })
- }
-  }
-
-  deleteUser(id: number){
-    this.service.deleteUsers(id).subscribe(res => {
-this.route.navigateByUrl('/user')
-console.log(id)
-    });
-  }
-
-
 
 }

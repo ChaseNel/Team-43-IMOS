@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class VehicleController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public VehicleController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetVehicles")]
         public IEnumerable<Vehicle> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Vehicles.ToList();
+                return _dbContext.Vehicles.ToList();
             }
         }
         [HttpGet("GetVehicle/{id}")]
@@ -25,7 +30,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Vehicle> tmp = context.Vehicles.Where(emp => emp.VehicleId == id).ToList();
+                IEnumerable<Vehicle> tmp = _dbContext.Vehicles.Where(emp => emp.VehicleId == id).ToList();
                 return tmp;
             }
         }
@@ -34,8 +39,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                context.Vehicles.Add(Vehicle);
-                context.SaveChanges();
+                _dbContext.Vehicles.Add(Vehicle);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }
@@ -45,9 +50,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Vehicles.Where(clie => clie.VehicleId == Id).ToList().FirstOrDefault();
+                var clie = _dbContext.Vehicles.Where(clie => clie.VehicleId == Id).ToList().FirstOrDefault();
                 //emp.
-                context.SaveChanges();
+                _dbContext.SaveChanges();
             }
         }
         [HttpDelete("DeleteVehicle/{Id}")]
@@ -55,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Vehicles.Where(clie => clie.VehicleId == id).ToList().FirstOrDefault(); ;
-                context.Vehicles.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Vehicles.Where(clie => clie.VehicleId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Vehicles.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

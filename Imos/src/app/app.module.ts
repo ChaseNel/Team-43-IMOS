@@ -16,7 +16,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
@@ -44,8 +44,16 @@ import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.compo
 import { UpdateSupplierComponent } from './supplier/update-supplier/update-supplier.component';
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
 import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
+import { UpdateUserComponent } from './user/update-user/update-user.component';
+import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
+import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
+import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,8 +85,13 @@ import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
     UpdateSupplierComponent,
     UpdateSupplierTypeComponent,
     AddSupplierTypeComponent,
-    AddUserComponent
-
+    AddUserComponent,
+    UpdateUserComponent,
+    AddVehicleComponent,
+    UpdateVehicleComponent,
+    VehicleTypeComponent,
+    AddVehicleTypeComponent,
+    UpdateVehicleTypeComponent,
   ],
   imports: [
     BrowserModule,
@@ -98,6 +111,7 @@ import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatSnackBarModule,
     CommonModule
   ],
   providers: [

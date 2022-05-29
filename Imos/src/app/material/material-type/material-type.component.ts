@@ -20,6 +20,13 @@ export interface MaterialType {
 })
 export class MaterialTypeComponent implements OnInit {
 
+
+  type: any;
+  name: any;
+  description: any;
+  id: any;
+  hide: boolean = false;
+
 // API Test
 data: materialType[] = [];
 
@@ -58,9 +65,28 @@ posts: any;
     }
   }
 
-  UpdateMaterialType() {
-    this.route.navigateByUrl('/UpdateMaterialType')
+  UpdateMaterialType(element: any) {
+    this.type = element;
+    this.hide = true;
   }
+
+   closeClick(){
+    this.hide= false;
+    this.service.getMaterialType().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+} 
+
+
+
+
 
   addMaterialType() {
     this.route.navigateByUrl('/AddMaterialType')
@@ -71,7 +97,7 @@ posts: any;
     if (confirm('Are you sure you want to delete this Material Type?')) {
       this.service.deleteMaterialType(id).subscribe(res => {
         this.GetAllMaterialType();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a Material Type!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });

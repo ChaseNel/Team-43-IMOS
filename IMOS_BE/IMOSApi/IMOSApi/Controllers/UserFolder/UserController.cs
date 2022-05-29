@@ -27,33 +27,6 @@ namespace IMOSApi.Controllers.UserFolder
             }
         }
 
-        /*[HttpGet("GetUsers")]
-         * 
-         * 
-         * 
-        public IActionResult Get()
-        {
-            try
-            {
-                var users = _dbContext.Users.ToList();
-                if(users.Count == 0)
-                {
-                    return StatusCode(404, "No User was found.");
-                }
-                return Ok();
-            }
-            catch (Exception)
-            {
-                return StatusCode(500, "Error");
-            }
-        }*/
-
-      /*  [HttpPost("CreateUser")]
-        public IActionResult Create([FromBody] User user)
-        {
-            return Ok();
-        }*/
-
         [HttpPost("CreateUser")]
         public ActionResult Add([FromBody] User model)
         {
@@ -113,42 +86,13 @@ namespace IMOSApi.Controllers.UserFolder
             return BadRequest(new { message });
         }
 
-
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<User>> Delete(int id)
+        [HttpDelete("DeleteUser/{id}")]
+        public void Delete(int id)
         {
-            var recordInDb = await _dbContext.Users.FindAsync(id);
-            if (recordInDb == null)
-            {
-                return NotFound();
-            }
-
-            _dbContext.Users.Remove(recordInDb);
-            await _dbContext.SaveChangesAsync();
-
-            return Ok();
+            var emp = _dbContext.Users.Where(emp => emp.UserId == id).ToList().FirstOrDefault(); ;
+            _dbContext.Users.Remove(emp);
+            _dbContext.SaveChanges();
         }
-
-
     }
-
-
-
-    /*
-        [HttpPut("UpdateUser")]
-        public IActionResult Update()
-        {
-            return Ok();
-        }*/
-
-
-    /*  [HttpDelete("DeleteUser")]
-      public IActionResult Delete()
-      {
-          return Ok();
-      }*/
-
-
-
 }
 

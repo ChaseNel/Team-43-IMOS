@@ -1,3 +1,4 @@
+import { vehicletype, suppliertype } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -35,6 +36,7 @@ export class SupplierComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+  TypeList : suppliertype[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllSuppliers();
@@ -75,7 +77,7 @@ export class SupplierComponent implements OnInit {
     if (confirm('Are you sure you want to delete this Supplier?')) {
       this.service.deleteSupplier(id).subscribe(res => {
         this.GetAllSuppliers();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a Supplier!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
@@ -87,8 +89,9 @@ export class SupplierComponent implements OnInit {
     this.route.navigateByUrl('/suppliertype')
   }
 
-
   ngOnInit(): void {
+    this.service.getSupplierType().subscribe(x => { this.TypeList = x; console.log("type", this.TypeList) });
+
   }
 
 }
