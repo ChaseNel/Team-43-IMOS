@@ -18,6 +18,12 @@ export interface UserRole {
 })
 export class UserRoleComponent implements OnInit {
 
+  type: any;
+  name: any;
+  description: any;
+  id: any;
+  hide: boolean = false;
+
   // API Test
   data: userrole[] = [];
 
@@ -27,6 +33,7 @@ export class UserRoleComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
+  
 
   posts: any;
 
@@ -56,8 +63,9 @@ export class UserRoleComponent implements OnInit {
     }
   }
 
-  UpdateUserRole() {
-    this.route.navigateByUrl('updateuserrole')
+  UpdateUserRole(element: any) {
+    this.type = element;
+    this.hide = true;
   }
 
   addUserRole() {
@@ -69,7 +77,7 @@ export class UserRoleComponent implements OnInit {
     if (confirm('Are you sure you want to delete this User Role?')) {
       this.service.deleteUserRole(id).subscribe(res => {
         this.GetAllUserRoles();
-        this._snackBar.open("Success", 'OK', {
+        this._snackBar.open("Success, you have deleted a User Role!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
@@ -77,8 +85,39 @@ export class UserRoleComponent implements OnInit {
     }
   }
 
+
+  
+  closeClick(){
+    this.hide= false;
+    this.service.getUserRole().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+} 
+
   ngOnInit(): void {
   }
-}
+
+      
+
+
+      
+
+      
+
+
+     
+ 
+  
+
+
+  }
+
 
 

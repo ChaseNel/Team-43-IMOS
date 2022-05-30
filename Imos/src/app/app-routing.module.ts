@@ -25,6 +25,12 @@ import { UpdateSupplierComponent } from './supplier/update-supplier/update-suppl
 import { AddSupplierComponent } from './supplier/add-supplier/add-supplier.component';
 import { UpdateSupplierTypeComponent } from './supplier/supplier-type/update-supplier-type/update-supplier-type.component';
 import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-type/add-supplier-type.component';
+import { VehicleComponent } from './vehicle/vehicle.component';
+import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
+import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
+import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 
 const routes: Routes = [
   //Default
@@ -63,6 +69,14 @@ const routes: Routes = [
   { path: 'suppliertype', component: SupplierTypeComponent },
   { path: 'UpdateSupplierType', component: UpdateSupplierTypeComponent },
   { path: 'AddSupplierType', component: AddSupplierTypeComponent },
+  //Vehicle
+  { path: 'vehicle', component: VehicleComponent },
+  { path: 'addVehicle', component: AddVehicleComponent },
+  { path: 'updateVehicle', component: UpdateVehicleComponent },
+  //Vehicle Type
+  { path: 'vehicleType', component: VehicleTypeComponent },
+  { path: 'addVehicleType', component: AddVehicleTypeComponent },
+  { path: 'updateVehicleType', component: UpdateVehicleTypeComponent},
 ];
 
 @NgModule({

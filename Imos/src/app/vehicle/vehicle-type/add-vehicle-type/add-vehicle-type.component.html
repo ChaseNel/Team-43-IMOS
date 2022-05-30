@@ -1,0 +1,31 @@
+<app-header></app-header>
+
+<button class="btnBack" mat-raised-button color="warn" routerLink="/vehicleType">Back</button>
+
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success !</strong> Vehicle Type Added Successfully
+    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form [formGroup]="vehicleTypeFrm" class="form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add Vehicle Type</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='Description' matInput placeholder="Vehicle Type Name" name="Description"
+                        formControlName="Description">
+                </mat-form-field>
+                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
+                <mat-card-actions>
+                    <button (click)="addVehicleT()" mat-raised-button color="primary">Add</button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>
+

@@ -26,6 +26,10 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/supplier");
   }
 
+  vehicle() {
+    this.route.navigateByUrl('/vehicle')
+  }
+
   ngOnInit(): void {
   }
 
