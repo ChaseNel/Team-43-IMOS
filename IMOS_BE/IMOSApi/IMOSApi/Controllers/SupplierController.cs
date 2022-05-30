@@ -30,7 +30,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Supplier> tmp = context.Suppliers.Where(emp => emp.SupplierId == id).ToList();
+                IEnumerable<Supplier> tmp = _dbContext.Suppliers.Where(emp => emp.SupplierId == id).ToList();
                 return tmp;
             }
         }
@@ -50,7 +50,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Suppliers.Where(clie => clie.SupplierId == Id).ToList().FirstOrDefault();
+                var clie = _dbContext.Suppliers.Where(clie => clie.SupplierId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }

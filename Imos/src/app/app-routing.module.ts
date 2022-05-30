@@ -63,11 +63,11 @@ const routes: Routes = [
   { path: 'AddMaterialType', component: AddMaterialTypeComponent },
   //Supplier
   { path: 'supplier', component: SupplierComponent },
-  { path: 'UpdateSupplier', component: UpdateSupplierComponent },
+  { path: 'UpdateSupplier/:id', component: UpdateSupplierComponent },
   { path: 'AddSupplier', component: AddSupplierComponent },
   //Supplier Type
   { path: 'suppliertype', component: SupplierTypeComponent },
-  { path: 'UpdateSupplierType', component: UpdateSupplierTypeComponent },
+  { path: 'UpdateSupplierType/:id', component: UpdateSupplierTypeComponent },
   { path: 'AddSupplierType', component: AddSupplierTypeComponent },
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },

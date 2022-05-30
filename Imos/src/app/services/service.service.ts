@@ -174,6 +174,15 @@ export class ServiceService {
   deleteSupplier(id: number) {
     return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
   }
+  //GetBy ID
+  SupplierID(id: number)
+  {
+    return this.http.get(this.Root_URL + '/Supplier/GetSupplier/' + id);
+  }
+  //Update
+  UpdateSuplier(id: number, data: any){
+    return this.http.put(this.Root_URL + '/Supplier/UpdateSupplier/' + id, data);
+  }
 
   //Supplier Type
   //Get
