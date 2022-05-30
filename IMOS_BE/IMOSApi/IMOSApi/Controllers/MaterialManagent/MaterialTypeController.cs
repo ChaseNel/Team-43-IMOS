@@ -22,8 +22,8 @@ namespace IMOSApi.Controllers.MaterialManagent
             _context = context;
         }
 
-        [HttpPost("{SupplierId}")]
-        public IActionResult AddSupplierMaterialType(AddOrUpdateGenericDto model ,int SupplierId)//will create/add  material type specific to supplier Id in table
+        [HttpPost("AddMaterialType")]
+        public IActionResult AddSupplierMaterialType(AddOrUpdateGenericDto model)//will create/add  material type specific to supplier Id in table
         {
             var message = "";
             if (ModelState.IsValid)//checks if model is valid then  creates new MaterialType 
@@ -42,7 +42,7 @@ namespace IMOSApi.Controllers.MaterialManagent
             return BadRequest(new { message });
         }
 
-        [HttpGet("{id}")]//gets specific material type Id from Supplier; to display supplier Name and associated material type
+       /* [HttpGet("{id}")]//gets specific material type Id from Supplier; to display supplier Name and associated material type
         public ActionResult<GetMaterialTypeDto> GetMaterialType(int id)
         {
             var recordIndb = _context.Materialtypes
@@ -62,10 +62,10 @@ namespace IMOSApi.Controllers.MaterialManagent
                 return NotFound();
             }
             return recordIndb;
-        }
+        }*/
 
 
-        [HttpGet("Supplier/GetAll/{supplierId}")]///
+        /*[HttpGet("Supplier/GetAll/{supplierId}")]///
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllSupplierMaterialTypes(int supplierId)
         {
             var recordsInDb = _context.Materialtypes
@@ -81,7 +81,8 @@ namespace IMOSApi.Controllers.MaterialManagent
                 }).OrderBy(item => item.Name).ToList();
 
             return recordsInDb;
-        }
+        }*/
+
 
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllMaterialTypes()

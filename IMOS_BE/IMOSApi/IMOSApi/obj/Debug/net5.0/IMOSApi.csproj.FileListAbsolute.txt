@@ -421,12 +421,6 @@ C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\n
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.pdb
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.genruntimeconfig.cache
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\ref\IMOSApi.dll
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfoInputs.cache
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfo.cs
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.csproj.CoreCompileInputs.cache
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\appsettings.Development.json
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\appsettings.json
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\IMOSApi.exe
@@ -555,6 +549,12 @@ C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\ne
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.AssemblyInfo.cs
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\staticwebassets\IMOSApi.StaticWebAssets.Manifest.cache
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\staticwebassets\IMOSApi.StaticWebAssets.xml
 C:\Users\User\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\scopedcss\bundle\IMOSApi.styles.css

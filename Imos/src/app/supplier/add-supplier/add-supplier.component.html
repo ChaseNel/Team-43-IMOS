@@ -1,13 +1,13 @@
 <div class="container">
     <mat-card>Add New Supplier </mat-card>
 
-    <form [formGroup]="form" (ngSubmit)="addSupplier">
+    <form [formGroup]="form" class="addSupplier">
     
             <mat-form-field appearance="standard">
                 <mat-label>Supplier type</mat-label>
                 <mat-select>
-                  <mat-option *ngFor="let type of Suppliertypes">
-                      {{type.suppliertypeId}}
+                  <mat-option *ngFor="let type of Suppliertypes" [value]="type.suppliertypeId">
+                      {{type.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -49,7 +49,7 @@
             <mat-error>ContactNumber is required</mat-error>
         </mat-form-field>
         <div >
-                <button mat-raised-button color="primary" type="submit" onclick="AddSupplier">Add </button>
+                <button mat-raised-button color="primary" type="submit">Add </button>
                 <button mat-raised-button color="warn">Cancel</button>
         </div>
     </form>

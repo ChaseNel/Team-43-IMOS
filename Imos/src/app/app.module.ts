@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
@@ -112,6 +113,7 @@ import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicl
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatSelectModule,
     CommonModule
   ],
   providers: [

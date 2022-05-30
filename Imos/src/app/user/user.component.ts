@@ -3,7 +3,8 @@ import { user, employee } from './../services/service.service';
 import { userrole } from 'src/app/services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { employee, ServiceService, user, userrole } from '../services/service.service';
+import { ServiceService } from '../services/service.service';
+
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -31,7 +32,7 @@ export interface User {
 export class UserComponent implements OnInit {
 
   // API Test
-  data: User[] = [];
+  //data: User[] = [];
   userRolematch!: boolean;
   itemToDelete!: User;
 

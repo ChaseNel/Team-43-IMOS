@@ -50,6 +50,8 @@ namespace IMOSApi.Models
         public virtual DbSet<Userincident> Userincidents { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
+        public virtual DbSet<VehicleCheckIn> VehicleCheckIns { get; set; }
+        public virtual DbSet<VehicleCheckOut> VehicleCheckOuts { get; set; }
         public virtual DbSet<Vehicletype> Vehicletypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Warehouseequipment> Warehouseequipments { get; set; }
@@ -288,6 +290,7 @@ namespace IMOSApi.Models
                 entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
 
                 entity.Property(e => e.Description)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DESCRIPTION");
@@ -295,15 +298,24 @@ namespace IMOSApi.Models
                 entity.Property(e => e.MaterialtypeId).HasColumnName("MATERIALTYPE_ID");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
+
+                entity.Property(e => e.SupplierId).HasColumnName("Supplier_Id");
 
                 entity.HasOne(d => d.Materialtype)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Materials)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_MATERIAL_SUPPLIER");
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -867,7 +879,6 @@ namespace IMOSApi.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Vehicles)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VEHICLE_ASSIGN_USER");
 
                 entity.HasOne(d => d.Vehicletype)
@@ -875,6 +886,44 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.VehicletypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VEHICLE_HAS__VEHICLET");
+            });
+
+            modelBuilder.Entity<VehicleCheckIn>(entity =>
+            {
+                entity.HasKey(e => e.CheckInId);
+
+                entity.ToTable("VehicleCheckIn");
+
+                entity.Property(e => e.CheckInId).HasColumnName("CheckIn_Id");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
+
+                entity.HasOne(d => d.Vehicle)
+                    .WithMany(p => p.VehicleCheckIns)
+                    .HasForeignKey(d => d.VehicleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_VehicleCheckIn_VEHICLE");
+            });
+
+            modelBuilder.Entity<VehicleCheckOut>(entity =>
+            {
+                entity.HasKey(e => e.CheckOutId);
+
+                entity.ToTable("VehicleCheckOut");
+
+                entity.Property(e => e.CheckOutId).HasColumnName("CheckOut_Id");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
+
+                entity.HasOne(d => d.Vehicle)
+                    .WithMany(p => p.VehicleCheckOuts)
+                    .HasForeignKey(d => d.VehicleId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_VehicleCheckOut_VEHICLE");
             });
 
             modelBuilder.Entity<Vehicletype>(entity =>

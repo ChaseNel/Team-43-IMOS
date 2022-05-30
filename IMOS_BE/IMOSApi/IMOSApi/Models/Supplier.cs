@@ -9,6 +9,7 @@ namespace IMOSApi.Models
     {
         public Supplier()
         {
+            Materials = new HashSet<Material>();
             Supplierorderlines = new HashSet<Supplierorderline>();
         }
 
@@ -20,6 +21,7 @@ namespace IMOSApi.Models
         public string Contactnumber { get; set; }
 
         public virtual Suppliertype Suppliertype { get; set; }
+        public virtual ICollection<Material> Materials { get; set; }
         public virtual ICollection<Supplierorderline> Supplierorderlines { get; set; }
     }
 }
