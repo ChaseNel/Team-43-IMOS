@@ -8,7 +8,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ArrayType } from '@angular/compiler';
 
-
 export interface User {
   userId: number,
   userRole: number,
@@ -18,16 +17,11 @@ export interface User {
   userPassword: string
 }
 
-
-
-
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
-
   // API Test
   
   userRolematch!: boolean;
@@ -56,15 +50,11 @@ export class UserComponent implements OnInit {
       console.log(this.data);
       this.posts = x;
 
-
-
       this.dataSource = new MatTableDataSource(this.posts)
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
-
-
   }
 
   applyFilter(event: Event) {
@@ -77,13 +67,12 @@ export class UserComponent implements OnInit {
   }
 
   UpdateUser() {
-    this.route.navigate(['/updateuser', ])
+    this.route.navigate(['/updateuser',])
   }
 
   addUser() {
     this.route.navigateByUrl('adduser')
   }
-
 
   deleteUser(id: number) {
     console.log(id);
