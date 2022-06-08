@@ -1,4 +1,6 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
   selector: 'app-add-supplier-type',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddSupplierTypeComponent implements OnInit {
 
-  constructor() { }
+  addForm:FormGroup;
+
+  constructor(
+    private fb:FormBuilder,
+    private _service:ServiceService
+  ) { }
 
   ngOnInit(): void {
+    this.buildAddForm();
+
+  }
+  private buildAddForm() {
+    this.addForm = this.fb.group({
+      Name: ['', [Validators.required]],
+    });
   }
 
 }

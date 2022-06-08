@@ -10,6 +10,11 @@ export class UpdateSupplierComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
+  }
+  
+  UpdateSupplier(){
+    
   }
 
 }

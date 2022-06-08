@@ -2,28 +2,28 @@
     <mat-card>Add New Supplier </mat-card>
 
     <form [formGroup]="form" class="addSupplier">
-    
+        <div>
             <mat-form-field appearance="standard">
-                <mat-label>Supplier type</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let type of Suppliertypes" [value]="type.suppliertypeId">
+                <mat-label> Supplier type</mat-label>
+                <mat-select formControlName="suppliertypeId">
+                  <mat-option *ngFor="let type of Suppliertypes" [value]="type.id">
                       {{type.name}}
                   </mat-option>
                 </mat-select>
-              </mat-form-field>
-        
+              </mat-form-field> 
+        </div>
         <div>
             <mat-form-field appearance="standard">
                 <mat-label>Name</mat-label>
-                <input matInput  placeholder="Type name" formControlName="name" #nameInput>
+                <input matInput  placeholder="Type name" #nameInput  formControlName="name">
                 <mat-error>Name is required</mat-error>
             </mat-form-field>
         </div>
         <div>
             <mat-form-field appearance="fill">
                 <mat-label>Address</mat-label>
-                <input matInput maxlength="15" placeholder="Type address" formControlName="name" #nameInput>
-                <mat-error>Name is required</mat-error>
+                <input matInput maxlength="15" placeholder="Type address" formControlName="Address" #nameInput>
+                <mat-error>Address is required</mat-error>
                 <mat-error **ngIf="(form.get('name')).errors?.minlength">
                     Please enter more than 10 character
                 </mat-error>
@@ -33,8 +33,7 @@
             <mat-form-field class="example-full-width" appearance="fill">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                       placeholder="Ex. pat@example.com">
-                <mat-hint>Errors appear instantly!</mat-hint>
+                       placeholder="Ex. pat@example.com" formControlName="Email">
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                   Please enter a valid email address
                 </mat-error>
@@ -45,12 +44,12 @@
         </div>
         <mat-form-field appearance="standard">
             <mat-label>Contact</mat-label>
-            <input matInput  placeholder="Type contact number" formControlName="name" #nameInput>
+            <input matInput  placeholder="Type contact number" formControlName="ContactNumber" #nameInput>
             <mat-error>ContactNumber is required</mat-error>
         </mat-form-field>
         <div >
-                <button mat-raised-button color="primary" type="submit">Add </button>
-                <button mat-raised-button color="warn">Cancel</button>
+                <button mat-raised-button color="primary" type="button" (click)="AddSupplier()">Add </button>
+                <button mat-raised-button color="warn" type="button" (click)="Cancel">Cancel</button>
         </div>
     </form>
 </div>

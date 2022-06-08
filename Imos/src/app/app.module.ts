@@ -54,6 +54,8 @@ import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.
 import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
 import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -114,7 +116,9 @@ import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicl
     MatSortModule,
     MatSnackBarModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     ServiceService

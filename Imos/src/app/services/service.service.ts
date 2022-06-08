@@ -78,7 +78,7 @@ export interface supplier {
 //Supplier Type Interface
 //User Role Interface
 export interface suppliertype {
-  suppliertypeId: number,
+  id: number,
   name: string,
   suppliers: []
 }
@@ -201,14 +201,16 @@ export class ServiceService {
   // add supplier
   addSupplier(val:any){
     return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val)
-
   }
-  //update supplier endpoint
 
+  //update supplier endpoint
+  updateSupplier(id:number){
+    return this.http.put(this.Root_URL + '/Supplier/',id)
+  }
 
   //Delete
   deleteSupplier(id: number) {
-    return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
+    return this.http.delete(this.Root_URL + '/Supplier/' + id);
   }
 
   //Supplier Type
@@ -216,6 +218,12 @@ export class ServiceService {
   getSupplierType(): Observable<suppliertype[]> {
     return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetAll')
   }
+
+  //add 
+
+  
+  //update
+
   //Delete
   deleteSupplierType(id: number) {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);

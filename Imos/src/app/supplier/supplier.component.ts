@@ -91,7 +91,6 @@ export class SupplierComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.getSupplierType().subscribe(x => { this.TypeList = x; console.log("type", this.TypeList) });
-
   }
 
 }

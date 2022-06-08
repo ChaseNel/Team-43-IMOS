@@ -1,1 +1,32 @@
-<p>add-vehicle works!</p>
+<mat-card>
+    <mat-card-header class="header">
+        <mat-card-title>
+            Add New Vehicle 
+        </mat-card-title>
+    </mat-card-header>
+</mat-card>
+
+<form [formGroup]="addForm" class="form-container">
+    <div class="row">
+        <mat-form-field appearance="standard">
+            <mat-label>Make</mat-label>
+            <input matInput  placeholder="Input Make name" #nameInput  formControlName="Make">
+            <mat-error>Make Name  is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="standard">
+            <mat-label>Model</mat-label>
+            <input matInput  placeholder="Type  Model name" #nameInput  formControlName="Model Name">
+            <mat-error>Model Name  is required</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Year</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          
+    </div>
+</form>
