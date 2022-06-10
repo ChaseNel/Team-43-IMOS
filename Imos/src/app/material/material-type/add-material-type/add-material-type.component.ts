@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -16,7 +17,7 @@ export class AddMaterialTypeComponent implements OnInit {
   public materialTypeFrm!: FormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: FormBuilder) { }
+  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
     this.materialTypeFrm = new FormGroup({
@@ -24,8 +25,6 @@ export class AddMaterialTypeComponent implements OnInit {
       Description: new FormControl('', [Validators.required])
     })
   }
-
-
 
   addMaterialT() {
     var val = { Name: this.Name, Description: this.Description }
@@ -39,6 +38,11 @@ export class AddMaterialTypeComponent implements OnInit {
   closeAlert() {
     this.alert = false;
   }
+
+  back(){
+    this.route.navigateByUrl("materialtype")
+  }
+  
   public hasError = (controlName: string, errorName: string) => {
     return this.materialTypeFrm.controls[controlName].hasError(errorName);
   }

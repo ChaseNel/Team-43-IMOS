@@ -1,7 +1,5 @@
 <app-header></app-header>
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/vehicleType">Back</button>
-
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success !</strong> Vehicle Type Added Successfully
     <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
@@ -23,6 +21,7 @@
                 <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
                 <mat-card-actions>
                     <button (click)="addVehicleT()" mat-raised-button color="primary">Add</button>
+                    <button class="btnBack" mat-raised-button color="warn" routerLink="/vehicleType">Back</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>

@@ -146,25 +146,19 @@ export class ServiceService {
   }
 
   //Update
-  editUserRole(id:any, val:any): Observable<any> {
+  editUserRole(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + '/UserRole/EditUserRole/' + id;
     return this.http.put(endPointUrl, val);
-
   }
-
   //Delete
   deleteUserRole(id: number) {
     return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
   }
-
   //Add
   addUserRole(val: any) {
     return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
-
   }
-
-
 
   //Employee
   //Get
@@ -176,7 +170,6 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
   }
 
-
   //Material
   //Get
   getMaterial(): Observable<material[]> {
@@ -186,37 +179,32 @@ export class ServiceService {
   deleteMaterial(id: number) {
     return this.http.delete(this.Root_URL + '/Material/DeleteMaterial/' + id);
   }
+  //Add
+  addMaterial(val: any) {
+    return this.http.post(this.Root_URL + '/Material/CreateMaterial', val)
+  }
 
   //Material Type
   //Get
   getMaterialType(): Observable<materialType[]> {
     return this.http.get<materialType[]>(this.Root_URL + '/Materialtype/GetMaterialtypes')
   }
-
-  
-
   //Add
   addMaterialType(val: any) {
     return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
-
   }
 
   //Update
-  editMaterialType(id:any, val:any): Observable<any> {
+  editMaterialType(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + '/Materialtype/UpdateMaterialtype/' + id;
     return this.http.put(endPointUrl, val);
 
   }
-
-
-
   //Delete
   deleteMaterialType(id: number) {
     return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
-
-
 
   //Supplier
   //Get
@@ -226,6 +214,10 @@ export class ServiceService {
   //Delete
   deleteSupplier(id: number) {
     return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
+  }
+  //Add
+  addSupplier(val: any) {
+    return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
   }
 
   //Supplier Type
@@ -237,18 +229,15 @@ export class ServiceService {
   deleteSupplierType(id: number) {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
   }
-
-
   //Add
   addSupplierType(val: any) {
     return this.http.post(this.Root_URL + '/Suppliertype/CreateSuppliertype', val)
-
   }
 
   //Update
-  editSupplierType(id:any, val:any): Observable<any> {
+  editSupplierType(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = this.Root_URL +  '/Suppliertype/UpdateSuppliertype/' + id;
+    const endPointUrl = this.Root_URL + '/Suppliertype/UpdateSuppliertype/' + id;
     return this.http.put(endPointUrl, val);
 
   }
@@ -279,7 +268,7 @@ export class ServiceService {
   }
 
   //Update
-  editVehicleType(id:any, val:any): Observable<any> {
+  editVehicleType(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + '/Vehicletype/UpdateVehicletype/' + id;
     return this.http.put(endPointUrl, val);

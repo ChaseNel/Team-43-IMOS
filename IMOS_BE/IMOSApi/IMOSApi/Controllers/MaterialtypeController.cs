@@ -39,8 +39,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                context.Materialtypes.Add(Materialtype);
-                context.SaveChanges();
+                _dbContext.Materialtypes.Add(Materialtype);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }

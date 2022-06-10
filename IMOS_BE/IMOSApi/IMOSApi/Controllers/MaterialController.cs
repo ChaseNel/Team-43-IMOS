@@ -32,7 +32,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Material> tmp = context.Materials.Where(emp => emp.MaterialId == id).ToList();
+                IEnumerable<Material> tmp = _dbContext.Materials.Where(emp => emp.MaterialId == id).ToList();
                 return tmp;
             }
         }
@@ -41,8 +41,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                context.Materials.Add(Material);
-                context.SaveChanges();
+                _dbContext.Materials.Add(Material);
+                _dbContext.SaveChanges();
                 return Ok();
             }
         }

@@ -53,6 +53,7 @@ import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.
 import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
 import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+import {MatSelectModule} from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicl
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
-    CommonModule
+    CommonModule,
+    MatSelectModule
   ],
   providers: [
     ServiceService

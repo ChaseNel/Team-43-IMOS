@@ -34,7 +34,6 @@ export class UpdateMaterialTypeComponent implements OnInit {
 
   }
 
-
   updateMaterialT(){
     var id = this.type.materialtypeId;
     var val = {Name : this.Name1, Description: this.Description1};

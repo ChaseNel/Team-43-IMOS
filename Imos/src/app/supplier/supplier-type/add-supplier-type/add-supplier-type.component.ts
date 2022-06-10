@@ -23,8 +23,6 @@ export class AddSupplierTypeComponent implements OnInit {
     })
   }
 
-
-
   addSupplierT() {
     var val = { name: this.Name}
     this.service.addSupplierType(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
