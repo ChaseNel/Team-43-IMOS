@@ -1,32 +1,72 @@
-<mat-card>
-    <mat-card-header class="header">
-        <mat-card-title>
-            Add New Vehicle 
-        </mat-card-title>
-    </mat-card-header>
-</mat-card>
+<div class="container">
+    <mat-card>
+        <mat-card-header class="header">
+            <mat-card-title>
+                Add New Vehicle 
+            </mat-card-title>
+        </mat-card-header>
+    </mat-card>
+    
+    <form [formGroup]="addForm" class="addVehicle">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> Vehicle type</mat-label>
+                <mat-select formControlName="vehicletypeId">
+                  <mat-option *ngFor="let type of Vehicletypes" [value]="type.id">
+                      {{type.description}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Make</mat-label>
+                <input matInput  placeholder="Input Make name" #nameInput  formControlName="make">
+                <mat-error>Make Name  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Model</mat-label>
+                <input matInput  placeholder="Type  Model name" #nameInput  formControlName="model">
+                <mat-error>Model Name  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Vehicle Color</mat-label>
+                <input matInput  placeholder="Type  Vehicle color" #nameInput  formControlName="color">
+                <mat-error>Vehicle color  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label> Vehicle Model Year Date</mat-label>
+                <input matInput formControlName="modelYear" [matDatepicker]="modelYearPicker" (click)="modelYearPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelYearPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelYearPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Date Purchased</mat-label>
+                <input matInput formControlName="datePurchased" [matDatepicker]="modelDatePurchasedPicker" (click)="modelDatePurchasedPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelDatePurchasedPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelDatePurchasedPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Last Serviced Date</mat-label>
+                <input matInput formControlName="lastServiced" [matDatepicker]="modelLastServicedPicker" (click)="modelLastServicedPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelLastServicedPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelLastServicedPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-raised-button color="primary" type="button" (click)="AddVehicle()">Add </button>&nbsp;
+            <button mat-raised-button color="warn" type="button" (click)="Cancel()">Cancel</button>
+        </div>
+    </form>
+</div>
 
-<form [formGroup]="addForm" class="form-container">
-    <div class="row">
-        <mat-form-field appearance="standard">
-            <mat-label>Make</mat-label>
-            <input matInput  placeholder="Input Make name" #nameInput  formControlName="Make">
-            <mat-error>Make Name  is required</mat-error>
-        </mat-form-field>
-
-        <mat-form-field appearance="standard">
-            <mat-label>Model</mat-label>
-            <input matInput  placeholder="Type  Model name" #nameInput  formControlName="Model Name">
-            <mat-error>Model Name  is required</mat-error>
-        </mat-form-field>
-        <mat-form-field appearance="fill">
-            <mat-label>Year</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-hint>MM/DD/YYYY</mat-hint>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-
-          
-    </div>
-</form>

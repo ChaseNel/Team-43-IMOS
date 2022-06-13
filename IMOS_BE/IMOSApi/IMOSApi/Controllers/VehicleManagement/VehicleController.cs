@@ -29,14 +29,13 @@ namespace IMOSApi.Controllers.VehicleManagement
                 .Include(item => item.Vehicletype)
                 .Select(item => new GetVehicleDto()
                 {
-                    Id = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
                     Year = item.Year,
                     Color = item.Color,
+                    VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
                     DatePurchased = item.DatePurchased,
                     LastServiced = item.LastServiced,
-
                     Vehicletype = item.Vehicletype.Description,
                     VehicletypeId = item.VehicletypeId
                 }).First();
@@ -46,7 +45,8 @@ namespace IMOSApi.Controllers.VehicleManagement
             }
             return recordInDb;
         }
-        [HttpGet("GetVehicles")]
+
+        [HttpGet("GetAllVehicles")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetAll()
         {
             var recordsInDb = _context.Vehicles
@@ -58,6 +58,7 @@ namespace IMOSApi.Controllers.VehicleManagement
                     Model = item.Model,
                     Year = item.Year,
                     Color = item.Color,
+                    VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
                     DatePurchased = item.DatePurchased,
                     LastServiced = item.LastServiced,
 
@@ -67,6 +68,7 @@ namespace IMOSApi.Controllers.VehicleManagement
                 }).OrderBy(item => item.Model).ToList();
             return recordsInDb;
         }
+
         [HttpPost("AddVehicle")]
         public IActionResult Add(AddOrUpdateVehicleDto model)
         {
@@ -87,11 +89,10 @@ namespace IMOSApi.Controllers.VehicleManagement
                     Model=model.Model,
                     Year=model.Year,
                     Color=model.Color,
-                    VehicleStatus=model.VehicleStatus,
+                    VehicleStatus=false,// ? "Assigned" : "Not Assigned",
                     DatePurchased =model.DatePurchased,
                     LastServiced=model.LastServiced,
                     VehicletypeId=model.VehicletypeId
-
                 };
                 _context.Vehicles.Add(newRecord);
                 _context.SaveChanges();
@@ -112,9 +113,11 @@ namespace IMOSApi.Controllers.VehicleManagement
                 {
                     return NotFound();
                 }
+
                 recordInDb.Model = model.Model;
                 recordInDb.Make = model.Make;
                 recordInDb.Year = model.Year;
+                recordInDb.VehicleStatus = false;
                 recordInDb.DatePurchased = model.DatePurchased;
                 recordInDb.LastServiced = model.LastServiced;
                 recordInDb.VehicletypeId = model.VehicletypeId;
@@ -125,6 +128,33 @@ namespace IMOSApi.Controllers.VehicleManagement
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
 
+        }
+
+        [HttpPost("AssignForemanToVehicle")]
+        public IActionResult AssignForemantoVehicle(AssignForemanToVehicle model )//pass parameter User of type Userrole  Foreman //only Foreman allowed Vehicle access
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var vehicleInDb = _context.Vehicles.FirstOrDefault(item => item.UserId == model.UserId);
+                if (vehicleInDb == null)
+                {
+                    message = "Vehicle not found";
+                    return BadRequest(new { message });
+                }
+                var newRcord = new Vehicle()
+                {
+                    UserId = vehicleInDb.UserId
+                };
+                // Add Code to select Foreman 
+
+                _context.Vehicles.Add(newRcord);
+                _context.SaveChanges();
+                vehicleInDb.VehicleStatus = true;
+                _context.SaveChanges();
+            }
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
         }
 
         [HttpDelete("{id}")]

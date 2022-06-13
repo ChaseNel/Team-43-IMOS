@@ -10,10 +10,13 @@ namespace IMOSApi.Dtos.Vehicle
     {
         [Required]
         public int VehicletypeId { get; set; }
+
         [Required]
         public string Make { get; set; }
+
         [Required]
         public string Model { get; set; }
+
         [Required]
         public DateTime Year { get; set; }
         [Required]
@@ -22,10 +25,6 @@ namespace IMOSApi.Dtos.Vehicle
         public DateTime DatePurchased { get; set; }
         [Required]
         public DateTime LastServiced { get; set; }
-        public bool VehicleStatus { get; set; }
-
-
-        // ? "Occupied" : "Not Occupied",
-
+    
     }
 }

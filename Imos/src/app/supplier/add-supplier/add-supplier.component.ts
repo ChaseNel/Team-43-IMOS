@@ -37,7 +37,6 @@ export class AddSupplierComponent implements OnInit {
   form:FormGroup;
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   
-
   matcher = new MyErrorStateMatcher();
   Suppliertypes: suppliertype[] = [];
 
@@ -58,7 +57,7 @@ export class AddSupplierComponent implements OnInit {
     });
     this._service.getSupplierType().subscribe(data =>{
       this.Suppliertypes = data;
-      console.log(data);
+      //console.log(data);
     });
   }
 
@@ -67,7 +66,8 @@ export class AddSupplierComponent implements OnInit {
       console.log(this.form.value);
        this._service.addSupplier(this.form.value)
        .subscribe(res=>{
-       console.log(res);
+       //console.log(res);
+       // add validation and "are you sure to add supplier notification"
        })
     }
   }

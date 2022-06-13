@@ -85,18 +85,24 @@ export interface suppliertype {
 
 //Vehicle Interface
 export interface vehicle {
-  vehivelID: number,
-  userID: number,
-  vehicleTypeID: number,
-  user: string,
-  vehcileType: string
+  vehicleId: number,
+  vehicletypeId: number,
+  make: string,
+  model: string,
+  year: string,
+  color: string,
+  status: string,
+  DatePurchased: string,
+  LastServiced: string,
+  vehicletype: string,
 }
+
 
 //Vehicle Type Interface
 export interface vehicletype {
-  vehicleTypeID: number,
+  id: number,
   description: string,
-  vehicle: []
+  vehicles: []
 }
 
 
@@ -232,7 +238,7 @@ export class ServiceService {
   //Vehicle
   //Get
   getVehicle(): Observable<vehicle[]> {
-    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetVehicles')
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetAllVehicles')
   }
   //Delete
   deleteVehicle(id: number) {
@@ -245,8 +251,17 @@ export class ServiceService {
   getVehicleType(): Observable<vehicletype[]> {
     return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetAll')
   }
+  // add vehicle
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteVehicleType/' + id);
   }
+  //Vehicle End Points 
+  // add 
+  addVehicle(val:any){
+    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
+  }
+  // Get All
+  //Update 
+  //Delete
 }
