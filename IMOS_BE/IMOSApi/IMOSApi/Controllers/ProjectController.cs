@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class ProjectController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public ProjectController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetProjects")]
         public IEnumerable<Project> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Projects.ToList();
+                return _dbContext.Projects.ToList();
             }
         }
         [HttpGet("GetProject/{id}")]
@@ -55,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Projects.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                context.Projects.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Projects.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Projects.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

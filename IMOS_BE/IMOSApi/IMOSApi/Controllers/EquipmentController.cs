@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class EquipmentController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public EquipmentController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetEquipments")]
         public IEnumerable<Equipment> Retrieve()
         {
             using ( var context = new IMOSContext())
             {
-                return context.Equipment.ToList();
+                return _dbContext.Equipment.ToList();
             }
         }
         [HttpGet("GetEquipment/{id}")]

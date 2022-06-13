@@ -50,6 +50,23 @@ import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.
 import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
 import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+import { IncidentComponent } from './incident/incident.component';
+import { EquipmentComponent } from './equipment/equipment.component';
+import { ProjectComponent } from './project/project.component';
+import { ClientComponent } from './client/client.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { MaterialRequestComponent } from './material/material-request/material-request.component';
+import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
+import { AddEquipmentComponent } from './equipment/add-equipment/add-equipment.component';
+import { UpdateEquipmentComponent } from './equipment/update-equipment/update-equipment.component';
+import { UpdateWarehouseComponent } from './warehouse/update-warehouse/update-warehouse.component';
+import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
+import { AddClientComponent } from './client/add-client/add-client.component';
+import { UpdateClientComponent } from './client/update-client/update-client.component';
+import { UpdateProjectComponent } from './project/update-project/update-project.component';
+import { AddProjectComponent } from './project/add-project/add-project.component';
+import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
+import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 
 @NgModule({
   declarations: [
@@ -87,6 +104,23 @@ import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicl
     VehicleTypeComponent,
     AddVehicleTypeComponent,
     UpdateVehicleTypeComponent,
+    IncidentComponent,
+    EquipmentComponent,
+    ProjectComponent,
+    ClientComponent,
+    WarehouseComponent,
+    MaterialRequestComponent,
+    SupplierOrderComponent,
+    AddEquipmentComponent,
+    UpdateEquipmentComponent,
+    UpdateWarehouseComponent,
+    AddWarehouseComponent,
+    AddClientComponent,
+    UpdateClientComponent,
+    UpdateProjectComponent,
+    AddProjectComponent,
+    AddIncidentComponent,
+    UpdateIncidentComponent,
   ],
   imports: [
     BrowserModule,

@@ -52,6 +52,17 @@ export interface materialType {
   materials: []
 }
 
+//Material Request Interface/incomoplete
+export interface materialRequest {
+  projectmaterialrequestId: number,
+  projectId: number,
+  urgencylevelId: number,
+  fulfillmenttype: string, 
+  project: string,
+  urgencylevel: string,
+  projectmaterialrequestlists: []
+}
+
 //User Role Interface
 export interface userrole {
   userRole: number,
@@ -71,11 +82,21 @@ export interface supplier {
 }
 
 //Supplier Type Interface
-//User Role Interface
 export interface suppliertype {
   suppliertypeId: number,
   name: string,
   suppliers: []
+}
+
+//Supplier Order Interface
+export interface supplierOrder {
+  SupplierID: number,
+  MaterialID: number,
+  quanitity: number,
+  address: string,
+  material:string,
+  supplier:string,
+  deliveries:[]
 }
 
 //Vehicle Interface
@@ -94,6 +115,55 @@ export interface vehicletype {
   vehicle: []
 }
 
+//Incident Interface
+export interface incident {
+  incidentID: number,
+  description: string,
+  userIncidents: []
+}
+
+//Project Interface
+export interface project {
+  projectId: number,
+  constructionsiteId: number,
+  initialrequestId: number,
+  safetyfilecreated: boolean,
+  constructionsite: string,
+  initialrequest: string,
+  deliveries: [],
+  invoices: [],
+  projectemployees: [],
+  projectequipments: [],
+  projectmaterialrequests: [],
+  projectmaterials : [],
+  safetyfilechecklists: []
+}
+
+//Client Interface
+export interface client {
+  clientId: number,
+  contactnumber: number,
+  clientname: string,
+  requests: []
+}
+
+//Warehouse Interface
+export interface warehouse {
+  warehouseId: number,
+  name: string,
+  location: string,
+  warehouseequipments: [],
+  warehousematerials: []
+}
+
+//Equipment Interface
+export interface equipment {
+  equipmentId: number,
+  name: string,
+  description: string,
+  projectequipments: [],
+  warehouseequipments: []
+}
 
 @Injectable({
   providedIn: 'root'
@@ -165,6 +235,16 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
 
+  //Material Request
+  //Get
+  getMaterialRequets(): Observable<materialRequest[]> {
+    return this.http.get<materialRequest[]>(this.Root_URL + '/Projectmaterialrequest/GetProjectmaterialrequests')
+  }
+  //Delete
+  deleteMaterialRequest(id: number) {
+    return this.http.delete(this.Root_URL + '/Projectmaterialrequest/DeleteProjectmaterialrequest/' + id);
+  }
+
   //Supplier
   //Get
   getSupplier(): Observable<supplier[]> {
@@ -194,6 +274,16 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
   }
 
+  //Supplier Order
+  //Get
+  getSupplierOrder(): Observable<supplierOrder[]> {
+    return this.http.get<supplierOrder[]>(this.Root_URL + '/Supplierorderlines/GetSupplierorderlines')
+  }
+  //Delete
+  deleteSupplierOrder(id: number) {
+    return this.http.delete(this.Root_URL + '/Supplierorderlines/DeleteSupplierorderline/' + id);
+  }
+
   //Vehicle
   //Get
   getVehicle(): Observable<vehicle[]> {
@@ -213,6 +303,56 @@ export class ServiceService {
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteVehicleType/' + id);
+  }
+
+  //Incident
+  //Get
+  getInicdent(): Observable<incident[]> {
+    return this.http.get<incident[]>(this.Root_URL + '/Incident/GetIncidents')
+  }
+  //Delete
+  deleteIncident(id: number) {
+    return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
+  }
+
+  //Projects
+  //Get
+  getProject(): Observable<project[]> {
+    return this.http.get<project[]>(this.Root_URL + '/Project/GetProjects')
+  }
+  //Delete
+  deleteProject(id: number) {
+    return this.http.delete(this.Root_URL + '/Project/DeleteProject/' + id);
+  }
+
+  //Clients
+  //Get
+  getClients(): Observable<client[]> {
+    return this.http.get<client[]>(this.Root_URL + '/Client/GetClients')
+  }
+  //Delete
+  deleteClient(id: number) {
+    return this.http.delete(this.Root_URL + '/Client/DeleteClient/' + id);
+  }
+
+  //Warehouse
+  //Get
+  getWarehouses(): Observable<warehouse[]> {
+    return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetWarehouses')
+  }
+  //Delete
+  deleteWarehouse(id: number) {
+    return this.http.delete(this.Root_URL + '/Warehouse/DeleteWarehouse/' + id);
+  }
+
+  //Equipment
+  //Get
+  getEquipment(): Observable<equipment[]> {
+    return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
+  }
+  //Delete
+  deleteEquipment(id: number) {
+    return this.http.delete(this.Root_URL + '/Equipment/DeleteEquipment/' + id);
   }
 }
 
