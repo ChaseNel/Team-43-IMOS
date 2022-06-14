@@ -7,6 +7,8 @@
 
 <!-- Material Type -->
 <button (click)="supplierType()" mat-flat-button color="primary" class="URbtn">Supplier Type</button>
+<button (click)="supplierOrder()" mat-flat-button color="primary" class="URbtn">Supplier Order</button>
+
 <br>
 
 <!-- Search Field -->
@@ -62,7 +64,7 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="UpdateSupplier()" mat-flat-button color="accent">Edit</button>
+            <button (click)="UpdateSupplier(element.supplierId)" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteSupplier(element.supplierId)">Delete</button>
         </td>

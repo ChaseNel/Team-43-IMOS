@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class ProjectmaterialrequestController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public ProjectmaterialrequestController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetProjectmaterialrequests")]
         public IEnumerable<Projectmaterialrequest> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Projectmaterialrequests.ToList();
+                return _dbContext.Projectmaterialrequests.ToList();
             }
         }
         [HttpGet("GetProjectmaterialrequest/{id}")]

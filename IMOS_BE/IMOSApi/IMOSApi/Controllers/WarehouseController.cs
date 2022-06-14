@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class WarehouseController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public WarehouseController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetWarehouses")]
         public IEnumerable<Warehouse> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Warehouses.ToList();
+                return _dbContext.Warehouses.ToList();
             }
         }
         [HttpGet("GetWarehouse/{id}")]
@@ -55,9 +60,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Warehouses.Where(clie => clie.WarehouseId == id).ToList().FirstOrDefault(); ;
-                context.Warehouses.Remove(clie);
-                context.SaveChanges();
+                var clie = _dbContext.Warehouses.Where(clie => clie.WarehouseId == id).ToList().FirstOrDefault(); ;
+                _dbContext.Warehouses.Remove(clie);
+                _dbContext.SaveChanges();
             }
         }
     }

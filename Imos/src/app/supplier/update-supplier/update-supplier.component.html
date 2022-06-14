@@ -1,1 +1,69 @@
-<p>update-supplier works!</p>
+<app-header></app-header>
+
+<div class="content">
+    <h3>Edit Supplier</h3>
+
+    <form [formGroup]="SupplierForm" class="form-container" (ngSubmit)="onSubmit()">
+
+        <!-- Type -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Supplier Type</mat-label>
+            <input type="text" matInput formControlName="suppliertypeId" placeholder="Ex. Meta">
+            <mat-error *ngIf="SupplierForm.hasError('required')">
+                Type is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <!-- Name -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Supplier Name</mat-label>
+            <input type="text" matInput formControlName="name" placeholder="Ex. Goods.Co">
+            <mat-error *ngIf="SupplierForm.hasError('required')">
+                Name is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <!-- Address -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Supplier Address</mat-label>
+            <input type="text" matInput formControlName="address" placeholder="Ex. 562 Harrop Aling">
+            <mat-error *ngIf="SupplierForm.hasError('required')">
+                Address is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <!-- Email -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Supplier Email</mat-label>
+            <input type="email" matInput formControlName="email" placeholder="Ex. pat@example.com">
+            <mat-error *ngIf="SupplierForm.hasError('email') && !SupplierForm.hasError('required')">
+                Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="SupplierForm.hasError('required')">
+                Email is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <!-- Number -->
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Supplier Number</mat-label>
+            <input type="number" matInput formControlName="contactnumber" placeholder="Ex. 0825698990">
+            <mat-error *ngIf="SupplierForm.hasError('required')">
+                Number is <strong>required</strong>
+            </mat-error>
+        </mat-form-field>
+        <br>
+
+        <!-- Actions -->
+        <button mat-raised-button color="primary">Update</button>
+        &nbsp;
+        <button mat-raised-button color="warn">Cancel</button>
+
+    </form>
+
+
+</div>

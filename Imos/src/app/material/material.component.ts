@@ -90,6 +90,10 @@ export class MaterialComponent implements OnInit {
   materialType() {
     this.route.navigateByUrl('materialtype')
   }
+  
+  materialRequest(){
+    this.route.navigateByUrl('materialRequest')
+  }
 
   ngOnInit(): void {
     this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });

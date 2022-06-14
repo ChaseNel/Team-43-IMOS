@@ -26,6 +26,26 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/supplier");
   }
 
+  incident() {
+    this.route.navigateByUrl('/incident')
+  }
+
+  clients() {
+    this.route.navigateByUrl('/client')
+  }
+
+  warehouses() {
+    this.route.navigateByUrl('/warehouse')
+  }
+
+  equipment() {
+    this.route.navigateByUrl('/equipment')
+  }
+
+  projects() {
+    this.route.navigateByUrl('/project')
+  }
+
   vehicle() {
     this.route.navigateByUrl('/vehicle')
   }

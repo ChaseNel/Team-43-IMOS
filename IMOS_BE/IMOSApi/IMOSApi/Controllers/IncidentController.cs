@@ -12,12 +12,17 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class IncidentController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public IncidentController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
         [HttpGet("GetIncidents")]
         public IEnumerable<Incident> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Incidents.ToList();
+                return _dbContext.Incidents.ToList();
             }
         }
         [HttpGet("GetIncident/{id}")]
