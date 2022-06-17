@@ -298,6 +298,7 @@ export class ServiceService {
   //Add
   addSupplier(val: any) {
     return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
+    }
   //GetBy ID
   SupplierID(id: number)
   {

@@ -56,7 +56,7 @@ export class UpdateSupplierComponent implements OnInit {
     this.service.UpdateSuplier(this.activate.snapshot.params['id'], this.SupplierForm.value).subscribe(
       res => {
         console.log(res + "success");
-        
+
       }
     )
   }

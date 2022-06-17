@@ -71,6 +71,15 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
+import { TaskTypeComponent } from './task/task-type/task-type.component';
+import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
+import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
+import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
+import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 
 @NgModule({
   declarations: [
@@ -127,6 +136,15 @@ import { UpdateIncidentComponent } from './incident/update-incident/update-incid
     AddProjectComponent,
     AddIncidentComponent,
     UpdateIncidentComponent,
+    TaskComponent,
+    AddTaskComponent,
+    UpdateTaskComponent,
+    TaskTypeComponent,
+    AddTaskTypeComponent,
+    UpdateTaskTypeComponent,
+    ProjectStaffComponent,
+    AddProjectStaffComponent,
+    UpdateProjectStaffComponent,
   ],
   imports: [
     BrowserModule,
