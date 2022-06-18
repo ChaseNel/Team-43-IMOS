@@ -20,7 +20,7 @@ namespace IMOSApi.Controllers.SupplierManagement
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetSupplierById/{id}")]
         public ActionResult<GetSupplierDto> GetRecord(int id)
         {
             var recordInDb = _context.Suppliers
@@ -93,7 +93,7 @@ namespace IMOSApi.Controllers.SupplierManagement
             return BadRequest(new { message });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateSupplier/{id}")]
         public IActionResult Update(AddOrUpdateSupplierDto model, int id)
         {
             if (ModelState.IsValid)

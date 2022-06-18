@@ -200,18 +200,24 @@ export class ServiceService {
   }
 
   //Supplier
-  //Get
+getSupplierById(id:number){
+  return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
+
+}
+
+  //Get All
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
   // add supplier
   addSupplier(val:any){
-    return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val)
+    return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val);
   }
 
   //update supplier endpoint
-  updateSupplier(id:number){
-    return this.http.put(this.Root_URL + '/Supplier/',id)
+  updateSupplier(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/'+id,data);
+    
   }
 
   //Delete

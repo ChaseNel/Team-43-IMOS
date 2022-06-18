@@ -56,6 +56,7 @@ import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @NgModule({
   declarations: [

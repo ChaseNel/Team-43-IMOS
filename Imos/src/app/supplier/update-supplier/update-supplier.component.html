@@ -6,7 +6,7 @@
     </mat-card-header>
 </mat-card>
  
-<form [formGroup]="updateForm" class="form">
+<form [formGroup]="updateForm" class="form" (ngSubmit)="onSubmit()">
     <mat-card-content class="content">
         <div>
             <mat-form-field appearance="outline">
@@ -15,7 +15,11 @@
                     <mat-option *ngFor="let type of Suppliertypes" [value]="type.id">
                         {{type.name}}
                     </mat-option>
+
                 </mat-select>
+                <mat-error *ngIf="updateForm.hasError('required')">
+                    Type is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </div>
         <div>
@@ -36,7 +40,7 @@
             <mat-form-field class="example-full-width" appearance="standard">
                 <mat-label>Email</mat-label>
                 <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
-                       placeholder="Ex. pat@example.com" formControlName="Email">
+                       placeholder="Ex. pat@example.com" formControlName="email" #nameInput>
                 <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
                   Please enter a valid email address
                 </mat-error>
@@ -51,7 +55,7 @@
         <mat-error>ContactNumber is required</mat-error>
     </mat-form-field>
     <mat-card-actions>
-        <button (click)="updateSupplier()" mat-raised-button color="primary">Update</button>
+        <button   mat-raised-button color="primary">Update</button>
         <button (click)="Cancel()" mat-raised-button color="warn">Cancel</button>
     </mat-card-actions>
 </mat-card-content>

@@ -136,6 +136,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             var message = "";
             if (ModelState.IsValid)
             {
+                //
                 var vehicleInDb = _context.Vehicles.FirstOrDefault(item => item.UserId == model.UserId);
                 if (vehicleInDb == null)
                 {

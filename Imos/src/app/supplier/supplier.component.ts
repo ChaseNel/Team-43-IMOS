@@ -64,8 +64,10 @@ export class SupplierComponent implements OnInit {
     }
   }
 
-  UpdateSupplier() {
-    this.route.navigateByUrl('/UpdateSupplier')
+  UpdateSupplier(id:number) {
+    console.log("Test " +id)
+    this.route.navigate(['UpdateSupplier',id])
+    
   }
 
   addSupplier() {
