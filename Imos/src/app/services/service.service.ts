@@ -328,9 +328,9 @@ getSupplierById(id:number){
     return this.http.delete(this.Root_URL + '/Supplier/' + id);
   }
   //Add
-  addSupplier(val: any) {
-    return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
-    }
+  // addSupplier(val: any) {
+  //   return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
+  //   }
   //GetBy ID
   SupplierID(id: number)
   {

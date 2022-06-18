@@ -54,7 +54,7 @@ import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.
 import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
 import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
-import {MatSelectModule} from '@angular/material/select';
+
 import { IncidentComponent } from './incident/incident.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { ProjectComponent } from './project/project.component';
@@ -170,8 +170,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
     MatSortModule,
     MatSnackBarModule,
     CommonModule,
-    MatSelectModule
     MatSelectModule,
+  
     CommonModule,
     MatDatepickerModule,
     MatNativeDateModule
