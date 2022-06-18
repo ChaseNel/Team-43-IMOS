@@ -64,8 +64,10 @@ export class SupplierComponent implements OnInit {
     }
   }
 
-  UpdateSupplier(id: number) {
-    this.route.navigateByUrl('/UpdateSupplier/' + id)
+  UpdateSupplier(id:number) {
+    //console.log("Test " +id)
+    this.route.navigate(['UpdateSupplier',id])
+    
   }
 
   addSupplier() {
@@ -89,12 +91,8 @@ export class SupplierComponent implements OnInit {
     this.route.navigateByUrl('/suppliertype')
   }
 
-  supplierOrder(){
-    this.route.navigateByUrl('/supplierOrder')
-  }
   ngOnInit(): void {
     this.service.getSupplierType().subscribe(x => { this.TypeList = x; console.log("type", this.TypeList) });
-
   }
 
 }

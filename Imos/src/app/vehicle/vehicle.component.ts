@@ -6,13 +6,6 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-export interface Vehicle {
-  vehivelID: number,
-  userID: number,
-  vehicleTypeID: number,
-  user: string,
-  vehcileType: string
-}
 
 @Component({
   selector: 'app-vehicle',
@@ -24,7 +17,7 @@ export class VehicleComponent implements OnInit {
   // API Test
   data: vehicle[] = [];
 
-  displayedColumns: string[] = ['id', 'vehicleType', 'user', 'actions'];
+  displayedColumns: string[] = ['id', 'vehicleType',  'make','model','color','status','Year','DatePurchased','LastServiced','actions'];
 
   dataSource!: MatTableDataSource<vehicle>;
 
@@ -33,7 +26,7 @@ export class VehicleComponent implements OnInit {
 
   posts: any;
   Tyoelist: vehicletype[] = [];
-  userlist: user[] = [];
+ // userlist: user[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllVehicles();
@@ -64,6 +57,9 @@ export class VehicleComponent implements OnInit {
   UpdateVehicle() {
     this.route.navigateByUrl('/updateVehicle')
   }
+  assignVehicle() {
+    this.route.navigateByUrl('/assignVehicle')
+  }
 
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
@@ -83,12 +79,12 @@ export class VehicleComponent implements OnInit {
   }
 
   VehicleType() {
-    this.route.navigateByUrl('vehicleType')
+    this.route.navigateByUrl('/vehicleType')
   }
 
   ngOnInit(): void {
     this.service.getVehicleType().subscribe(x => { this.Tyoelist = x; console.log("type", this.Tyoelist) });
-    this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
+    //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
 
   }
 

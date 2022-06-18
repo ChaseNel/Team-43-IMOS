@@ -19,7 +19,6 @@ export interface employee {
   users: null
 }
 
-//User Interface
 export interface user {
   userId: number,
   userRole: number,
@@ -89,7 +88,7 @@ export interface supplier {
 
 //Supplier Type Interface
 export interface suppliertype {
-  suppliertypeId: number,
+  id: number,
   name: string,
   suppliers: []
 }
@@ -107,18 +106,24 @@ export interface supplierOrder {
 
 //Vehicle Interface
 export interface vehicle {
-  vehivelID: number,
-  userID: number,
-  vehicleTypeID: number,
-  user: string,
-  vehcileType: string
+  vehicleId: number,
+  vehicletypeId: number,
+  make: string,
+  model: string,
+  year: string,
+  color: string,
+  status: string,
+  DatePurchased: string,
+  LastServiced: string,
+  vehicletype: string,
 }
+
 
 //Vehicle Type Interface
 export interface vehicletype {
-  vehicleTypeID: number,
+  id: number,
   description: string,
-  vehicle: []
+  vehicles: []
 }
 
 //Incident Interface
@@ -221,6 +226,8 @@ export class ServiceService {
     const endPointUrl = this.Root_URL + '/UserRole/EditUserRole/' + id;
     return this.http.put(endPointUrl, val);
   }
+  //Update user role endpoint 
+
   //Delete
   deleteUserRole(id: number) {
     return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
@@ -231,10 +238,18 @@ export class ServiceService {
   }
 
   //Employee
+
   //Get
   getEmployees(): Observable<employee[]> {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
+  //add 
+  addEmployee(val: any){
+
+    return this.http.post(this.Root_URL + 'Employee/AddEmployee',val)
+  }
+  // update employee 
+
   //Delete
   deleteEmployee(id: number) {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
@@ -270,6 +285,7 @@ export class ServiceService {
     const endPointUrl = this.Root_URL + '/Materialtype/UpdateMaterialtype/' + id;
     return this.http.put(endPointUrl, val);
 
+    return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetAll')
   }
   //Delete
   deleteMaterialType(id: number) {
@@ -287,13 +303,29 @@ export class ServiceService {
   }
 
   //Supplier
-  //Get
+getSupplierById(id:number){
+  return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
+
+}
+
+  //Get All
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
+  // add supplier
+  addSupplier(val:any){
+    return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val);
+  }
+
+  //update supplier endpoint
+  updateSupplier(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/'+id,data);
+    
+  }
+
   //Delete
   deleteSupplier(id: number) {
-    return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
+    return this.http.delete(this.Root_URL + '/Supplier/' + id);
   }
   //Add
   addSupplier(val: any) {
@@ -312,8 +344,14 @@ export class ServiceService {
   //Supplier Type
   //Get
   getSupplierType(): Observable<suppliertype[]> {
-    return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetSuppliertype')
+    return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetAll')
   }
+
+  //add 
+
+  
+  //update
+
   //Delete
   deleteSupplierType(id: number) {
     return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
@@ -345,7 +383,7 @@ export class ServiceService {
   //Vehicle
   //Get
   getVehicle(): Observable<vehicle[]> {
-    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetVehicles')
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetAllVehicles')
   }
   //Delete
   deleteVehicle(id: number) {
@@ -373,9 +411,8 @@ export class ServiceService {
     return this.http.put(endPointUrl, val);
 
   }
-
-
-
+  
+  // add vehicle
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
@@ -430,4 +467,12 @@ export class ServiceService {
   deleteEquipment(id: number) {
     return this.http.delete(this.Root_URL + '/Equipment/DeleteEquipment/' + id);
   }
+  //Vehicle End Points 
+  // add 
+  addVehicle(val:any){
+    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
+  }
+  // Get All
+  //Update 
+  //Delete
 }

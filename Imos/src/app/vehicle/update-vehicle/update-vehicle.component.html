@@ -1,1 +1,70 @@
-<p>update-vehicle works!</p>
+<mat-card class="updatecard">
+    <mat-card-header class="header">
+        <mat-card-title>
+            Update Vehicle 
+        </mat-card-title>
+    </mat-card-header>
+</mat-card>
+<form [formGroup]="updateForm" class="form">
+    <mat-card-content>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label> Vehicle type</mat-label>
+                <mat-select formControlName="vehicletypeId">
+                    <mat-option *ngFor="let type of Vehicletypes" [value]="type.id">
+                        {{type.description}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Make</mat-label>
+                <input matInput  placeholder="Input Make name" #nameInput  formControlName="make">
+                <mat-error>Make Name  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Model</mat-label>
+                <input matInput  placeholder="Type  Model name" #nameInput  formControlName="model">
+                <mat-error>Model Name  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Vehicle Color</mat-label>
+                <input matInput  placeholder="Type  Vehicle color" #nameInput  formControlName="color">
+                <mat-error>Vehicle color  is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label> Vehicle Model Year Date</mat-label>
+                <input matInput formControlName="modelYear" [matDatepicker]="modelYearPicker" (click)="modelYearPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelYearPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelYearPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>Date Purchased</mat-label>
+                <input matInput formControlName="datePurchased" [matDatepicker]="modelDatePurchasedPicker" (click)="modelDatePurchasedPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelDatePurchasedPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelDatePurchasedPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+        </div>
+            <mat-form-field appearance="outline">
+                <mat-label>Last Serviced Date</mat-label>
+                <input matInput formControlName="lastServiced" [matDatepicker]="modelLastServicedPicker" (click)="modelLastServicedPicker.open()">
+                <mat-datepicker-toggle  matSuffix [for]="modelLastServicedPicker"></mat-datepicker-toggle>
+                <mat-datepicker #modelLastServicedPicker color="warn"></mat-datepicker>
+            </mat-form-field>
+            <mat-card-actions>
+                <button (click)="updateVehicle()" mat-raised-button color="primary">Update</button>
+                <button (click)="Cancel()" mat-raised-button color="warn">Cancel</button>
+            </mat-card-actions>
+
+    </mat-card-content>
+
+</form>

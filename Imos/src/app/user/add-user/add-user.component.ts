@@ -1,5 +1,5 @@
 import { user, employee } from './../../services/service.service';
-import { Employee } from './../../employee/employee.component';
+//import { Employee } from './../../employee/employee.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';

@@ -59,3 +59,19 @@ h3 {
   .example-full-width {
     width: 25%;
   }
+.updatecard{
+    text-align: center;
+}
+.header title{
+    justify-content: center;
+    text-align: center;
+
+}
+.content{
+    justify-content: center;
+}
+
+.form{
+    text-align: center;
+
+}

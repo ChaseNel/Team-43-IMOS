@@ -1,18 +1,20 @@
+import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { employee, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
-import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
+
 export interface Employee {
+  employeeId: number;
   name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+  email: string;
+  contactnumber: string;
 }
+
 
 @Component({
   selector: 'app-employee',
@@ -24,25 +26,24 @@ export class EmployeeComponent implements OnInit {
   // API Test
   data: employee[] = [];
 
-  displayedColumns: string[] = ['id', 'document', 'name', 'email', 'number', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
 
   dataSource!: MatTableDataSource<Employee>;
-
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
-
   posts: any;
 
-  constructor(
-    private route: Router,
-    private service: ServiceService,
-    private _snackBar: MatSnackBar,
-    public dialog: MatDialog) {
+  constructor(private route: Router, private service: ServiceService,
+    private _snackBar:MatSnackBar,
+    public dialog: MatDialog
+    ) {
 
-    this.GetAllEmployees()
-  }
-
-  GetAllEmployees() {
+    this.service.getEmployees().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+    })
+   }
+   GetAllEmployees() {
     this.service.getEmployees().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -54,15 +55,16 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
+   
 
   UpdateEmployee() {
     this.route.navigateByUrl("UpdateEmployee")
   }
 
-  addEmployee() {
-    this.route.navigateByUrl('/AddEmployee')
+  addEmployee(){
+    this.route.navigateByUrl('AddEmployee')
   }
-
+ 
   deleteEmployee(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this employee?')) {
@@ -84,8 +86,8 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-
   ngOnInit(): void {
+    this.GetAllEmployees()
   }
 
 }

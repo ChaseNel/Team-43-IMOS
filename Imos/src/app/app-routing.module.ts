@@ -84,6 +84,7 @@ const routes: Routes = [
   { path: 'supplier', component: SupplierComponent },
   { path: 'UpdateSupplier/:id', component: UpdateSupplierComponent },
   { path: 'AddSupplier', component: AddSupplierComponent },
+
   //Supplier Type
   { path: 'suppliertype', component: SupplierTypeComponent },
   { path: 'UpdateSupplierType/:id', component: UpdateSupplierTypeComponent },

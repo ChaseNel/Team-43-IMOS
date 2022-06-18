@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
@@ -80,6 +81,9 @@ import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/updat
 import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -167,6 +171,10 @@ import { UpdateProjectStaffComponent } from './project/project-staff/update-proj
     MatSnackBarModule,
     CommonModule,
     MatSelectModule
+    MatSelectModule,
+    CommonModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     ServiceService

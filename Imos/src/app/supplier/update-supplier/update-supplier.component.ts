@@ -1,65 +1,72 @@
-import { supplier } from './../../services/service.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
-import { ServiceService } from 'src/app/services/service.service';
-import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Supplier } from './../supplier.component';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { from } from 'rxjs';
+import { supplier } from './../../services/service.service';
+import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { ServiceService, suppliertype } from 'src/app/services/service.service';
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
+import { ActivatedRoute, Router } from '@angular/router';
 
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 @Component({
   selector: 'app-update-supplier',
   templateUrl: './update-supplier.component.html',
   styleUrls: ['./update-supplier.component.css']
 })
+
 export class UpdateSupplierComponent implements OnInit {
-
+ Supplier!:supplier;
   id!: number;
-  Supplier!: supplier;
-  SupplierForm!: FormGroup;
+  updateForm:FormGroup;
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  matcher = new MyErrorStateMatcher();
+  Suppliertypes: suppliertype[] = [];
+//  Supplier:supplier=new supplier();
 
-  constructor(
-    private route: Router,
-    private service: ServiceService,
-    private formBuilder: FormBuilder,
-    private http: HttpClient,
-    private snack: MatSnackBar,
-    private activate: ActivatedRoute) { }
+  constructor( private fb: FormBuilder, private _service:ServiceService,
+    private route: ActivatedRoute,private router:Router,private http:HttpClient) { }
 
   ngOnInit(): void {
-
     const formOptions: AbstractControlOptions = {};
-
-    this.SupplierForm = this.formBuilder.group({
-      suppliertypeId: ['', [Validators.required]],
+    this.updateForm=this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      contactnumber: ['', [Validators.required]]
+      email: ['', [Validators.required]],
+      ContactNumber: ['', [Validators.required]],
+      suppliertypeId: ['', [Validators.required]]
     }, formOptions);
 
-    this.id = +this.activate.snapshot.params['id'];
-    this.service.SupplierID(this.id).subscribe((res: any) => {
-      this.Supplier = res;
+    this.id=+this.route.snapshot.params['id'];
+    this._service.getSupplierById(this.id).subscribe((res:any)=>{
+      this.Supplier=res;
       console.log(this.Supplier);
-      this.SupplierForm = this.formBuilder.group({
-        suppliertypeId: [this.Supplier.name, [Validators.required]],
-        name: [this.Supplier.name, [Validators.required]],
-        address: [this.Supplier.name, [Validators.required]],
-        email: [this.Supplier.name, [Validators.required, Validators.email]],
-        contactnumber: [this.Supplier.name, [Validators.required]]
-      }, formOptions)
-    })
-  }
+      this.updateForm=this.fb.group({
+        suppliertypeId:[this.Supplier.name,[Validators.required]],
+        name:[this.Supplier.name,[Validators.required]],
+        address:[this.Supplier.name,[Validators.required]],
+        email:[this.Supplier.name,[Validators.required]],
+        ContactNumber:[this.Supplier.name,[Validators.required]],
+      },formOptions)
+    });
+    this._service.getSupplierType().subscribe(data =>{
+      this.Suppliertypes = data;
+      });
 
-  onSubmit() {
-    this.service.UpdateSuplier(this.activate.snapshot.params['id'], this.SupplierForm.value).subscribe(
-      res => {
+  }
+  onSubmit(){
+    this._service.updateSupplier(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
+      res=>{
         console.log(res + "success");
-
-      }
-    )
+      })
+    }
+  Cancel(){
+    
   }
-
-
 }
+
