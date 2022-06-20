@@ -171,8 +171,6 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
     MatSnackBarModule,
     CommonModule,
     MatSelectModule,
-  
-    CommonModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

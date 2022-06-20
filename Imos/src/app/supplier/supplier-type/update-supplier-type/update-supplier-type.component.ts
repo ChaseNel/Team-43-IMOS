@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { FormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class UpdateSupplierTypeComponent implements OnInit {
 
   Id!: string;
   Name1: any;
-  public supplierTypeFrm!: FormGroup;
+  public supplierTypeFrm!: UntypedFormGroup;
   alert: boolean = false;
   @Input() type: any;
   
@@ -23,8 +23,8 @@ export class UpdateSupplierTypeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.supplierTypeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
+    this.supplierTypeFrm = new UntypedFormGroup({
+      Name: new UntypedFormControl('', [Validators.required]),
     })
 
     this.Id = this.type.suppliertypeId;

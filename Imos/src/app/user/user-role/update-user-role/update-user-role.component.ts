@@ -1,7 +1,7 @@
 
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormGroup, FormBuilder, FormControl, Validators  } from '@angular/forms';
+import { UntypedFormGroup, FormBuilder, UntypedFormControl, Validators  } from '@angular/forms';
 
 
 @Component({
@@ -13,7 +13,7 @@ export class UpdateUserRoleComponent implements OnInit {
 
   Id: any;
   Description: any;
-  public userRoleFrm!: FormGroup;
+  public userRoleFrm!: UntypedFormGroup;
   hide: boolean = false;
   alert: boolean = false;
   @Input()type: any;
@@ -23,8 +23,8 @@ export class UpdateUserRoleComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.userRoleFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required]),
+    this.userRoleFrm = new UntypedFormGroup({
+      Description: new UntypedFormControl('', [Validators.required]),
     }
     );
 

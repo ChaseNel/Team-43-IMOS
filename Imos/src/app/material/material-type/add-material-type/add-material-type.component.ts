@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -14,15 +14,15 @@ export class AddMaterialTypeComponent implements OnInit {
 
   Name: any;
   Description: any;
-  public materialTypeFrm!: FormGroup;
+  public materialTypeFrm!: UntypedFormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router) { }
+  constructor(private service: ServiceService, private formB: UntypedFormBuilder, private route: Router) { }
 
   ngOnInit(): void {
-    this.materialTypeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
-      Description: new FormControl('', [Validators.required])
+    this.materialTypeFrm = new UntypedFormGroup({
+      Name: new UntypedFormControl('', [Validators.required]),
+      Description: new UntypedFormControl('', [Validators.required])
     })
   }
 

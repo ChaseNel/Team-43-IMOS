@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 
 @Component({
@@ -12,14 +12,14 @@ import { FormGroup } from '@angular/forms';
 export class AddSupplierTypeComponent implements OnInit {
 
   Name: any;
-  public supplierTypeFrm!: FormGroup;
+  public supplierTypeFrm!: UntypedFormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: FormBuilder) { }
+  constructor(private service: ServiceService, private formB: UntypedFormBuilder) { }
 
   ngOnInit(): void {
-    this.supplierTypeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
+    this.supplierTypeFrm = new UntypedFormGroup({
+      Name: new UntypedFormControl('', [Validators.required]),
     })
   }
 
