@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { ServiceService } from 'src/app/services/service.service';
 })
 export class AddUserRoleComponent implements OnInit {
 
-  constructor( private service: ServiceService, private formB: UntypedFormBuilder) { }
+  constructor( private service: ServiceService, private formB: FormBuilder) { }
 
   Description: any;
-  public userRoleFrm!: UntypedFormGroup;
+  public userRoleFrm!: FormGroup;
 
   ngOnInit(): void {
   }

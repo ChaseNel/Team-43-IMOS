@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ export class UpdateVehicleTypeComponent implements OnInit {
 
   Id!: string;
   Description1: any;
-  public vehicleTypeFrm!: UntypedFormGroup;
+  public vehicleTypeFrm!: FormGroup;
   alert: boolean = false;
   @Input() type: any;
   
@@ -23,8 +23,8 @@ export class UpdateVehicleTypeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.vehicleTypeFrm = new UntypedFormGroup({
-      Description: new UntypedFormControl('', [Validators.required]),
+    this.vehicleTypeFrm = new FormGroup({
+      Description: new FormControl('', [Validators.required]),
     })
 
     this.Id = this.type.vehicleTypeId;

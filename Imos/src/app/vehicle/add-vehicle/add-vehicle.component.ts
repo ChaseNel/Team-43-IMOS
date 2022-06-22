@@ -1,6 +1,6 @@
 import { ServiceService, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export interface Vehicle {
   vehicleId: number,
@@ -21,12 +21,12 @@ export interface Vehicle {
   styleUrls: ['./add-vehicle.component.css']
 })
 export class AddVehicleComponent implements OnInit {
-  addForm:UntypedFormGroup;
+  addForm:FormGroup;
   Vehicletypes:vehicletype[]=[];
   
 
   constructor(
-    private fb: UntypedFormBuilder,
+    private fb: FormBuilder,
     private _service:ServiceService
   ) { }
 

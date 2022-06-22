@@ -1,13 +1,13 @@
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators, UntypedFormGroup, UntypedFormBuilder, Form } from '@angular/forms';
+import { FormControl, Validators,FormGroup,FormBuilder, Form } from '@angular/forms';
 import { ServiceService, suppliertype } from 'src/app/services/service.service';
 import { FormGroupDirective, NgForm} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: UntypedFormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  isErrorState(control:FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const isSubmitted = form && form.submitted;
     return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
   }
@@ -34,13 +34,13 @@ export interface Supplier {
 
 export class AddSupplierComponent implements OnInit {
 
-  form:UntypedFormGroup;
-  emailFormControl = new UntypedFormControl('', [Validators.required, Validators.email]);
+  form:FormGroup;
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   
   matcher = new MyErrorStateMatcher();
   Suppliertypes: suppliertype[] = [];
 
-  constructor(private fb: UntypedFormBuilder, private _service:ServiceService
+  constructor(private fb: FormBuilder, private _service:ServiceService
  ) { }
 
   ngOnInit(): void {

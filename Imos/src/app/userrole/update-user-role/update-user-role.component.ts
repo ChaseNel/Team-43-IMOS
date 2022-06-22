@@ -1,6 +1,6 @@
 import { UserRoleService } from './../../services/administration/user-role.service';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-user-role',
@@ -10,16 +10,16 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } 
 export class UpdateUserRoleComponent implements OnInit {
   
   Description: any;
-  public userRoleFrm!: UntypedFormGroup;
+  public userRoleFrm!: FormGroup;
   hide: boolean = false;
   
 
-  constructor( private UserRoleService:UserRoleService,private fb:UntypedFormBuilder) { }
+  constructor( private UserRoleService:UserRoleService,private fb:FormBuilder) { }
 
   ngOnInit(): void {
     
-    this.userRoleFrm = new UntypedFormGroup({
-      Description: new UntypedFormControl('', [Validators.required]),
+    this.userRoleFrm = new FormGroup({
+      Description: new FormControl('', [Validators.required]),
     }
     );
   }

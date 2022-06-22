@@ -49,11 +49,15 @@
                 </mat-error>
               </mat-form-field>
         </div>
-    <mat-form-field appearance="standard">
-        <mat-label>Contact</mat-label>
-        <input matInput  placeholder="Type contact number" formControlName="ContactNumber" #nameInput>
-        <mat-error>ContactNumber is required</mat-error>
-    </mat-form-field>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Contact</mat-label>
+                <input matInput  placeholder="Type contact number" formControlName="contactnumber" #nameInput>
+                <mat-error>ContactNumber is required</mat-error>
+            </mat-form-field>
+
+        </div>
+   
     <mat-card-actions>
         <button   mat-raised-button color="primary">Update</button>
         <button (click)="Cancel()" mat-raised-button color="warn">Cancel</button>

@@ -28,7 +28,7 @@ export class SupplierComponent implements OnInit {
   // API Test
   data: supplier[] = [];
 
-  displayedColumns: string[] = ['id', 'suppliertype', 'name', 'address', 'email', 'contactnumber', 'actions'];
+  displayedColumns: string[] = ['id', 'suppliertype', 'name', 'address', 'email', 'contactNumber', 'actions'];
 
   dataSource!: MatTableDataSource<Supplier>;
 

@@ -1,7 +1,7 @@
 import { UploadsService } from './../../services/uploads/uploads.service';
 import { ServiceService } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, FormControlName, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
 
 
@@ -19,18 +19,18 @@ export class AddEmployeeComponent implements OnInit {
   Name: any;
   Email: any;
   ContactNumber: any;
-  public employeeFrm!: UntypedFormGroup;
+  public employeeFrm!: FormGroup;
 
   progress: any;
    message: any = "";
    errorMessage: any = "";
 
   ngOnInit(): void {
-    this.employeeFrm = new UntypedFormGroup({
-      Name: new UntypedFormControl('', [Validators.required]),
-      Email: new UntypedFormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
-      ContactNumber: new UntypedFormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
-      FilePath:new UntypedFormControl('')
+    this.employeeFrm = new FormGroup({
+      Name: new FormControl('', [Validators.required]),
+      Email: new FormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
+      ContactNumber: new FormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
+      FilePath:new FormControl('')
     }
     );
   }

@@ -1,6 +1,6 @@
 import { user, employee } from './../../services/service.service';
 //import { Employee } from './../../employee/employee.component';
-import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServiceService, userrole, } from 'src/app/services/service.service';
@@ -19,14 +19,14 @@ export interface UserRole {
 })
 export class AddUserComponent implements OnInit {
 
-  public addForm!: UntypedFormGroup;
+  public addForm!: FormGroup;
 
   listOfUserRoles: any;
   data: userrole[] = [];
   employee: employee[] = [];
   posts: any;
 
-  constructor(private fb: UntypedFormBuilder,
+  constructor(private fb: FormBuilder,
     private _serviceManage: ServiceService,
     private router: Router) {
   }

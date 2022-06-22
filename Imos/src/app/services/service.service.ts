@@ -81,7 +81,7 @@ export interface supplier {
   name: string,
   address: string,
   email: string,
-  contactnumber: number,
+  contactNumber: number,
   suppliertype: string,
   supplierorderlines: []
 }
@@ -183,7 +183,7 @@ export interface equipment {
 export class ServiceService {
 
   //URL from API
-  readonly Root_URL = 'https://localhost:44381/api'
+  readonly Root_URL = 'https://localhost:5001/api'
 
   httpOptions = {
     headers: new HttpHeaders({

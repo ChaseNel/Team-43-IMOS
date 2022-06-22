@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { materialType, ServiceService } from 'src/app/services/service.service';
 
@@ -13,17 +13,17 @@ export class AddMaterialComponent implements OnInit {
   Type: any;
   Name: any;
   Description: any;
-  public materialFrm!: UntypedFormGroup;
+  public materialFrm!: FormGroup;
   alert: boolean = false;
   typelist: materialType[] = [];
 
-  constructor(private service: ServiceService, private formB: UntypedFormBuilder, private route: Router) { }
+  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
-    this.materialFrm = new UntypedFormGroup({
-      Type: new UntypedFormControl('', [Validators.required]),
-      Name: new UntypedFormControl('', [Validators.required]),
-      Description: new UntypedFormControl('', [Validators.required])
+    this.materialFrm = new FormGroup({
+      Type: new FormControl('', [Validators.required]),
+      Name: new FormControl('', [Validators.required]),
+      Description: new FormControl('', [Validators.required])
     })
     this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
   }

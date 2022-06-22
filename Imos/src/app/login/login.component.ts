@@ -2,7 +2,7 @@ import { user } from './../services/service.service';
 import { UnsuccessfulComponent } from './Dialogs/unsuccessful/unsuccessful.component';
 import { PopUpComponent } from './../logout/pop-up/pop-up.component';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, Validators, ReactiveFormsModule, UntypedFormControl, NgForm, UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormControl, NgForm,FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
@@ -18,15 +18,15 @@ export class LoginComponent implements OnInit {
   data: user[] = [];
 
   constructor(
-    private formBuilder: UntypedFormBuilder, 
+    private formBuilder: FormBuilder, 
     private service: ServiceService, 
     private route: Router,
     private diologRef: MatDialog
     ) { }
 
   LoginForm = this.formBuilder.group({
-    username: new UntypedFormControl('', Validators.required),
-    password: new UntypedFormControl('', Validators.required)
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   get loginform() {
@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
     console.log('Login values are: ', this.LoginForm.value);
   }
 
-  onLogin(LoginForm: UntypedFormGroup) {
+  onLogin(LoginForm: FormGroup) {
     //console.log(LoginForm.value)
 
   }

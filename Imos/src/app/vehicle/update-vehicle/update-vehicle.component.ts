@@ -1,6 +1,6 @@
 import { vehicle, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
@@ -9,10 +9,10 @@ import { ServiceService } from 'src/app/services/service.service';
   styleUrls: ['./update-vehicle.component.css']
 })
 export class UpdateVehicleComponent implements OnInit {
-  updateForm:UntypedFormGroup;
+  updateForm:FormGroup;
   Vehicletypes:vehicletype[]=[];
 
-  constructor(private fb: UntypedFormBuilder, private _service:ServiceService) { }
+  constructor(private fb: FormBuilder, private _service:ServiceService) { }
 
   ngOnInit(): void {
     this.buildUpdateForm();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { UntypedFormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-vehicle-type',
@@ -11,14 +11,14 @@ import { UntypedFormGroup } from '@angular/forms';
 export class AddVehicleTypeComponent implements OnInit {
 
   Description: any;
-  public vehicleTypeFrm!: UntypedFormGroup;
+  public vehicleTypeFrm!:FormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: UntypedFormBuilder) { }
+  constructor(private service: ServiceService, private formB: FormBuilder) { }
 
   ngOnInit(): void {
-    this.vehicleTypeFrm = new UntypedFormGroup({
-      Description: new UntypedFormControl('', [Validators.required]),
+    this.vehicleTypeFrm = new FormGroup({
+      Description: new FormControl('', [Validators.required]),
     })
   }
 

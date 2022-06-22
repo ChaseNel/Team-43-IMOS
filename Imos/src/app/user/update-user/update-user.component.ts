@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ServiceService, userrole, user, employee} from 'src/app/services/service.service';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-update-user',
@@ -12,10 +12,10 @@ import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms
 export class UpdateUserComponent implements OnInit {
   data: userrole[] = [];
   employee: employee[] = [];
-  updateForm!: UntypedFormGroup;
+  updateForm!: FormGroup;
   posts: any;
 
-  constructor(private fb: UntypedFormBuilder, private serviceManage: ServiceService, private router:Router) { }
+  constructor(private fb: FormBuilder, private serviceManage: ServiceService, private router:Router) { }
 
   ngOnInit(): void {
 

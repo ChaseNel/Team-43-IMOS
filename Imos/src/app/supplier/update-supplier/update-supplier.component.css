@@ -68,10 +68,13 @@ h3 {
 
 }
 .content{
+  text-align: center;
     justify-content: center;
+
 }
 
 .form{
     text-align: center;
 
 }
+
