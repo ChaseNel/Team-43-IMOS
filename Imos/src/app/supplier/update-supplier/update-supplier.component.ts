@@ -62,7 +62,7 @@ export class UpdateSupplierComponent implements OnInit {
   onSubmit(){
     this._service.updateSupplier(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{
-        console.log(res + "success");
+       // console.log(res + "success");
       })
     }
   Cancel(){

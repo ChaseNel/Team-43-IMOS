@@ -369,7 +369,6 @@ getSupplierById(id:number){
 
   }
 
-
   //Supplier Order
   //Get
   getSupplierOrder(): Observable<supplierOrder[]> {
@@ -463,9 +462,18 @@ getSupplierById(id:number){
   getEquipment(): Observable<equipment[]> {
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
+  //get by Id
+getEquipmentById(id:number){
+  return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
+
+}
 //add equipment
 addEquipment(val:any){
   return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
+}
+//Update
+UpdateEquipment(id: number, data: any){
+  return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
 }
 
   //Delete

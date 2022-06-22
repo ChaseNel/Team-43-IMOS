@@ -52,9 +52,6 @@ namespace IMOSApi.Controllers.EquipmentManagement
 
         }
 
-
-
-
         [HttpPost("AddEquipment")]
         public IActionResult Add(AddOrUpdateGenericDto model)
         {
@@ -80,7 +77,7 @@ namespace IMOSApi.Controllers.EquipmentManagement
             return BadRequest(new { message });
         }
 
-        [HttpPut("updateEquipment/{id}")]
+        [HttpPut("UpdateEquipment/{id}")]
         public IActionResult Update(GetGenericDto model, int id)
         {
             if (ModelState.IsValid)

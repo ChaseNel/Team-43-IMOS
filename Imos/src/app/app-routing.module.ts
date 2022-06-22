@@ -118,7 +118,7 @@ const routes: Routes = [
   //Equipment
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },
-  { path: 'updateEquipment', component: UpdateEquipmentComponent },
+  { path: 'updateEquipment/:id', component: UpdateEquipmentComponent },
 
 ];
 

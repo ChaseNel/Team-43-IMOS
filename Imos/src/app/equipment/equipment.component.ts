@@ -59,7 +59,7 @@ export class EquipmentComponent implements OnInit {
   }
 
   UpdateEquipment(id:number) {
-    this.route.navigate(['UpdateEquipment',id])
+    this.route.navigate(['updateEquipment',id])
   }
 
   AddEquipment() {
