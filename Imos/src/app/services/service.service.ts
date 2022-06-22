@@ -463,6 +463,11 @@ getSupplierById(id:number){
   getEquipment(): Observable<equipment[]> {
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
+//add equipment
+addEquipment(val:any){
+  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
+}
+
   //Delete
   deleteEquipment(id: number) {
     return this.http.delete(this.Root_URL + '/Equipment/DeleteEquipment/' + id);

@@ -7,6 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
 
+export interface Equipment{
+  equipmentId:number,
+  name: string,
+  description: string
+}
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
@@ -19,7 +24,7 @@ export class EquipmentComponent implements OnInit {
 
   displayedColumns: string[] = [ 'name', 'description', 'actions'];
 
-  dataSource!: MatTableDataSource<equipment>;
+  dataSource!: MatTableDataSource<Equipment>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
@@ -53,11 +58,11 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
-  UpdateEquipment() {
-    this.route.navigateByUrl('/updateEquipment')
+  UpdateEquipment(id:number) {
+    this.route.navigate(['UpdateEquipment',id])
   }
 
-  addEquipment() {
+  AddEquipment() {
     this.route.navigateByUrl('/addEquipment')
   }
 
@@ -74,9 +79,7 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
-  // materialType() {
-  //   this.route.navigateByUrl('materialtype')
-  // }
+  
 
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });

@@ -115,7 +115,6 @@ namespace IMOSApi.Controllers.SupplierManagement
 
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
-
         }
 
         [HttpDelete("{id}")]
@@ -131,7 +130,5 @@ namespace IMOSApi.Controllers.SupplierManagement
             await _context.SaveChangesAsync();
             return Ok();
         }
-
-
     }
 }

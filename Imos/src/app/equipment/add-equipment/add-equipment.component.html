@@ -1,1 +1,25 @@
-<p>add-equipment works!</p>
+<div class="cointainer">
+    <mat-card>Add New Equipment </mat-card>
+    <form [formGroup]="form" class="addEquipment">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput  placeholder="Type name" #nameInput  formControlName="name">
+                <mat-error>Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Description</mat-label>
+                <input matInput  placeholder="Enter description" #nameInput  formControlName="description">
+                <mat-error>Description is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div >
+            <button mat-raised-button color="primary" type="button" (click)="AddEquipment()">Add </button>
+            <button mat-raised-button color="warn" type="button" (click)="Cancel()">Cancel</button>
+    </div>
+
+    </form>
+
+</div>
