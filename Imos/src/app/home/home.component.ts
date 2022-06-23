@@ -50,6 +50,9 @@ export class HomeComponent implements OnInit {
   vehicle() {
     this.route.navigateByUrl('/vehicle')
   }
+  saftyCheclist(){
+    this.route.navigateByUrl('/saftyChecklist')
+  }
 
   ngOnInit(): void {
   }
