@@ -1,47 +1,78 @@
+import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ServiceService } from 'src/app/services/service.service';
+import { FormControl, Validators,FormGroup,FormBuilder, Form } from '@angular/forms';
+import { ServiceService, suppliertype } from 'src/app/services/service.service';
+import { FormGroupDirective, NgForm} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material/core';
+
+
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control:FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
+
+export interface Supplier {
+  supplierId: number,
+  suppliertypeId: number,
+  name: string,
+  address: string,
+  email: string,
+  contactnumber: number,
+  suppliertype: string,
+  supplierorderlines: []
+}
+
 
 @Component({
   selector: 'app-add-supplier',
-  templateUrl: './add-supplier.component.html',
+  templateUrl: 
+  './add-supplier.component.html',
   styleUrls: ['./add-supplier.component.css']
 })
+
 export class AddSupplierComponent implements OnInit {
 
-  Type: any;
-  Name: any;
-  Address: any;
-  Email: any;
-  Number: any;
-  public supplierFrm!: FormGroup;
-  alert: boolean = false;
+  form:FormGroup;
+  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+  
+  matcher = new MyErrorStateMatcher();
+  Suppliertypes: suppliertype[] = [];
 
-  constructor(private service: ServiceService, private formB: FormBuilder) { }
+  constructor(private fb: FormBuilder, private _service:ServiceService
+ ) { }
 
   ngOnInit(): void {
-    this.supplierFrm = new FormGroup({
-      Type: new FormControl('', [Validators.required]),
-      Name: new FormControl('', [Validators.required]),
-      Address: new FormControl('', [Validators.required]),
-      Email: new FormControl('', [Validators.required]),
-      Number: new FormControl('', [Validators.required]),
-    })
+    this.buildAddForm();
+  }
+  private buildAddForm(){
+    this.form=this.fb.group({
+      name: ['', [Validators.required]],
+      Address: ['', [Validators.required]],
+      Email: ['', [Validators.required]],
+      ContactNumber: ['', [Validators.required]],
+      suppliertypeId: ['', [Validators.required]],
+
+    });
+    this._service.getSupplierType().subscribe(data =>{
+      this.Suppliertypes = data;
+      //console.log(data);
+    });
   }
 
-  addSupplier() {
-    var val = {type: this.Type, name: this.Name, address: this.Address, email: this.Email, number: this.Number}
-    this.service.addSupplier(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
-    this.Name = '';
-    console.log(val);
-    this.alert = true;
+  AddSupplier(){
+    if(this.form.valid){
+      console.log(this.form.value);
+       this._service.addSupplier(this.form.value)
+       .subscribe(res=>{
+       //console.log(res);
+       // add validation and "are you sure to add supplier notification"
+       })
+    }
   }
 
-  closeAlert() {
-    this.alert = false;
-  }
-  public hasError = (controlName: string, errorName: string) => {
-    return this.supplierFrm.controls[controlName].hasError(errorName);
-  }
+  Cancel(){
 
+  }
 }

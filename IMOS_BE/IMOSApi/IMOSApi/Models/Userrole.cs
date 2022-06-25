@@ -12,7 +12,7 @@ namespace IMOSApi.Models
             Users = new HashSet<User>();
         }
 
-        public int Userrole1 { get; set; }
+        public int UserroleId { get; set; }
         public string Description { get; set; }
 
         public virtual ICollection<User> Users { get; set; }

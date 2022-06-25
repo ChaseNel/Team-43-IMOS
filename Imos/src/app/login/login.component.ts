@@ -2,7 +2,7 @@ import { user } from './../services/service.service';
 import { UnsuccessfulComponent } from './Dialogs/unsuccessful/unsuccessful.component';
 import { PopUpComponent } from './../logout/pop-up/pop-up.component';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormControl, NgForm, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule, FormControl, NgForm,FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';

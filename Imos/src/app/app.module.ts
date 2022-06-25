@@ -23,6 +23,7 @@ import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
 import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
@@ -53,7 +54,43 @@ import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.
 import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
 import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
-import {MatSelectModule} from '@angular/material/select';
+
+import { IncidentComponent } from './incident/incident.component';
+import { EquipmentComponent } from './equipment/equipment.component';
+import { ProjectComponent } from './project/project.component';
+import { ClientComponent } from './client/client.component';
+import { WarehouseComponent } from './warehouse/warehouse.component';
+import { MaterialRequestComponent } from './material/material-request/material-request.component';
+import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
+import { AddEquipmentComponent } from './equipment/add-equipment/add-equipment.component';
+import { UpdateEquipmentComponent } from './equipment/update-equipment/update-equipment.component';
+import { UpdateWarehouseComponent } from './warehouse/update-warehouse/update-warehouse.component';
+import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
+import { AddClientComponent } from './client/add-client/add-client.component';
+import { UpdateClientComponent } from './client/update-client/update-client.component';
+import { UpdateProjectComponent } from './project/update-project/update-project.component';
+import { AddProjectComponent } from './project/add-project/add-project.component';
+import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
+import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
+import { TaskComponent } from './task/task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
+import { TaskTypeComponent } from './task/task-type/task-type.component';
+import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
+import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
+import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
+import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
+import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
+import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
+import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
+import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
+import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 
 @NgModule({
   declarations: [
@@ -93,6 +130,39 @@ import {MatSelectModule} from '@angular/material/select';
     VehicleTypeComponent,
     AddVehicleTypeComponent,
     UpdateVehicleTypeComponent,
+    IncidentComponent,
+    EquipmentComponent,
+    ProjectComponent,
+    ClientComponent,
+    WarehouseComponent,
+    MaterialRequestComponent,
+    SupplierOrderComponent,
+    AddEquipmentComponent,
+    UpdateEquipmentComponent,
+    UpdateWarehouseComponent,
+    AddWarehouseComponent,
+    AddClientComponent,
+    UpdateClientComponent,
+    UpdateProjectComponent,
+    AddProjectComponent,
+    AddIncidentComponent,
+    UpdateIncidentComponent,
+    TaskComponent,
+    AddTaskComponent,
+    UpdateTaskComponent,
+    TaskTypeComponent,
+    AddTaskTypeComponent,
+    UpdateTaskTypeComponent,
+    ProjectStaffComponent,
+    AddProjectStaffComponent,
+    UpdateProjectStaffComponent,
+    SaftyChecklistComponent,
+    AddSaftyChecklistComponent,
+    UpdateSaftyChecklistComponent,
+    SaftyChecklistCatagoryComponent,
+    SaftyChecklistItemsComponent,
+    AddSaftyChecklistItemsComponent,
+    UpdateSaftyChecklistItemsComponent,
   ],
   imports: [
     BrowserModule,
@@ -114,7 +184,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatSortModule,
     MatSnackBarModule,
     CommonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   providers: [
     ServiceService

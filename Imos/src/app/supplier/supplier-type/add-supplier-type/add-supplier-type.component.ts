@@ -15,7 +15,7 @@ export class AddSupplierTypeComponent implements OnInit {
   public supplierTypeFrm!: FormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: FormBuilder) { }
+  constructor(private service: ServiceService, private formB:FormBuilder) { }
 
   ngOnInit(): void {
     this.supplierTypeFrm = new FormGroup({

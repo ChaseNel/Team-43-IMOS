@@ -1,45 +1,55 @@
-<app-header></app-header>
+<div class="container">
+    <mat-card>Add New Supplier </mat-card>
 
-<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Supplier Added Successfully
-    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-        <mat-icon>close</mat-icon>
-    </button>
+    <form [formGroup]="form" class="addSupplier">
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label> Supplier type</mat-label>
+                <mat-select formControlName="suppliertypeId">
+                  <mat-option *ngFor="let type of Suppliertypes" [value]="type.id">
+                      {{type.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field> 
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Name</mat-label>
+                <input matInput  placeholder="Type name" #nameInput  formControlName="name">
+                <mat-error>Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="fill">
+                <mat-label>Address</mat-label>
+                <input matInput maxlength="15" placeholder="Type address" formControlName="Address" #nameInput>
+                <mat-error>Address is required</mat-error>
+                <mat-error **ngIf="(form.get('name')).errors?.minlength">
+                    Please enter more than 10 character
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                       placeholder="Ex. pat@example.com" formControlName="Email">
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <mat-form-field appearance="standard">
+            <mat-label>Contact</mat-label>
+            <input matInput  placeholder="Type contact number" formControlName="ContactNumber" #nameInput>
+            <mat-error>ContactNumber is required</mat-error>
+        </mat-form-field>
+        <div >
+                <button mat-raised-button color="primary" type="button" (click)="AddSupplier()">Add </button>
+                <button mat-raised-button color="warn" type="button" (click)="Cancel()">Cancel</button>
+        </div>
+    </form>
 </div>
-
-<form [formGroup]="supplierFrm" class="form-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Add Supplier</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="row">
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Type' matInput placeholder="Supplier Type" name="Type"
-                        formControlName="Type">
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Name' matInput placeholder="Supplier  Name" name="Name"
-                        formControlName="Name">
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Email' matInput placeholder="Supplier Email" name="email"
-                        formControlName="Email">
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Address' matInput placeholder="Supplier Address" name="Address"
-                        formControlName="Address">
-                </mat-form-field>
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Number' matInput placeholder="Supplier Number" name="Number"
-                        formControlName="Number">
-                </mat-form-field>
-                <mat-error *ngIf="hasError('Name, Address, Email, Type, Number', 'required')"></mat-error>
-                <mat-card-actions>
-                    <button (click)="addSupplier()" mat-raised-button color="primary">Add</button>
-                    <button class="btnBack" mat-raised-button color="warn" routerLink="/supplier">Back</button>
-                </mat-card-actions>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</form>

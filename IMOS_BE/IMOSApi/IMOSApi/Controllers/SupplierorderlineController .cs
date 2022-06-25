@@ -12,12 +12,18 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class SupplierorderlineController : ControllerBase
     {
+        private IMOSContext _dbContext;
+        public SupplierorderlineController(IMOSContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         [HttpGet("GetSupplierorderlines")]
         public IEnumerable<Supplierorderline> Retrieve()
         {
             using (var context = new IMOSContext())
             {
-                return context.Supplierorderlines.ToList();
+                return _dbContext.Supplierorderlines.ToList();
             }
         }
         [HttpGet("GetSupplierorderline/{id}")]

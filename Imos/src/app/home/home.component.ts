@@ -14,10 +14,7 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/employee");
   }
 
-  user() {
-    this.route.navigateByUrl("/user");
-  }
-
+  
   material() {
     this.route.navigateByUrl("/material");
   }
@@ -25,9 +22,36 @@ export class HomeComponent implements OnInit {
   supplier() {
     this.route.navigateByUrl("/supplier");
   }
+  user() {
+    this.route.navigateByUrl("/user");
+
+  }
+
+  incident() {
+    this.route.navigateByUrl('/incident')
+  }
+
+  clients() {
+    this.route.navigateByUrl('/client')
+  }
+
+  warehouses() {
+    this.route.navigateByUrl('/warehouse')
+  }
+
+  equipment() {
+    this.route.navigateByUrl('/equipment')
+  }
+
+  projects() {
+    this.route.navigateByUrl('/project')
+  }
 
   vehicle() {
     this.route.navigateByUrl('/vehicle')
+  }
+  saftyCheclist(){
+    this.route.navigateByUrl('/saftyChecklist')
   }
 
   ngOnInit(): void {

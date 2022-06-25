@@ -11,7 +11,7 @@ import { FormGroup } from '@angular/forms';
 export class AddVehicleTypeComponent implements OnInit {
 
   Description: any;
-  public vehicleTypeFrm!: FormGroup;
+  public vehicleTypeFrm!:FormGroup;
   alert: boolean = false;
 
   constructor(private service: ServiceService, private formB: FormBuilder) { }
