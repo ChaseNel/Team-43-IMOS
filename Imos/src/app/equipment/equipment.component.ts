@@ -7,6 +7,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
 
+export interface Equipment{
+  equipmentId:number,
+  name: string,
+  description: string
+}
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
@@ -53,8 +58,8 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
-  UpdateEquipment() {
-    this.route.navigateByUrl('/updateEquipment')
+  UpdateEquipment(id:number) {
+    this.route.navigate(['updateEquipment',id])
   }
 
   addEquipment() {

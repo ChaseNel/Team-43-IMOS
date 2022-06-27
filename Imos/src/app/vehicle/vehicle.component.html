@@ -80,9 +80,10 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
+            <!-- add element id to assignVehicle-->
             <button (click)="assignVehicle()" mat-flat-button color="accent">Assign</button>&nbsp;
 
-            <button (click)="UpdateVehicle()" mat-flat-button color="accent">Edit</button>
+            <button (click)="UpdateVehicle(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteVehicle(element.vehicleId)">Delete</button>
         </td>
