@@ -81,7 +81,7 @@ export interface supplier {
   name: string,
   address: string,
   email: string,
-  contactnumber: number,
+  contactNumber: number,
   suppliertype: string,
   supplierorderlines: []
 }
@@ -305,6 +305,7 @@ export class ServiceService {
   //Supplier
 getSupplierById(id:number){
   return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
+
 }
 
   //Get All
@@ -368,7 +369,6 @@ getSupplierById(id:number){
 
   }
 
-
   //Supplier Order
   //Get
   getSupplierOrder(): Observable<supplierOrder[]> {
@@ -393,7 +393,7 @@ getSupplierById(id:number){
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetAll')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetVehicletypes')
   }
 
 
@@ -458,41 +458,34 @@ getSupplierById(id:number){
   }
 
   //Equipment
-  //getById
-  getEquipmentById(id:number){
-    return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
-
-  }
   //Get
   getEquipment(): Observable<equipment[]> {
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
-  // add equipment 
-  addEquipment(val:any){
-    return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
-  }
-  //update 
-  UpdateEquipment(id: number, data: any){
-    return this.http.put(this.Root_URL + '/Equipment/updateEquipment/' + id, data);
-  }
+  //get by Id
+getEquipmentById(id:number){
+  return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
+
+}
+//add equipment
+addEquipment(val:any){
+  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
+}
+//Update
+UpdateEquipment(id: number, data: any){
+  return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
+}
+
   //Delete
   deleteEquipment(id: number) {
     return this.http.delete(this.Root_URL + '/Equipment/DeleteEquipment/' + id);
   }
-  
   //Vehicle End Points 
-  //get by Id
-getVehicleById(id:number){
-  return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
-}
   // add 
   addVehicle(val:any){
     return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
   }
   // Get All
   //Update 
-  updateVehicle(id: number, data: any){
-    return this.http.put(this.Root_URL + '/Vehicle/updateVehicle/' + id, data);
-  }
   //Delete
 }

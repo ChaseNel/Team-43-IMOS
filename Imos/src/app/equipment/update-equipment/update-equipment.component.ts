@@ -1,8 +1,8 @@
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { equipment, ServiceService } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { equipment, ServiceService } from './../../services/service.service';
 
 @Component({
   selector: 'app-update-equipment',
@@ -14,8 +14,11 @@ export class UpdateEquipmentComponent implements OnInit {
   id!:number;
   updateForm:FormGroup;
 
-  constructor(   private fb:FormBuilder, private _service:ServiceService,
-    private route: ActivatedRoute,private router:Router,private http:HttpClient) { }
+  constructor(
+    private fb:FormBuilder, private _service:ServiceService,
+    private route: ActivatedRoute,private router:Router,private http:HttpClient
+
+  ) { }
 
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
@@ -45,5 +48,4 @@ export class UpdateEquipmentComponent implements OnInit {
   Cancel(){
 
   }
-
 }

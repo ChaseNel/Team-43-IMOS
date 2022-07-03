@@ -1,7 +1,7 @@
 import { Supplier } from './../supplier.component';
 import { HttpClient } from '@angular/common/http';
 import { supplier } from './../../services/service.service';
-import { AbstractControlOptions, FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder,FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { ServiceService, suppliertype } from 'src/app/services/service.service';
@@ -29,7 +29,7 @@ export class UpdateSupplierComponent implements OnInit {
   Suppliertypes: suppliertype[] = [];
 //  Supplier:supplier=new supplier();
 
-  constructor( private fb: FormBuilder, private _service:ServiceService,
+  constructor( private fb:FormBuilder, private _service:ServiceService,
     private route: ActivatedRoute,private router:Router,private http:HttpClient) { }
 
   ngOnInit(): void {
@@ -38,7 +38,7 @@ export class UpdateSupplierComponent implements OnInit {
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
       email: ['', [Validators.required]],
-      ContactNumber: ['', [Validators.required]],
+      contactnumber: ['', [Validators.required]],
       suppliertypeId: ['', [Validators.required]]
     }, formOptions);
 
@@ -49,9 +49,9 @@ export class UpdateSupplierComponent implements OnInit {
       this.updateForm=this.fb.group({
         suppliertypeId:[this.Supplier.name,[Validators.required]],
         name:[this.Supplier.name,[Validators.required]],
-        address:[this.Supplier.name,[Validators.required]],
-        email:[this.Supplier.name,[Validators.required]],
-        ContactNumber:[this.Supplier.name,[Validators.required]],
+        address:[this.Supplier.address,[Validators.required]],
+        email:[this.Supplier.email,[Validators.required]],
+        contactnumber:[this.Supplier.contactNumber,[Validators.required]],
       },formOptions)
     });
     this._service.getSupplierType().subscribe(data =>{
@@ -62,7 +62,7 @@ export class UpdateSupplierComponent implements OnInit {
   onSubmit(){
     this._service.updateSupplier(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{
-        console.log(res + "success");
+       // console.log(res + "success");
       })
     }
   Cancel(){

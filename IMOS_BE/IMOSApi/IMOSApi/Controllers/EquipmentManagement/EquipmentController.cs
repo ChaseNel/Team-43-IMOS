@@ -18,6 +18,39 @@ namespace IMOSApi.Controllers.EquipmentManagement
         {
             _context = context;
         }
+        [HttpGet("GetEquipmentById/{id}")]
+        public ActionResult<GetGenericDto> GetRecord(int id)
+        {
+            var recordInDb = _context.Equipment
+                .Where(item => item.EquipmentId == id)
+                 .Select(item => new GetGenericDto() 
+                 {
+                     Id = item.EquipmentId,
+                     Name = item.Name,
+                     Description = item.Description,
+
+                 }).First();
+
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+            return recordInDb;
+        }
+
+        [HttpGet("GetEquipments")]
+        public ActionResult<IEnumerable<GetGenericDto>> GetAll()
+        {
+            var recordsInDb = _context.Equipment
+                .Select(item => new GetGenericDto() 
+                {
+                    Id = item.EquipmentId,
+                    Name = item.Name,
+                    Description = item.Description
+                }).OrderBy(item => item.Name).ToList();
+            return recordsInDb;
+
+        }
 
         [HttpGet("GetEquipmentById/{id}")]
         public ActionResult<GetGenericDto> GetRecord(int id)
@@ -77,6 +110,8 @@ namespace IMOSApi.Controllers.EquipmentManagement
             return BadRequest(new { message });
         }
         [HttpPut("updateEquipment/{id}")]
+
+        [HttpPut("UpdateEquipment/{id}")]
         public IActionResult Update(GetGenericDto model, int id)
         {
             if (ModelState.IsValid)
@@ -99,6 +134,7 @@ namespace IMOSApi.Controllers.EquipmentManagement
         }
 
         [HttpDelete("DeleteEquipment/{id}")]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<Equipment>> Delete(int id)
         {
             var recordInDb = await _context.Equipment.FindAsync(id);

@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 
 @Component({
@@ -10,7 +10,8 @@ import { ServiceService } from 'src/app/services/service.service';
 export class AddEquipmentComponent implements OnInit {
   form:FormGroup;
 
-  constructor( private fb: FormBuilder, private _service:ServiceService ) { }
+  constructor(private fb: FormBuilder, private _service:ServiceService ) 
+  { }
 
   ngOnInit(): void {
     this.buildAddForm();
@@ -27,10 +28,11 @@ export class AddEquipmentComponent implements OnInit {
       this._service.addEquipment(this.form.value)
       .subscribe(res=>{
         //add validation and "are you sure to add equipment  notification"
-      });
-    }
+      })
   }
+}
   Cancel(){
 
   }
+
 }
