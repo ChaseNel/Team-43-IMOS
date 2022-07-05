@@ -57,9 +57,7 @@ export class UpdateVehicleComponent implements OnInit {
   }
   onSubmit(){
     this._service.updateVehicle(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
-      res=>{
-        console.log(res);
-      }
+  
     )
   }
   Cancel(){

@@ -22,5 +22,6 @@ namespace IMOSApi
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+    
     }
 }

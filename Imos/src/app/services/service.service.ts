@@ -486,6 +486,14 @@ UpdateEquipment(id: number, data: any){
     return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
   }
   // Get All
+  //getById
+  getVehicleById(id:number){
+    return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
+  }
   //Update 
+  updateVehicle(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Vehicle/UpdateVehicle/' + id, data)
+  }
   //Delete
+
 }

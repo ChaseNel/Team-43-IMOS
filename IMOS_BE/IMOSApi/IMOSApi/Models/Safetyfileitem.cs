@@ -14,7 +14,9 @@ namespace IMOSApi.Models
 
         public int SafetyfileitemId { get; set; }
         public string Name { get; set; }
+        public int SafetyitemcategoryId { get; set; }
 
+        public virtual Safetyitemcategory Safetyitemcategory { get; set; }
         public virtual ICollection<Safetyfilechecklist> Safetyfilechecklists { get; set; }
     }
 }
