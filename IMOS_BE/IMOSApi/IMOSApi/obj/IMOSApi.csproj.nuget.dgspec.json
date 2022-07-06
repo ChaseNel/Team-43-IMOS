@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
         "projectName": "IMOSApi",
-        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
