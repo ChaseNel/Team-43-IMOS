@@ -38,6 +38,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
         public virtual DbSet<Safetyfileitem> Safetyfileitems { get; set; }
+        public virtual DbSet<Safetyitemcategory> Safetyitemcategories { get; set; }
         public virtual DbSet<Stocktake> Stocktakes { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Supplierorderline> Supplierorderlines { get; set; }
@@ -107,12 +108,20 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.ClientId).HasColumnName("CLIENT_ID");
 
+                entity.Property(e => e.Clientemail)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("CLIENTEMAIL");
+
                 entity.Property(e => e.Clientname)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("CLIENTNAME");
 
                 entity.Property(e => e.Contactnumber)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("CONTACTNUMBER");
@@ -563,6 +572,26 @@ namespace IMOSApi.Models
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
+
+                entity.Property(e => e.SafetyitemcategoryId).HasColumnName("SAFETYITEMCATEGORY_ID");
+
+                entity.HasOne(d => d.Safetyitemcategory)
+                    .WithMany(p => p.Safetyfileitems)
+                    .HasForeignKey(d => d.SafetyitemcategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SAFETYFILEITEM_SAFETYITEMCATEGORY");
+            });
+
+            modelBuilder.Entity<Safetyitemcategory>(entity =>
+            {
+                entity.ToTable("SAFETYITEMCATEGORY");
+
+                entity.Property(e => e.SafetyitemcategoryId).HasColumnName("SAFETYITEMCATEGORY_ID");
+
+                entity.Property(e => e.CategoryName)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Stocktake>(entity =>

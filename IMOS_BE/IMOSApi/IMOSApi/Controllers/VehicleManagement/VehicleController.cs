@@ -21,7 +21,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetVehicleById/{id}")]
         public ActionResult<GetVehicleDto> GetRecord(int id)
         {
             var recordInDb = _context.Vehicles
@@ -102,7 +102,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             return BadRequest(new { message });
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateVehicle/{id}")]
         public IActionResult Update(AddOrUpdateVehicleDto model, int id)
         {
             if (ModelState.IsValid)

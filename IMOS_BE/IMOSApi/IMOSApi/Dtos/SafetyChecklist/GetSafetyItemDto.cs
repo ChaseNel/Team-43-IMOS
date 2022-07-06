@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace IMOSApi.Dtos.Generic
+namespace IMOSApi.Dtos.SafetyChecklist
 {
-    public class GetGenericIdAndNameDto
+    public class GetSafetyItemDto
     {
         public int Id { get; set; }
-
-      
         public string Name { get; set; }
-
+        public string Safetyitemcategory { get; set; }
+        public int SafetyitemcategoryId { get; set; }
     }
 }

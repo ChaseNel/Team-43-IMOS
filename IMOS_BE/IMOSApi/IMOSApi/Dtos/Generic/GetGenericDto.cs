@@ -12,5 +12,5 @@ namespace IMOSApi.Dtos.Generic
         public string Description { get; set; }
 
     }
-       
+
 }
