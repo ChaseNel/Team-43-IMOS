@@ -47,6 +47,9 @@ namespace IMOSApi
             #endregion
 
             services.AddMvc();
+            //services.AddMvc(
+            //    option => option.EnableEndpointRouting = false);
+
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
@@ -76,10 +79,15 @@ namespace IMOSApi
 
             app.UseRouting();
             app.UseAuthorization();
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("equipment", "{controller=EquipmentController}");
+            //    routes.MapRoute("equipmentcheck", "{controller=EquipmentcheckController}");
+            //});
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
 
+                endpoints.MapControllers();
             });
         }
     }

@@ -176,6 +176,23 @@ export interface equipment {
   warehouseequipments: []
 }
 
+// safety checklist 
+export interface safetychecklist {
+}
+
+// SafetyCategory 
+//Supplier Type Interface Safetyitemcategory
+export interface safetyitemcategory {
+  id: number,
+  name: string,
+  Safetyfileitems: []
+}
+export interface safetyfileitems{
+
+}
+
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -495,5 +512,28 @@ UpdateEquipment(id: number, data: any){
     return this.http.put(this.Root_URL + '/Vehicle/UpdateVehicle/' + id, data)
   }
   //Delete
+
+
+  // SafetyCategory 
+  //Get
+  getSafetyCategory(): Observable<safetyitemcategory[]> {
+    return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
+  }
+   //Delete
+   deleteSafetyItemCategory(id: number) {
+    return this.http.delete(this.Root_URL + '/SafetyItemCategory/DeleteSafetyItemCategory/' + id);
+  }
+
+  //SafetyFile 
+  //SafetyChecklist 
+  //Get All
+  getProjectChecklist(): Observable<safetychecklist[]> {
+    return this.http.get<safetychecklist[]>(this.Root_URL + '/SafetyChecklist/GetProjectChecklist/GetAll')
+  }
+
+  // deleteProjectSafetyChecklist
+  deleteProjectSafetyChecklist(id: number) {
+    return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
+  }
 
 }

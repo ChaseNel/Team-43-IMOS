@@ -65,7 +65,7 @@ namespace IMOSApi.Controllers.ProjectManagement
             return BadRequest(new { message });
         }
 
-        [HttpPost]
+        [HttpPost("Add")]
         public IActionResult AddSupplierType(AddOrUpdateGenericNameOnlyDto model)
         {
 

@@ -78,8 +78,6 @@ namespace IMOSApi.Controllers.EquipmentManagement
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
-        [HttpPut("updateEquipment/{id}")]
-
         [HttpPut("UpdateEquipment/{id}")]
         public IActionResult Update(GetGenericDto model, int id)
         {
@@ -102,7 +100,7 @@ namespace IMOSApi.Controllers.EquipmentManagement
             return BadRequest(new { message });
         }
 
-        [HttpDelete("{DeleteEquipment/{id}}")]
+        [HttpDelete("DeleteEquipment/{id}")]
         public async Task<ActionResult<Equipment>> Delete(int id)
         {
             var recordInDb = await _context.Equipment.FindAsync(id);
