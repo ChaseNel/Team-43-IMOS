@@ -79,11 +79,6 @@ export class SupplierTypeComponent implements OnInit {
       this.dataSource.sort = this.sort;
   })
 } 
-
-
-
-
-
   addSupplierType() {
     this.route.navigateByUrl('/AddSupplierType')
   }

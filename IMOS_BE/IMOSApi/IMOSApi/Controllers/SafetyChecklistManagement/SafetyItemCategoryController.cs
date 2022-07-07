@@ -68,7 +68,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
 
         }
 
-        [HttpPost]
+        [HttpPost("AddCategory")]
         public IActionResult AddItemCategory(AddOrUpdateGenericNameOnlyDto model)
         {
 
@@ -91,10 +91,8 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
                 _context.SaveChanges();
                 return Ok();
             }
-
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
-
         }
 
         [HttpDelete("{id}")]

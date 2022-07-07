@@ -1,3 +1,4 @@
+import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -55,6 +56,7 @@ import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checkli
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 
 const routes: Routes = [
   //Default
@@ -130,8 +132,12 @@ const routes: Routes = [
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
   { path: 'addsaftyChecklist', component: AddSaftyChecklistComponent },
   { path: 'updatesaftyChecklist/:id', component: UpdateSaftyChecklistComponent },
-  //Safty Checklist Caragory
+  
+  //Safty Checklist Category
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
+  { path: 'UpdateSafetyChecklistCategory/:id', component: UpdateSaftyChecklistCatagoryComponent },
+  { path: 'AddSafetyChecklistCategory', component: AddSaftyChecklistCatagoryComponent },
+
   //Safty Checklist Items
   { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
   { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
