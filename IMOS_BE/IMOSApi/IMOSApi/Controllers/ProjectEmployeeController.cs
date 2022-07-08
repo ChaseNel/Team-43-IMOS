@@ -1,6 +1,6 @@
 ﻿using IMOSApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace IMOSApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ProjectemployeeController : ControllerBase
+    [ApiController]
+    public class ProjectEmployeeController : ControllerBase
     {
         [HttpGet("GetProjectemployees")]
         public IEnumerable<Projectemployee> Retrieve()
@@ -46,7 +46,7 @@ namespace IMOSApi.Controllers
             using (var context = new IMOSContext())
             {
                 var clie = context.Projectemployees.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
-                
+
                 context.SaveChanges();
             }
         }
@@ -61,4 +61,5 @@ namespace IMOSApi.Controllers
             }
         }
     }
+
 }

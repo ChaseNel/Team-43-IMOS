@@ -1,6 +1,6 @@
 ﻿using IMOSApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace IMOSApi.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class ProjectmaterialrequestlistController : ControllerBase
+    [ApiController]
+    public class ProjectmatieralrequestlistController : ControllerBase
     {
         [HttpGet("GetProjectmaterialrequestlists")]
         public IEnumerable<Projectmaterialrequestlist> Retrieve()

@@ -20,8 +20,10 @@ namespace IMOSApi.Models
         public int MaterialtypeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int SupplierId { get; set; }
 
         public virtual Materialtype Materialtype { get; set; }
+        public virtual Supplier Supplier { get; set; }
         public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
         public virtual ICollection<Projectmaterial> Projectmaterials { get; set; }
         public virtual ICollection<Supplierorderline> Supplierorderlines { get; set; }

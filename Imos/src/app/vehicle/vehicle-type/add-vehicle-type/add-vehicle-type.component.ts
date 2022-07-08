@@ -10,9 +10,8 @@ import { FormGroup } from '@angular/forms';
 })
 export class AddVehicleTypeComponent implements OnInit {
 
-
   Description: any;
-  public vehicleTypeFrm!: FormGroup;
+  public vehicleTypeFrm!:FormGroup;
   alert: boolean = false;
 
   constructor(private service: ServiceService, private formB: FormBuilder) { }
@@ -22,8 +21,6 @@ export class AddVehicleTypeComponent implements OnInit {
       Description: new FormControl('', [Validators.required]),
     })
   }
-
-
 
   addVehicleT() {
     var val = { Description: this.Description}
@@ -39,7 +36,5 @@ export class AddVehicleTypeComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) => {
     return this.vehicleTypeFrm.controls[controlName].hasError(errorName);
   }
-
-  
 
 }

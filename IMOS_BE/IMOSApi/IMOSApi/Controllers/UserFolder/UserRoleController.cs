@@ -1,4 +1,6 @@
-﻿using IMOSApi.Models;
+﻿
+
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -30,7 +32,7 @@ namespace IMOSApi.Controllers.UserFolder
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Userrole> userroles = context.Userroles.Where(usr => usr.Userrole1 == id).ToList();
+                IEnumerable<Userrole> userroles = context.Userroles.Where(usr => usr.UserroleId == id).ToList();
                 return userroles;
 
             }

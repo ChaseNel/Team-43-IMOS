@@ -1,1 +1,67 @@
-<p>update-supplier works!</p>
+<mat-card class="updatecard">
+    <mat-card-header class="header">
+        <mat-card-title>
+            Update   Supplier 
+        </mat-card-title>
+    </mat-card-header>
+</mat-card>
+ 
+<form [formGroup]="updateForm" class="form" (ngSubmit)="onSubmit()">
+    <mat-card-content class="content">
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label> Supplier type</mat-label>
+                <mat-select formControlName="suppliertypeId">
+                    <mat-option *ngFor="let type of Suppliertypes" [value]="type.id">
+                        {{type.name}}
+                    </mat-option>
+
+                </mat-select>
+                <mat-error *ngIf="updateForm.hasError('required')">
+                    Type is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                 <mat-label>Name</mat-label>
+                  <input matInput  placeholder="Type name" #nameInput  formControlName="name">
+                  <mat-error>Name is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Type Address</mat-label>
+                <input matInput  placeholder="Type address" #nameInput  formControlName="address">
+                <mat-error>Address is required</mat-error>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="example-full-width" appearance="standard">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+                       placeholder="Ex. pat@example.com" formControlName="email" #nameInput>
+                <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                  Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="emailFormControl.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field appearance="standard">
+                <mat-label>Contact</mat-label>
+                <input matInput  placeholder="Type contact number" formControlName="contactnumber" #nameInput>
+                <mat-error>ContactNumber is required</mat-error>
+            </mat-form-field>
+
+        </div>
+   
+    <mat-card-actions>
+        <button   mat-raised-button color="primary">Update</button>
+        <button (click)="Cancel()" mat-raised-button color="warn">Cancel</button>
+    </mat-card-actions>
+</mat-card-content>
+</form>
+

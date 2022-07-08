@@ -1,1 +1,44 @@
-<p>add-material works!</p>
+<app-header></app-header>
+
+<button class="btnBack" mat-raised-button color="warn" routerLink="/material">Back</button>
+
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success !</strong> Material Added Successfully
+    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form [formGroup]="materialFrm" class="form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add Material</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <mat-form-field class="full-width">
+                    <mat-label>Choose a Material Type</mat-label>
+                    <mat-placeholder>Choose a Material Type</mat-placeholder>
+                    <mat-select [formControl]="Type">
+                        <mat-option>Clear</mat-option>
+                        <mat-option mat-cell *matCellDef="let element">{{typelist[element.materialtypeId-1]?.name}}</mat-option>
+                      </mat-select>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='Name' matInput placeholder="Material Name" name="Name"
+                        formControlName="Name">
+                </mat-form-field>
+                <mat-error *ngIf="hasError('Name', 'required')"></mat-error>
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='Description' matInput placeholder="Material Description" name="Description"
+                        formControlName="Description">
+                </mat-form-field>
+                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
+                <mat-card-actions>
+                    <button (click)="addMaterial()" mat-raised-button color="primary">Add</button>
+                    <button (click)="back()" mat-raised-button color="warn">back</button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

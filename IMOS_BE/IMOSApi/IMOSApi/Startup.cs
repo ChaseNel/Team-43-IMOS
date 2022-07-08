@@ -2,16 +2,19 @@ using IMOSApi.Data;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,8 +44,11 @@ namespace IMOSApi
                     .AllowCredentials();
                 });
             });
-
             #endregion
+
+            services.AddMvc();
+            //services.AddMvc(
+            //    option => option.EnableEndpointRouting = false);
 
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
@@ -51,8 +57,6 @@ namespace IMOSApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
             });
-
-            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,13 +70,23 @@ namespace IMOSApi
             }
             app.UseCors();
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Uploads")),
+                RequestPath = new PathString("/Uploads")
+            });
 
             app.UseRouting();
-
             app.UseAuthorization();
-
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute("equipment", "{controller=EquipmentController}");
+            //    routes.MapRoute("equipmentcheck", "{controller=EquipmentcheckController}");
+            //});
             app.UseEndpoints(endpoints =>
             {
+
                 endpoints.MapControllers();
             });
         }
