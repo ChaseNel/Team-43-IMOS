@@ -13,10 +13,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class IncidentComponent implements OnInit {
 
+  type: any;
+  name: any;
+  description: any;
+  id: any;
+  hide: boolean = false;
+
+
   // API Test
   data: incident[] = [];
 
-  displayedColumns: string[] = ['desc', 'user', 'actions'];
+  displayedColumns: string[] = ['desc', 'actions'];
 
   dataSource!: MatTableDataSource<incident>;
 
@@ -31,7 +38,7 @@ export class IncidentComponent implements OnInit {
   }
 
   GetAllIncidents() {
-    this.service.getInicdent().subscribe(x => {
+    this.service.getIncident().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x;
@@ -52,9 +59,26 @@ export class IncidentComponent implements OnInit {
     }
   }
 
-  UpdateIncident() {
-    this.route.navigateByUrl('/updateIncident')
+  UpdateIncident(element: any) {
+    this.type = element;
+    this.hide = true;
   }
+
+   closeClick(){
+    this.hide= false;
+    this.service.getIncident().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+} 
+
+
 
   addIncident() {
     this.route.navigateByUrl('/addIncident')

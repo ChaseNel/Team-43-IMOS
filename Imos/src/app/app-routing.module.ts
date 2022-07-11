@@ -55,6 +55,9 @@ import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checkli
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+import { TaskTypeComponent } from './task/task-type/task-type.component';
+import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
 
 const routes: Routes = [
   //Default
@@ -136,6 +139,12 @@ const routes: Routes = [
   { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
   { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
   { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
+
+
+  //Task Type
+  { path: 'tasktype', component: TaskTypeComponent },
+  { path: 'UpdateTaskType', component: UpdateTaskTypeComponent },
+  { path: 'AddTaskType', component: AddTaskTypeComponent },
 ];
 
 @NgModule({

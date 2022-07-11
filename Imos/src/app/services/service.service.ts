@@ -176,6 +176,12 @@ export interface equipment {
   warehouseequipments: []
 }
 
+export interface tasktype{
+  tasktypeId: number,
+  description: string,
+  tasks: []
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -411,7 +417,7 @@ getSupplierById(id:number){
 
   }
   
-  // add vehicle
+ 
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
@@ -419,12 +425,28 @@ getSupplierById(id:number){
 
   //Incident
   //Get
-  getInicdent(): Observable<incident[]> {
-    return this.http.get<incident[]>(this.Root_URL + '/Incident/GetIncidents')
+  getIncident(): Observable<incident[]> {
+    return this.http.get<incident[]>("https://localhost:44381/api/incident/getincidents")
   }
+
+  //Add
+  addIncident(val: any) {
+    return this.http.post("https://localhost:44381/api/incident/createincident", val)
+
+  }
+
+  //Update
+  editIncident(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = "https://localhost:44381/api/incident/updateincident" + id;
+    return this.http.put(endPointUrl, val);
+
+  }
+  
+
   //Delete
   deleteIncident(id: number) {
-    return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
+    return this.http.delete("https://localhost:44381/api/incident/deleteincident" + id);
   }
 
   //Projects
@@ -488,4 +510,36 @@ UpdateEquipment(id: number, data: any){
   // Get All
   //Update 
   //Delete
+
+
+  //Task Type
+  //Get
+  getTaskType(): Observable<tasktype[]> {
+    return this.http.get<tasktype[]>("https://localhost:44381/api/tasktype/gettasktypes")
+  }
+
+
+  //Add
+  addTaskType(val: any) {
+    return this.http.post("https://localhost:44381/api/tasktype/createtasktype", val)
+
+  }
+
+  //Update
+  editTaskType(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = "https://localhost:44381/api/tasktype/updatetasktype"+ id;
+    return this.http.put(endPointUrl, val);
+
+  }
+  
+ 
+  //Delete
+  deleteTaskType(id: number) {
+    return this.http.delete("https://localhost:44381/api/tasktype/deletetasktype" + id);
+  }
+
+
+
+
 }

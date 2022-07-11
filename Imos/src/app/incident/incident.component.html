@@ -10,6 +10,21 @@
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br> -->
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog model-dialog-centered modal-xl">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Incident</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click) ='closeClick()'></button>
+        </div>
+        <div class="modal-body">
+          <app-update-incident [type] ="type" *ngIf = "hide"></app-update-incident>
+        </div>
+      </div>
+    </div>
+  </div> 
+
 <!-- Search Field -->
 <mat-form-field appearance="standard">
     <mat-label>Search Table</mat-label>
@@ -28,18 +43,12 @@
         <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
-    <!-- Description Column -->
-    <ng-container matColumnDef="user">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User Incident </th>
-        <td mat-cell *matCellDef="let element"> {{element.userincidents}} </td>
-    </ng-container>
-
     <!-- Actions -->
     <ng-container matColumnDef="actions">
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="UpdateIncident()" mat-flat-button color="accent">Edit</button>
+            <button (click)="UpdateIncident(element)" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteIncident(element.incidentId)">Delete</button>
         </td>
