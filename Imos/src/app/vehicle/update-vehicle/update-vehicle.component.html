@@ -5,7 +5,7 @@
         </mat-card-title>
     </mat-card-header>
 </mat-card>
-<form [formGroup]="updateForm" class="form">
+<form [formGroup]="updateForm" class="form" (ngSubmit)="onSubmit">
     <mat-card-content>
         <div>
             <mat-form-field appearance="outline">
@@ -61,7 +61,7 @@
                 <mat-datepicker #modelLastServicedPicker color="warn"></mat-datepicker>
             </mat-form-field>
             <mat-card-actions>
-                <button (click)="updateVehicle()" mat-raised-button color="primary">Update</button>
+                <button  mat-raised-button color="primary">Update</button>
                 <button (click)="Cancel()" mat-raised-button color="warn">Cancel</button>
             </mat-card-actions>
 

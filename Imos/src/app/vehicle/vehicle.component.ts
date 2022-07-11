@@ -6,6 +6,18 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+export interface Vehicle {
+  vehicleId: number,
+  vehicletypeId: number,
+  make: string,
+  model: string,
+  year: string,
+  color: string,
+  status: string,
+  DatePurchased: string,
+  LastServiced: string,
+  vehicletype: string,
+}
 
 @Component({
   selector: 'app-vehicle',
@@ -54,13 +66,13 @@ export class VehicleComponent implements OnInit {
     }
   }
 
-  UpdateVehicle() {
-    this.route.navigateByUrl('/updateVehicle')
+  UpdateVehicle(id:number) {
+    this.route.navigate(['updateVehicle',id])
   }
   assignVehicle() {
+    //or navigate (['assignVehicle',id])
     this.route.navigateByUrl('/assignVehicle')
   }
-
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
   }
@@ -85,7 +97,5 @@ export class VehicleComponent implements OnInit {
   ngOnInit(): void {
     this.service.getVehicleType().subscribe(x => { this.Tyoelist = x; console.log("type", this.Tyoelist) });
     //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
-
   }
-
 }
