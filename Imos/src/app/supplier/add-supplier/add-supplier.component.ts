@@ -21,7 +21,8 @@ export interface Supplier {
   email: string,
   contactnumber: number,
   suppliertype: string,
-  supplierorderlines: []
+  supplierorderlines: [],
+  Suppliermaterials:[]
 }
 
 
@@ -53,6 +54,7 @@ export class AddSupplierComponent implements OnInit {
       Email: ['', [Validators.required]],
       ContactNumber: ['', [Validators.required]],
       suppliertypeId: ['', [Validators.required]],
+      
 
     });
     this._service.getSupplierType().subscribe(data =>{

@@ -5,7 +5,12 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { safetyitemcategory, ServiceService } from 'src/app/services/service.service';
-import { Safetyitemcategory } from 'src/app/shared/shared.types';
+
+export interface Safetyitemcategory{
+  safetyitemcategoryId:number,
+  categoryName:string,
+  Safetyfileitems:[]
+}
 
 @Component({
   selector: 'app-safty-checklist-catagory',

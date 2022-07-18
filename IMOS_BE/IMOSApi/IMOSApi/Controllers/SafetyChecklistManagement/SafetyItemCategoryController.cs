@@ -71,7 +71,6 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
         [HttpPost("AddCategory")]
         public IActionResult AddItemCategory(AddOrUpdateGenericNameOnlyDto model)
         {
-
             var message = "";
             if (ModelState.IsValid)
             {

@@ -41,6 +41,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Safetyitemcategory> Safetyitemcategories { get; set; }
         public virtual DbSet<Stocktake> Stocktakes { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
+        public virtual DbSet<Suppliermaterial> Suppliermaterials { get; set; }
         public virtual DbSet<Supplierorderline> Supplierorderlines { get; set; }
         public virtual DbSet<Suppliertype> Suppliertypes { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
@@ -312,19 +313,11 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("NAME");
 
-                entity.Property(e => e.SupplierId).HasColumnName("Supplier_Id");
-
                 entity.HasOne(d => d.Materialtype)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
-
-                entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Materials)
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_MATERIAL_SUPPLIER");
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -646,6 +639,30 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.SuppliertypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SUPPLIER________HA_SUPPLIER");
+            });
+
+            modelBuilder.Entity<Suppliermaterial>(entity =>
+            {
+                entity.HasKey(e => new { e.MaterialId, e.SupplierId })
+                    .HasName("PK__SUPPLIER__6E61AFCB5C2E1D33");
+
+                entity.ToTable("SUPPLIERMATERIAL");
+
+                entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+
+                entity.HasOne(d => d.Material)
+                    .WithMany(p => p.Suppliermaterials)
+                    .HasForeignKey(d => d.MaterialId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERMATERIAL_MATERIAL");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Suppliermaterials)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERMATERIAL_SUPPLIER");
             });
 
             modelBuilder.Entity<Supplierorderline>(entity =>
