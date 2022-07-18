@@ -27,13 +27,13 @@ export class UpdateTaskTypeComponent implements OnInit {
     this.taskTypeFrm = new FormGroup({
       Description: new FormControl('', [Validators.required])
     })
-    this.Id = this.type.tasktypeId;
+    this.Id = this.type.tasktype1;
     this.Description1 = this.type.description;
 
   }
 
   updateTaskT(){
-    var id = this.type.tasktypeId;
+    var id = this.type.tasktype1;
     var val = { Description: this.Description1};
     this.service.editTaskType(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
     this.alert = true;

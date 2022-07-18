@@ -177,10 +177,21 @@ export interface equipment {
 }
 
 export interface tasktype{
-  tasktypeId: number,
+  tasktype1: number,
   description: string,
   tasks: []
 }
+
+export interface task{
+  taskId: number,
+  tasktype: string,
+  userid: string,
+  startdate: any,
+  enddate: any,
+  invoices: [],
+  taskmaterials: []
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -196,18 +207,20 @@ export class ServiceService {
       contentType: 'application/json'
     })
   };
+  
 
+  public taskId: number;
   constructor(private http: HttpClient) {
   }
 
   //User
   //Get
   getUser(): Observable<user[]> {
-    return this.http.get<user[]>(this.Root_URL + '/User')
+    return this.http.get<user[]>(this.Root_URL + '/user/getuser')
   }
   //Delete
   deleteUser(id: number) {
-    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
+    return this.http.delete(this.Root_URL + '/user/deleteuser' + id);
   }
   //Add
   addUser(obj: any): Observable<any> {
@@ -426,19 +439,19 @@ getSupplierById(id:number){
   //Incident
   //Get
   getIncident(): Observable<incident[]> {
-    return this.http.get<incident[]>("https://localhost:44381/api/incident/getincidents")
+    return this.http.get<incident[]>(this.Root_URL + "/incident/getincidents")
   }
 
   //Add
   addIncident(val: any) {
-    return this.http.post("https://localhost:44381/api/incident/createincident", val)
+    return this.http.post(this.Root_URL + "/incident/createincident", val)
 
   }
 
   //Update
   editIncident(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = "https://localhost:44381/api/incident/updateincident" + id;
+    const endPointUrl = this.Root_URL + "/incident/updateincident/" + id;
     return this.http.put(endPointUrl, val);
 
   }
@@ -446,7 +459,7 @@ getSupplierById(id:number){
 
   //Delete
   deleteIncident(id: number) {
-    return this.http.delete("https://localhost:44381/api/incident/deleteincident" + id);
+    return this.http.delete(this.Root_URL + "/incident/deleteincident/" + id);
   }
 
   //Projects
@@ -515,20 +528,20 @@ UpdateEquipment(id: number, data: any){
   //Task Type
   //Get
   getTaskType(): Observable<tasktype[]> {
-    return this.http.get<tasktype[]>("https://localhost:44381/api/tasktype/gettasktypes")
+    return this.http.get<tasktype[]>(this.Root_URL + "/tasktype/gettasktypes")
   }
 
 
   //Add
   addTaskType(val: any) {
-    return this.http.post("https://localhost:44381/api/tasktype/createtasktype", val)
+    return this.http.post(this.Root_URL + "/tasktype/createtasktype", val)
 
   }
 
   //Update
   editTaskType(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = "https://localhost:44381/api/tasktype/updatetasktype"+ id;
+    const endPointUrl = this.Root_URL + "/tasktype/updatetasktype/"+ id;
     return this.http.put(endPointUrl, val);
 
   }
@@ -536,7 +549,45 @@ UpdateEquipment(id: number, data: any){
  
   //Delete
   deleteTaskType(id: number) {
-    return this.http.delete("https://localhost:44381/api/tasktype/deletetasktype" + id);
+    return this.http.delete(this.Root_URL + "/tasktype/deletetasktype/" + id);
+  }
+
+
+
+  //Task 
+  //Get
+  getTask(): Observable<task[]> {
+    return this.http.get<task[]>(this.Root_URL + "/task/gettask")
+  }
+
+
+  //Add
+  addTask(val: any) {
+    return this.http.post(this.Root_URL + "/task/createtask", val)
+
+  }
+
+  //Update
+  editTask(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/task/updatetask/"+ id;
+    return this.http.put(endPointUrl, val);
+
+  }
+
+  setTaskId(Id: any) {
+    this.taskId = Id;
+    console.log(this.taskId);
+  }
+
+  getTaskId() {
+    return this.taskId;
+  }
+  
+ 
+  //Delete
+  deleteTask(id: number) {
+    return this.http.delete(this.Root_URL + "/task/deletetask/" + id);
   }
 
 

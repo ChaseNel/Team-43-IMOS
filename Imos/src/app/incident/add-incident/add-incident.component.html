@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/incident">Back</button>
+
 
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success !</strong> Incident Added Successfully
@@ -23,7 +23,7 @@
                 <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
                 <mat-card-actions>
                     <button (click)="addIncident()" mat-raised-button color="primary">Add</button>
-                    <button (click)="back()" mat-raised-button color="warn">back</button>
+                    <button (click)="back()" mat-raised-button color="warn">Back</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>

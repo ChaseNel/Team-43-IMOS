@@ -27,13 +27,13 @@ export class UpdateIncidentComponent implements OnInit {
     this.incidentFrm = new FormGroup({
       Description: new FormControl('', [Validators.required])
     })
-    this.Id = this.type.materialtypeId;
+    this.Id = this.type.incidentId;
     this.Description1 = this.type.description;
 
   }
 
   updateIncident(){
-    var id = this.type.materialtypeId;
+    var id = this.type.incidentId;
     var val = {Description: this.Description1};
     this.service.editIncident(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
     this.alert = true;

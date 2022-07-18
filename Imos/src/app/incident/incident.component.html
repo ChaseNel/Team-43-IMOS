@@ -48,7 +48,7 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="UpdateIncident(element)" mat-flat-button color="accent">Edit</button>
+            <button (click)="UpdateIncident(element)" mat-flat-button color="accent" data-bs-toggle="modal" data-bs-target="#exampleModal"  data-backdrop="static" data-keyboard="false">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteIncident(element.incidentId)">Delete</button>
         </td>
