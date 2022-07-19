@@ -93,6 +93,7 @@ import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checkli
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +168,7 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
     UpdateSaftyChecklistItemsComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
+    AssignVehicleComponent,
   ],
   imports: [
     BrowserModule,

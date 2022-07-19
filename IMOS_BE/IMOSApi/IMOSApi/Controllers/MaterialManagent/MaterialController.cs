@@ -50,7 +50,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
         {
             var recordsInDb = _context.Materials
-                .Include(item => item.Supplier)
+                //.Include(item => item.Supplier)
                 .Include(item => item.Materialtype)
                 .Select(item => new GetMaterialDto()
                 {
@@ -58,8 +58,8 @@ namespace IMOSApi.Controllers.MaterialManagent
                     Name = item.Name,
                     Description = item.Description,
 
-                    Supplier = item.Supplier.Name,
-                    SupplierId = item.SupplierId,
+                    //Supplier = item.Supplier.Name,
+                    //SupplierId = item.SupplierId,
 
                     Materialtype = item.Materialtype.Name,
                     MaterialtypeId = item.MaterialtypeId,
@@ -124,7 +124,5 @@ namespace IMOSApi.Controllers.MaterialManagent
             await _context.SaveChangesAsync();
             return Ok();
         }
-
-
     }
 }

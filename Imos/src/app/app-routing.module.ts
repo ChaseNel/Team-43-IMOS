@@ -57,6 +57,7 @@ import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
 
 const routes: Routes = [
   //Default
@@ -108,6 +109,11 @@ const routes: Routes = [
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
   { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
+
+    //this.route.navigateByUrl('/assignVehicle')
+    // Asign Vehicle 
+    { path: 'assignVehicle', component: AssignVehicleComponent },
+
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
