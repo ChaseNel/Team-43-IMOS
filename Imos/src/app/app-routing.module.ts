@@ -80,7 +80,7 @@ const routes: Routes = [
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial', component: UpdateMaterialComponent },
+  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
   { path: 'AddMaterial', component: AddMaterialComponent },
   //Material Type
   { path: 'materialtype', component: MaterialTypeComponent },
@@ -102,11 +102,11 @@ const routes: Routes = [
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle', component: UpdateVehicleComponent },
+  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
-  { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
+  { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },
 
     //this.route.navigateByUrl('/assignVehicle')
     // Asign Vehicle 

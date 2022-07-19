@@ -262,7 +262,7 @@ export class ServiceService {
   //add 
   addEmployee(val: any){
 
-    return this.http.post(this.Root_URL + 'Employee/AddEmployee',val)
+    return this.http.post(this.Root_URL + '/Employee/AddEmployee',val)
   }
   // update employee 
 
@@ -408,7 +408,7 @@ getSupplierById(id:number){
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetVehicletypes')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetAll')
   }
 
 

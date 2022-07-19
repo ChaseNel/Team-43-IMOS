@@ -27,6 +27,7 @@ namespace IMOSApi.Controllers
                 return _dbContext.Employees.ToList();
             }
         }
+
         [HttpGet("GetEmployee/{id}")]
         public IEnumerable<Employee> Get(int id)
         {
@@ -76,17 +77,6 @@ namespace IMOSApi.Controllers
             }
         }
 
-        [HttpPost("CreateEmployee")]
-        public IActionResult Create([FromBody] Employee employee)
-        {
-            using (var context = new IMOSContext())
-            {
-                context.Employees.Add(employee);
-                context.SaveChanges();
-                return Ok();
-            }
-        }
-
         [HttpPut("UpdateEmployee/{Id}")]
         public void Update([FromBody] Employee employee,[FromRoute] int Id)
         {
@@ -101,12 +91,13 @@ namespace IMOSApi.Controllers
                 context.SaveChanges();
             }
         }
+
         [HttpDelete("DeleteEmployee/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).ToList().FirstOrDefault(); ;
+                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).FirstOrDefault(); 
                 _dbContext.Employees.Remove(emp);
                 _dbContext.SaveChanges();
             }
