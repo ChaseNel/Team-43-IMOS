@@ -50,8 +50,8 @@ export interface material {
 }
 
 //Material Type Interface
-export interface materialType {
-  materialTypeID: number,
+export interface Materialtype {
+  id: number,
   name: string,
   description: string,
   materials: []
@@ -167,6 +167,22 @@ export interface warehouse {
   warehousematerials: []
 }
 
+// add all project,safetychecklist,checklist Item  category 
+
+export interface safetyitemcategory {
+  id: number,
+  categoryName: string,
+  safetyfileitems: [],
+}
+
+export interface safetyItem {
+  safetyfileitemId:number,
+  name:string,
+  safetyitemcategoryId:number,
+  safetyitemcategory:string,
+  safetyfilechecklists:[]
+}
+
 //Equipment Interface
 export interface equipment {
   equipmentId: number,
@@ -175,23 +191,6 @@ export interface equipment {
   projectequipments: [],
   warehouseequipments: []
 }
-
-// safety checklist 
-export interface safetychecklist {
-}
-
-// SafetyCategory 
-//Supplier Type Interface Safetyitemcategory
-export interface safetyitemcategory {
-  id: number,
-  name: string,
-  Safetyfileitems: []
-}
-export interface safetyfileitems{
-
-}
-
-
 
 @Injectable({
   providedIn: 'root'
@@ -273,6 +272,8 @@ export class ServiceService {
   }
 
   //Material
+  //getById
+
   //Get
   getMaterial(): Observable<material[]> {
     return this.http.get<material[]>(this.Root_URL + '/Material/GetMaterials')
@@ -283,30 +284,27 @@ export class ServiceService {
   }
   //Add
   addMaterial(val: any) {
-    return this.http.post(this.Root_URL + '/Material/CreateMaterial', val)
+    return this.http.post(this.Root_URL + '/Material/AddMaterial', val)
   }
 
   //Material Type
   //Get
-  getMaterialType(): Observable<materialType[]> {
-    return this.http.get<materialType[]>(this.Root_URL + '/Materialtype/GetMaterialtypes')
+  getMaterialType(): Observable<Materialtype []> {
+    return this.http.get<Materialtype []>(this.Root_URL + '/MaterialType/GetAll')
   }
+  //getById
+
   //Add
   addMaterialType(val: any) {
-    return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
+    return this.http.post(this.Root_URL + '/MaterialType/AddMaterialType', val)
   }
-
   //Update
-  editMaterialType(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + '/Materialtype/UpdateMaterialtype/' + id;
-    return this.http.put(endPointUrl, val);
-
-    return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetAll')
+  editMaterialType(id:number,data:any){
+    return this.http.put(this.Root_URL + '/MaterialType/UpdateType/'+id,data);
   }
   //Delete
   deleteMaterialType(id: number) {
-    return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
+    return this.http.delete(this.Root_URL + '/MaterialType/DeleteType/' + id);
   }
 
   //Material Request
@@ -519,6 +517,12 @@ UpdateEquipment(id: number, data: any){
   getSafetyCategory(): Observable<safetyitemcategory[]> {
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
   }
+   //Add 
+  addSafetyCategory(val:any){
+    return this.http.post(this.Root_URL + '/SafetyItemCategory/AddCategory', val)
+}
+  // put 
+
    //Delete
    deleteSafetyItemCategory(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyItemCategory/DeleteSafetyItemCategory/' + id);
@@ -527,13 +531,16 @@ UpdateEquipment(id: number, data: any){
   //SafetyFile 
   //SafetyChecklist 
   //Get All
-  getProjectChecklist(): Observable<safetychecklist[]> {
-    return this.http.get<safetychecklist[]>(this.Root_URL + '/SafetyChecklist/GetProjectChecklist/GetAll')
+  getProjectChecklist(): Observable<safetyItem[]> {
+    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyFileItem/GetProjectChecklist/GetAll')
   }
+  //getById
+
+  //Add
+  //update
 
   // deleteProjectSafetyChecklist
   deleteProjectSafetyChecklist(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
   }
-
 }

@@ -13,7 +13,6 @@ namespace IMOSApi.Dtos.Material
         public string Materialtype { get; set; }
         public int MaterialtypeId { get; set; }
         public string Supplier { get; set; }
-
         public int SupplierId { get; set; }
     }
 }

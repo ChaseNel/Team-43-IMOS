@@ -88,9 +88,6 @@ import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.compo
 import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
 import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
@@ -163,9 +160,6 @@ import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.
     AddSaftyChecklistComponent,
     UpdateSaftyChecklistComponent,
     SaftyChecklistCatagoryComponent,
-    SaftyChecklistItemsComponent,
-    AddSaftyChecklistItemsComponent,
-    UpdateSaftyChecklistItemsComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
     AssignVehicleComponent,

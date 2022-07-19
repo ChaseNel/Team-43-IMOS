@@ -4,10 +4,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { materialType, ServiceService } from 'src/app/services/service.service';
+import {  Materialtype, ServiceService } from 'src/app/services/service.service';
 
 export interface MaterialType {
-  materialTypeID: number,
+  materialtypeId: number,
   name: string,
   description: string,
   materials: []
@@ -28,7 +28,7 @@ export class MaterialTypeComponent implements OnInit {
   hide: boolean = false;
 
 // API Test
-data: materialType[] = [];
+data: Materialtype[] = [];
 
 displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
 

@@ -4,10 +4,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { safetychecklist, ServiceService } from '../services/service.service';
-import { SafetyChecklist } from '../shared/shared.types';
+import {  safetyItem, safetyitemcategory, ServiceService } from '../services/service.service';
 
 // safety checklist class on shared types 
+export interface SafetyItem{
+  safetyfileitemId:number,
+  name:string,
+  safetyitemcategoryId:number,
+  safetyitemcategory:string,
+  safetyfilechecklists:[]
+}
+
 @Component({
   selector: 'app-safty-checklist',
   templateUrl: './safty-checklist.component.html',
@@ -15,17 +22,17 @@ import { SafetyChecklist } from '../shared/shared.types';
 })
 export class SaftyChecklistComponent implements OnInit {
 
-  data: safetychecklist []=[];
+  data: safetyItem []=[];
 
-  displayedColumns: string[] = ['id', 'projectname','actions'];
+  displayedColumns: string[] = ['id', 'projectname','Categories', 'SafetyItems','actions'];
 
-  dataSource!: MatTableDataSource<SafetyChecklist>;
+  dataSource!: MatTableDataSource<SafetyItem>;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  // any lists getProjectChecklist
+  TypeList:safetyitemcategory[]=[];
 
   constructor(private _route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllProjectSafetyChecklistItem();
@@ -51,20 +58,16 @@ export class SaftyChecklistComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
+
+// add method route addNewSafetyChecklist
+addNewSafetyChecklist() {
+  this._route.navigateByUrl('/AddSaftyChecklist')
+}
   // update method route
   UpdateProjectSafetyChecklist(id:number) {
     //console.log("Test " +id)
     this._route.navigate(['UpdateProjectSafetyChecklist',id])
-    
   }
-
-
-  // add method route addNewSafetyChecklist
-  addNewSafetyChecklist() {
-    this._route.navigateByUrl('/addNewSafetyChecklist')
-  }
-
-
   // delete method route   getSafetyCategory
   removeProjectSafetyChecklist(id: number) {
     console.log(id);
@@ -78,10 +81,8 @@ export class SaftyChecklistComponent implements OnInit {
       });
     }
   }
-
   saftychecklistcatagory(){
     this._route.navigateByUrl('/saftyChecklistCatagory')
-
   }
 
   ngOnInit(): void {

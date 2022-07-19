@@ -15,3 +15,7 @@ form{
     left: 70%;
     top: 54%;
 }
+.example-additional-selection {
+    opacity: 0.75;
+    font-size: 0.75em;
+  }
