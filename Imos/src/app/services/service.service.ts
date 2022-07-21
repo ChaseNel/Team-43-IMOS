@@ -487,6 +487,24 @@ getSupplierById(id:number){
   getWarehouses(): Observable<warehouse[]> {
     return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetWarehouses')
   }
+
+  //Add
+  addWarehouse(val: any) {
+    return this.http.post(this.Root_URL + "/warehouse/createwarehouse", val)
+
+  }
+
+
+  //Update
+  editWarehouse(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/warehouse/updatewarehouse/" + id;
+    return this.http.put(endPointUrl, val);                                      
+
+  }
+
+
+
   //Delete
   deleteWarehouse(id: number) {
     return this.http.delete(this.Root_URL + '/Warehouse/DeleteWarehouse/' + id);
