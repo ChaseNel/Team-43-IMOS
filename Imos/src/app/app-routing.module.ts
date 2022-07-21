@@ -56,6 +56,15 @@ import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checkli
 
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
+import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
+import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+import { TaskTypeComponent } from './task/task-type/task-type.component';
+import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
+import { TaskComponent } from './task/task.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
 
 const routes: Routes = [
   //Default
@@ -143,9 +152,31 @@ const routes: Routes = [
   { path: 'AddSafetyChecklistCategory', component: AddSaftyChecklistCatagoryComponent },
   
   //Safty Checklist Items
+
   {path: 'AddSaftyChecklist', component: AddSaftyChecklistComponent }
   
+
+  { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
+  { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
+  { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
+
+
+  //Task Type
+  { path: 'tasktype', component: TaskTypeComponent },
+  { path: 'UpdateTaskType', component: UpdateTaskTypeComponent },
+  { path: 'AddTaskType', component: AddTaskTypeComponent },
+
+
+
+  //Task 
+{ path: 'task', component: TaskComponent },
+{ path: 'UpdateTask', component: UpdateTaskComponent },
+{ path: 'AddTask', component: AddTaskComponent },
+
+
 ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

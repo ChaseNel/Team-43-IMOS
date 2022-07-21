@@ -1,4 +1,8 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ServiceService } from 'src/app/services/service.service';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-add-incident',
@@ -7,9 +11,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddIncidentComponent implements OnInit {
 
-  constructor() { }
+  Description: any;
+  public incidentFrm!: FormGroup;
+  alert: boolean = false;
+
+  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
+    this.incidentFrm = new FormGroup({
+      Description: new FormControl('', [Validators.required])
+    })
   }
+
+  addIncident() {
+    var val = { Description: this.Description }
+    this.service.addIncident(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
+    this.Description = '';
+    console.log(val);
+    this.alert = true;
+  }
+
+  closeAlert() {
+    this.alert = false;
+  }
+
+  back(){
+    this.route.navigateByUrl("incident")
+  }
+  
+  public hasError = (controlName: string, errorName: string) => {
+    return this.incidentFrm.controls[controlName].hasError(errorName);
+  }
+
 
 }

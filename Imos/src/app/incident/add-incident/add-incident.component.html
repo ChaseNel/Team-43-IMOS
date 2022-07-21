@@ -1,1 +1,31 @@
-<p>add-incident works!</p>
+<app-header></app-header>
+
+
+
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Success !</strong> Incident Added Successfully
+    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+
+<form [formGroup]="incidentFrm" class="form-container">
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Add Incident</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='Description' matInput placeholder="Incident Description" name="Description"
+                        formControlName="Description">
+                </mat-form-field>
+                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
+                <mat-card-actions>
+                    <button (click)="addIncident()" mat-raised-button color="primary">Add</button>
+                    <button (click)="back()" mat-raised-button color="warn">Back</button>
+                </mat-card-actions>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</form>

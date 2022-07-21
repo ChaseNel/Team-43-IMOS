@@ -192,6 +192,23 @@ export interface equipment {
   warehouseequipments: []
 }
 
+export interface tasktype{
+  tasktype1: number,
+  description: string,
+  tasks: []
+}
+
+export interface task{
+  taskId: number,
+  tasktype: string,
+  userid: string,
+  startdate: any,
+  enddate: any,
+  invoices: [],
+  taskmaterials: []
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -206,18 +223,20 @@ export class ServiceService {
       contentType: 'application/json'
     })
   };
+  
 
+  public taskId: number;
   constructor(private http: HttpClient) {
   }
 
   //User
   //Get
   getUser(): Observable<user[]> {
-    return this.http.get<user[]>(this.Root_URL + '/User')
+    return this.http.get<user[]>(this.Root_URL + '/user/getuser')
   }
   //Delete
   deleteUser(id: number) {
-    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
+    return this.http.delete(this.Root_URL + '/user/deleteuser' + id);
   }
   //Add
   addUser(obj: any): Observable<any> {
@@ -426,7 +445,7 @@ getSupplierById(id:number){
 
   }
   
-  // add vehicle
+ 
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
@@ -434,12 +453,28 @@ getSupplierById(id:number){
 
   //Incident
   //Get
-  getInicdent(): Observable<incident[]> {
-    return this.http.get<incident[]>(this.Root_URL + '/Incident/GetIncidents')
+  getIncident(): Observable<incident[]> {
+    return this.http.get<incident[]>(this.Root_URL + "/incident/getincidents")
   }
+
+  //Add
+  addIncident(val: any) {
+    return this.http.post(this.Root_URL + "/incident/createincident", val)
+
+  }
+
+  //Update
+  editIncident(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/incident/updateincident/" + id;
+    return this.http.put(endPointUrl, val);
+
+  }
+  
+
   //Delete
   deleteIncident(id: number) {
-    return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
+    return this.http.delete(this.Root_URL + "/incident/deleteincident/" + id);
   }
 
   //Projects
@@ -467,6 +502,24 @@ getSupplierById(id:number){
   getWarehouses(): Observable<warehouse[]> {
     return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetWarehouses')
   }
+
+  //Add
+  addWarehouse(val: any) {
+    return this.http.post(this.Root_URL + "/warehouse/createwarehouse", val)
+
+  }
+
+
+  //Update
+  editWarehouse(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/warehouse/updatewarehouse/" + id;
+    return this.http.put(endPointUrl, val);                                      
+
+  }
+
+
+
   //Delete
   deleteWarehouse(id: number) {
     return this.http.delete(this.Root_URL + '/Warehouse/DeleteWarehouse/' + id);
@@ -543,4 +596,72 @@ UpdateEquipment(id: number, data: any){
   deleteProjectSafetyChecklist(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
   }
+  //Task Type
+  //Get
+  getTaskType(): Observable<tasktype[]> {
+    return this.http.get<tasktype[]>(this.Root_URL + "/tasktype/gettasktypes")
+  }
+
+
+  //Add
+  addTaskType(val: any) {
+    return this.http.post(this.Root_URL + "/tasktype/createtasktype", val)
+
+  }
+
+  //Update
+  editTaskType(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/tasktype/updatetasktype/"+ id;
+    return this.http.put(endPointUrl, val);
+
+  }
+  
+ 
+  //Delete
+  deleteTaskType(id: number) {
+    return this.http.delete(this.Root_URL + "/tasktype/deletetasktype/" + id);
+  }
+
+
+
+  //Task 
+  //Get
+  getTask(): Observable<task[]> {
+    return this.http.get<task[]>(this.Root_URL + "/task/gettask")
+  }
+
+
+  //Add
+  addTask(val: any) {
+    return this.http.post(this.Root_URL + "/task/createtask", val)
+
+  }
+
+  //Update
+  editTask(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + "/task/updatetask/"+ id;
+    return this.http.put(endPointUrl, val);
+
+  }
+
+  setTaskId(Id: any) {
+    this.taskId = Id;
+    console.log(this.taskId);
+  }
+
+  getTaskId() {
+    return this.taskId;
+  }
+  
+ 
+  //Delete
+  deleteTask(id: number) {
+    return this.http.delete(this.Root_URL + "/task/deletetask/" + id);
+  }
+
+
+
+
 }

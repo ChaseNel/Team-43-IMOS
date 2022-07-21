@@ -13,6 +13,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class WarehouseComponent implements OnInit {
 
+  type: any;
+  hide: boolean = false;
+
   // API Test
   data: warehouse[] = [];
 
@@ -52,10 +55,26 @@ export class WarehouseComponent implements OnInit {
     }
   }
 
-  UpdateWarehouse() {
-    this.route.navigateByUrl('/updateWarehouse')
+  UpdateWarehouse(element: any) {
+    this.type = element;
+    this.hide = true;
   }
 
+   closeClick(){
+    this.hide= false;
+    this.service.getWarehouses().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+
+
+}
   addWarehouse() {
     this.route.navigateByUrl('/addWarehouse')
   }
