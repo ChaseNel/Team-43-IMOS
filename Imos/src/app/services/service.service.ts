@@ -183,7 +183,7 @@ export interface equipment {
 export class ServiceService {
 
   //URL from API
-  readonly Root_URL = 'https://localhost:5001/api'
+  readonly Root_URL = 'https://localhost:44381/api'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -217,7 +217,7 @@ export class ServiceService {
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + 'UserRole/Roles/GetAll')
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
   //Update
