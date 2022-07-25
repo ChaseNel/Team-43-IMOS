@@ -45,12 +45,14 @@ export interface material {
   projectmaterialrequestlists: [],
   projectmaterials: [],
   supplierorderlines: [],
+  suppliermaterials:[],
   taskmaterials: [],
-  warehousematerials: [],
+  warehouse:string
+  warehouseId:number
 }
 
 //Material Type Interface
-export interface Materialtype {
+export interface materialtype {
   id: number,
   name: string,
   description: string,
@@ -160,11 +162,11 @@ export interface client {
 
 //Warehouse Interface
 export interface warehouse {
-  warehouseId: number,
+  id: number,
   name: string,
   location: string,
   warehouseequipments: [],
-  warehousematerials: []
+  materials: []
 }
 
 // add all project,safetychecklist,checklist Item  category 
@@ -286,11 +288,16 @@ export class ServiceService {
   addMaterial(val: any) {
     return this.http.post(this.Root_URL + '/Material/AddMaterial', val)
   }
+  // update material
+  updateMaterial(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Material/updateMaterial/'+id,data);
+    
+  }
 
   //Material Type
   //Get
-  getMaterialType(): Observable<Materialtype []> {
-    return this.http.get<Materialtype []>(this.Root_URL + '/MaterialType/GetAll')
+  getMaterialType(): Observable<materialtype []> {
+    return this.http.get<materialtype []>(this.Root_URL + '/MaterialType/GetAll')
   }
   //getById
 
@@ -320,7 +327,6 @@ export class ServiceService {
   //Supplier
 getSupplierById(id:number){
   return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
-
 }
 
   //Get All
@@ -414,7 +420,7 @@ getSupplierById(id:number){
 
   //Add
   addVehicleType(val: any) {
-    return this.http.post(this.Root_URL + '/api/Vehicletype/CreateVehicletype', val)
+    return this.http.post(this.Root_URL + '/Vehicletype/CreateVehicletype', val)
 
   }
 
@@ -463,9 +469,21 @@ getSupplierById(id:number){
   }
 
   //Warehouse
+  //getById
+  getWarehouseById(id:number){
+    return this.http.get(this.Root_URL + '/Warehouse/GetWarehouseById/' + id);
+  }
   //Get
   getWarehouses(): Observable<warehouse[]> {
-    return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetWarehouses')
+    return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetAll')
+  }
+  //add warehouse
+  addWarehouse(val:any){
+    return this.http.post(this.Root_URL + '/Warehouse/AddWarehouse',val);
+  }
+  //update warehouse
+  UpdateWarehouse(id: number, data: any){
+    return this.http.put(this.Root_URL + '/Warehouse/UpdateWarehouse/' + id, data);
   }
   //Delete
   deleteWarehouse(id: number) {

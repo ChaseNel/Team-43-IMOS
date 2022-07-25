@@ -36,7 +36,7 @@ namespace IMOSApi.Controllers.SupplierManagement
 
                     Suppliertype = item.Suppliertype.Name,
                     SuppliertypeId = item.SuppliertypeId//navigation to suppliertype
-                }).First();
+                }).OrderBy(item => item.Name).First();
             if (recordInDb == null)
             {
                 return NotFound();

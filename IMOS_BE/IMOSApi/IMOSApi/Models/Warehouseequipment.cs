@@ -15,7 +15,7 @@ namespace IMOSApi.Models
 
         public int WarehouseId { get; set; }
         public int EquipmentId { get; set; }
-        public int? Quantity { get; set; }
+        public int Quantity { get; set; }
 
         public virtual Equipment Equipment { get; set; }
         public virtual Warehouse Warehouse { get; set; }

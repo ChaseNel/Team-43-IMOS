@@ -1,4 +1,9 @@
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { Material } from '../material.component';
+import { materialtype, ServiceService, supplier, warehouse } from 'src/app/services/service.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-material',
@@ -6,10 +11,48 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-material.component.css']
 })
 export class UpdateMaterialComponent implements OnInit {
-
-  constructor() { }
+  Material!:Material;
+  id!:number;
+  TypeList: materialtype[] = [];
+  SupplierList:supplier[]=[];
+  WarehouseTypes: warehouse[] = [];
+  alert: boolean = false;
+  updateForm:FormGroup;
+  constructor(private fb:FormBuilder, private _service:ServiceService,
+    private route: ActivatedRoute,private router:Router,private http:HttpClient) 
+    { 
+      
+    }
 
   ngOnInit(): void {
+    const formOptions: AbstractControlOptions = {};
+    this.updateForm=this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+      materialtypeId: ['', [Validators.required]],
+      warehouseId: ['', [Validators.required]],
+      supplierId: ['', [Validators.required]],
+    }, formOptions);
+
+    this.id=+this.route.snapshot.params['id'];
+    this._service.getSupplierById(this.id).subscribe((res:any)=>{
+      this.Material=res;
+      console.log(this.Material);
+      this.updateForm=this.fb.group({
+        materialtypeId:[this.Material.name,[Validators.required]],
+        name:[this.Material.name,[Validators.required]],
+        description:[this.Material.description,[Validators.required]],
+        warehouseId:[this.Material.name,[Validators.required]],
+        supplierId:[this.Material.name,[Validators.required]],
+      },formOptions)
+    });
+   /* this._service.getSupplier().subscribe(data =>{
+      this.SupplierList = data;
+      });*/
+    
+  }
+  closeAlert() {
+    this.alert = false;
   }
 
 }

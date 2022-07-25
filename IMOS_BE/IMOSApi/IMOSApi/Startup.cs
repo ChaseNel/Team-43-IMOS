@@ -1,9 +1,11 @@
 using IMOSApi.Data;
 using IMOSApi.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -50,9 +52,20 @@ namespace IMOSApi
             //services.AddMvc(
             //    option => option.EnableEndpointRouting = false);
 
+
+            #region Configure Identity
+            services.AddDbContext<IMOSContext>();
+            services.AddIdentity<AppUser, AppRole>(options =>
+             {
+                 options.User.RequireUniqueEmail = true;
+             })
+                .AddEntityFrameworkStores<IMOSContext>()
+                 .AddDefaultTokenProviders();
+            #endregion
+
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-           services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
+          services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
@@ -60,7 +73,11 @@ namespace IMOSApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
+
+           RoleManager<AppRole> roleManager,
+           UserManager<AppUser> userManager 
+            )
         {
             if (env.IsDevelopment())
             {

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
+using System;
 using System.Collections.Generic;
 
 #nullable disable
 
 namespace IMOSApi.Models
 {
-    public partial class User
+    public partial class User:IdentityUser
     {
         public User()
         {

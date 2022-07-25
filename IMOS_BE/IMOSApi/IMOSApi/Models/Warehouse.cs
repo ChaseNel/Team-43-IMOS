@@ -9,15 +9,15 @@ namespace IMOSApi.Models
     {
         public Warehouse()
         {
+            Materials = new HashSet<Material>();
             Warehouseequipments = new HashSet<Warehouseequipment>();
-            Warehousematerials = new HashSet<Warehousematerial>();
         }
 
         public int WarehouseId { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 
+        public virtual ICollection<Material> Materials { get; set; }
         public virtual ICollection<Warehouseequipment> Warehouseequipments { get; set; }
-        public virtual ICollection<Warehousematerial> Warehousematerials { get; set; }
     }
 }

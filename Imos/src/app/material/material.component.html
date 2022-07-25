@@ -33,12 +33,18 @@
     <!-- Material Type Column -->
     <ng-container matColumnDef="Materialtype">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Type </th>
-        <td mat-cell *matCellDef="let element"> {{TypeList[element.materialtypeId-1]?.name}} </td>
+        <td mat-cell *matCellDef="let element"> {{TypeList[element.materialtype-1]?.name}}</td>
+    </ng-container>
+
+      <!-- Warehouse  Column -->
+      <ng-container matColumnDef="Warehouses">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Warehouses </th>
+        <td mat-cell *matCellDef="let element"> {{ WarehouseTypes[element.warehouseId-1]?.name}}</td>
     </ng-container>
 
     <!-- Material Name Column -->
     <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
         <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
@@ -49,10 +55,13 @@
     </ng-container>
         <!-- Material SupplierList Name Column -->
         <ng-container matColumnDef="Materialsupplier">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Supplier </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Suppliers </th>
             <td mat-cell *matCellDef="let element"> {{SupplierList[element.supplierId-1]?.name}} </td>
         </ng-container>
-
+        <ng-container matColumnDef="Quantity">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
+            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+        </ng-container>
     <!-- Actions -->
     <ng-container matColumnDef="actions">
 

@@ -1,4 +1,4 @@
-import { Materialtype, supplier } from './../services/service.service';
+import { materialtype, supplier, equipment, warehouse } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,9 +16,10 @@ export interface Material {
   projectmaterialrequestlists: [],
   projectmaterials: [],
   supplierorderlines: [],
+  suppliermaterials:[],
   taskmaterials: [],
-  warehousematerials: [],
-  suppliermaterials:[]
+  warehouse:string
+  warehouseId:number
 }
 
 @Component({
@@ -31,7 +32,7 @@ export class MaterialComponent implements OnInit {
   // API Test
   data: material[] = [];
 
-  displayedColumns: string[] = ['id', 'Materialtype', 'name', 'description','Materialsupplier', 'actions'];
+  displayedColumns: string[] = ['id', 'Materialtype', 'Warehouses','name', 'description','Materialsupplier','Quantity', 'actions'];
 
   dataSource!: MatTableDataSource<Material>;
 
@@ -39,8 +40,9 @@ export class MaterialComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  TypeList: Materialtype[] = [];
+  TypeList: materialtype[] = [];
   SupplierList:supplier[]=[];
+  WarehouseTypes: warehouse[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllMaterials();
@@ -73,7 +75,7 @@ export class MaterialComponent implements OnInit {
   }
 
   addMaterial() {
-    this.route.navigateByUrl('/AddMaterial')
+    this.route.navigateByUrl('/addMaterial')
   }
 
   deleteMaterial(id: number) {

@@ -79,8 +79,8 @@ const routes: Routes = [
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial', component: UpdateMaterialComponent },
-  { path: 'AddMaterial', component: AddMaterialComponent },
+  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
+  { path: 'addMaterial', component: AddMaterialComponent },
   //Material Type
   { path: 'materialtype', component: MaterialTypeComponent },
   { path: 'UpdateMaterialType', component: UpdateMaterialTypeComponent },
@@ -121,7 +121,7 @@ const routes: Routes = [
   //Warehouses
   { path: 'warehouse', component: WarehouseComponent },
   { path: 'addWarehouse', component: AddWarehouseComponent },
-  { path: 'updateWarehouse', component: UpdateWarehouseComponent },
+  { path: 'updateWarehouse/:id', component: UpdateWarehouseComponent },
   //Equipment
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },
