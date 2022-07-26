@@ -7,11 +7,11 @@ namespace Group43.Communication
 {
     public class Email
     {
-        private const string ApiKey = "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";
+      //  private const string ApiKey = "";
 
         private static async Task GenericEmail(string fromEmail, string fromName, string toEmail, string toName, string subjectLine, string htmlMessage, string plainTextMessage)
         {
-            var client = new SendGridClient(ApiKey);
+           // var client = new SendGridClient(ApiKey);
             var from = new EmailAddress(fromEmail, fromName);
             var subject = subjectLine;
 
@@ -20,7 +20,7 @@ namespace Group43.Communication
             var htmlContent = htmlMessage;
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
 
-            await client.SendEmailAsync(msg);
+            //await client.SendEmailAsync(msg);
         }
 
         public static void SendGenericEmail(string fromEmail, string fromName, string toEmail, string toName, string subject, string htmlMessage, string plainTextMessage)
