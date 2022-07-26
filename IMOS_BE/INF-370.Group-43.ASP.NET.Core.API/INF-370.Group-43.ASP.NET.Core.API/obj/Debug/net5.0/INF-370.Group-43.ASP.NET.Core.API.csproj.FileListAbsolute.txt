@@ -192,7 +192,6 @@ C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-4
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Microsoft.OpenApi.dll
-C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -238,3 +237,7 @@ C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-4
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\obj\Debug\net5.0\ref\INF-370.Group-43.ASP.NET.Core.API.dll
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\obj\Debug\net5.0\INF-370.Group-43.ASP.NET.Core.API.pdb
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\obj\Debug\net5.0\INF-370.Group-43.ASP.NET.Core.API.genruntimeconfig.cache
+C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\SendGrid.dll
+C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\INF-370.Group-43.ASP.NET.Core.API\INF-370.Group-43.ASP.NET.Core.API\bin\Debug\net5.0\StarkbankEcdsa.dll

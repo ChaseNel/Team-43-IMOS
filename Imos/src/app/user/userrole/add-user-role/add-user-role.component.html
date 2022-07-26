@@ -1,3 +1,32 @@
+Skip to content
+Search or jump to…
+Pulls
+Issues
+Marketplace
+Explore
+ 
+@ngcebomasilela 
+ChaseNel
+/
+Team-43-IMOS
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Wiki
+Security
+Insights
+Team-43-IMOS/Imos/src/app/user/user-role/add-user-role/add-user-role.component.html
+@ChaseNel
+ChaseNel Update User Role Working
+Latest commit db05e18 on May 18
+ History
+ 2 contributors
+@SydneyZinyama@ChaseNel
+30 lines (27 sloc)  1.22 KB
+
 <app-header></app-header>
 
 <button class="btnBack" mat-raised-button color="warn" routerLink="/userrole">Back</button>
@@ -22,7 +51,7 @@
                 </mat-form-field>
                 <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
                 <mat-card-actions>
-                    <button (click)="addUserR()" mat-raised-button color="primary">Add</button>
+                    <button (click)="addRole()" mat-raised-button color="primary">Add</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>

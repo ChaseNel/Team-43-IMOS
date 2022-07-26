@@ -5,12 +5,12 @@
   <form action="action_page.php"  [formGroup]="addForm" >
     <label for="subject">Select User Roles</label>
     <select id="country"  formControlName="userRole"  (change)="changeUserRole($event)"  >
-      <option *ngFor="let item of data"  [value]="item.userrole1"> {{item.description}}</option>
+      <option *ngFor="let item of data"  [value]="item.id"> {{item.description}}</option>
 
     </select>
     <label for="subject">Select Employee</label>
     <select   id="country" formControlName="employeeId" (change)="changeEmployee($event)" >
-      <option *ngFor="let item of employee"  [value]="item.employeeId"> {{item.name}}</option>
+      <option *ngFor="let item of employee"  [value]="item.EmployeeId"> {{item.name}}</option>
 
     </select>
     <label for="subject">Username</label>

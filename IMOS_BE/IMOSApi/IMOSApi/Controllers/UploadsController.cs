@@ -18,7 +18,7 @@ namespace IMOSApi.Controllers
 
         }
 
-        [HttpPost("EmployeeDocuments/Upload"), DisableRequestSizeLimit] //Done
+        [HttpPost("EmployeeDocuments/Uploads"), DisableRequestSizeLimit] //Done
         public IActionResult PastPaperUploadPublished()
         {
             try

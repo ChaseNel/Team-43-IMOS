@@ -8,7 +8,7 @@ import { ProjectComponent } from './project/project.component';
 import { IncidentComponent } from './incident/incident.component';
 import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
 import { MaterialRequestComponent } from './material/material-request/material-request.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
+
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { HomeComponent } from './home/home.component';
@@ -21,8 +21,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { UserComponent } from './user/user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
 import { SupplierComponent } from './supplier/supplier.component';
@@ -55,6 +53,9 @@ import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-ch
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { UserRoleComponent } from './user/userrole/user-role.component';
+import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 
 const routes: Routes = [
   //Default
@@ -75,7 +76,7 @@ const routes: Routes = [
   { path: 'updateuserrole', component: UpdateUserRoleComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
-  { path: 'UpdateEmployee', component: UpdateEmployeeComponent },
+  { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace IMOSApi.Models
 {
-    public partial class IMOSContext : IdentityDbContext<AppUser>
+    public partial class IMOSContext : DbContext
     {  
 
        

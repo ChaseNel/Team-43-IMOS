@@ -3,8 +3,13 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { UserRole } from '../services/administration/user-role.types';
-import { ServiceService, userrole } from '../services/service.service';
+import { ServiceService, userrole } from '../../services/service.service';
+
+export interface UserRole{
+  id:number,
+  description:string,
+  users: []
+}
 
 @Component({
   selector: 'app-user-role',

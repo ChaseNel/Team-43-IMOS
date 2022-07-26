@@ -1,9 +1,9 @@
+import { Router } from '@angular/router';
 import { UploadsService } from './../../services/uploads/uploads.service';
 import { ServiceService } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlName, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-add-employee',
@@ -12,36 +12,36 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class AddEmployeeComponent implements OnInit {
 
-  constructor( private service:ServiceService,private _uploadsService:UploadsService) {
-    
-   }
+  alert: boolean = false;
 
-  Name: any;
-  Email: any;
-  ContactNumber: any;
-  public employeeFrm!: FormGroup;
+  constructor( private service:ServiceService,private _uploadsService:UploadsService,
+    private fb:FormBuilder,private route:Router)
+     {  }
 
-  progress: any;
-   message: any = "";
-   errorMessage: any = "";
-
+     Name: any;
+     Email:any;
+     ContactNumber:any;
+     public employeeFrm!: FormGroup;
+     
+     progress: any;
+     message: any = "";
+     errorMessage: any = "";
+   
   ngOnInit(): void {
     this.employeeFrm = new FormGroup({
       Name: new FormControl('', [Validators.required]),
       Email: new FormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       ContactNumber: new FormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
       FilePath:new FormControl('')
-    }
-    );
+    });
   }
-  
   // 
   addEmployee(){
-    console.log(this.employeeFrm.value);
-    this.service.addEmployee(this.employeeFrm.value).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-   
-    }
 
+    console.log(this.employeeFrm.value);
+    this.service.addEmployee(this.employeeFrm.value)
+    .subscribe((res: { toString: () => any; }) => {alert(res.toString());});
+    }
     public uploadFile = (files:any) => {
       this.errorMessage = null;
       this.message = null;
@@ -89,6 +89,11 @@ export class AddEmployeeComponent implements OnInit {
     public hasError = (controlName: string, errorName: string) =>{
       return this.employeeFrm.controls[controlName].hasError(errorName);
   }
-
+  closeAlert() {
+    this.alert = false;
+  }
+  back(){
+    this.route.navigateByUrl("employee")
+  }
 }
  

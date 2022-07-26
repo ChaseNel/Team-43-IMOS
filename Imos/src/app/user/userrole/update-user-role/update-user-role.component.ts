@@ -1,4 +1,4 @@
-import { UserRoleService } from './../../services/administration/user-role.service';
+import { UserRoleService } from '../../../services/administration/user-role.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 

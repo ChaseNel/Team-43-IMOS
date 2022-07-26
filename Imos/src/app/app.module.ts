@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -30,9 +31,6 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
@@ -83,6 +81,7 @@ import { AddProjectStaffComponent } from './project/project-staff/add-project-st
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
@@ -90,6 +89,9 @@ import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-ch
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
+import { UserRoleComponent } from './user/userrole/user-role.component';
+import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 
 @NgModule({
   declarations: [

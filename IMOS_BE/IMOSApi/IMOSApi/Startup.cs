@@ -51,18 +51,6 @@ namespace IMOSApi
             services.AddMvc();
             //services.AddMvc(
             //    option => option.EnableEndpointRouting = false);
-
-
-            #region Configure Identity
-            services.AddDbContext<IMOSContext>();
-            services.AddIdentity<AppUser, AppRole>(options =>
-             {
-                 options.User.RequireUniqueEmail = true;
-             })
-                .AddEntityFrameworkStores<IMOSContext>()
-                 .AddDefaultTokenProviders();
-            #endregion
-
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
           services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
@@ -73,11 +61,7 @@ namespace IMOSApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,
-
-           RoleManager<AppRole> roleManager,
-           UserManager<AppUser> userManager 
-            )
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {

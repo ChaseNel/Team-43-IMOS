@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace IMOSApi.Models
 {
-    public partial class User:IdentityUser
+    public partial class User
     {
         public User()
         {

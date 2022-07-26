@@ -15,7 +15,7 @@ export class UploadsService {
   uploadFile(payload:any){
     
     return this._httpClient.post(
-      this.endpointBase.concat("Uploads/EmployeeDocuments/Upload"),
+      this.endpointBase.concat("Uploads/EmployeeDocuments/Uploads"),
       payload,
       { reportProgress: true, observe: 'events' });
   }

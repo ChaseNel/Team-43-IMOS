@@ -1,6 +1,4 @@
-
 import { User } from './../user/user.component';
-
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -9,30 +7,35 @@ import { Router } from '@angular/router';
 
 //Employee Interface
 export interface employee {
-  employeeId: number,
+  EmployeeId: number,
   documentId: number,
   name: string,
   email: string,
   contactNumber: number,
-  document: null,
-  projectEmp: null,
-  users: null
+  document: string,
+  projectemployees: [],
+  users: [],
+}
+//User Role Interface
+export interface userrole {
+  id: string,
+  description: string,
+  users: []
 }
 
 export interface user {
   userId: number,
-  userRole: number,
+  userRoleId: number,
   employeeId: number,
   username: string,
   userPassword: string,
-
-
-  /* userroleNavigation: null,
-   equipmentchecks: [],
-   stocktakes: [],
-   tasks: [],
-   userincidents: [],
-   vehicles: []*/
+  employee:string,
+  userrole:string,
+  equipmentchecks: [],
+  stocktakes: [],
+  tasks: [],
+  userincidents: [],
+  Vehicles: []
 }
 
 //Material Interface
@@ -70,11 +73,7 @@ export interface materialRequest {
   projectmaterialrequestlists: []
 }
 
-//User Role Interface
-export interface userrole {
-  userrole1: number,
-  description: string
-}
+
 
 //Supplier Interface
 export interface supplier {
@@ -232,30 +231,37 @@ export class ServiceService {
       { reportProgress: true, observe: 'events' });
   }
 
-  //UserRole
+  //UserRoles Htttp Requests 
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + 'UserRole/Roles/GetAll')
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
-
+  //get by Id
+  getUserRoleById(id:number){
+    return this.http.get(this.Root_URL + '/UserRole/GetUserRole/' + id);
+  }
   //Update
   editUserRole(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + '/UserRole/EditUserRole/' + id;
     return this.http.put(endPointUrl, val);
   }
-  //Update user role endpoint 
-
   //Delete
   deleteUserRole(id: number) {
-    return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
+    return this.http.delete(this.Root_URL + '/RemoveUserRole/' + id);
   }
   //Add
   addUserRole(val: any) {
-    return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
+    return this.http.post(this.Root_URL + '/UserRole/AddRole/', val)
   }
 
-  //Employee
+
+
+  //Employee Http requests 
+  //get By Id
+  getEmployeeById(id:number){
+    return this.http.get(this.Root_URL + '/Employee/GetEmployeeById/' + id);
+  }
 
   //Get
   getEmployees(): Observable<employee[]> {
@@ -263,17 +269,19 @@ export class ServiceService {
   }
   //add 
   addEmployee(val: any){
-
-    return this.http.post(this.Root_URL + 'Employee/AddEmployee',val)
+    return this.http.post(this.Root_URL + '/Employee/AddEmployee',val)
   }
   // update employee 
+  updateEmployee(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Employee/updateEmployee/'+id,data);
+  }
 
   //Delete
   deleteEmployee(id: number) {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
   }
 
-  //Material
+  //Material Http requests 
   //getById
 
   //Get
@@ -294,7 +302,7 @@ export class ServiceService {
     
   }
 
-  //Material Type
+  //Material TypeHttp requests 
   //Get
   getMaterialType(): Observable<materialtype []> {
     return this.http.get<materialtype []>(this.Root_URL + '/MaterialType/GetAll')
@@ -341,7 +349,6 @@ getSupplierById(id:number){
   //update supplier endpoint
   updateSupplier(id:number,data:any){
     return this.http.put(this.Root_URL + '/Supplier/updateSupplier/'+id,data);
-    
   }
 
   //Delete
