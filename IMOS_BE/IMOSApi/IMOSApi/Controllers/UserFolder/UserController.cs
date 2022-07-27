@@ -1,6 +1,10 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos;
+using IMOSApi.Dtos.User;
+using IMOSApi.Extensions;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,56 +16,58 @@ namespace IMOSApi.Controllers.UserFolder
     [ApiController]
     public class UserController : ControllerBase
     {
-        private IMOSContext _dbContext;
+        private readonly IMOSContext _context;
         public UserController(IMOSContext dbContext)
         {
-            _dbContext = dbContext;
+            _context = dbContext;
         }
 
-        [HttpGet]
-        public IEnumerable<User> Get()
+        [HttpGet("GetAll/Users")]
+        public ActionResult<IEnumerable<GetUserDto>> GetAll()
         {
-            using (var context = new IMOSContext())
-            {
-                return _dbContext.Users.ToList();
-            }
+            var recordsInDb = _context.Users
+                .Include(item => item.Userrole)
+                .Include(item=>item.Employee)
+                .Select(item => new GetUserDto()
+                {
+                    Id = item.UserId,
+                    Username = item.Username,
+                    autoAssignedPassword =item.Userpassword,
+                    Userrole = item.Userrole.Description,
+                    UserroleId = item.UserroleId,
+                    Employee = item.Employee.Name,
+                    EmployeeId=item.EmployeeId
+                }).OrderBy(item => item.Id).ToList();
+            return recordsInDb;
         }
 
-        [HttpPost("CreateUser")]
-        public ActionResult Add([FromBody] User model)
+        [HttpPost("Register/UserAccount")]
+        public async Task<ActionResult> Add(AddOrUpdateUserDto model)
         {
             var message = "";
             if (ModelState.IsValid)
-
-
-            { 
-                
-                var recordInDb = _dbContext.Users.FirstOrDefault(x => x.UserId == model.UserId);
-                var User = _dbContext.Users
-                    .FirstOrDefault(item =>
-                    string.Equals(item.Username, model.Username));
-
+            {
+                var recordInDb = await _context.Users
+                    .Where(item => item.UserroleId == model.UserroleId).FirstOrDefaultAsync(item => item.EmployeeId == model.EmployeeId);
                 if (recordInDb != null)
                 {
-                    message = "Record already exist";
+                    message = "Record exists in database";
                     return BadRequest(new { message });
                 }
 
+                var assignedPassword = UserManagementExtension.GenerateRandomPassword();
                 var newUser = new User()
                 {
-                    Username = model.Username,
-                    Userpassword = model.Userpassword,
-                    EmployeeId = model.EmployeeId,  
-                    Userrole=model.Userrole,
+                    Username = model.Username,// auto  generate 
+                    EmployeeId = model.EmployeeId,
+                    UserroleId = model.UserroleId,
+                    Userpassword= assignedPassword,
                 };
-
-                _dbContext.Users.Add(newUser);
-                _dbContext.SaveChanges();
-                return Ok();    
+                // add notification extension
+                await _context.AddAsync(newUser);
+                await _context.SaveChangesAsync();
             }
-
-            message = "Something went wrong on your side.";
-            return BadRequest(new { message });
+            return Ok();
         }
 
         [HttpPut("UpdateUser")]
@@ -69,7 +75,7 @@ namespace IMOSApi.Controllers.UserFolder
         {
             if (ModelState.IsValid)
             {
-                var recordInDb = _dbContext.Users.FirstOrDefault(item => item.UserId == id);
+                var recordInDb = _context .Users.FirstOrDefault(item => item.UserId == id);
 
                 if (recordInDb != null)
                 {
@@ -79,20 +85,20 @@ namespace IMOSApi.Controllers.UserFolder
                 recordInDb.Userrole = model.Userrole;
                 recordInDb.Username = model.Username;
                 recordInDb.Userpassword = model.Userpassword;
-                _dbContext.SaveChanges();
+                _context.SaveChanges();
                 return Ok();
             }
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
 
-        [HttpDelete("DeleteUser/{id}")]
+      /*  [HttpDelete("DeleteUser/{id}")]
         public void Delete(int id)
         {
             var emp = _dbContext.Users.Where(emp => emp.UserId == id).ToList().FirstOrDefault(); ;
             _dbContext.Users.Remove(emp);
             _dbContext.SaveChanges();
-        }
+        }*/
     }
 }
 

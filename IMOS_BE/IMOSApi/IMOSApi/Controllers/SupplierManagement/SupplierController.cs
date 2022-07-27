@@ -51,7 +51,7 @@ namespace IMOSApi.Controllers.SupplierManagement
                 .Include(item => item.Suppliertype)
                 .Select(item => new GetSupplierDto()
                 {
-                    Id = item.SuppliertypeId,
+                    Id = item.SupplierId,
                     Name = item.Name,
                     Address = item.Address,
                     Email = item.Email,

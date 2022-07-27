@@ -214,7 +214,7 @@ export class ServiceService {
   //User
   //Get
   getUser(): Observable<user[]> {
-    return this.http.get<user[]>(this.Root_URL + '/User')
+    return this.http.get<user[]>(this.Root_URL + '/User/GetAll/Users')
   }
   //Delete
   deleteUser(id: number) {
