@@ -53,6 +53,9 @@ namespace IMOSApi.Controllers.EquipmentManagement
 
         }
 
+
+
+
        
         [HttpPost("AddEquipment")]
         public IActionResult Add(AddOrUpdateGenericDto model)

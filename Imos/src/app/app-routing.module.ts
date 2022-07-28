@@ -57,7 +57,7 @@ import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
-
+import { ClientRequestComponent } from './client-request/client-request.component';
 const routes: Routes = [
   //Default
   { path: '', component: LoginComponent },
@@ -120,6 +120,8 @@ const routes: Routes = [
   { path: 'client', component: ClientComponent },
   { path: 'addClient', component: AddClientComponent },
   { path: 'updateClient', component: UpdateClientComponent },
+  {path: 'clientrequest', component:ClientRequestComponent},
+
   //Warehouses
   { path: 'warehouse', component: WarehouseComponent },
   { path: 'addWarehouse', component: AddWarehouseComponent },
@@ -132,7 +134,7 @@ const routes: Routes = [
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
   { path: 'addsaftyChecklist', component: AddSaftyChecklistComponent },
   { path: 'updatesaftyChecklist/:id', component: UpdateSaftyChecklistComponent },
-  
+
   //Safty Checklist Category
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
   { path: 'UpdateSafetyChecklistCategory/:id', component: UpdateSaftyChecklistCatagoryComponent },

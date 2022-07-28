@@ -25,6 +25,8 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -83,6 +85,8 @@ import { AddProjectStaffComponent } from './project/project-staff/add-project-st
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+
+
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
@@ -93,6 +97,9 @@ import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checkli
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { ClientRequestComponent } from './client-request/client-request.component';
+import { AddRequestComponent } from './client-request/add-request/add-request.component';
+import { UpdateRequestComponent } from './client-request/update-request/update-request.component';
 
 @NgModule({
   declarations: [
@@ -167,6 +174,9 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
     UpdateSaftyChecklistItemsComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
+    ClientRequestComponent,
+    AddRequestComponent,
+    UpdateRequestComponent,
   ],
   imports: [
     BrowserModule,
@@ -193,7 +203,8 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
     MatNativeDateModule
   ],
   providers: [
-    ServiceService
+    ServiceService,
+    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })
