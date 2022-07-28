@@ -37,12 +37,23 @@ namespace IMOSApi.Controllers
         [HttpPost("CreateProject")]
         public IActionResult Create([FromBody] Project Project)
         {
-            using (var context = new IMOSContext())
+            var message = "";
+            if (ModelState.IsValid)//checks if model is valid then  creates new MaterialType 
             {
-                context.Projects.Add(Project);
-                context.SaveChanges();
+                var newProject = new Project
+                {
+                    ProjectId = ProjectId,
+                    Name = model.Name,
+                    Description = model.Description,
+                    MaterialtypeId = model.MaterialtypeId
+
+                };
+                _dbContext.Project.Add(newProject);
+                _dbContext.SaveChanges();
                 return Ok();
             }
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
         }
 
         [HttpPut("UpdateProject/{Id}")]
@@ -50,9 +61,9 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
+                var clie = _dbContext.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
                 //emp.
-                context.SaveChanges();
+                _dbContext.SaveChanges();
             }
         }
         [HttpDelete("DeleteProject/{Id}")]

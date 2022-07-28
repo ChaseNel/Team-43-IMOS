@@ -62,7 +62,7 @@ export interface materialRequest {
   projectmaterialrequestId: number,
   projectId: number,
   urgencylevelId: number,
-  fulfillmenttype: string, 
+  fulfillmenttype: string,
   project: string,
   urgencylevel: string,
   projectmaterialrequestlists: []
@@ -99,9 +99,9 @@ export interface supplierOrder {
   MaterialID: number,
   quanitity: number,
   address: string,
-  material:string,
-  supplier:string,
-  deliveries:[]
+  material: string,
+  supplier: string,
+  deliveries: []
 }
 
 //Vehicle Interface
@@ -133,6 +133,14 @@ export interface incident {
   userIncidents: []
 }
 
+//Construction Site Interface
+export interface constructionSite {
+  constructionsiteId: number,
+  address: string,
+  projects: []
+}
+
+
 //Project Interface
 export interface project {
   projectId: number,
@@ -146,8 +154,17 @@ export interface project {
   projectemployees: [],
   projectequipments: [],
   projectmaterialrequests: [],
-  projectmaterials : [],
+  projectmaterials: [],
   safetyfilechecklists: []
+}
+
+//Request Interface
+export interface request {
+  requestId: number,
+  clientId: number,
+  description: string,
+  client: string,
+  projects: []
 }
 
 //Client Interface
@@ -244,9 +261,9 @@ export class ServiceService {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
   //add 
-  addEmployee(val: any){
+  addEmployee(val: any) {
 
-    return this.http.post(this.Root_URL + 'Employee/AddEmployee',val)
+    return this.http.post(this.Root_URL + 'Employee/AddEmployee', val)
   }
   // update employee 
 
@@ -303,24 +320,24 @@ export class ServiceService {
   }
 
   //Supplier
-getSupplierById(id:number){
-  return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
+  getSupplierById(id: number) {
+    return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
 
-}
+  }
 
   //Get All
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
   // add supplier
-  addSupplier(val:any){
-    return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val);
+  addSupplier(val: any) {
+    return this.http.post(this.Root_URL + '/Supplier/AddSupplier', val);
   }
 
   //update supplier endpoint
-  updateSupplier(id:number,data:any){
-    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/'+id,data);
-    
+  updateSupplier(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/' + id, data);
+
   }
 
   //Delete
@@ -332,12 +349,11 @@ getSupplierById(id:number){
   //   return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
   //   }
   //GetBy ID
-  SupplierID(id: number)
-  {
+  SupplierID(id: number) {
     return this.http.get(this.Root_URL + '/Supplier/GetSupplier/' + id);
   }
   //Update
-  UpdateSuplier(id: number, data: any){
+  UpdateSuplier(id: number, data: any) {
     return this.http.put(this.Root_URL + '/Supplier/UpdateSupplier/' + id, data);
   }
 
@@ -349,7 +365,7 @@ getSupplierById(id:number){
 
   //add 
 
-  
+
   //update
 
   //Delete
@@ -410,7 +426,7 @@ getSupplierById(id:number){
     return this.http.put(endPointUrl, val);
 
   }
-  
+
   // add vehicle
   //Delete
   deleteVehicleType(id: number) {
@@ -436,6 +452,15 @@ getSupplierById(id:number){
   deleteProject(id: number) {
     return this.http.delete(this.Root_URL + '/Project/DeleteProject/' + id);
   }
+  //add Project
+  addProject(val: any) {
+    return this.http.post(this.Root_URL + '/Project/CreateProject', val);
+  }
+  //Update
+  UpdateProject(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Project/UpdateProject/' + id, data);
+  }
+
 
   //Clients
   //Get
@@ -463,18 +488,18 @@ getSupplierById(id:number){
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
   //get by Id
-getEquipmentById(id:number){
-  return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
+  getEquipmentById(id: number) {
+    return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
 
-}
-//add equipment
-addEquipment(val:any){
-  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
-}
-//Update
-UpdateEquipment(id: number, data: any){
-  return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
-}
+  }
+  //add equipment
+  addEquipment(val: any) {
+    return this.http.post(this.Root_URL + '/Equipment/AddEquipment', val);
+  }
+  //Update
+  UpdateEquipment(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
+  }
 
   //Delete
   deleteEquipment(id: number) {
@@ -482,18 +507,64 @@ UpdateEquipment(id: number, data: any){
   }
   //Vehicle End Points 
   // add 
-  addVehicle(val:any){
-    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
+  addVehicle(val: any) {
+    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle', val)
   }
   // Get All
   //getById
-  getVehicleById(id:number){
+  getVehicleById(id: number) {
     return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
   }
   //Update 
-  updateVehicle(id:number,data:any){
+  updateVehicle(id: number, data: any) {
     return this.http.put(this.Root_URL + '/Vehicle/UpdateVehicle/' + id, data)
   }
   //Delete
+
+  //Construction Site
+  //Get
+  getConstructionSite(): Observable<constructionSite[]> {
+    return this.http.get<constructionSite[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
+  }
+  //Add
+  addConstructionSite(val: any) {
+    return this.http.post(this.Root_URL + '/Constructionsite/CreateConstructionsite', val)
+  }
+
+  //Update
+  editConstructionSite(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Constructionsite/UpdateConstructionsite/' + id;
+    return this.http.put(endPointUrl, val);
+
+    return this.http.get<materialType[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
+  }
+  //Delete
+  deleteConstructionSite(id: number) {
+    return this.http.delete(this.Root_URL + '/Constructionsite/DeleteConstructionsite/' + id);
+  }
+
+  //Requeast
+  //Get
+  getRequeast(): Observable<request[]> {
+    return this.http.get<request[]>(this.Root_URL + '/Request/GetRequests')
+  }
+  //Add
+  addRequeast(val: any) {
+    return this.http.post(this.Root_URL + '/Request/CreateRequest', val)
+  }
+
+  //Update
+  editRequeast(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Request/UpdateRequest/' + id;
+    return this.http.put(endPointUrl, val);
+
+    return this.http.get<materialType[]>(this.Root_URL + '/Request/GetRequests')
+  }
+  //Delete
+  deleteRequeast(id: number) {
+    return this.http.delete(this.Root_URL + '/Request/DeleteRequest/' + id);
+  }
 
 }

@@ -31,17 +31,17 @@
     <!-- Description Column -->
     <ng-container matColumnDef="construction">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction Site </th>
-        <td mat-cell *matCellDef="let element"> {{element.constructionsiteId}} </td>
+        <td mat-cell *matCellDef="let element"> {{sitelist[element.constructionsiteId-1]?.address}} </td>
     </ng-container>
 
     <ng-container matColumnDef="iRequest">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Initial Request </th>
-        <td mat-cell *matCellDef="let element"> {{element.initialrequestId}} </td>
+        <td mat-cell *matCellDef="let element"> {{reqlist[element.requestId-1]?.description}} </td>
     </ng-container>
 
     <ng-container matColumnDef="saftyfile">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Safty File </th>
-        <td mat-cell *matCellDef="let element"> {{element.safetyfilecreated}} </td>
+        <td mat-cell *matCellDef="let element"> <button mat-stroked-button color="primary">{{element.safetyfilecreated}}</button></td>
     </ng-container>
 
     <!-- Actions -->
