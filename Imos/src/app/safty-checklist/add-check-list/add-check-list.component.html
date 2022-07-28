@@ -1,0 +1,66 @@
+<app-header></app-header>
+
+<div>
+    <h3>Add Safty Check List</h3>
+
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Catagory 1
+                </mat-panel-title>
+                <mat-panel-description>
+                    Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <section class="example-section" [formGroup]="toppings">
+                <h4>Select your Safty Check List Items:</h4>
+                <p>
+                    <mat-checkbox formControlName="Safe">Safe</mat-checkbox>
+                </p>
+                <p>
+                    <mat-checkbox formControlName="Warm">Warm</mat-checkbox>
+                </p>
+                <p>
+                    <mat-checkbox formControlName="Controlled">Controlled</mat-checkbox>
+                </p>
+            </section>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    
+    <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Catagory 2
+                </mat-panel-title>
+                <mat-panel-description>
+                    Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <section class="example-section" [formGroup]="toppings">
+                <h4>Select your Safty Check List Items:</h4>
+                <p>
+                    <mat-checkbox formControlName="Covid">Covid</mat-checkbox>
+                </p>
+                <p>
+                    <mat-checkbox formControlName="Water">Water</mat-checkbox>
+                </p>
+                <p>
+                    <mat-checkbox formControlName="Lights">Lights</mat-checkbox>
+                </p>
+            </section>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+
+    <br>
+
+    <button mat-raised-button color="primary" (click)="add()">Add</button>
+    &nbsp;
+    <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+</div>

@@ -50,8 +50,8 @@ export interface material {
 }
 
 //Material Type Interface
-export interface Materialtype {
-  id: number,
+export interface materialType {
+  materialTypeID: number,
   name: string,
   description: string,
   materials: []
@@ -62,7 +62,7 @@ export interface materialRequest {
   projectmaterialrequestId: number,
   projectId: number,
   urgencylevelId: number,
-  fulfillmenttype: string, 
+  fulfillmenttype: string,
   project: string,
   urgencylevel: string,
   projectmaterialrequestlists: []
@@ -99,9 +99,9 @@ export interface supplierOrder {
   MaterialID: number,
   quanitity: number,
   address: string,
-  material:string,
-  supplier:string,
-  deliveries:[]
+  material: string,
+  supplier: string,
+  deliveries: []
 }
 
 //Vehicle Interface
@@ -133,6 +133,14 @@ export interface incident {
   userIncidents: []
 }
 
+//Construction Site Interface
+export interface constructionSite {
+  constructionsiteId: number,
+  address: string,
+  projects: []
+}
+
+
 //Project Interface
 export interface project {
   projectId: number,
@@ -146,8 +154,17 @@ export interface project {
   projectemployees: [],
   projectequipments: [],
   projectmaterialrequests: [],
-  projectmaterials : [],
+  projectmaterials: [],
   safetyfilechecklists: []
+}
+
+//Request Interface
+export interface request {
+  requestId: number,
+  clientId: number,
+  description: string,
+  client: string,
+  projects: []
 }
 
 //Client Interface
@@ -167,22 +184,6 @@ export interface warehouse {
   warehousematerials: []
 }
 
-// add all project,safetychecklist,checklist Item  category 
-
-export interface safetyitemcategory {
-  id: number,
-  categoryName: string,
-  safetyfileitems: [],
-}
-
-export interface safetyItem {
-  safetyfileitemId:number,
-  name:string,
-  safetyitemcategoryId:number,
-  safetyitemcategory:string,
-  safetyfilechecklists:[]
-}
-
 //Equipment Interface
 export interface equipment {
   equipmentId: number,
@@ -192,22 +193,13 @@ export interface equipment {
   warehouseequipments: []
 }
 
-export interface tasktype{
-  tasktype1: number,
-  description: string,
-  tasks: []
+//Safty File Interface
+export interface saftyFile {
+  SafetyFileID: number,
+  catagory: string,
+  item: string,
+  project: string,
 }
-
-export interface task{
-  taskId: number,
-  tasktype: string,
-  userid: string,
-  startdate: any,
-  enddate: any,
-  invoices: [],
-  taskmaterials: []
-}
-
 
 @Injectable({
   providedIn: 'root'
@@ -216,27 +208,25 @@ export interface task{
 export class ServiceService {
 
   //URL from API
-  readonly Root_URL = 'https://localhost:5001/api'
+  readonly Root_URL = 'https://localhost:44381/api'
 
   httpOptions = {
     headers: new HttpHeaders({
       contentType: 'application/json'
     })
   };
-  
 
-  public taskId: number;
   constructor(private http: HttpClient) {
   }
 
   //User
   //Get
   getUser(): Observable<user[]> {
-    return this.http.get<user[]>(this.Root_URL + '/user/getuser')
+    return this.http.get<user[]>(this.Root_URL + '/User')
   }
   //Delete
   deleteUser(id: number) {
-    return this.http.delete(this.Root_URL + '/user/deleteuser' + id);
+    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
   //Add
   addUser(obj: any): Observable<any> {
@@ -252,7 +242,7 @@ export class ServiceService {
   //UserRole
   //Get
   getUserRole(): Observable<userrole[]> {
-    return this.http.get<userrole[]>(this.Root_URL + 'UserRole/Roles/GetAll')
+    return this.http.get<userrole[]>(this.Root_URL + '/UserRole/Roles/GetAll')
   }
 
   //Update
@@ -279,9 +269,9 @@ export class ServiceService {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
   //add 
-  addEmployee(val: any){
+  addEmployee(val: any) {
 
-    return this.http.post(this.Root_URL + '/Employee/AddEmployee',val)
+    return this.http.post(this.Root_URL + 'Employee/AddEmployee', val)
   }
   // update employee 
 
@@ -291,8 +281,6 @@ export class ServiceService {
   }
 
   //Material
-  //getById
-
   //Get
   getMaterial(): Observable<material[]> {
     return this.http.get<material[]>(this.Root_URL + '/Material/GetMaterials')
@@ -303,27 +291,30 @@ export class ServiceService {
   }
   //Add
   addMaterial(val: any) {
-    return this.http.post(this.Root_URL + '/Material/AddMaterial', val)
+    return this.http.post(this.Root_URL + '/Material/CreateMaterial', val)
   }
 
   //Material Type
   //Get
-  getMaterialType(): Observable<Materialtype []> {
-    return this.http.get<Materialtype []>(this.Root_URL + '/MaterialType/GetAll')
+  getMaterialType(): Observable<materialType[]> {
+    return this.http.get<materialType[]>(this.Root_URL + '/Materialtype/GetMaterialtypes')
   }
-  //getById
-
   //Add
   addMaterialType(val: any) {
-    return this.http.post(this.Root_URL + '/MaterialType/AddMaterialType', val)
+    return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
   }
+
   //Update
-  editMaterialType(id:number,data:any){
-    return this.http.put(this.Root_URL + '/MaterialType/UpdateType/'+id,data);
+  editMaterialType(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Materialtype/UpdateMaterialtype/' + id;
+    return this.http.put(endPointUrl, val);
+
+    return this.http.get<materialType[]>(this.Root_URL + '/MaterialType/GetAll')
   }
   //Delete
   deleteMaterialType(id: number) {
-    return this.http.delete(this.Root_URL + '/MaterialType/DeleteType/' + id);
+    return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
 
   //Material Request
@@ -337,24 +328,24 @@ export class ServiceService {
   }
 
   //Supplier
-getSupplierById(id:number){
-  return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
+  getSupplierById(id: number) {
+    return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
 
-}
+  }
 
   //Get All
   getSupplier(): Observable<supplier[]> {
     return this.http.get<supplier[]>(this.Root_URL + '/Supplier/GetSuppliers')
   }
   // add supplier
-  addSupplier(val:any){
-    return this.http.post(this.Root_URL + '/Supplier/AddSupplier',val);
+  addSupplier(val: any) {
+    return this.http.post(this.Root_URL + '/Supplier/AddSupplier', val);
   }
 
   //update supplier endpoint
-  updateSupplier(id:number,data:any){
-    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/'+id,data);
-    
+  updateSupplier(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Supplier/updateSupplier/' + id, data);
+
   }
 
   //Delete
@@ -366,12 +357,11 @@ getSupplierById(id:number){
   //   return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
   //   }
   //GetBy ID
-  SupplierID(id: number)
-  {
+  SupplierID(id: number) {
     return this.http.get(this.Root_URL + '/Supplier/GetSupplier/' + id);
   }
   //Update
-  UpdateSuplier(id: number, data: any){
+  UpdateSuplier(id: number, data: any) {
     return this.http.put(this.Root_URL + '/Supplier/UpdateSupplier/' + id, data);
   }
 
@@ -383,7 +373,7 @@ getSupplierById(id:number){
 
   //add 
 
-  
+
   //update
 
   //Delete
@@ -427,7 +417,7 @@ getSupplierById(id:number){
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetAll')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetVehicletypes')
   }
 
 
@@ -444,8 +434,8 @@ getSupplierById(id:number){
     return this.http.put(endPointUrl, val);
 
   }
-  
- 
+
+  // add vehicle
   //Delete
   deleteVehicleType(id: number) {
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
@@ -453,28 +443,12 @@ getSupplierById(id:number){
 
   //Incident
   //Get
-  getIncident(): Observable<incident[]> {
-    return this.http.get<incident[]>(this.Root_URL + "/incident/getincidents")
+  getInicdent(): Observable<incident[]> {
+    return this.http.get<incident[]>(this.Root_URL + '/Incident/GetIncidents')
   }
-
-  //Add
-  addIncident(val: any) {
-    return this.http.post(this.Root_URL + "/incident/createincident", val)
-
-  }
-
-  //Update
-  editIncident(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + "/incident/updateincident/" + id;
-    return this.http.put(endPointUrl, val);
-
-  }
-  
-
   //Delete
   deleteIncident(id: number) {
-    return this.http.delete(this.Root_URL + "/incident/deleteincident/" + id);
+    return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
   }
 
   //Projects
@@ -486,6 +460,15 @@ getSupplierById(id:number){
   deleteProject(id: number) {
     return this.http.delete(this.Root_URL + '/Project/DeleteProject/' + id);
   }
+  //add Project
+  addProject(val: any) {
+    return this.http.post(this.Root_URL + '/Project/CreateProject', val);
+  }
+  //Update
+  UpdateProject(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Project/UpdateProject/' + id, data);
+  }
+
 
   //Clients
   //Get
@@ -502,24 +485,6 @@ getSupplierById(id:number){
   getWarehouses(): Observable<warehouse[]> {
     return this.http.get<warehouse[]>(this.Root_URL + '/Warehouse/GetWarehouses')
   }
-
-  //Add
-  addWarehouse(val: any) {
-    return this.http.post(this.Root_URL + "/warehouse/createwarehouse", val)
-
-  }
-
-
-  //Update
-  editWarehouse(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + "/warehouse/updatewarehouse/" + id;
-    return this.http.put(endPointUrl, val);                                      
-
-  }
-
-
-
   //Delete
   deleteWarehouse(id: number) {
     return this.http.delete(this.Root_URL + '/Warehouse/DeleteWarehouse/' + id);
@@ -531,18 +496,18 @@ getSupplierById(id:number){
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
   //get by Id
-getEquipmentById(id:number){
-  return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
+  getEquipmentById(id: number) {
+    return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
 
-}
-//add equipment
-addEquipment(val:any){
-  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
-}
-//Update
-UpdateEquipment(id: number, data: any){
-  return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
-}
+  }
+  //add equipment
+  addEquipment(val: any) {
+    return this.http.post(this.Root_URL + '/Equipment/AddEquipment', val);
+  }
+  //Update
+  UpdateEquipment(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
+  }
 
   //Delete
   deleteEquipment(id: number) {
@@ -550,118 +515,84 @@ UpdateEquipment(id: number, data: any){
   }
   //Vehicle End Points 
   // add 
-  addVehicle(val:any){
-    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle',val)
+  addVehicle(val: any) {
+    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle', val)
   }
   // Get All
   //getById
-  getVehicleById(id:number){
+  getVehicleById(id: number) {
     return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
   }
   //Update 
-  updateVehicle(id:number,data:any){
+  updateVehicle(id: number, data: any) {
     return this.http.put(this.Root_URL + '/Vehicle/UpdateVehicle/' + id, data)
   }
   //Delete
 
-
-  // SafetyCategory 
+  //Construction Site
   //Get
-  getSafetyCategory(): Observable<safetyitemcategory[]> {
-    return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
+  getConstructionSite(): Observable<constructionSite[]> {
+    return this.http.get<constructionSite[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
   }
-   //Add 
-  addSafetyCategory(val:any){
-    return this.http.post(this.Root_URL + '/SafetyItemCategory/AddCategory', val)
-}
-  // put 
-
-   //Delete
-   deleteSafetyItemCategory(id: number) {
-    return this.http.delete(this.Root_URL + '/SafetyItemCategory/DeleteSafetyItemCategory/' + id);
-  }
-
-  //SafetyFile 
-  //SafetyChecklist 
-  //Get All
-  getProjectChecklist(): Observable<safetyItem[]> {
-    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyFileItem/GetProjectChecklist/GetAll')
-  }
-  //getById
-
   //Add
-  //update
-
-  // deleteProjectSafetyChecklist
-  deleteProjectSafetyChecklist(id: number) {
-    return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
-  }
-  //Task Type
-  //Get
-  getTaskType(): Observable<tasktype[]> {
-    return this.http.get<tasktype[]>(this.Root_URL + "/tasktype/gettasktypes")
-  }
-
-
-  //Add
-  addTaskType(val: any) {
-    return this.http.post(this.Root_URL + "/tasktype/createtasktype", val)
-
+  addConstructionSite(val: any) {
+    return this.http.post(this.Root_URL + '/Constructionsite/CreateConstructionsite', val)
   }
 
   //Update
-  editTaskType(id: any, val: any): Observable<any> {
+  editConstructionSite(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = this.Root_URL + "/tasktype/updatetasktype/"+ id;
+    const endPointUrl = this.Root_URL + '/Constructionsite/UpdateConstructionsite/' + id;
     return this.http.put(endPointUrl, val);
 
+    return this.http.get<materialType[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
   }
-  
- 
   //Delete
-  deleteTaskType(id: number) {
-    return this.http.delete(this.Root_URL + "/tasktype/deletetasktype/" + id);
+  deleteConstructionSite(id: number) {
+    return this.http.delete(this.Root_URL + '/Constructionsite/DeleteConstructionsite/' + id);
   }
 
-
-
-  //Task 
+  //Requeast
   //Get
-  getTask(): Observable<task[]> {
-    return this.http.get<task[]>(this.Root_URL + "/task/gettask")
+  getRequeast(): Observable<request[]> {
+    return this.http.get<request[]>(this.Root_URL + '/Request/GetRequests')
   }
-
-
   //Add
-  addTask(val: any) {
-    return this.http.post(this.Root_URL + "/task/createtask", val)
-
+  addRequeast(val: any) {
+    return this.http.post(this.Root_URL + '/Request/CreateRequest', val)
   }
 
   //Update
-  editTask(id: any, val: any): Observable<any> {
+  editRequeast(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = this.Root_URL + "/task/updatetask/"+ id;
+    const endPointUrl = this.Root_URL + '/Request/UpdateRequest/' + id;
     return this.http.put(endPointUrl, val);
 
+    return this.http.get<materialType[]>(this.Root_URL + '/Request/GetRequests')
   }
-
-  setTaskId(Id: any) {
-    this.taskId = Id;
-    console.log(this.taskId);
-  }
-
-  getTaskId() {
-    return this.taskId;
-  }
-  
- 
   //Delete
-  deleteTask(id: number) {
-    return this.http.delete(this.Root_URL + "/task/deletetask/" + id);
+  deleteRequeast(id: number) {
+    return this.http.delete(this.Root_URL + '/Request/DeleteRequest/' + id);
   }
 
-
-
+  //Safty File
+  //Get
+  getSaftyFile(): Observable<saftyFile[]> {
+    return this.http.get<saftyFile[]>(this.Root_URL + '/User')
+  }
+  //Delete
+  deleteSaftyFile(id: number) {
+    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
+  }
+  //Add
+  addSaftyFile(obj: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/User/CreateUser', obj);
+  }
+  //Update
+  updateSaftyFile(payload: any, id: number) {
+    return this.http.put(this.Root_URL.concat("User/" + "/" + id),
+      payload,
+      { reportProgress: true, observe: 'events' });
+  }
 
 }

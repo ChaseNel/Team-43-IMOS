@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
-import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -86,13 +85,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
-import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
-import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
-import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
-import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
-import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
+import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
+import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
 
 @NgModule({
   declarations: [
@@ -159,13 +161,13 @@ import { EmployeeAttendanceComponent } from './employee/employee-attendance/empl
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
-    AddSaftyChecklistComponent,
-    UpdateSaftyChecklistComponent,
+
     SaftyChecklistCatagoryComponent,
-    AddSaftyChecklistCatagoryComponent,
-    UpdateSaftyChecklistCatagoryComponent,
-    AssignVehicleComponent,
-    EmployeeAttendanceComponent,
+    SaftyChecklistItemsComponent,
+    AddSaftyChecklistItemsComponent,
+    UpdateSaftyChecklistItemsComponent,
+    AddCheckListComponent,
+    UpdateCheckListComponent,
   ],
   imports: [
     BrowserModule,
@@ -190,7 +192,8 @@ import { EmployeeAttendanceComponent } from './employee/employee-attendance/empl
     MatSelectModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     ServiceService

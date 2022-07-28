@@ -1,4 +1,5 @@
-import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -50,19 +51,10 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
-import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
-import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-
-import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
-import { AssignVehicleComponent } from './vehicle/assign-vehicle/assign-vehicle.component';
-
-import { TaskTypeComponent } from './task/task-type/task-type.component';
-import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
-import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
-import { TaskComponent } from './task/task.component';
-import { UpdateTaskComponent } from './task/update-task/update-task.component';
-import { AddTaskComponent } from './task/add-task/add-task.component';
+import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
+import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 
 const routes: Routes = [
   //Default
@@ -87,7 +79,7 @@ const routes: Routes = [
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
+  { path: 'UpdateMaterial', component: UpdateMaterialComponent },
   { path: 'AddMaterial', component: AddMaterialComponent },
   //Material Type
   { path: 'materialtype', component: MaterialTypeComponent },
@@ -109,16 +101,11 @@ const routes: Routes = [
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
+  { path: 'updateVehicle', component: UpdateVehicleComponent },
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
-  { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },
-
-    //this.route.navigateByUrl('/assignVehicle')
-    // Asign Vehicle 
-    { path: 'assignVehicle', component: AssignVehicleComponent },
-
+  { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
@@ -141,37 +128,15 @@ const routes: Routes = [
   { path: 'updateEquipment/:id', component: UpdateEquipmentComponent },
   //Safty Checklist
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
-  { path: 'addsaftyChecklist', component: AddSaftyChecklistComponent },
-  { path: 'updatesaftyChecklist/:id', component: UpdateSaftyChecklistComponent },
-  
-  //Safty Checklist Category
+  { path: 'addsaftyChecklist', component: AddCheckListComponent },
+  { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
+  //Safty Checklist Caragory
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
-  { path: 'UpdateSafetyChecklistCategory/:id', component: UpdateSaftyChecklistCatagoryComponent },
-  { path: 'AddSafetyChecklistCategory', component: AddSaftyChecklistCatagoryComponent },
-  
   //Safty Checklist Items
-
-  {path: 'AddSaftyChecklist', component: AddSaftyChecklistComponent },
-  
-
-
-
-  //Task Type
-  { path: 'tasktype', component: TaskTypeComponent },
-  { path: 'UpdateTaskType', component: UpdateTaskTypeComponent },
-  { path: 'AddTaskType', component: AddTaskTypeComponent },
-
-
-
-  //Task 
-{ path: 'task', component: TaskComponent },
-{ path: 'UpdateTask', component: UpdateTaskComponent },
-{ path: 'AddTask', component: AddTaskComponent },
-
-
+  { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
+  { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
+  { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
 ];
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

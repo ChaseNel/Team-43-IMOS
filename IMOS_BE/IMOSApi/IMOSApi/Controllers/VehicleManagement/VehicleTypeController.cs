@@ -36,7 +36,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             return recordInDb;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("Vehicletype/GetVehicletypes")]
         public ActionResult<IEnumerable<GetGenericIdAndDescription>> GetAll()
         {
             var recordsInDb = _context.Vehicletypes.Select(item => new GetGenericIdAndDescription

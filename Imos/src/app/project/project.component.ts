@@ -1,4 +1,4 @@
-import { project, ServiceService } from './../services/service.service';
+import { project, ServiceService, constructionSite, request } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -24,7 +24,8 @@ export class ProjectComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  //typelist: materialType[] = [];
+  sitelist: constructionSite[] = [];
+  reqlist: request[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllProjects();
@@ -75,6 +76,8 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+    this.service.getConstructionSite().subscribe(x => {this.sitelist = x; console.log("Sitelist" , this.sitelist)});
+    this.service.getRequeast().subscribe(x => {this.reqlist = x; console.log("reqlist" , this.reqlist)});
 
   }
 

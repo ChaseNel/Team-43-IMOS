@@ -1,19 +1,11 @@
+import { saftyFile, ServiceService } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import {  safetyItem, safetyitemcategory, ServiceService } from '../services/service.service';
-
-// safety checklist class on shared types 
-export interface SafetyItem{
-  safetyfileitemId:number,
-  name:string,
-  safetyitemcategoryId:number,
-  safetyitemcategory:string,
-  safetyfilechecklists:[]
-}
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-safty-checklist',
@@ -22,71 +14,71 @@ export interface SafetyItem{
 })
 export class SaftyChecklistComponent implements OnInit {
 
-  data: safetyItem []=[];
+ // API Test
+ data: saftyFile[] = [];
 
-  displayedColumns: string[] = ['id', 'projectname','Categories', 'SafetyItems','actions'];
+ displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
 
-  dataSource!: MatTableDataSource<SafetyItem>;
+ dataSource!: MatTableDataSource<saftyFile>;
+ @ViewChild(MatPaginator) paginator!: MatPaginator
+ @ViewChild(MatSort) sort!: MatSort
+ posts: any;
+
+ constructor(private route: Router, private service: ServiceService,
+   private _snackBar:MatSnackBar,
+   public dialog: MatDialog
+   ) {
+
+   this.service.getSaftyFile().subscribe(x => {
+     this.data = x;
+     console.log(this.data);
+   })
+  }
+  GetAllSafetyFiles() {
+   this.service.getSaftyFile().subscribe(x => {
+     this.data = x;
+     console.log(this.data);
+     this.posts = x
+
+     this.dataSource = new MatTableDataSource(this.posts)
+
+     this.dataSource.paginator = this.paginator;
+     this.dataSource.sort = this.sort;
+   })
+ }
   
-  @ViewChild(MatPaginator) paginator!: MatPaginator
-  @ViewChild(MatSort) sort!: MatSort
 
-  posts: any;
-  TypeList:safetyitemcategory[]=[];
+ UpdateSaftyFile() {
+   this.route.navigateByUrl("updatesaftyChecklist")
+ }
 
-  constructor(private _route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
-    this.GetAllProjectSafetyChecklistItem();
+ addSaftyFile(){
+   this.route.navigateByUrl('addsaftyChecklist')
+ }
 
+ deleteSaftyFile(id: number) {
+   console.log(id);
+   if (confirm('Are you sure you want to delete this safty file?')) {
+     this.service.deleteEmployee(id).subscribe(res => {
+       this.GetAllSafetyFiles();
+       this._snackBar.open("Success, you have deleted an Safty File", 'OK', {
+         duration: 3000,
+         verticalPosition: 'bottom',
+       });
+     });
    }
-   GetAllProjectSafetyChecklistItem(){
-    this._service.getProjectChecklist().subscribe(x => {
-      this.data = x;
-      console.log(this.data);
-      this.posts = x;
+ }
 
-      this.dataSource = new MatTableDataSource(this.posts)
+ applyFilter(event: Event) {
+   const FilterValue = (event.target as HTMLInputElement).value;
+   this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
 
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+   if (this.dataSource.paginator) {
+     this.dataSource.paginator.firstPage()
    }
-   applyFilter(event: Event) {
-    const FilterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
+ }
+ ngOnInit(): void {
+   this.GetAllSafetyFiles()
+ }
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage()
-    }
-  }
-
-// add method route addNewSafetyChecklist
-addNewSafetyChecklist() {
-  this._route.navigateByUrl('/AddSaftyChecklist')
-}
-  // update method route
-  UpdateProjectSafetyChecklist(id:number) {
-    //console.log("Test " +id)
-    this._route.navigate(['UpdateProjectSafetyChecklist',id])
-  }
-  // delete method route   getSafetyCategory
-  removeProjectSafetyChecklist(id: number) {
-    console.log(id);
-    if (confirm('Are you sure you want to delete this Supplier?')) {
-      this._service.deleteProjectSafetyChecklist(id).subscribe(res => {
-        this.GetAllProjectSafetyChecklistItem();
-        this._snackBar.open("Success, you have deleted a Supplier!", 'OK', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-        });
-      });
-    }
-  }
-  saftychecklistcatagory(){
-    this._route.navigateByUrl('/saftyChecklistCatagory')
-  }
-
-  ngOnInit(): void {
-    this._service.getSafetyCategory().subscribe(x=>{
-    })
-  }
 }
