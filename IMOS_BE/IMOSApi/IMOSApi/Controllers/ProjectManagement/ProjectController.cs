@@ -40,7 +40,7 @@ namespace IMOSApi.Controllers
             var message = "";
             if (ModelState.IsValid)//checks if model is valid then  creates new MaterialType 
             {
-                var newProject = new Project
+                /*var newProject = new Project
                 {
                     ProjectId = ProjectId,
                     Name = model.Name,
@@ -50,7 +50,7 @@ namespace IMOSApi.Controllers
                 };
                 _dbContext.Project.Add(newProject);
                 _dbContext.SaveChanges();
-                return Ok();
+                return Ok();*/
             }
             message = "Something went wrong on your side.";
             return BadRequest(new { message });

@@ -193,6 +193,14 @@ export interface equipment {
   warehouseequipments: []
 }
 
+//Safty File Interface
+export interface saftyFile {
+  SafetyFileID: number,
+  catagory: string,
+  item: string,
+  project: string,
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -565,6 +573,26 @@ export class ServiceService {
   //Delete
   deleteRequeast(id: number) {
     return this.http.delete(this.Root_URL + '/Request/DeleteRequest/' + id);
+  }
+
+  //Safty File
+  //Get
+  getSaftyFile(): Observable<saftyFile[]> {
+    return this.http.get<saftyFile[]>(this.Root_URL + '/User')
+  }
+  //Delete
+  deleteSaftyFile(id: number) {
+    return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
+  }
+  //Add
+  addSaftyFile(obj: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/User/CreateUser', obj);
+  }
+  //Update
+  updateSaftyFile(payload: any, id: number) {
+    return this.http.put(this.Root_URL.concat("User/" + "/" + id),
+      payload,
+      { reportProgress: true, observe: 'events' });
   }
 
 }

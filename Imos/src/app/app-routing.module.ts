@@ -1,3 +1,5 @@
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -49,8 +51,6 @@ import { UpdateProjectComponent } from './project/update-project/update-project.
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
-import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
-import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
@@ -128,8 +128,8 @@ const routes: Routes = [
   { path: 'updateEquipment/:id', component: UpdateEquipmentComponent },
   //Safty Checklist
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
-  { path: 'addsaftyChecklist', component: AddSaftyChecklistComponent },
-  { path: 'updatesaftyChecklist/:id', component: UpdateSaftyChecklistComponent },
+  { path: 'addsaftyChecklist', component: AddCheckListComponent },
+  { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
   //Safty Checklist Caragory
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
   //Safty Checklist Items

@@ -85,12 +85,16 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
-import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
-import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+
+
 
 @NgModule({
   declarations: [
@@ -157,12 +161,13 @@ import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-chec
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
-    AddSaftyChecklistComponent,
-    UpdateSaftyChecklistComponent,
+
     SaftyChecklistCatagoryComponent,
     SaftyChecklistItemsComponent,
     AddSaftyChecklistItemsComponent,
     UpdateSaftyChecklistItemsComponent,
+    AddCheckListComponent,
+    UpdateCheckListComponent,
   ],
   imports: [
     BrowserModule,
@@ -186,7 +191,9 @@ import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-chec
     CommonModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     ServiceService
