@@ -92,6 +92,10 @@ export class WarehouseComponent implements OnInit {
     }
   }
 
+  EQCheck(){
+    this.route.navigateByUrl('warehouseEquipment');
+  }
+
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
   }

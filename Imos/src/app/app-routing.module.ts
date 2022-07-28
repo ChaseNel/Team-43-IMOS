@@ -1,3 +1,4 @@
+import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
@@ -122,6 +123,10 @@ const routes: Routes = [
   { path: 'warehouse', component: WarehouseComponent },
   { path: 'addWarehouse', component: AddWarehouseComponent },
   { path: 'updateWarehouse', component: UpdateWarehouseComponent },
+  //Qarehouse Equipment Check
+  { path: 'warehouseEquipment', component: WarehouseEquipmentComponent },
+  { path: 'addWarehouseEquipment', component: AddWarehouseComponent },
+  { path: 'updateWarehouseEquipment', component: UpdateWarehouseComponent },
   //Equipment
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },

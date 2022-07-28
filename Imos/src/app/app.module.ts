@@ -93,6 +93,9 @@ import { AddCheckListComponent } from './safty-checklist/add-check-list/add-chec
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
+import { AddWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/add-warehouse-equipment/add-warehouse-equipment.component';
+import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/update-warehouse-equipment/update-warehouse-equipment.component';
 
 
 
@@ -168,6 +171,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
     UpdateSaftyChecklistItemsComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
+    WarehouseEquipmentComponent,
+    AddWarehouseEquipmentComponent,
+    UpdateWarehouseEquipmentComponent,
   ],
   imports: [
     BrowserModule,
