@@ -161,7 +161,6 @@ import {MatExpansionModule} from '@angular/material/expansion';
     SaftyChecklistComponent,
 
     SaftyChecklistCatagoryComponent,
-    AddSaftyChecklistItemsComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
   ],
