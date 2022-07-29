@@ -73,10 +73,6 @@ export class VehicleTypeComponent implements OnInit {
   })
 } 
 
-
-
-
-
   addVehicleType() {
     this.route.navigateByUrl('/addVehicleType')
   }

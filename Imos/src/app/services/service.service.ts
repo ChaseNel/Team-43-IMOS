@@ -445,6 +445,14 @@ getSupplierById(id:number){
     return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
   }
 
+  //Vehicle Allocations 
+  //Get All  Not assigned 
+  getAlllVehiclesNotAssigned(){
+    return this.http.get<vehicle[]>(this.Root_URL + '/VehicleAllocation/GetAll/NotAssigned')
+
+  }
+
+
   //Incident
   //Get
   getInicdent(): Observable<incident[]> {

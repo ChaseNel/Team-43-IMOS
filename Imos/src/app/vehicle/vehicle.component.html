@@ -7,6 +7,8 @@
 
 <!-- Vehicle Type -->
 <button (click)="VehicleType()" mat-flat-button color="primary" class="URbtn">Vehicle Type</button>
+&nbsp;
+<button (click)="assignVehicle()" mat-flat-button color="primary" class="URbtn">Manage Vehicle Not Assigned</button>
 <br>
 
 <!-- Search Field -->
@@ -30,7 +32,7 @@
     <!-- Material Type Column -->
     <ng-container matColumnDef="vehicleType">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Type </th>
-        <td mat-cell *matCellDef="let element"> {{Tyoelist[element.vehicletypeId]?.description}} </td>
+        <td mat-cell *matCellDef="let element"> {{Typelist[element.vehicletypeId]?.description}} </td>
     </ng-container>
 
     

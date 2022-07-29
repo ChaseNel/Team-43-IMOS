@@ -18,7 +18,7 @@ import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatDialogModule} from '@angular/material/dialog';
+
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
@@ -92,6 +92,8 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
 import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
 import { UserRoleComponent } from './user/userrole/user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -163,6 +165,7 @@ import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update
     SaftyChecklistCatagoryComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
+    VehicleAllocationComponent,
   ],
   imports: [
     BrowserModule,

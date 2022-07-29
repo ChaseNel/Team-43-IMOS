@@ -1,3 +1,4 @@
+import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
@@ -107,6 +108,11 @@ const routes: Routes = [
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
   { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
+  //Vehicle allocation
+  { path: 'vehicle-allocation', component: VehicleAllocationComponent },
+  
+
+
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
