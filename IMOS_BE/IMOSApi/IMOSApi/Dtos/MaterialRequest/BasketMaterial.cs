@@ -11,11 +11,11 @@ namespace IMOSApi.Dtos.MaterialRequest
     {
         public int MaterialId { get; set; }
 
-        public string MaterialName { get; set; }
+        public string MaterialName { get; }
 
-        public int MaterialTypeId { get; set; }
+        public int MaterialTypeId { get; }
         public int Quantity { get; set; }
-        public string Description { get; set; }
+        public string Description { get; }
 
 
       //  public virtual Materialtype MaterialType { get; set; }

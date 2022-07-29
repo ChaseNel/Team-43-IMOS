@@ -23,33 +23,43 @@ namespace IMOSApi.Controllers
             _context = context;
         }
 
+        [HttpGet("GetAllMaterialRequests")]
+        public ActionResult<IEnumerable<GetMaterialRequestDto> > GetAllMaterialRequests()
+        {
+            var recordInDb = _context.Projectmaterialrequest
+                .Select(item => new GetMaterialRequestDto()
+                {
+                    MaterialRequestId = item.ProjectmaterialrequestId,
+                    UrgencyLevelId = item.UrgencylevelId
+                })
+        }
 
+     
         [HttpGet]
         [Route("getMaterialRequest")]
         public object getMaterialRequest(int id)
         {
-            var MaterialRequestList = db.Projectmaterialrequests.ToList();
+            var MaterialRequestList = db.Projectmaterialrequest.ToList();
 
             return MaterialRequestList;
         }
 
+
         [HttpPost]
-        [Route("CreateMaterialRequest")]
-        public object CreateMaterialRequest(MaterialRequestDto materialRequestDto)
+        [Route("CreateMaterialRequest/{projectid}/{urgencyLevelId}/{fulfillment}")]
+        public object CreateMaterialRequest(MaterialRequestDto materialRequestDto, int projectid, int urgencyLevelId, int fulfillment)
         {
 
-            var project = _context.Projects
-                .FirstOrDefault();
+            
+         
 
-            var urgency = _context.Urgencylevels
-                .FirstOrDefault();
-
-            Projectmaterialrequest reqeustCreate = new Projectmaterialrequest()
+            Projectmaterialrequest requestCreate = new Projectmaterialrequest()
             {
                 RequestDate = DateTime.Now,
-                ProjectId = project.ProjectId,
-                UrgencylevelId= urgency.UrgencylevelId,
-                
+                ProjectId = projectid,
+                UrgencylevelId= urgencyLevelId,
+                Fulfillmenttype = fulfillment,
+
 
             };
 
@@ -59,18 +69,18 @@ namespace IMOSApi.Controllers
                 {
                     Projectmaterialrequestlist projectmaterialrequestlist = new Projectmaterialrequestlist
                     {
-                        Projectmaterialrequest = reqeustCreate,
+                        Projectmaterialrequest = requestCreate,
+                        ProjectmaterialrequestId = requestCreate.ProjectmaterialrequestId,
                         MaterialId = item.MaterialId,
                         Material = db.Materials.Find(item.MaterialId),
                         Quantity = item.Quantity,
-                        
-                        
-
+         
                     };
 
-                    db.Projectmaterialrequestlists.Add(projectmaterialrequestlist);
+                    db.Projectmaterialrequestlist.Add(projectmaterialrequestlist);
+
                 }
-                db.Projectmaterialrequests.Add(reqeustCreate);
+                db.Projectmaterialrequest.Add(requestCreate);
                 db.SaveChanges();
 
                 return Ok();
@@ -79,7 +89,10 @@ namespace IMOSApi.Controllers
 
             catch (Exception e)
             {
+                Console.WriteLine(e.InnerException.Message);
                 return BadRequest(e.Message);
+
+
             }
 
 

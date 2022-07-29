@@ -9,7 +9,7 @@ namespace IMOSApi.Models
     {
         public Material()
         {
-            Projectmaterialrequestlists = new HashSet<Projectmaterialrequestlist>();
+            Projectmaterialrequestlist = new HashSet<Projectmaterialrequestlist>();
             Projectmaterials = new HashSet<Projectmaterial>();
             Supplierorderlines = new HashSet<Supplierorderline>();
             Taskmaterials = new HashSet<Taskmaterial>();
@@ -24,7 +24,7 @@ namespace IMOSApi.Models
 
         public virtual Materialtype Materialtype { get; set; }
         public virtual Supplier Supplier { get; set; }
-        public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
+        public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
         public virtual ICollection<Projectmaterial> Projectmaterials { get; set; }
         public virtual ICollection<Supplierorderline> Supplierorderlines { get; set; }
         public virtual ICollection<Taskmaterial> Taskmaterials { get; set; }
