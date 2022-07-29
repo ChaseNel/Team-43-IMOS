@@ -25,12 +25,17 @@ export class AddWarehouseComponent implements OnInit {
   }
 
   addWarehouse() {
-    var val = { name: this.Name, location: this.Location}
+
+    if (confirm('Are you sure you want to add this Warehouse?')) {
+
+      var val = { name: this.Name, location: this.Location}
     this.service.addWarehouse(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
     this.Name = '';
     this.Location = '';
     console.log(val);
     this.alert = true;
+      };
+  
   }
 
   closeAlert() {

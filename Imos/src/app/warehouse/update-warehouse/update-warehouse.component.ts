@@ -37,12 +37,15 @@ export class UpdateWarehouseComponent implements OnInit {
 
 
   updateWarehouse(){
+
+    if (confirm('Are you sure you want to update this Warehouse?')){
     var id = this.type.warehouseId;
     var val = {Name : this.Name1, Location: this.Location};
     this.service.editWarehouse(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
     this.Name1 = "";
     this.Location = "";
     this.alert = true;
+    }
   }
 
   closeAlert() {
