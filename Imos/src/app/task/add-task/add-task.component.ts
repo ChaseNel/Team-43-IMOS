@@ -62,7 +62,7 @@ export class AddTaskComponent implements OnInit {
   }
 
   AddTask() {
-    
+    if (confirm('Are you sure you want to add this Task?')){
     var val = {tasktype: this.form.value.tasktypeId, userId: this.form.value.userName,
        startdate: this.form.value.startdate, enddate: this.form.value.enddate, qnapassed: this.form.value.qnapassed }
     this._service.addTask(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
@@ -73,6 +73,7 @@ export class AddTaskComponent implements OnInit {
   
 
     this.alert = true;
+    }
 
     
   }

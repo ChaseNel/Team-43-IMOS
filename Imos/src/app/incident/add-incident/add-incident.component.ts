@@ -24,11 +24,14 @@ export class AddIncidentComponent implements OnInit {
   }
 
   addIncident() {
+
+    if (confirm('Are you sure you want to add this Incident?')){
     var val = { Description: this.Description }
     this.service.addIncident(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
     this.Description = '';
     console.log(val);
     this.alert = true;
+    }
   }
 
   closeAlert() {

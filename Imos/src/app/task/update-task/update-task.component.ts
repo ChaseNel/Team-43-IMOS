@@ -79,6 +79,8 @@ export class UpdateTaskComponent implements OnInit {
   }
 
   UpdateTask() {
+
+    if (confirm('Are you sure you want to update this Task?')){
     
     var id = this.taskId;
     var val = {tasktype: this.form.value.tasktypeId, userId: this.form.value.userName,
@@ -86,6 +88,7 @@ export class UpdateTaskComponent implements OnInit {
     this._service.editTask(id, val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
     console.log();
     this.alert = true;
+    }
   }
 
   closeAlert() {

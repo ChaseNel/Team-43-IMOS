@@ -33,10 +33,13 @@ export class UpdateIncidentComponent implements OnInit {
   }
 
   updateIncident(){
+
+    if (confirm('Are you sure you want to update this Incident?')){
     var id = this.type.incidentId;
     var val = {Description: this.Description1};
     this.service.editIncident(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
     this.alert = true;
+    }
   }
 
   closeAlert() {

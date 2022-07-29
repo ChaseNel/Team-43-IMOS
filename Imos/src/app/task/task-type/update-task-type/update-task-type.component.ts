@@ -33,10 +33,12 @@ export class UpdateTaskTypeComponent implements OnInit {
   }
 
   updateTaskT(){
+    if (confirm('Are you sure you want to update this Task type?')){
     var id = this.type.tasktype1;
     var val = { Description: this.Description1};
     this.service.editTaskType(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
     this.alert = true;
+    }
   }
 
   closeAlert() {

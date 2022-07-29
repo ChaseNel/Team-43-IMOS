@@ -24,11 +24,14 @@ export class AddTaskTypeComponent implements OnInit {
   }
 
   addTasktype() {
+
+    if (confirm('Are you sure you want to add this Task type?')){
     var val = {Description: this.Description }
     this.service.addTaskType(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
     this.Description = '';
     console.log(val);
     this.alert = true;
+    }
   }
 
   closeAlert() {
