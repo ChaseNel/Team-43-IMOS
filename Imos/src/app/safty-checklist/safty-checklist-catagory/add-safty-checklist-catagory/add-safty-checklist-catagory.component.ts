@@ -11,7 +11,7 @@ import { ServiceService } from 'src/app/services/service.service';
 export class AddSaftyChecklistCatagoryComponent implements OnInit {
 
   categoryName:any;
-  public SafetyCategoryFrm!: FormGroup;
+  SafetyCategoryFrm: FormGroup;
   alert: boolean = false;
 
   constructor(private _service: ServiceService, private fb:FormBuilder,private route: Router) { 
@@ -24,11 +24,11 @@ export class AddSaftyChecklistCatagoryComponent implements OnInit {
   })
   }
   addCategoryType(){
-    var val = { Name: this.categoryName}
+    /*var val = { Name: this.categoryName}
     this._service.addSafetyCategory(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
     this.categoryName = '';
     console.log(val);
-    this.alert = true;
+    this.alert = true;*/
   }
   closeAlert() {
     this.alert = false;

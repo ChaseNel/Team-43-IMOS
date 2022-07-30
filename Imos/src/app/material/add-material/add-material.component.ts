@@ -1,4 +1,4 @@
-import { materialType, warehouse } from './../../services/service.service';
+import { materialtype, warehouse } from './../../services/service.service';
 
 import { Supplier } from './../../supplier/supplier.component';
 import { Component, OnInit } from '@angular/core';
@@ -30,7 +30,7 @@ export interface Material {
 export class AddMaterialComponent implements OnInit {
    materialFrm: FormGroup;
    alert: boolean = false;
-   TypeList: materialType[] = [];
+   TypeList: materialtype[] = [];
    SupplierList :supplier[]=[];
    WarehouseTypes: warehouse[] = [];
 
@@ -80,5 +80,4 @@ AddMaterial() {
   back(){
     this.route.navigateByUrl("material")
   }
-
 }

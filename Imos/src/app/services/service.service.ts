@@ -768,9 +768,11 @@ getSupplierById(id:number){
   getSafetyCategory(){
 
   }
+  addSafetyCategory(){
+    
+  }
   deleteSafetyItemCategory(id:number){
     return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
-    
   }
   
 }

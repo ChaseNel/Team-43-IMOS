@@ -14,8 +14,8 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material/input';
-import {MatIconModule} from '@angular/material/icon';
+import { MatInputModule} from '@angular/material/input';
+
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -71,6 +71,7 @@ import { AddProjectComponent } from './project/add-project/add-project.component
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { TaskComponent } from './task/task.component';
+import {MatIconModule} from '@angular/material/icon';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { UpdateTaskComponent } from './task/update-task/update-task.component';
 import { TaskTypeComponent } from './task/task-type/task-type.component';
@@ -206,7 +207,8 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatIconModule
   ],
   providers: [
     ServiceService

@@ -1,4 +1,4 @@
-import { materialType } from './../services/service.service';
+import { materialtype } from './../services/service.service';
 import { supplier, equipment, warehouse } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
@@ -41,7 +41,7 @@ export class MaterialComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  TypeList: materialType[] = [];
+  TypeList: materialtype[] = [];
   SupplierList:supplier[]=[];
   WarehouseTypes: warehouse[] = [];
 
