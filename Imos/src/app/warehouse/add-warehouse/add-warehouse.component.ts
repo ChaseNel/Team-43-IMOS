@@ -1,48 +1,46 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
 
+export interface Warehouse{
+  warehouseId: number,
+  name: string,
+  location: string,
+  warehouseequipments: [],
+  warehousematerials: []
+}
 @Component({
   selector: 'app-add-warehouse',
   templateUrl: './add-warehouse.component.html',
   styleUrls: ['./add-warehouse.component.css']
 })
 export class AddWarehouseComponent implements OnInit {
-
-  Name: any;
-  Location: any;
-  public warehouseFrm!: FormGroup;
+  form:FormGroup;
   alert: boolean = false;
-
-  constructor(private service: ServiceService, private formB:FormBuilder) { }
+  constructor(private _service: ServiceService, private fb: FormBuilder, private route: Router) { }
 
   ngOnInit(): void {
-    this.warehouseFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
-      Location: new FormControl('', [Validators.required]),
-    })
+    this.buildAddForm();
   }
-
-  addWarehouse() {
-
-    if (confirm('Are you sure you want to add this Warehouse?')) {
-
-      var val = { name: this.Name, location: this.Location}
-    this.service.addWarehouse(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
-    this.Name = '';
-    this.Location = '';
-    console.log(val);
-    this.alert = true;
-      };
-  
+  private buildAddForm(){
+    this.form=this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]]
+    });
   }
-
+  addWarehouse(){
+    if(this.form.valid){
+    //  console.log(this.form.value);
+      this._service.addWarehouse(this.form.value).subscribe(res=>{
+        console.log(res);
+      })
+    }
+  }
   closeAlert() {
     this.alert = false;
   }
-  public hasError = (controlName: string, errorName: string) => {
-    return this.warehouseFrm.controls[controlName].hasError(errorName);
+  back(){
+    this.route.navigateByUrl("warehouse")
   }
-
 }

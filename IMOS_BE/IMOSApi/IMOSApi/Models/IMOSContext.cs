@@ -1,22 +1,35 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+
+
 
 #nullable disable
 
 namespace IMOSApi.Models
 {
     public partial class IMOSContext : DbContext
-    {
-        public IMOSContext()
-        {
-        }
+    {  
+
+       
+         public IMOSContext()
+         {
+
+         }
 
         public IMOSContext(DbContextOptions<IMOSContext> options)
             : base(options)
         {
         }
 
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
+        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
+        public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Attendence> Attendences { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Constructionsite> Constructionsites { get; set; }
@@ -59,7 +72,6 @@ namespace IMOSApi.Models
         public virtual DbSet<Warehouseequipment> Warehouseequipments { get; set; }
         public virtual DbSet<Warehouseequipmentcheck> Warehouseequipmentchecks { get; set; }
         public virtual DbSet<Warehouseequipmentwriteoff> Warehouseequipmentwriteoffs { get; set; }
-        public virtual DbSet<Warehousematerial> Warehousematerials { get; set; }
         public virtual DbSet<Warehousematerialstocktake> Warehousematerialstocktakes { get; set; }
         public virtual DbSet<Warehousematerialwriteoff> Warehousematerialwriteoffs { get; set; }
         public virtual DbSet<Writeoff> Writeoffs { get; set; }
@@ -77,6 +89,93 @@ namespace IMOSApi.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<AspNetRole>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedName] IS NOT NULL)");
+
+                entity.Property(e => e.Name).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<AspNetRoleClaim>(entity =>
+            {
+                entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
+
+                entity.Property(e => e.RoleId).IsRequired();
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetRoleClaims)
+                    .HasForeignKey(d => d.RoleId);
+            });
+
+            modelBuilder.Entity<AspNetUser>(entity =>
+            {
+                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
+
+                entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
+                    .IsUnique()
+                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
+
+                entity.Property(e => e.Email).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
+
+                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
+
+                entity.Property(e => e.UserName).HasMaxLength(256);
+            });
+
+            modelBuilder.Entity<AspNetUserClaim>(entity =>
+            {
+                entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserClaims)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserLogin>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+
+                entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
+
+                entity.Property(e => e.UserId).IsRequired();
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserLogins)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserRole>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+
+                entity.HasIndex(e => e.RoleId, "IX_AspNetUserRoles_RoleId");
+
+                entity.HasOne(d => d.Role)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.RoleId);
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserRoles)
+                    .HasForeignKey(d => d.UserId);
+            });
+
+            modelBuilder.Entity<AspNetUserToken>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.AspNetUserTokens)
+                    .HasForeignKey(d => d.UserId);
+            });
 
             modelBuilder.Entity<Attendence>(entity =>
             {
@@ -313,11 +412,18 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("NAME");
 
+                entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
+
                 entity.HasOne(d => d.Materialtype)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
+
+                entity.HasOne(d => d.Warehouse)
+                    .WithMany(p => p.Materials)
+                    .HasForeignKey(d => d.WarehouseId)
+                    .HasConstraintName("FK_MATERIAL_WAREHOUSE");
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -327,11 +433,13 @@ namespace IMOSApi.Models
                 entity.Property(e => e.MaterialtypeId).HasColumnName("MATERIALTYPE_ID");
 
                 entity.Property(e => e.Description)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DESCRIPTION");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
@@ -643,14 +751,17 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Suppliermaterial>(entity =>
             {
-                entity.HasKey(e => new { e.MaterialId, e.SupplierId })
-                    .HasName("PK__SUPPLIER__6E61AFCB5C2E1D33");
+                entity.HasKey(e => e.SupplierId);
 
                 entity.ToTable("SUPPLIERMATERIAL");
 
+                entity.Property(e => e.SupplierId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("SUPPLIER_ID");
+
                 entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
 
-                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+                entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
                 entity.HasOne(d => d.Material)
                     .WithMany(p => p.Suppliermaterials)
@@ -659,8 +770,8 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_SUPPLIERMATERIAL_MATERIAL");
 
                 entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Suppliermaterials)
-                    .HasForeignKey(d => d.SupplierId)
+                    .WithOne(p => p.Suppliermaterial)
+                    .HasForeignKey<Suppliermaterial>(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SUPPLIERMATERIAL_SUPPLIER");
             });
@@ -991,11 +1102,13 @@ namespace IMOSApi.Models
                 entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
 
                 entity.Property(e => e.Location)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("LOCATION");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
@@ -1100,35 +1213,6 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_WAREHOUS_CAN_HAVE_WAREHOUS");
             });
 
-            modelBuilder.Entity<Warehousematerial>(entity =>
-            {
-                entity.HasKey(e => new { e.MaterialId, e.WarehouseId });
-
-                entity.ToTable("WAREHOUSEMATERIAL");
-
-                entity.HasIndex(e => e.MaterialId, "CAN_BE_FK");
-
-                entity.HasIndex(e => e.WarehouseId, "_CONTAIN_FK");
-
-                entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
-
-                entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
-
-                entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
-
-                entity.HasOne(d => d.Material)
-                    .WithMany(p => p.Warehousematerials)
-                    .HasForeignKey(d => d.MaterialId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WAREHOUS_CAN_BE_MATERIAL");
-
-                entity.HasOne(d => d.Warehouse)
-                    .WithMany(p => p.Warehousematerials)
-                    .HasForeignKey(d => d.WarehouseId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WAREHOUS__CONTAIN_WAREHOUS");
-            });
-
             modelBuilder.Entity<Warehousematerialstocktake>(entity =>
             {
                 entity.HasKey(e => new { e.StocktakeId, e.MaterialId, e.WarehouseId });
@@ -1152,12 +1236,6 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.StocktakeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WAREHOUS_IS_CONDUC_STOCKTAK");
-
-                entity.HasOne(d => d.Warehousematerial)
-                    .WithMany(p => p.Warehousematerialstocktakes)
-                    .HasForeignKey(d => new { d.MaterialId, d.WarehouseId })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WAREHOUS_UNDERGOES_WAREHOUS");
             });
 
             modelBuilder.Entity<Warehousematerialwriteoff>(entity =>
@@ -1181,12 +1259,6 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.WriteoffId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_WAREHOUS_HAVE______WRITEOFF");
-
-                entity.HasOne(d => d.Warehousematerial)
-                    .WithMany(p => p.Warehousematerialwriteoffs)
-                    .HasForeignKey(d => new { d.MaterialId, d.WarehouseId })
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_WAREHOUS_HAVE______WAREHOUS");
             });
 
             modelBuilder.Entity<Writeoff>(entity =>
@@ -1218,9 +1290,12 @@ namespace IMOSApi.Models
                     .HasColumnName("DESCRIPTION");
             });
 
+            base.OnModelCreating(modelBuilder);
+
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
     }
 }

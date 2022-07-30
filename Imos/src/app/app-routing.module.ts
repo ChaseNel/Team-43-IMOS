@@ -2,6 +2,8 @@
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
+import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
+import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -11,7 +13,7 @@ import { ProjectComponent } from './project/project.component';
 import { IncidentComponent } from './incident/incident.component';
 import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
 import { MaterialRequestComponent } from './material/material-request/material-request.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
+
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { HomeComponent } from './home/home.component';
@@ -24,8 +26,6 @@ import { EmployeeComponent } from './employee/employee.component';
 import { UserComponent } from './user/user.component';
 import { AddUserComponent } from './user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
 import { SupplierComponent } from './supplier/supplier.component';
@@ -55,6 +55,11 @@ import { UpdateIncidentComponent } from './incident/update-incident/update-incid
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 
+import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { UserRoleComponent } from './user/userrole/user-role.component';
+import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+
 const routes: Routes = [
   //Default
   { path: '', component: LoginComponent },
@@ -74,12 +79,12 @@ const routes: Routes = [
   { path: 'updateuserrole', component: UpdateUserRoleComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
-  { path: 'UpdateEmployee', component: UpdateEmployeeComponent },
+  { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial', component: UpdateMaterialComponent },
-  { path: 'AddMaterial', component: AddMaterialComponent },
+  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
+  { path: 'addMaterial', component: AddMaterialComponent },
   //Material Type
   { path: 'materialtype', component: MaterialTypeComponent },
   { path: 'UpdateMaterialType', component: UpdateMaterialTypeComponent },
@@ -100,11 +105,16 @@ const routes: Routes = [
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle', component: UpdateVehicleComponent },
+  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
   { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
+  //Vehicle allocation
+  { path: 'vehicle-allocation', component: VehicleAllocationComponent },
+  
+
+
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
@@ -125,6 +135,7 @@ const routes: Routes = [
   { path: 'warehouseEquipment', component: WarehouseEquipmentComponent },
   { path: 'addWarehouseEquipment', component: AddWarehouseComponent },
   { path: 'updateWarehouseEquipment', component: UpdateWarehouseComponent },
+  { path: 'updateWarehouse/:id', component: UpdateWarehouseComponent },
   //Equipment
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },

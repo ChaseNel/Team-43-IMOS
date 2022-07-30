@@ -42,11 +42,14 @@ export class AddSupplierComponent implements OnInit {
   Suppliertypes: suppliertype[] = [];
 
   constructor(private fb: FormBuilder, private _service:ServiceService
- ) { }
+ ) { 
+
+ }
 
   ngOnInit(): void {
     this.buildAddForm();
   }
+
   private buildAddForm(){
     this.form=this.fb.group({
       name: ['', [Validators.required]],
@@ -54,7 +57,6 @@ export class AddSupplierComponent implements OnInit {
       Email: ['', [Validators.required]],
       ContactNumber: ['', [Validators.required]],
       suppliertypeId: ['', [Validators.required]],
-      
 
     });
     this._service.getSupplierType().subscribe(data =>{
@@ -75,6 +77,5 @@ export class AddSupplierComponent implements OnInit {
   }
 
   Cancel(){
-
   }
 }

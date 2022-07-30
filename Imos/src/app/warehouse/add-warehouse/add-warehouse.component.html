@@ -1,4 +1,5 @@
-<app-header></app-header>
+
+<button class="btnBack" mat-raised-button color="warn" routerLink="/home">Back</button>
 
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success !</strong> Warehouse Added Successfully
@@ -7,31 +8,28 @@
     </button>
 </div>
 
-<form [formGroup]="warehouseFrm" class="form-container">
+<form [formGroup]="form" class="form-container">
     <mat-card>
         <mat-card-header>
             <mat-card-title>Add Warehouse</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div class="row">
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Name' matInput placeholder="Warehouse Name" name="Name"
-                        formControlName="Name">
+                    <mat-label>Name</mat-label>
+                    <input matInput  placeholder="Enter Name" #nameInput  formControlName="name">
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Name', 'required')"></mat-error>
 
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Location' matInput placeholder="Warehouse Location" name="Location"
-                        formControlName="Location">
+                    <input matInput placeholder="Address/Location" #nameInput  formControlName="description">
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Location', 'required')"></mat-error>
 
                 <mat-card-actions>
                     <button (click)="addWarehouse()" mat-raised-button color="primary">Add</button>
-                    <button class="btnBack" mat-raised-button color="warn" routerLink="/warehouse">Back</button>
+                    <button (click)="back()" mat-raised-button color="warn">back</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>
     </mat-card>
 </form>
-

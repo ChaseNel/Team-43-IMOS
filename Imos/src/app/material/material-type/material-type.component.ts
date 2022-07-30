@@ -20,17 +20,13 @@ export interface MaterialType {
 })
 export class MaterialTypeComponent implements OnInit {
 
-
-  type: any;
-  name: any;
-  description: any;
-  id: any;
+  type:any;
   hide: boolean = false;
 
 // API Test
 data: materialType[] = [];
 
-displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
+displayedColumns: string[] = ['name', 'description', 'actions'];
 
 dataSource!: MatTableDataSource<MaterialType>;
 
@@ -55,7 +51,6 @@ posts: any;
       this.dataSource.sort = this.sort;
     })
   }
-
   applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -83,11 +78,6 @@ posts: any;
       this.dataSource.sort = this.sort;
   })
 } 
-
-
-
-
-
   addMaterialType() {
     this.route.navigateByUrl('/AddMaterialType')
   }

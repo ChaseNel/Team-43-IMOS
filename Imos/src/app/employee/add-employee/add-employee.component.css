@@ -1,9 +1,14 @@
 .form-container{
     margin: auto;
-    max-width: 350px;
+    max-width: 700px;
     padding: 10px;
     border-radius: 4px;
-
+    background-color: lightgray;
+}
+.btnBack{
+    position:sticky;
+    left: 70%;
+    top: 54%;
 }
 
 .align{
