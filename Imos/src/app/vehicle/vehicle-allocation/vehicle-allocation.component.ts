@@ -1,3 +1,4 @@
+import { AllocateVehicleComponent } from './../allocate-vehicle/allocate-vehicle.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -55,7 +56,11 @@ export class VehicleAllocationComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-  assignVehicle(){
-    this.route.navigateByUrl('vehicle-allocation')
+ 
+  openDialog(){
+    const dialogRef= this.dialog.open(AllocateVehicleComponent,{
+      data:{ title:'Hello'}
+    });
+
   }
 }

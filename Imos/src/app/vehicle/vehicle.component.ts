@@ -69,10 +69,10 @@ export class VehicleComponent implements OnInit {
   UpdateVehicle(id:number) {
     this.route.navigate(['updateVehicle',id])
   }
-  assignVehicle() {
+/*  assignVehicle() {
     //or navigate (['assignVehicle',id])
     this.route.navigateByUrl('vehicle-allocation')
-  }
+  }*/
  
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
@@ -89,6 +89,9 @@ export class VehicleComponent implements OnInit {
         });
       });
     }
+  }
+  assignVehicle() {
+    this.route.navigateByUrl('/vehicle-allocation')
   }
 
   VehicleType() {

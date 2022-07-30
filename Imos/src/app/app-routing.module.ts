@@ -103,7 +103,7 @@ const routes: Routes = [
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle', component: UpdateVehicleComponent },
+  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },

@@ -421,7 +421,7 @@ getSupplierById(id:number){
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/GetVehicletypes')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetAll')
   }
 
 

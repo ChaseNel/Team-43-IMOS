@@ -94,6 +94,7 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -166,7 +167,9 @@ import {MatDialogModule} from '@angular/material/dialog';
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
     VehicleAllocationComponent,
+    AllocateVehicleComponent,
   ],
+  entryComponents:[ AllocateVehicleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

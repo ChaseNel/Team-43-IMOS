@@ -48,6 +48,7 @@ namespace IMOSApi.Controllers.UserFolder
             if (ModelState.IsValid)
             {
                 var recordInDb = await _context.Users
+                    .Include(item=>item.Employee)
                     .Where(item => item.UserroleId == model.UserroleId).FirstOrDefaultAsync(item => item.EmployeeId == model.EmployeeId);
                 if (recordInDb != null)
                 {
@@ -58,10 +59,11 @@ namespace IMOSApi.Controllers.UserFolder
                 var assignedPassword = UserManagementExtension.GenerateRandomPassword();
                 var newUser = new User()
                 {
-                    Username = model.Username,// auto  generate 
+                    Username = model.Username,
                     EmployeeId = model.EmployeeId,
                     UserroleId = model.UserroleId,
-                    Userpassword= assignedPassword,
+                    Userpassword= assignedPassword,// auto  generate 
+                   
                 };
                 // add notification extension
                 await _context.AddAsync(newUser);
