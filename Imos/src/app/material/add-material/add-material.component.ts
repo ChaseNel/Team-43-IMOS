@@ -3,7 +3,7 @@ import { Supplier } from './../../supplier/supplier.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Materialtype, ServiceService, supplier } from 'src/app/services/service.service';
+import { ServiceService, supplier, materialType } from 'src/app/services/service.service';
 
 export interface Material{
   materialId: number,
@@ -27,7 +27,7 @@ materialtypeId  : number,
 export class AddMaterialComponent implements OnInit {
    materialFrm: FormGroup;
   alert: boolean = false;
-  Materialtypes: Materialtype [] = [];
+  Materialtypes: materialType [] = [];
 SupplierList  :supplier[]=[];
 
   constructor(private service: ServiceService, private formB: FormBuilder, private route: Router)

@@ -86,9 +86,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -164,11 +162,7 @@ import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipme
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
-
     SaftyChecklistCatagoryComponent,
-    SaftyChecklistItemsComponent,
-    AddSaftyChecklistItemsComponent,
-    UpdateSaftyChecklistItemsComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
     WarehouseEquipmentComponent,

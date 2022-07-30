@@ -1,3 +1,4 @@
+
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
@@ -53,9 +54,6 @@ import { AddIncidentComponent } from './incident/add-incident/add-incident.compo
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 
 const routes: Routes = [
   //Default
@@ -137,10 +135,7 @@ const routes: Routes = [
   { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
   //Safty Checklist Caragory
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
-  //Safty Checklist Items
-  { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
-  { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
-  { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
+
 ];
 
 @NgModule({

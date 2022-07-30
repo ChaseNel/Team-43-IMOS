@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { safetyitemcategory, ServiceService } from 'src/app/services/service.service';
+import { ServiceService } from 'src/app/services/service.service';
 
 export interface Safetyitemcategory{
   safetyitemcategoryId:number,
@@ -23,7 +23,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
   hide: boolean = false;
   
   // API Test
-  data: safetyitemcategory[] = [];
+  data: Safetyitemcategory[] = [];
   displayedColumns: string[] = ['id', 'name', 'actions'];
 
   dataSource!: MatTableDataSource<Safetyitemcategory>;
@@ -33,12 +33,12 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
 
   posts: any;
   constructor(private route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
-    this.GetAllSafetyitemcategories();
+ //  this.GetAllSafetyitemcategories();
 
    }
    // get all http method 
    GetAllSafetyitemcategories(){
-    this._service.getSafetyCategory().subscribe(x => {
+    /*this._service.getSafetyCategory().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x;
@@ -47,7 +47,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-    })
+    })*/
    }
    //search 
    applyFilter(event: Event) {
@@ -64,9 +64,9 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
     this.hide = true;
   }
   // close
-  closeClick(){
+ closeClick(){
     this.hide= false;
-    this._service.getSafetyCategory().subscribe(x => {
+   /* this._service.getSafetyCategory().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x;
@@ -75,7 +75,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-  })
+  })*/
   }
 
    //add 
@@ -94,9 +94,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
         });
       });
     }
-
    }
-
 
   ngOnInit(): void {
   }

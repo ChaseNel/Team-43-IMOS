@@ -228,7 +228,7 @@ export class ServiceService {
   public taskId: number;
 
   //URL from API
-  readonly Root_URL = 'https://localhost:44381/api'
+  readonly Root_URL = 'https://localhost:5001/api'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -721,6 +721,14 @@ export class ServiceService {
   deleteIncident(id: number) {
     return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
   }
+  getSafetyCategory(){
+
+  }
+  deleteSafetyItemCategory(id:number){
+    return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
+    
+  }
+  
 }
 
 

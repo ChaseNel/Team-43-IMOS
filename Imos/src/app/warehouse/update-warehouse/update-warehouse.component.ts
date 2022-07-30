@@ -55,6 +55,4 @@ export class UpdateWarehouseComponent implements OnInit {
   public hasError = (controlName: string, errorName: string) => {
     return this.warehouseFrm.controls[controlName].hasError(errorName);
   }
-
-
 }

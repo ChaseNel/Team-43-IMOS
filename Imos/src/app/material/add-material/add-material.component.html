@@ -21,7 +21,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Choose a Material Type</mat-label>
                     <mat-select formControlName="materialtypeId">
-                        <mat-option *ngFor="let type of Materialtypes" [value]="type.id">
+                        <mat-option *ngFor="let type of Materialtypes" [value]="type.name">
                             {{type.name}}
                         </mat-option>
                       </mat-select>
