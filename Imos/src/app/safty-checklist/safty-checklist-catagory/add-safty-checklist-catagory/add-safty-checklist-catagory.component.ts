@@ -21,7 +21,7 @@ export class AddSaftyChecklistCatagoryComponent implements OnInit {
   ngOnInit(): void {
     this.SafetyCategoryFrm = new FormGroup({
       categoryName: new FormControl('', [Validators.required])
-  })
+  });
   }
   addCategoryType(){
     /*var val = { Name: this.categoryName}

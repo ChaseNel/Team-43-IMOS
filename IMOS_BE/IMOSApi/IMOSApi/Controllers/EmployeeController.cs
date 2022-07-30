@@ -101,15 +101,21 @@ namespace IMOSApi.Controllers
             }
         }
 
-        [HttpDelete("DeleteEmployee/{Id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteEmployee/{id}")]
+        public async Task<ActionResult<Employee>> Delete(int id)
         {
-            using (var context = new IMOSContext())
+            var recordInDb = await _dbContext.Employees.FindAsync(id);
+            if (recordInDb == null)
             {
-                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).FirstOrDefault();
-                _dbContext.Employees.Remove(emp);
-                _dbContext.SaveChanges();
+                return NotFound();
             }
+
+            _dbContext.Employees.Remove(recordInDb);
+            await _dbContext.SaveChangesAsync();
+           
+
+
+            return Ok();
         }
     }
 }

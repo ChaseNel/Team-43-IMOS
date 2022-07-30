@@ -81,10 +81,10 @@ namespace IMOSApi
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("equipment", "{contoller = EquipmentController}");
-            });
+            //app.UseMvc(routes =>
+            //{
+            //  //  routes.MapRoute("equipment", "{contoller = EquipmentController}");
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

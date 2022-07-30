@@ -240,10 +240,7 @@ export class ServiceService {
   constructor(private http: HttpClient) {
   }
 
-
-
-
-  //User
+  //User Http Endpoints 
   //Get
   getUser(): Observable<user[]> {
     return this.http.get<user[]>(this.Root_URL + '/User/GetAll/Users')
@@ -254,7 +251,7 @@ export class ServiceService {
   }
   //Add
   addUser(obj: any): Observable<any> {
-    return this.http.post(this.Root_URL + '/User/CreateUser', obj);
+    return this.http.post(this.Root_URL + '/User/Register/UserAccount', obj);
   }
   //Update
   updateUser(payload: any, id: number) {
@@ -326,7 +323,7 @@ export class ServiceService {
   }
   //Add
   addMaterial(val: any) {
-    return this.http.post(this.Root_URL + '/Material/CreateMaterial', val)
+    return this.http.post(this.Root_URL + '/Material/AddMaterial', val)
   }
   // update material
   updateMaterial(id:number,data:any){

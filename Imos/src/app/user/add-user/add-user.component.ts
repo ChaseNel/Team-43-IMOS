@@ -43,11 +43,18 @@ export class AddUserComponent implements OnInit {
     })
   }
   addUser(){
+    if(this.addForm.valid){
+      console.log(this.addForm.value);
+      this._service.addUser(this.addForm.value)
+      .subscribe(res=>{
+        console.log(res);
+      })
+    }
 
   }
  
   back(){
-    this.route.navigateByUrl("material")
+    this.route.navigateByUrl("user")
   }
   closeAlert() {
     this.alert = false;

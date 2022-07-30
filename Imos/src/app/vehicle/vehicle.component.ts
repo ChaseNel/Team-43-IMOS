@@ -91,11 +91,14 @@ export class VehicleComponent implements OnInit {
     }
   }
   assignVehicle() {
-    this.route.navigateByUrl('/vehicle-allocation')
+    this.route.navigateByUrl('/assign-vehicle')
   }
 
   VehicleType() {
     this.route.navigateByUrl('/vehicleType')
+  }
+  VehicleAllocation() {
+    this.route.navigateByUrl('/vehicle-allocation')
   }
 
   ngOnInit(): void {

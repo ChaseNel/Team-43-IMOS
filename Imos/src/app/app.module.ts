@@ -83,7 +83,6 @@ import { UpdateProjectStaffComponent } from './project/project-staff/update-proj
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 
@@ -100,15 +99,6 @@ import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-rol
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 import { UserRoleComponent } from './user/userrole/user-role.component';
 
-
-import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
-
-
-
-import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,7 +107,6 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
     VehicleComponent,
     LoginComponent,
     LogoutComponent,
-    HeaderComponent,
     PopUpComponent,
     HomeComponent,
     SuccessComponent,
@@ -182,7 +171,6 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
     UpdateWarehouseEquipmentComponent,
   
   ],
-  entryComponents:[ AllocateVehicleComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -191,8 +179,8 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule,
     FormsModule,
+    MatButtonModule,
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
@@ -207,8 +195,8 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatExpansionModule,
-    MatIconModule
+    MatExpansionModule
+
   ],
   providers: [
     ServiceService

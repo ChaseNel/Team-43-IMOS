@@ -2,8 +2,7 @@
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
-import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
-import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
+
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -55,10 +54,11 @@ import { UpdateIncidentComponent } from './incident/update-incident/update-incid
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 
-import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+
 import { UserRoleComponent } from './user/userrole/user-role.component';
 import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+
 
 const routes: Routes = [
   //Default
@@ -111,8 +111,7 @@ const routes: Routes = [
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
   { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
   //Vehicle allocation
-  { path: 'vehicle-allocation', component: VehicleAllocationComponent },
-  
+
 
 
   //Incident
@@ -145,7 +144,7 @@ const routes: Routes = [
   { path: 'addsaftyChecklist', component: AddCheckListComponent },
   { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
   //Safty Checklist Caragory
-  { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
+  { path: 'safty-checklist-catagory', component: SaftyChecklistCatagoryComponent },
 
 ];
 
