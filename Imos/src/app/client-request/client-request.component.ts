@@ -87,7 +87,8 @@ export class ClientRequestComponent implements OnInit {
 
 
       GetRequestBYClient(id:number){
-        this.service.getRequestByClient(id).subscribe(o => {
+        this.service.getRequestByClient(id)
+        .subscribe(o => {
           this.info = o;
           console.log(this.info);
           this.posts = o;

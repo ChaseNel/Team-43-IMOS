@@ -12,9 +12,15 @@ namespace IMOSApi.Dtos.MaterialRequest
         public int MaterialRequestId { get; set; }
         public int ProjectId { get; set; }
         public int UrgencyLevelId { get; set; }
-        public int FullfillmentType { get; set; }
+        public string UrgencyLevelName { get; set; }
+        public int FulfillmentType { get; set; }
         public DateTime RequestDate { get; set; }
+        public virtual List<BasketMaterial> BasketMaterials { get; set; }
 
-        public int Quantity { get; set; }
+        public GetMaterialRequestDto()
+        {
+            BasketMaterials = new List<BasketMaterial>();
+        }
+
     }
 }

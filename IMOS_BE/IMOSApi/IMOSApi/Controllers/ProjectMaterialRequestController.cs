@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMOSApi.Dtos.MaterialRequest;
 using IMOSApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace IMOSApi.Controllers
 {
@@ -23,18 +24,97 @@ namespace IMOSApi.Controllers
             _context = context;
         }
 
+     
         [HttpGet("GetAllMaterialRequests")]
-        public ActionResult<IEnumerable<GetMaterialRequestDto> > GetAllMaterialRequests()
+        public ActionResult<IEnumerable<GetMaterialRequestDto>> GetAllMaterialRequests()
         {
             var recordInDb = _context.Projectmaterialrequest
                 .Select(item => new GetMaterialRequestDto()
                 {
                     MaterialRequestId = item.ProjectmaterialrequestId,
-                    UrgencyLevelId = item.UrgencylevelId
-                })
+                   UrgencyLevelName =item.Urgencylevel.Level,
+                    ProjectId = item.ProjectId,
+                    RequestDate = item.RequestDate,
+                    FulfillmentType = item.Fulfillmenttype
+
+                }).OrderBy(item => item.RequestDate).ToList();
+            return recordInDb;
         }
 
-     
+
+        [HttpGet("GetRequestBYProject/{Id}")]
+        public ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
+        {
+            var recordInDb =_context.Projectmaterialrequest
+                .Where(item => item.ProjectId==Id)
+                .Select(item => new GetMaterialRequestDto() 
+                {
+                    MaterialRequestId=item.ProjectmaterialrequestId,
+                    ProjectId = item.ProjectId,
+                    FulfillmentType = item.Fulfillmenttype,
+                    RequestDate = item.RequestDate,
+                    UrgencyLevelName = item.Urgencylevel.Level,
+
+                }).OrderBy(item => item.RequestDate).ToList();
+
+            return recordInDb;
+        }
+
+        [HttpGet("ViewRequestDetails/{Id}")]
+        public ActionResult<IEnumerable<MaterialRequestDetailsDTo>> ViewRequestDetails(int Id)
+        {
+            var recordInDb = _context.Projectmaterialrequestlist
+                .Where(item => item.ProjectmaterialrequestId == Id)
+                .OrderBy(item => item.Material.Name)
+                .Select(line => new MaterialRequestDetailsDTo()
+                {
+                    MaterialName = line.Material.Name,
+                    Description = line.Material.Description,
+                    MaterialTypeName = line.Material.Materialtype.Name,
+                    Quantity = line.Quantity,
+                }
+                ).ToList();
+
+            return recordInDb;
+        }
+
+
+
+
+        [HttpGet("GetRequestBYProjectWithDetails/{Id}")]
+        public ActionResult<ICollection<GetMaterialRequestByProjectDTO>> GetRequestBYProject(int Id)
+        {
+            var ProjectMaterialReq = _context.Projectmaterialrequest
+                .Include(item => item.Projectmaterialrequestlist)
+                .Where(item => item.Project.ProjectId == Id)
+                .OrderBy(item => item.RequestDate)
+                .Select(item => new GetMaterialRequestByProjectDTO()
+                {
+                    FulfillmentType = item.Fulfillmenttype,
+                    RequestDate = item.RequestDate.ToString("f"),
+                    UrgencyLevelName = item.Urgencylevel.Level,
+                    Materials = (ICollection<MaterialRequestDetailsDTo>)item.Projectmaterialrequestlist
+
+                    .Select(line => new MaterialRequestDetailsDTo
+                    {
+
+
+                        MaterialName =line.Material.Name,
+                        Description=line.Material.Description,
+                        MaterialTypeName=line.Material.Materialtype.Name,
+                        Quantity=line.Quantity,
+
+                    }).ToList()
+                    
+
+                    
+
+                }).ToList();
+
+            return ProjectMaterialReq;
+        }
+
+
         [HttpGet]
         [Route("getMaterialRequest")]
         public object getMaterialRequest(int id)
@@ -71,9 +151,9 @@ namespace IMOSApi.Controllers
                     {
                         Projectmaterialrequest = requestCreate,
                         ProjectmaterialrequestId = requestCreate.ProjectmaterialrequestId,
-                        MaterialId = item.MaterialId,
-                        Material = db.Materials.Find(item.MaterialId),
-                        Quantity = item.Quantity,
+                        MaterialId = item.id,
+                        Material = db.Materials.Find(item.id),
+                        Quantity = item.quantity,
          
                     };
 
@@ -97,5 +177,28 @@ namespace IMOSApi.Controllers
 
 
         }
+
+
+        [HttpDelete("DeleteMaterialRequest/{Id}")]
+        public async Task<ActionResult<Projectmaterialrequest>> DeleteMaterialRequest(int Id)
+        {
+            var recordInd = await _context.Projectmaterialrequest.FindAsync(Id);
+
+            if (recordInd == null)
+            {
+                return NotFound();
+            }
+
+            var ProjectMaterialRequest = _context.Projectmaterialrequestlist
+                    .Where(item => item.ProjectmaterialrequestId == Id);
+            _context.Projectmaterialrequestlist.RemoveRange(ProjectMaterialRequest);
+            _context.Projectmaterialrequest.Remove(recordInd);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+
+        }
+
     }
 }

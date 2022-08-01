@@ -1,5 +1,6 @@
+import { AddMaterialRequestComponent } from './project/project-material-request/add-material-request/add-material-request.component';
 import { ServiceService } from './services/service.service';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
@@ -25,6 +26,8 @@ import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
+
+
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
@@ -62,7 +65,7 @@ import { EquipmentComponent } from './equipment/equipment.component';
 import { ProjectComponent } from './project/project.component';
 import { ClientComponent } from './client/client.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
-import { MaterialRequestComponent } from './material/material-request/material-request.component';
+
 import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
 import { AddEquipmentComponent } from './equipment/add-equipment/add-equipment.component';
 import { UpdateEquipmentComponent } from './equipment/update-equipment/update-equipment.component';
@@ -100,8 +103,15 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
 import { ClientRequestComponent } from './client-request/client-request.component';
 import { AddRequestComponent } from './client-request/add-request/add-request.component';
 import { UpdateRequestComponent } from './client-request/update-request/update-request.component';
+import { ProjectMaterialRequestComponent} from './project/project-material-request/project-material-request.component';
+
+import { UpdateMaterialRequestComponent} from './project/project-material-request/update-material-request/update-material-request.component';
+import { ViewMaterialRequestDetailsComponent} from './project/project-material-request/view-material-request-details/view-material-request-details.component';
+import { BasketMaterialComponent } from './project/project-material-request/basket-material/basket-material.component';
+
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -144,7 +154,6 @@ import { UpdateRequestComponent } from './client-request/update-request/update-r
     ProjectComponent,
     ClientComponent,
     WarehouseComponent,
-    MaterialRequestComponent,
     SupplierOrderComponent,
     AddEquipmentComponent,
     UpdateEquipmentComponent,
@@ -177,6 +186,11 @@ import { UpdateRequestComponent } from './client-request/update-request/update-r
     ClientRequestComponent,
     AddRequestComponent,
     UpdateRequestComponent,
+    ProjectMaterialRequestComponent,
+    UpdateMaterialRequestComponent,
+    ViewMaterialRequestDetailsComponent,
+    AddMaterialRequestComponent,
+    BasketMaterialComponent
   ],
   imports: [
     BrowserModule,

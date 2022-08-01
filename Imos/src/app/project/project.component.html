@@ -49,6 +49,8 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
+          <button mat-flat-button color="primary"  (click)=" openDialog(element.projectId)" > Manage Material Requests</button>
+          &nbsp;
             <button (click)="UpdateProject()" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteProject(element.projectId)">Delete</button>

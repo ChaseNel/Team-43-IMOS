@@ -1,0 +1,45 @@
+<link rel="stylesheet"
+href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<h2 style="margin-left:45% ;">Select Material Request</h2>
+<br>
+
+
+<mat-grid-list cols="8" rowHeight="1:1" [gutterSize]="'6px'">
+
+  <mat-card class="Materialcard" *ngFor=" let material of materiallist">
+    <mat-card-header>
+      <mat-card-title>
+        {{material.name}}
+      </mat-card-title>
+    </mat-card-header>
+<br>
+      <mat-card-subtitle>
+        {{material.materialtype}}
+      </mat-card-subtitle>
+      <mat-card-content>
+
+        <md-input-container >
+          <input  mdInput type="number" min="0"  onkeypress="return event.charCode >= 48"  id="quantity({{material.id}})"/>
+      </md-input-container>
+
+      <button mat-icon-button color="warn" aria-label="" class="cartButton" (click)="addToBasket(material)">
+        <span class="material-symbols-outlined">
+          add
+          </span>
+      </button>
+      </mat-card-content>
+
+    <mat-card-actions>
+
+    </mat-card-actions>
+
+  </mat-card>
+  <br>
+
+  <button  id="ViewBasket" mat-flat-button color="primary" (click)="openDialog(this.data.id)"> View Basket</button>
+            &nbsp;
+
+
+
+</mat-grid-list>
