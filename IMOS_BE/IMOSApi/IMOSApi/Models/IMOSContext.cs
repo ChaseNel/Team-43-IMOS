@@ -33,8 +33,8 @@ namespace IMOSApi.Models
         public virtual DbSet<Projectemployee> Projectemployees { get; set; }
         public virtual DbSet<Projectequipment> Projectequipments { get; set; }
         public virtual DbSet<Projectmaterial> Projectmaterials { get; set; }
-        public virtual DbSet<Projectmaterialrequest> Projectmaterialrequests { get; set; }
-        public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
+        public virtual DbSet<Projectmaterialrequest> Projectmaterialrequest { get; set; }
+        public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
         public virtual DbSet<Safetyfileitem> Safetyfileitems { get; set; }
@@ -75,6 +75,8 @@ namespace IMOSApi.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
             modelBuilder.Entity<Attendence>(entity =>
@@ -467,10 +469,12 @@ namespace IMOSApi.Models
                 entity.Property(e => e.ProjectmaterialrequestId).HasColumnName("PROJECTMATERIALREQUEST_ID");
 
                 entity.Property(e => e.Fulfillmenttype).HasColumnName("FULFILLMENTTYPE");
+                entity.Property(e => e.RequestDate).HasColumnName("REQUESTDATE");
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
+               
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Projectmaterialrequests)
@@ -490,6 +494,8 @@ namespace IMOSApi.Models
 
                 entity.ToTable("PROJECTMATERIALREQUESTLIST");
 
+                entity.Property(e => e.ProjectmaterialrequestlistId).HasColumnName("PROJECTMATERIALREQUESTLIST_ID");
+
                 entity.HasIndex(e => e.ProjectmaterialrequestId, "APPROVAL_FK");
 
                 entity.HasIndex(e => e.MaterialId, "IS_IN_FK");
@@ -501,13 +507,13 @@ namespace IMOSApi.Models
                 entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
                 entity.HasOne(d => d.Material)
-                    .WithMany(p => p.Projectmaterialrequestlists)
+                    .WithMany(p => p.Projectmaterialrequestlist)
                     .HasForeignKey(d => d.MaterialId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_IS_IN_MATERIAL");
 
                 entity.HasOne(d => d.Projectmaterialrequest)
-                    .WithMany(p => p.Projectmaterialrequestlists)
+                    .WithMany(p => p.Projectmaterialrequestlist)
                     .HasForeignKey(d => d.ProjectmaterialrequestId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_APPROVAL_PROJECTM");
@@ -1202,6 +1208,7 @@ namespace IMOSApi.Models
             });
 
             OnModelCreatingPartial(modelBuilder);
+            
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

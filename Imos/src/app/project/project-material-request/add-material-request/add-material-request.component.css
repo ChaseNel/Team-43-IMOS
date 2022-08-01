@@ -1,0 +1,26 @@
+.mat-card {
+  background-color: rgba(21, 210, 210, 0.274);
+  border-radius: 20px;
+}
+
+.quantity{
+  width: 60%;
+  float: left;
+  margin-bottom: 5%;
+  background-color: rgb(244, 228, 228);
+}
+.cartButton{
+  float: right;
+  margin-top: 5%;
+}
+
+
+.Materialcard{
+ /* max-width: 40px;
+
+  margin-bottom: 8px;
+  max-height: 30px;*/
+
+  width: 200px;
+  height: 200px;
+}

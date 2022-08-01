@@ -1,20 +1,24 @@
 import { project, ServiceService } from './../services/service.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component'
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  styleUrls: ['./project.component.css'],
+  template:' {{data.id}}',
 })
 export class ProjectComponent implements OnInit {
 
   // API Test
-  data: project[] = [];
+  info: project[] = [];
 
   displayedColumns: string[] = ['project', 'construction', 'iRequest','saftyfile', 'actions'];
 
@@ -26,13 +30,34 @@ export class ProjectComponent implements OnInit {
   posts: any;
   //typelist: materialType[] = [];
 
-  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data:{id:number},
+    private route: Router,
+    private service: ServiceService,
+     private _snackBar: MatSnackBar) {
     this.GetAllProjects();
   }
 
+  openDialog(id: number): void {
+    const dialogRef = this.dialog.open(ProjectMaterialRequestComponent, {
+      data:{id},
+      width: '80%',
+      height:'90%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(id);
+      this.GetAllProjects();
+
+    });
+  }
+
+
   GetAllProjects() {
     this.service.getProject().subscribe(x => {
-      this.data = x;
+      this.info = x;
       console.log(this.data);
       this.posts = x;
 

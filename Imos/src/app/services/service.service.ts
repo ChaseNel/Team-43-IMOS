@@ -1,10 +1,12 @@
 
 
+
 import { User } from './../user/user.component';
 
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -39,16 +41,14 @@ export interface user {
 
 //Material Interface
 export interface material {
-  materialId: number,
+  id: number,
   materialtypeId: number,
   name: string,
   description: string,
   materialtype: string,
   projectmaterialrequestlists: [],
   projectmaterials: [],
-  supplierorderlines: [],
-  taskmaterials: [],
-  warehousematerials: [],
+
 }
 
 //Material Type Interface
@@ -57,6 +57,20 @@ export interface materialType {
   name: string,
   description: string,
   materials: []
+}
+
+
+
+
+
+
+export interface ProjectMaterialRequest{
+
+  materialRequestId: number,
+  projectId: number,
+  urgencylevelName: string,
+  fulfillmenttype: number,
+  RequestDate :string,
 }
 
 //Material Request Interface/incomoplete
@@ -69,6 +83,10 @@ export interface materialRequest {
   urgencylevel: string,
   projectmaterialrequestlists: []
 }
+
+
+
+
 
 //User Role Interface
 export interface userrole {
@@ -326,6 +344,20 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //Material Request
   //Get
   getMaterialRequets(): Observable<materialRequest[]> {
@@ -333,8 +365,38 @@ export class ServiceService {
   }
   //Delete
   deleteMaterialRequest(id: number) {
-    return this.http.delete(this.Root_URL + '/Projectmaterialrequest/DeleteProjectmaterialrequest/' + id);
+    return this.http.delete(this.Root_URL + '/ProjectMaterialRequest/DeleteMaterialRequest/' + id);
   }
+
+  AddMaterialRequest(basketMaterials: any){
+    return this.http.post(this.Root_URL + '/ProjectMaterialRequest/CreateMaterialRequest/' , basketMaterials);
+  }
+
+  createOrder(basketMaterials: any): Observable<any> {
+    return this.http
+      .post<any>(`${this.Root_URL}ProjectMaterialRequest/CreateMaterialRequest`, basketMaterials);
+  }
+
+
+
+  addProjMatRequest(basketMaterials: any, ) {
+    return this.http.post(this.Root_URL + '/ProjectMaterialRequest/CreateMaterialRequest/', basketMaterials)
+  }
+
+
+
+
+
+
+
+  placeOrder( val: any,projectid: number, urgencyLevelId:number, fulfillment:number) {
+    return this.http.post(this.Root_URL.concat("ProjectMaterialRequest/CreateMaterialRequest/" + val + projectid + urgencyLevelId + fulfillment),
+      { reportProgress: true, observe: 'events' });
+  }
+
+
+
+
 
   //Supplier
 getSupplierById(id:number){
@@ -515,6 +577,16 @@ updateclient(val: any,id: number){
   getRequestByClient(id: number):  Observable<ClientRequest[]> {
     return this.http.get<ClientRequest[]>(this.Root_URL + '/Client/GetRequestBYClient/' + id)
   }
+
+
+  getMaterialRequestByProject(Id: number):  Observable<ProjectMaterialRequest[]> {
+    return this.http.get<ProjectMaterialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/GetRequestBYProject/' + Id)
+  }
+
+
+
+
+
 
 
 

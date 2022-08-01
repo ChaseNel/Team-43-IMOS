@@ -259,6 +259,7 @@ namespace IMOSApi.Controllers
         public async Task<ActionResult<Request>> DeleteRequest(int Id)
         {
             var recordInDb = await _dbContext.Requests.FindAsync(Id);
+
             if (recordInDb == null)
             {
                 return NotFound();

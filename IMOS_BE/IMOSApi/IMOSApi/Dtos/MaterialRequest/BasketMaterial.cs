@@ -9,12 +9,13 @@ namespace IMOSApi.Dtos.MaterialRequest
 {
     public class BasketMaterial
     {
-        public int MaterialId { get; set; }
+        public int id { get; set; }
 
         public string MaterialName { get; set; }
+        public string MaterialTypeName { get; set; }
 
         public int MaterialTypeId { get; set; }
-        public int Quantity { get; set; }
+        public int quantity { get; set; }
         public string Description { get; set; }
 
 

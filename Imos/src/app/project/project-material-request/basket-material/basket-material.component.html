@@ -1,0 +1,24 @@
+<link rel="stylesheet"
+href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<h2 style="margin-left:45% ;">Basket Material </h2>
+
+<button class="CheckoutBut"  mat-flat-button color="primary" (click)="createMaterialReq()">Checkout</button>
+
+<mat-list *ngIf="basketList != []">
+  <mat-list-item *ngFor="let item of basketList">
+        <h2 matLine> {{item.name}} </h2>
+        <p matLine>
+           <span>{{item.quantity}}</span>
+        </p>
+        <span >
+          <button mat-flat-button color="warn" (click)="deleteItem(item)">Delete</button>
+          <span>
+            <br>
+  <mat-list-item>
+<mat-list>
+
+
+
+
+

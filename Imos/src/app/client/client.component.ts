@@ -8,7 +8,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ClientRequestComponent} from 'src/app/client-request/client-request.component'
-import { isLoweredSymbol } from '@angular/compiler';
+
 import { AddClientComponent} from "./add-client/add-client.component";
 import { UpdateClientComponent} from "./update-client/update-client.component";
 
