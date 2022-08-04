@@ -58,7 +58,12 @@ import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checkli
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 import { ClientRequestComponent } from './client-request/client-request.component';
+import {UrgencyLevelComponent} from 'src/app/project/project-material-request/urgency-level/urgency-level.component'
+
+
 const routes: Routes = [
+
+  {path:'Urgencylvl', component:UrgencyLevelComponent},
   //Default
   { path: '', component: LoginComponent },
   //Header

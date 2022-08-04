@@ -10,6 +10,12 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
   <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
 
+
+<button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openUrgencyDialog()"> Manage Urgency Levels</button>
+&nbsp;
+
+<br>
+
   <!-- add [dataSource]="dataSource" when API is connected -->
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 

@@ -1,3 +1,4 @@
+import { UrgencyLevel } from './../../services/service.service';
 
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,7 +13,7 @@ import{UpdateMaterialRequestComponent} from './update-material-request/update-ma
 import{ViewMaterialRequestDetailsComponent} from './view-material-request-details/view-material-request-details.component';
 import {ServiceService, ProjectMaterialRequest} from 'src/app/services/service.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {UrgencyLevelComponent} from 'src/app/project/project-material-request/urgency-level/urgency-level.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
@@ -48,6 +49,26 @@ export class ProjectMaterialRequestComponent implements OnInit {
           this.GetMaterialRequestByProject(this.data.id);
           console.log(this.data.id);
         }
+
+
+openUrgencyDialog(): void {
+  const dialogRef = this.dialog.open(UrgencyLevelComponent
+    , {
+    width: '50%',
+    height:'60%',
+  });
+
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    this.GetMaterialRequestByProject(this.data.id);
+
+  });
+}
+
+
+
+
 
         openDialog(id:number): void {
           const dialogRef = this.dialog.open(AddMaterialRequestComponent

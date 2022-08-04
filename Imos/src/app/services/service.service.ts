@@ -60,7 +60,12 @@ export interface materialType {
 }
 
 
-
+export interface ViewMatarialRequest{
+    materialTypeName: string,
+    quantity: number
+    materialName: string,
+    description: string
+}
 
 
 
@@ -82,6 +87,12 @@ export interface materialRequest {
   project: string,
   urgencylevel: string,
   projectmaterialrequestlists: []
+}
+
+export interface UrgencyLevel{
+  id : number,
+  level: string,
+  description: string
 }
 
 
@@ -346,10 +357,22 @@ export class ServiceService {
 
 
 
+  addUrgencylvl(val: any) {
+    return this.http.post(this.Root_URL + '/ProjectMaterialRequest/AddUrgencyLvl', val)
+  }
 
+  deleteUrgencylvl(id: number) {
+    return this.http.delete(this.Root_URL + '/ProjectMaterialRequest/DeleteUrgencylvl/' + id);
+  }
 
+  getUrgencylvl(): Observable<UrgencyLevel[]> {
+    return this.http.get<[UrgencyLevel]>(this.Root_URL + '/ProjectMaterialRequest/GetAllUrgencyLvl')
+  }
 
+  updateUgencylvl(id:number,data:any){
+    return this.http.put(this.Root_URL + '/ProjectMaterialRequest/UpdateUrgencyLvl/'+id,data);
 
+  }
 
 
 
@@ -363,14 +386,22 @@ export class ServiceService {
   getMaterialRequets(): Observable<materialRequest[]> {
     return this.http.get<materialRequest[]>(this.Root_URL + '/Projectmaterialrequest/GetProjectmaterialrequests')
   }
+
+
+  getMaterialRequetsDetails(id: number): Observable<ViewMatarialRequest[]> {
+    return this.http.get<ViewMatarialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/ViewRequestDetails/' + id)
+  }
+
   //Delete
   deleteMaterialRequest(id: number) {
     return this.http.delete(this.Root_URL + '/ProjectMaterialRequest/DeleteMaterialRequest/' + id);
   }
 
   AddMaterialRequest(basketMaterials: any){
-    return this.http.post(this.Root_URL + '/ProjectMaterialRequest/CreateMaterialRequest/' , basketMaterials);
+    return this.http.post(this.Root_URL + `/ProjectMaterialRequest/CreateMaterialRequest/${basketMaterials.projectid}/${basketMaterials.urgencyLevelId}/${basketMaterials.fulfillment}` , basketMaterials.basketMaterial);
   }
+
+
 
   createOrder(basketMaterials: any): Observable<any> {
     return this.http

@@ -1,3 +1,5 @@
+import { map } from 'rxjs/operators';
+
 
 
 import { Component, ElementRef, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
@@ -90,7 +92,34 @@ addToBasket(material: material){
     localStorage.setItem('basket',JSON.stringify(this.basketList));
   }
   else{
-    this.basketList.push(basketMaterial);
+    const material = this.basketList
+    .find((obj: any) => {
+      return obj.id == basketMaterial.id
+    } )
+
+//    const index = this.basketList.map((i: any) => i.id ).indexOf(material.id)
+
+    var index = 0;
+
+      for (var i=1; i<this.basketList.length; i++) {
+         if ( this.basketList[i].id == material.id ) {
+       index = i;
+          break;
+    }
+}
+
+    console.log(index)
+    if (material == null){
+      this.basketList.push(basketMaterial);
+    }
+
+
+
+    else{
+      material.quantity += basketMaterial.quantity;
+      this.basketList[index] = material;
+    }
+
     localStorage.setItem('basket',JSON.stringify(this.basketList));
   }
 

@@ -70,7 +70,7 @@ urgencylevelid = 1;
     }
     console.log(basketMaterials)
 
-    this.service.createOrder(basketMaterials)
+    this.service.AddMaterialRequest(basketMaterials)
     .subscribe((res:any) => {
       this.requestAlert()
       localStorage.removeItem('basket')

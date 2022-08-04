@@ -90,7 +90,7 @@ export class MaterialComponent implements OnInit {
   materialType() {
     this.route.navigateByUrl('materialtype')
   }
-  
+
   materialRequest(){
     this.route.navigateByUrl('materialRequest')
   }

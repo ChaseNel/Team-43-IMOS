@@ -108,6 +108,9 @@ import { ProjectMaterialRequestComponent} from './project/project-material-reque
 import { UpdateMaterialRequestComponent} from './project/project-material-request/update-material-request/update-material-request.component';
 import { ViewMaterialRequestDetailsComponent} from './project/project-material-request/view-material-request-details/view-material-request-details.component';
 import { BasketMaterialComponent } from './project/project-material-request/basket-material/basket-material.component';
+import { UrgencyLevelComponent } from './project/project-material-request/urgency-level/urgency-level.component';
+import { AddUrgencyLevelComponent } from './project/project-material-request/urgency-level/add-urgency-level/add-urgency-level.component';
+import { UpdateUrgencyLevelComponent } from './project/project-material-request/urgency-level/update-urgency-level/update-urgency-level.component';
 
 
 @NgModule({
@@ -190,7 +193,10 @@ import { BasketMaterialComponent } from './project/project-material-request/bask
     UpdateMaterialRequestComponent,
     ViewMaterialRequestDetailsComponent,
     AddMaterialRequestComponent,
-    BasketMaterialComponent
+    BasketMaterialComponent,
+    UrgencyLevelComponent,
+    AddUrgencyLevelComponent,
+    UpdateUrgencyLevelComponent
   ],
   imports: [
     BrowserModule,

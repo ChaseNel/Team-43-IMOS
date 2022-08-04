@@ -24,7 +24,7 @@ namespace IMOSApi.Controllers
             _context = context;
         }
 
-     
+
         [HttpGet("GetAllMaterialRequests")]
         public ActionResult<IEnumerable<GetMaterialRequestDto>> GetAllMaterialRequests()
         {
@@ -32,7 +32,7 @@ namespace IMOSApi.Controllers
                 .Select(item => new GetMaterialRequestDto()
                 {
                     MaterialRequestId = item.ProjectmaterialrequestId,
-                   UrgencyLevelName =item.Urgencylevel.Level,
+                    UrgencyLevelName = item.Urgencylevel.Level,
                     ProjectId = item.ProjectId,
                     RequestDate = item.RequestDate,
                     FulfillmentType = item.Fulfillmenttype
@@ -45,11 +45,11 @@ namespace IMOSApi.Controllers
         [HttpGet("GetRequestBYProject/{Id}")]
         public ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
         {
-            var recordInDb =_context.Projectmaterialrequest
-                .Where(item => item.ProjectId==Id)
-                .Select(item => new GetMaterialRequestDto() 
+            var recordInDb = _context.Projectmaterialrequest
+                .Where(item => item.ProjectId == Id)
+                .Select(item => new GetMaterialRequestDto()
                 {
-                    MaterialRequestId=item.ProjectmaterialrequestId,
+                    MaterialRequestId = item.ProjectmaterialrequestId,
                     ProjectId = item.ProjectId,
                     FulfillmentType = item.Fulfillmenttype,
                     RequestDate = item.RequestDate,
@@ -99,15 +99,15 @@ namespace IMOSApi.Controllers
                     {
 
 
-                        MaterialName =line.Material.Name,
-                        Description=line.Material.Description,
-                        MaterialTypeName=line.Material.Materialtype.Name,
-                        Quantity=line.Quantity,
+                        MaterialName = line.Material.Name,
+                        Description = line.Material.Description,
+                        MaterialTypeName = line.Material.Materialtype.Name,
+                        Quantity = line.Quantity,
 
                     }).ToList()
-                    
 
-                    
+
+
 
                 }).ToList();
 
@@ -127,17 +127,17 @@ namespace IMOSApi.Controllers
 
         [HttpPost]
         [Route("CreateMaterialRequest/{projectid}/{urgencyLevelId}/{fulfillment}")]
-        public object CreateMaterialRequest(MaterialRequestDto materialRequestDto, int projectid, int urgencyLevelId, int fulfillment)
+        public object CreateMaterialRequest([FromBody] BasketMaterial[] basketmaterial, int projectid, int urgencyLevelId, int fulfillment)
         {
 
-            
-         
+
+
 
             Projectmaterialrequest requestCreate = new Projectmaterialrequest()
             {
                 RequestDate = DateTime.Now,
                 ProjectId = projectid,
-                UrgencylevelId= urgencyLevelId,
+                UrgencylevelId = urgencyLevelId,
                 Fulfillmenttype = fulfillment,
 
 
@@ -145,7 +145,7 @@ namespace IMOSApi.Controllers
 
             try
             {
-                foreach (var item in materialRequestDto.BasketMaterials)
+                foreach (var item in basketmaterial)
                 {
                     Projectmaterialrequestlist projectmaterialrequestlist = new Projectmaterialrequestlist
                     {
@@ -154,7 +154,7 @@ namespace IMOSApi.Controllers
                         MaterialId = item.id,
                         Material = db.Materials.Find(item.id),
                         Quantity = item.quantity,
-         
+
                     };
 
                     db.Projectmaterialrequestlist.Add(projectmaterialrequestlist);
@@ -199,6 +199,114 @@ namespace IMOSApi.Controllers
 
 
         }
+
+
+
+        [HttpGet("GetAllUrgencyLvl")]
+        public ActionResult<IEnumerable<GetUrgencyLevel>> GetAllUrgencyLvl()
+        {
+            var recordInDb = _context.Urgencylevels
+                .Select(item => new GetUrgencyLevel()
+                {   Id= item.UrgencylevelId,
+                    Description = item.Description,
+                    Level = item.Level,
+                }).OrderBy(item => item.Level).ToList();
+            return recordInDb;
+        }
+
+        [HttpGet("GetUrgencyLvl{id}")]
+        public ActionResult<GetUrgencyLevel> GetUrgencyLvl(int id)
+        {
+            var recordInDb = _context.Urgencylevels
+                .Where(item => item.UrgencylevelId == id)
+                .Select(item => new GetUrgencyLevel()
+                {
+                    Id = item.UrgencylevelId,
+                    Description = item.Description,
+                    Level = item.Level,
+                }).FirstOrDefault();
+
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+            return recordInDb;
+        }
+
+
+        [HttpPost("AddUrgencyLvl")]
+        public IActionResult AddUrgencyLvl(AddOrUpdateUrgencyLevel model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var recordInDb = _context.Urgencylevels
+                    .FirstOrDefault(item=>item.Level.ToLower() == model.Level.ToLower());
+
+                if (recordInDb != null)
+                {
+                    message = "Record already exist";
+                    return BadRequest(new { message });
+                }
+
+                var NewUrgencyLvl = new Urgencylevel()
+                {
+                    Level = model.Level,
+                    Description = model.Description,
+                };
+
+                _context.Urgencylevels.Add(NewUrgencyLvl);
+                _context.SaveChanges();
+                return Ok();
+
+            }
+
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+        }
+
+        [HttpPut("UpdateUrgencyLvl/{Id}")]
+        public IActionResult UpdateUrgencyLvl(AddOrUpdateUrgencyLevel model, int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                var recordInDb = _context.Urgencylevels
+                    .FirstOrDefault(item => item.UrgencylevelId == Id);
+
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+
+                recordInDb.Description = model.Description;
+                recordInDb.Level=model.Level;
+
+                _context.SaveChanges();
+                return Ok();
+            }
+
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+        }
+
+        [HttpDelete("DeleteUrgencylvl/{Id}")]
+        public async Task<ActionResult<Urgencylevel>> DeleteUrgencylvl(int Id)
+        {
+            var recordInDb = await _context.Urgencylevels.FindAsync(Id);
+
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+
+            _context.Urgencylevels.Remove(recordInDb);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
+
 
     }
 }
