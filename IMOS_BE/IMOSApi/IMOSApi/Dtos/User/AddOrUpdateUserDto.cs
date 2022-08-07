@@ -8,11 +8,12 @@ namespace IMOSApi.Dtos
 {
     public class AddOrUpdateUserDto
     {
+
         [Required]
         public string Username { get; set; }
-        [Required]
+   
         public int UserroleId { get; set; }
-        [Required]
+
         public int EmployeeId { get; set; }
 
     }

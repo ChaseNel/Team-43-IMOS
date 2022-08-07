@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 
 //Employee Interface
 export interface employee {
-  EmployeeId: number,
+  employeeId: number,
   documentId: number,
   name: string,
   email: string,
@@ -35,7 +35,7 @@ export interface user {
   stocktakes: [],
   tasks: [],
   userincidents: [],
-  Vehicles: []
+  vehicles: []
 }
 
 //Material Interface
@@ -47,16 +47,15 @@ export interface material {
   materialtype: string,
   projectmaterialrequestlists: [],
   projectmaterials: [],
-  supplierorderlines: [],
+  suppliermaterialorders: [],
   suppliermaterials:[],
   taskmaterials: [],
-  warehouse:string
-  warehouseId:number
+  warehousematerials: []
 }
 
 //Material Type Interface
 export interface materialtype {
-  id: number,
+  materialtypeId: number,
   name: string,
   description: string,
   materials: []
@@ -77,7 +76,7 @@ export interface materialRequest {
 
 //Supplier Interface
 export interface supplier {
-  supplierId: number,
+  id: number,
   suppliertypeId: number,
   name: string,
   address: string,
@@ -94,15 +93,22 @@ export interface suppliertype {
   suppliers: []
 }
 
-//Supplier Order Interface
-export interface supplierOrder {
-  SupplierID: number,
-  MaterialID: number,
-  quanitity: number,
-  address: string,
-  material:string,
-  supplier:string,
-  deliveries:[]
+//Supplier Order 
+export interface  orderline {
+  orderId: number,
+  date:Date,
+  orderNumber:string,
+  deliveries:[],
+  suppliermaterialorders:[],
+  suppliersordersuppliers:[]
+}
+//suppliermaterial
+export interface suppliermaterial{
+  materialId: number,
+  material: string,
+  supplierId: number,
+  supplier: string
+
 }
 
 //Vehicle Interface
@@ -133,10 +139,18 @@ export interface incident {
   description: string,
   userIncidents: []
 }
+//Construction Site Interface
+export interface constructionSite {
+  constructionsiteId: number,
+  address: string,
+  projects: []
+}
+
 
 //Project Interface
 export interface project {
   projectId: number,
+  name:string,
   constructionsiteId: number,
   initialrequestId: number,
   safetyfilecreated: boolean,
@@ -147,9 +161,21 @@ export interface project {
   projectemployees: [],
   projectequipments: [],
   projectmaterialrequests: [],
-  projectmaterials : [],
+  projectmaterials: [],
   safetyfilechecklists: []
 }
+
+//requests 
+export interface request{
+  requestId:number,
+  clientId:number,
+  description:string,
+  client:string,
+  projects:[]
+
+}
+
+
 
 //Client Interface
 export interface client {
@@ -221,8 +247,8 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
   //Add
-  addUser(obj: any): Observable<any> {
-    return this.http.post(this.Root_URL + '/User/CreateUser', obj);
+  registerUser(obj: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/User', obj);
   }
   //Update
   updateUser(payload: any, id: number) {
@@ -254,6 +280,8 @@ export class ServiceService {
   addUserRole(val: any) {
     return this.http.post(this.Root_URL + '/UserRole/AddRole/', val)
   }
+
+
 
 
 
@@ -302,7 +330,7 @@ export class ServiceService {
     
   }
 
-  //Material TypeHttp requests 
+  //Material Type  Http requests 
   //Get
   getMaterialType(): Observable<materialtype []> {
     return this.http.get<materialtype []>(this.Root_URL + '/MaterialType/GetAll')
@@ -386,7 +414,7 @@ getSupplierById(id:number){
   }
   //Add
   addSupplierType(val: any) {
-    return this.http.post(this.Root_URL + '/Suppliertype/CreateSuppliertype', val)
+    return this.http.post(this.Root_URL + '/Suppliertype/AddType', val)
   }
 
   //Update
@@ -397,17 +425,19 @@ getSupplierById(id:number){
 
   }
 
-  //Supplier Order
-  //Get
-  getSupplierOrder(): Observable<supplierOrder[]> {
-    return this.http.get<supplierOrder[]>(this.Root_URL + '/Supplierorderlines/GetSupplierorderlines')
+  //Supplier Order Http Requests
+  //Get All
+  getSupplierOrder(): Observable< orderline[]> {
+    return this.http.get< orderline[]>(this.Root_URL + '/Supplierorderlines/GetSupplierorderlines')
   }
-  //Delete
+  // add new order
+
+  //Delete OR Cancel Order
   deleteSupplierOrder(id: number) {
     return this.http.delete(this.Root_URL + '/Supplierorderlines/DeleteSupplierorderline/' + id);
   }
 
-  //Vehicle
+  //Vehicle Http requests 
   //Get
   getVehicle(): Observable<vehicle[]> {
     return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetAllVehicles')
@@ -575,5 +605,45 @@ UpdateEquipment(id: number, data: any){
   // deleteProjectSafetyChecklist
   deleteProjectSafetyChecklist(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
+  }
+
+  //Construction Site
+  //Get
+  getConstructionSite(): Observable<constructionSite[]> {
+    return this.http.get<constructionSite[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
+  }
+  //Add
+  addConstructionSite(val: any) {
+    return this.http.post(this.Root_URL + '/Constructionsite/CreateConstructionsite', val)
+  }
+
+  //Update
+  editConstructionSite(id: any, val: any): Observable<any> {
+    console.log(id, val)
+    const endPointUrl = this.Root_URL + '/Constructionsite/UpdateConstructionsite/' + id;
+    return this.http.put(endPointUrl, val);
+
+    return this.http.get<materialtype[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
+  }
+  //Delete
+  deleteConstructionSite(id: number) {
+    return this.http.delete(this.Root_URL + '/Constructionsite/DeleteConstructionsite/' + id);
+  }
+  //add Project
+  addProject(val: any) {
+    return this.http.post(this.Root_URL + '/Project/AddProject', val);
+  }
+
+  // Request HttpRequest
+  getRequest(): Observable<request[]> {
+    return this.http.get<request[]>(this.Root_URL + '/Request/GetAll')
+  }
+
+  // Project Staff 
+  getProjectStaff(): Observable<employee[]> {
+    return this.http.get<employee[]>(this.Root_URL + '/Project/EmployeeStaff')
+  }
+  addProjectEmployee(val:any){
+    return this.http.post(this.Root_URL + '/ProjectEmployee/Assign',val);
   }
 }

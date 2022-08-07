@@ -46,12 +46,15 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
         {
             var recordsInDb = _context.Safetyfileitems
                 .Include(item => item.Safetyitemcategory)
+                 .Include(item => item.Safetyfilechecklists)
                 .Select(item => new GetSafetyItemDto()
                 {
+                    
                     Id = item.SafetyfileitemId,
                     Name = item.Name,
                     Safetyitemcategory = item.Safetyitemcategory.CategoryName,
-                    SafetyitemcategoryId = item.SafetyitemcategoryId
+                    SafetyitemcategoryId = item.SafetyitemcategoryId,
+
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
         }

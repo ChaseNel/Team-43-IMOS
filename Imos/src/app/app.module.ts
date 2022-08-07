@@ -95,6 +95,9 @@ import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update
 import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-vehicle.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +171,7 @@ import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-ve
     UpdateSaftyChecklistCatagoryComponent,
     VehicleAllocationComponent,
     AllocateVehicleComponent,
+    AddSupplierOrderComponent,
   ],
   entryComponents:[ AllocateVehicleComponent],
   imports: [
@@ -186,11 +190,13 @@ import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-ve
     MatToolbarModule,
     MatGridListModule,
     MatTableModule,
+    MatExpansionModule,
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
     CommonModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule
   ],

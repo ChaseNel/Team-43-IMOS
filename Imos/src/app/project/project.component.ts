@@ -1,4 +1,4 @@
-import { project, ServiceService } from './../services/service.service';
+import { constructionSite, project, request, ServiceService } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -6,6 +6,22 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+export interface Project {
+  projectId: number,
+  name:string,
+  constructionsiteId: number,
+  initialrequestId: number,
+  safetyfilecreated: boolean,
+  constructionsite: string,
+  initialrequest: string,
+  deliveries: [],
+  invoices: [],
+  projectemployees: [],
+  projectequipments: [],
+  projectmaterialrequests: [],
+  projectmaterials: [],
+  safetyfilechecklists: []
+}
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -13,10 +29,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class ProjectComponent implements OnInit {
 
+  SiteList: constructionSite[] = [];
+  requestList: request[] = [];
+
   // API Test
   data: project[] = [];
 
-  displayedColumns: string[] = ['project', 'construction', 'iRequest','saftyfile', 'actions'];
+  displayedColumns: string[] = ['name', 'constructionSite', 'request', 'actions'];
 
   dataSource!: MatTableDataSource<project>;
 
@@ -52,8 +71,8 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  UpdateProject() {
-    this.route.navigateByUrl('/updateProject')
+  UpdateProject(id:number) {
+    this.route.navigate(['updateProject',id])
   }
 
   addProject() {
@@ -73,9 +92,12 @@ export class ProjectComponent implements OnInit {
     }
   }
 
+
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
-
   }
 
+  projectstaff(){
+    this.route.navigateByUrl('projectstaff')
+  }
 }

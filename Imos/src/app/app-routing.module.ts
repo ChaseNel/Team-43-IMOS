@@ -1,3 +1,5 @@
+import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
+import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
@@ -57,6 +59,8 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
 import { UserRoleComponent } from './user/userrole/user-role.component';
 import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
+import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
 
 const routes: Routes = [
   //Default
@@ -69,12 +73,12 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'user', component: UserComponent },
-  { path: 'adduser', component: AddUserComponent },
+  { path: 'addUser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
   //UserRole
   { path: 'userrole', component: UserRoleComponent },
   { path: 'adduserrole', component: AddUserRoleComponent },
-  { path: 'updateuserrole', component: UpdateUserRoleComponent },
+  { path: 'updateuserrole/:id', component: UpdateUserRoleComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
@@ -98,8 +102,12 @@ const routes: Routes = [
   { path: 'suppliertype', component: SupplierTypeComponent },
   { path: 'UpdateSupplierType/:id', component: UpdateSupplierTypeComponent },
   { path: 'AddSupplierType', component: AddSupplierTypeComponent },
-  //Supplier Order
+
+  //Supplier Order 
   { path: 'supplierOrder', component: SupplierOrderComponent },
+  { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
+
+  
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
@@ -120,7 +128,14 @@ const routes: Routes = [
   //Projects
   { path: 'project', component: ProjectComponent },
   { path: 'addProject', component: AddProjectComponent },
-  { path: 'updateProject', component: UpdateProjectComponent },
+  { path: 'UpdateProjectSafetyChecklist', component: UpdateProjectComponent },
+
+  // Project staff
+  { path: 'projectstaff', component: ProjectStaffComponent },
+  { path: 'AddStaff', component: AddProjectStaffComponent },
+  { path: 'updateProjectStaff/:id', component: UpdateProjectStaffComponent },
+
+
   //Clients
   { path: 'client', component: ClientComponent },
   { path: 'addClient', component: AddClientComponent },

@@ -1,4 +1,30 @@
-.container{
-    color: aqua;
-    background-color: aqua;
+.example-section {
+    margin: 12px 0;
+  }
+
+  .mat-form-field + .mat-form-field {
+    margin-left: 8px;
+  }
+  mat-accordion{
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+
+  }
+  .form-container{
+    margin: auto;
+    max-width: 700px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: lightgray;
+}
+
+form{
+    background-color: lightgrey;
+}
+
+  .btnBack{
+    position:sticky;
+    left: 70%;
+    top: 54%;
 }

@@ -17,6 +17,7 @@ namespace IMOSApi.Controllers
         {
             _dbContext = dbContext;
         }
+        /*
 
         [HttpGet("GetSupplierorderlines")]
         public IEnumerable<Supplierorderline> Retrieve()
@@ -66,5 +67,6 @@ namespace IMOSApi.Controllers
                 context.SaveChanges();
             }
         }
+        */
     }
 }

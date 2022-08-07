@@ -1,22 +1,16 @@
 ﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-
-
 
 #nullable disable
 
 namespace IMOSApi.Models
 {
     public partial class IMOSContext : DbContext
-    {  
-
-       
-         public IMOSContext()
-         {
-
-         }
+    {
+        public IMOSContext()
+        {
+        }
 
         public IMOSContext(DbContextOptions<IMOSContext> options)
             : base(options)
@@ -42,6 +36,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
         public virtual DbSet<Materialtype> Materialtypes { get; set; }
+        public virtual DbSet<Orderline> Orderlines { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Projectemployee> Projectemployees { get; set; }
         public virtual DbSet<Projectequipment> Projectequipments { get; set; }
@@ -49,13 +44,16 @@ namespace IMOSApi.Models
         public virtual DbSet<Projectmaterialrequest> Projectmaterialrequests { get; set; }
         public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<SafetyFile> SafetyFiles { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
         public virtual DbSet<Safetyfileitem> Safetyfileitems { get; set; }
         public virtual DbSet<Safetyitemcategory> Safetyitemcategories { get; set; }
         public virtual DbSet<Stocktake> Stocktakes { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Suppliermaterial> Suppliermaterials { get; set; }
-        public virtual DbSet<Supplierorderline> Supplierorderlines { get; set; }
+        public virtual DbSet<Suppliermaterialorder> Suppliermaterialorders { get; set; }
+        public virtual DbSet<Supplierordersupplier> Supplierordersuppliers { get; set; }
+        public virtual DbSet<Suppliersordersupplier> Suppliersordersuppliers { get; set; }
         public virtual DbSet<Suppliertype> Suppliertypes { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<Taskmaterial> Taskmaterials { get; set; }
@@ -72,6 +70,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Warehouseequipment> Warehouseequipments { get; set; }
         public virtual DbSet<Warehouseequipmentcheck> Warehouseequipmentchecks { get; set; }
         public virtual DbSet<Warehouseequipmentwriteoff> Warehouseequipmentwriteoffs { get; set; }
+        public virtual DbSet<Warehousematerial> Warehousematerials { get; set; }
         public virtual DbSet<Warehousematerialstocktake> Warehousematerialstocktakes { get; set; }
         public virtual DbSet<Warehousematerialwriteoff> Warehousematerialwriteoffs { get; set; }
         public virtual DbSet<Writeoff> Writeoffs { get; set; }
@@ -243,25 +242,38 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("DELIVERY");
 
-                entity.HasIndex(e => new { e.SupplierId, e.MaterialId }, "IS_SCHEDULED_FK");
-
                 entity.HasIndex(e => e.ProjectId, "SCHEDULES_FK");
 
                 entity.Property(e => e.DeliveryId).HasColumnName("DELIVERY_ID");
+
+                entity.Property(e => e.ConstructionsiteId).HasColumnName("CONSTRUCTIONSITE_ID");
 
                 entity.Property(e => e.Date)
                     .HasColumnType("datetime")
                     .HasColumnName("DATE");
 
                 entity.Property(e => e.Deliverynote)
+                    .IsRequired()
                     .HasColumnType("image")
                     .HasColumnName("DELIVERYNOTE");
 
-                entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
-                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+                entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
+
+                entity.HasOne(d => d.Constructionsite)
+                    .WithMany(p => p.Deliveries)
+                    .HasForeignKey(d => d.ConstructionsiteId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DELIVERY_CONSTRUCTIONSITE");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Deliveries)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DELIVERY_ORDERLINE");
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Deliveries)
@@ -269,11 +281,11 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_DELIVERY_SCHEDULES_PROJECT");
 
-                entity.HasOne(d => d.Supplierorderline)
+                entity.HasOne(d => d.Warehouse)
                     .WithMany(p => p.Deliveries)
-                    .HasForeignKey(d => new { d.SupplierId, d.MaterialId })
+                    .HasForeignKey(d => d.WarehouseId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_DELIVERY_IS_SCHEDU_SUPPLIER");
+                    .HasConstraintName("FK_DELIVERY_WAREHOUSE");
             });
 
             modelBuilder.Entity<Document>(entity =>
@@ -412,18 +424,11 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("NAME");
 
-                entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
-
                 entity.HasOne(d => d.Materialtype)
                     .WithMany(p => p.Materials)
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
-
-                entity.HasOne(d => d.Warehouse)
-                    .WithMany(p => p.Materials)
-                    .HasForeignKey(d => d.WarehouseId)
-                    .HasConstraintName("FK_MATERIAL_WAREHOUSE");
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -445,6 +450,22 @@ namespace IMOSApi.Models
                     .HasColumnName("NAME");
             });
 
+            modelBuilder.Entity<Orderline>(entity =>
+            {
+                entity.HasKey(e => e.OrderId);
+
+                entity.ToTable("ORDERLINE");
+
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
+
+                entity.Property(e => e.Date).HasColumnType("date");
+
+                entity.Property(e => e.OrderNumber)
+                    .IsRequired()
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Project>(entity =>
             {
                 entity.ToTable("PROJECT");
@@ -458,6 +479,11 @@ namespace IMOSApi.Models
                 entity.Property(e => e.ConstructionsiteId).HasColumnName("CONSTRUCTIONSITE_ID");
 
                 entity.Property(e => e.InitialrequestId).HasColumnName("INITIALREQUEST_ID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
                 entity.Property(e => e.Safetyfilecreated).HasColumnName("SAFETYFILECREATED");
 
@@ -636,6 +662,23 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_REQUEST_MAKES_CLIENT");
             });
 
+            modelBuilder.Entity<SafetyFile>(entity =>
+            {
+                entity.ToTable("SafetyFile");
+
+                entity.Property(e => e.SafetyFileId).HasColumnName("SafetyFile_Id");
+
+                entity.Property(e => e.FileUrl).IsRequired();
+
+                entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
+
+                entity.HasOne(d => d.Project)
+                    .WithMany(p => p.SafetyFiles)
+                    .HasForeignKey(d => d.ProjectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SafetyFile_PROJECT");
+            });
+
             modelBuilder.Entity<Safetyfilechecklist>(entity =>
             {
                 entity.HasKey(e => new { e.ProjectId, e.SafetyfileitemId });
@@ -761,8 +804,6 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
 
-                entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
-
                 entity.HasOne(d => d.Material)
                     .WithMany(p => p.Suppliermaterials)
                     .HasForeignKey(d => d.MaterialId)
@@ -776,38 +817,75 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_SUPPLIERMATERIAL_SUPPLIER");
             });
 
-            modelBuilder.Entity<Supplierorderline>(entity =>
+            modelBuilder.Entity<Suppliermaterialorder>(entity =>
             {
-                entity.HasKey(e => new { e.SupplierId, e.MaterialId });
+                entity.HasKey(e => new { e.MaterialId, e.OrderId })
+                    .HasName("PK__SUPPLIER__C9FA8C3E8851E7BA");
 
-                entity.ToTable("SUPPLIERORDERLINE");
-
-                entity.HasIndex(e => e.SupplierId, "SUPPLIES_FK");
-
-                entity.HasIndex(e => e.MaterialId, "________________HAS_FK");
-
-                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+                entity.ToTable("SUPPLIERMATERIALORDER");
 
                 entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
 
-                entity.Property(e => e.Address)
-                    .HasMaxLength(255)
-                    .IsUnicode(false)
-                    .HasColumnName("ADDRESS");
-
-                entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
 
                 entity.HasOne(d => d.Material)
-                    .WithMany(p => p.Supplierorderlines)
+                    .WithMany(p => p.Suppliermaterialorders)
                     .HasForeignKey(d => d.MaterialId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIER___________MATERIAL");
+                    .HasConstraintName("FK_SUPPLIERMATERIALORDER_MATERIAL");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Suppliermaterialorders)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERMATERIALORDER_ORDERLINE");
+            });
+
+            modelBuilder.Entity<Supplierordersupplier>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToTable("SUPPLIERORDERSUPPLIERS");
+
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany()
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERORDERSUPPLIERS_ORDERLINE");
 
                 entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Supplierorderlines)
+                    .WithMany()
                     .HasForeignKey(d => d.SupplierId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIER_SUPPLIES_SUPPLIER");
+                    .HasConstraintName("FK_SUPPLIERORDERSUPPLIERS_SUPPLIER");
+            });
+
+            modelBuilder.Entity<Suppliersordersupplier>(entity =>
+            {
+                entity.HasKey(e => new { e.SupplierId, e.OrderId })
+                    .HasName("PK__SUPPLIER__27481AF8E4D87AFF");
+
+                entity.ToTable("SUPPLIERSORDERSUPPLIERS");
+
+                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+
+                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Suppliersordersuppliers)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERSORDERSUPPLIERS_ORDERLINE");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Suppliersordersuppliers)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_SUPPLIERSORDERSUPPLIERS_SUPPLIER");
             });
 
             modelBuilder.Entity<Suppliertype>(entity =>
@@ -1056,12 +1134,6 @@ namespace IMOSApi.Models
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
-
-                entity.HasOne(d => d.Vehicle)
-                    .WithMany(p => p.VehicleCheckIns)
-                    .HasForeignKey(d => d.VehicleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_VehicleCheckIn_VEHICLE");
             });
 
             modelBuilder.Entity<VehicleCheckOut>(entity =>
@@ -1075,12 +1147,6 @@ namespace IMOSApi.Models
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
-
-                entity.HasOne(d => d.Vehicle)
-                    .WithMany(p => p.VehicleCheckOuts)
-                    .HasForeignKey(d => d.VehicleId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_VehicleCheckOut_VEHICLE");
             });
 
             modelBuilder.Entity<Vehicletype>(entity =>
@@ -1213,6 +1279,30 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_WAREHOUS_CAN_HAVE_WAREHOUS");
             });
 
+            modelBuilder.Entity<Warehousematerial>(entity =>
+            {
+                entity.HasKey(e => new { e.WarehouseId, e.MaterialId })
+                    .HasName("PK__WAREHOUS__3AFC2F098F5345B0");
+
+                entity.ToTable("WAREHOUSEMATERIAL");
+
+                entity.Property(e => e.WarehouseId).HasColumnName("WAREHOUSE_ID");
+
+                entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
+
+                entity.HasOne(d => d.Material)
+                    .WithMany(p => p.Warehousematerials)
+                    .HasForeignKey(d => d.MaterialId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WAREHOUSEMATERIAL_MATERIAL");
+
+                entity.HasOne(d => d.Warehouse)
+                    .WithMany(p => p.Warehousematerials)
+                    .HasForeignKey(d => d.WarehouseId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_WAREHOUSEMATERIAL_WAREHOUSE");
+            });
+
             modelBuilder.Entity<Warehousematerialstocktake>(entity =>
             {
                 entity.HasKey(e => new { e.StocktakeId, e.MaterialId, e.WarehouseId });
@@ -1290,12 +1380,9 @@ namespace IMOSApi.Models
                     .HasColumnName("DESCRIPTION");
             });
 
-            base.OnModelCreating(modelBuilder);
-
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
     }
 }

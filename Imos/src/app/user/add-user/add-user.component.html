@@ -1,24 +1,13 @@
 
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/material">Back</button>
+<button class="btnBack" mat-raised-button color="warn" routerLink="/user">Back</button>
 
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Material Added Successfully
+    <strong>Success !</strong> New User Account  Registered Successfully
     <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
         <mat-icon>close</mat-icon>
     </button>
 </div>
-
-
-<button class="btnBack" mat-raised-button color="warn" routerLink="/material">Back</button>
-
-<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Material Added Successfully
-    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
-
 <form [formGroup]="addForm" class="form-container">
     <mat-card>
         <mat-card-header>
@@ -29,7 +18,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Select  Employee</mat-label>
                     <mat-select formControlName="employeeId">
-                        <mat-option *ngFor="let type of employeeList" [value]="type.name">
+                        <mat-option *ngFor="let type of employeeList" [value]="type.employeeId">
                             {{type.name}}
                         </mat-option>
                       </mat-select>
@@ -43,7 +32,7 @@
 
                 <mat-form-field class="full-width">
                   <mat-label>Select  Role</mat-label>
-                  <mat-select formControlName="userRoleId">
+                  <mat-select formControlName=" userRoleId">
                       <mat-option *ngFor="let type of roleList" [value]="type.description">
                           {{type.description}}
                       </mat-option>

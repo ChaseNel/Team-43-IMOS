@@ -28,7 +28,9 @@ namespace IMOSApi.Controllers
                 return _dbContext.Employees.ToList();
             }
         }
-        [HttpGet("GetEmployeeById /{id}")]
+
+
+        [HttpGet("GetEmployeeById/{id}")]
         public ActionResult<GetEmployeeDto> GetRecord(int id)
         {
             using (var context = new IMOSContext())
@@ -101,15 +103,27 @@ namespace IMOSApi.Controllers
             }
         }
 
-        [HttpDelete("DeleteEmployee/{Id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteEmployee/{id}")]
+        public async Task<ActionResult<Employee>>Delete(int id)
         {
-            using (var context = new IMOSContext())
+            var recordInDb = await _dbContext.Employees.FindAsync(id);
+            if (recordInDb == null)
             {
-                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).FirstOrDefault();
-                _dbContext.Employees.Remove(emp);
-                _dbContext.SaveChanges();
+                return NotFound();
             }
+
+            var employeeUsers = _dbContext.Users.Where(item => item.EmployeeId == id);
+            _dbContext.Users.RemoveRange(employeeUsers);
+            await _dbContext.SaveChangesAsync();
+
+            var employeeDocuments = _dbContext.Documents.Where(item => item.EmployeeId == id);
+            _dbContext.Documents.RemoveRange(employeeDocuments);
+            await _dbContext.SaveChangesAsync();
+
+            _dbContext.Employees.Remove(recordInDb);
+            await _dbContext.SaveChangesAsync();
+            return Ok();
+
         }
     }
 }

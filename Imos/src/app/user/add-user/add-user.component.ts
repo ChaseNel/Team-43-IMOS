@@ -43,11 +43,19 @@ export class AddUserComponent implements OnInit {
     })
   }
   addUser(){
+    if(this.addForm.valid){
+      console.log(this.addForm.value);
+       this._service.registerUser(this.addForm.value)
+       .subscribe(res=>{
+       console.log(res);
+       // add validation and "are you sure to add supplier notification"
+      })
+    }
 
   }
  
   back(){
-    this.route.navigateByUrl("material")
+    this.route.navigateByUrl("user")
   }
   closeAlert() {
     this.alert = false;

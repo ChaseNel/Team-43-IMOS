@@ -14,11 +14,10 @@ export interface Material {
   materialtype: string,
   projectmaterialrequestlists: [],
   projectmaterials: [],
-  supplierorderlines: [],
+  suppliermaterialorders: [],
   suppliermaterials:[],
   taskmaterials: [],
-  warehouse:string
-  warehouseId:number
+  warehousematerials: []
 }
 
 @Component({
@@ -28,13 +27,14 @@ export interface Material {
 })
 
 export class AddMaterialComponent implements OnInit {
+
    materialFrm: FormGroup;
    alert: boolean = false;
    TypeList: materialtype[] = [];
    SupplierList :supplier[]=[];
    WarehouseTypes: warehouse[] = [];
 
-  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router)
+  constructor(private service: ServiceService, private fb: FormBuilder, private route: Router)
    { 
 
    }
@@ -44,8 +44,7 @@ export class AddMaterialComponent implements OnInit {
   }
   
   private buildAddForm(){
-    
-    this.materialFrm=this.formB.group({
+    this.materialFrm=this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       materialtypeId: ['', [Validators.required]],
@@ -58,6 +57,7 @@ export class AddMaterialComponent implements OnInit {
     });
     this.service.getWarehouses().subscribe(data=>{
   this.WarehouseTypes=data;
+  
 });
 this.service.getSupplier().subscribe(data=>{
   this.SupplierList=data;
@@ -65,9 +65,37 @@ this.service.getSupplier().subscribe(data=>{
 
 }
 AddMaterial() {
+ 
     if(this.materialFrm.valid){
-      console.log(this.materialFrm.value);
-       this.service.addMaterial(this.materialFrm.value)
+      let payload:any = {};
+      payload['Name'] = this.materialFrm.get('name')?.value;
+      payload['Description'] = this.materialFrm.get('description')?.value;
+      payload['Quantity'] = this.materialFrm.get('quantity')?.value;
+      payload['MaterialTypeId'] = this.materialFrm.get('materialtypeId')?.value;
+     
+      //Process suppliers
+      let supplierIds = this.materialFrm.get('supplierId')?.value as [];
+      let listOfSuppliers:any[] = [];
+      supplierIds.forEach((element: any) => {
+       let supplierObj:any = {};
+       supplierObj['SupplierId'] = element as number;
+       listOfSuppliers.push(supplierObj);
+      });
+     
+      //Process warehouses
+      let warehouseIds =this.materialFrm.get('warehouseId')?.value as [];
+      let listOfWarehouses:any[] = [];
+      warehouseIds.forEach((element: any) => {
+       let warehouseObj:any = {};
+       warehouseObj['WarehouseId'] = element as number;
+       listOfWarehouses.push(warehouseObj);
+      });
+     
+      payload['Suppliers'] = listOfSuppliers;
+      payload['Warehouses'] = listOfWarehouses;
+          
+     console.log(payload);
+       this.service.addMaterial(payload)
        .subscribe(res=>{
        console.log(res);
        // add validation and WarehouseTypes "are you sure to add supplier notification"

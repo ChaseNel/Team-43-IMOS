@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {  safetyItem, safetyitemcategory, ServiceService } from '../services/service.service';
+import {  project, safetyItem, safetyitemcategory, ServiceService } from '../services/service.service';
 
 // safety checklist class on shared types 
 export interface SafetyItem{
@@ -32,7 +32,10 @@ export class SaftyChecklistComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  TypeList:safetyitemcategory[]=[];
+  SafetyItems:safetyItem[]=[];
+  TypeList:project[]=[];
+  
+  CategoryTypes:safetyitemcategory[]=[];
 
   constructor(private _route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllProjectSafetyChecklistItem();

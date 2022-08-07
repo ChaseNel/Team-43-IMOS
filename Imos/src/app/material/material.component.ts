@@ -15,11 +15,10 @@ export interface Material {
   materialtype: string,
   projectmaterialrequestlists: [],
   projectmaterials: [],
-  supplierorderlines: [],
+  suppliermaterialorders: [],
   suppliermaterials:[],
   taskmaterials: [],
-  warehouse:string
-  warehouseId:number
+  warehousematerials: []
 }
 
 @Component({
@@ -32,7 +31,7 @@ export class MaterialComponent implements OnInit {
   // API Test
   data: material[] = [];
 
-  displayedColumns: string[] = ['id', 'Materialtype', 'Warehouses','name', 'description','Materialsupplier','Quantity', 'actions'];
+  displayedColumns: string[] = ['id', 'type','name', 'description','warehouses','quantity', 'suppliers','actions'];
 
   dataSource!: MatTableDataSource<Material>;
 
