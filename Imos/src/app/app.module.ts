@@ -91,6 +91,8 @@ import { AddCheckListComponent } from './safty-checklist/add-check-list/add-chec
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { ReportsComponent } from './reports/reports.component';
+import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
 
 
 
@@ -163,6 +165,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     SaftyChecklistCatagoryComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
+    ReportsComponent,
+    IncidentReportComponent,
   ],
   imports: [
     BrowserModule,

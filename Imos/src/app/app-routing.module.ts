@@ -1,3 +1,5 @@
+import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
+import { ReportsComponent } from './reports/reports.component';
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
@@ -136,6 +138,10 @@ const routes: Routes = [
   { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
   { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
   { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
+
+  //Reports 
+  { path: 'reports', component: ReportsComponent },
+  { path: 'incidentReport', component: IncidentReportComponent },
 ];
 
 @NgModule({
