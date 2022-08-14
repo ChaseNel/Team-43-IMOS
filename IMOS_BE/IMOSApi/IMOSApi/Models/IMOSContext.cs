@@ -32,9 +32,10 @@ namespace IMOSApi.Models
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<Projectemployee> Projectemployees { get; set; }
         public virtual DbSet<Projectequipment> Projectequipments { get; set; }
-        public virtual DbSet<Projectmaterial> Projectmaterials { get; set; }
+        public virtual DbSet<Projectmaterial> Projectmaterial { get; set; }
         public virtual DbSet<Projectmaterialrequest> Projectmaterialrequest { get; set; }
         public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
+        public virtual DbSet<Projectmaterialrequeststatus> Projectmaterialrequeststatus { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
         public virtual DbSet<Safetyfileitem> Safetyfileitems { get; set; }
@@ -69,7 +70,7 @@ namespace IMOSApi.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=.;Database=IMOS;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=Hloni;Database=IMOS;Trusted_Connection=True;Initial Catalog=IMOS;");
             }
         }
 
@@ -474,12 +475,22 @@ namespace IMOSApi.Models
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
-               
+
+                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("MATERIALREQUESTSTATUS_ID");
+
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Projectmaterialrequests)
                     .HasForeignKey(d => d.ProjectId)
                     .HasConstraintName("FK_PROJECTM_MUST_HAVE_PROJECT");
+
+
+                entity.HasOne(d => d.Projectmaterialrequeststatus)
+                    .WithMany(p => p.Projectmaterialrequests)
+                    .HasForeignKey(d => d.ProjectmaterialrequeststatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PROJECTMATERIALREQUEST_MATERIALREQUESTSTATUS");
+
 
                 entity.HasOne(d => d.Urgencylevel)
                     .WithMany(p => p.Projectmaterialrequests)
@@ -487,6 +498,36 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_HAVE_URGENCYL");
             });
+
+            modelBuilder.Entity<Projectmaterialrequeststatus>(entity =>
+            {
+                entity.ToTable("MATERIALREQUESTSTATUS");
+                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("MATERIALREQUESTSTATUS_ID");
+
+                entity.Property(e => e.Name)
+                   .HasMaxLength(255)
+                   .IsUnicode(false)
+                   .HasColumnName("NAME");
+            });
+
+
+            modelBuilder.Entity<Urgencylevel>(entity =>
+            {
+                entity.ToTable("URGENCYLEVEL");
+
+                entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("DESCRIPTION");
+
+                entity.Property(e => e.Level)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("LEVEL");
+            });
+
 
             modelBuilder.Entity<Projectmaterialrequestlist>(entity =>
             {

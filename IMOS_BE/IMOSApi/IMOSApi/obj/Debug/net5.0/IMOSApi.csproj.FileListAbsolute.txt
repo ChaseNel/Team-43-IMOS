@@ -854,3 +854,9 @@ C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.pdb
 C:\Users\User\Documents\GitHub\Team-43-IMOS\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.genruntimeconfig.cache
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll

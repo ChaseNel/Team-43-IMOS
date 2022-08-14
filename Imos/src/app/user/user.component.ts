@@ -24,7 +24,7 @@ export interface User {
 })
 export class UserComponent implements OnInit {
   // API Test
-  
+
   //data: User[] = [];
   userRolematch!: boolean;
   itemToDelete!: User;
@@ -94,7 +94,10 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.getUserRole().subscribe(x => { this.rolelist = x; console.log("rolelist", this.rolelist) });
+    this.service.getUserRole().subscribe(x =>
+      { this.rolelist = x;
+         console.log("rolelist", this.rolelist)
+        });
     this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
   }
 

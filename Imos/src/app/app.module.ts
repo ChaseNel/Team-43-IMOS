@@ -111,6 +111,8 @@ import { BasketMaterialComponent } from './project/project-material-request/bask
 import { UrgencyLevelComponent } from './project/project-material-request/urgency-level/urgency-level.component';
 import { AddUrgencyLevelComponent } from './project/project-material-request/urgency-level/add-urgency-level/add-urgency-level.component';
 import { UpdateUrgencyLevelComponent } from './project/project-material-request/urgency-level/update-urgency-level/update-urgency-level.component';
+import { ReportComponent } from './report/report.component';
+import { MaterialRequestReportViewComponent } from './report/material-request-report-view/material-request-report-view.component';
 
 
 @NgModule({
@@ -196,7 +198,9 @@ import { UpdateUrgencyLevelComponent } from './project/project-material-request/
     BasketMaterialComponent,
     UrgencyLevelComponent,
     AddUrgencyLevelComponent,
-    UpdateUrgencyLevelComponent
+    UpdateUrgencyLevelComponent,
+    ReportComponent,
+    MaterialRequestReportViewComponent
   ],
   imports: [
     BrowserModule,

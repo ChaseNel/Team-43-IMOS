@@ -81,7 +81,8 @@ id:number;
         .subscribe(() => {
           this.AddRequestFormGroup.reset();
           this.MatDialog.close();
-          this.snackBar.open('Add Request Successful', 'X', {duration:5000} )
+          this.snackBar.open('Add Request Successful', 'X',
+           {duration:5000} )
 
 
 

@@ -1,9 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { project } from './../../../services/service.service';
 
 import { Component, ElementRef, Inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
-import{material, ServiceService} from 'src/app/services/service.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import{material, ServiceService, UrgencyLevel,materialRequest} from 'src/app/services/service.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,16 +21,39 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 })
 export class BasketMaterialComponent implements OnInit {
 
+observeUrgencyLvls: Observable<UrgencyLevel[]> = this.service.getUrgencylvl();
+urgencylevelId : string;
+
+UrgencylevelData : UrgencyLevel[];
+
+
+
   basketList: any;
+  form: FormGroup;
 
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data:{id:number},
     private route: Router,
      private service: ServiceService,
-      private _snackBar: MatSnackBar) { }
+      private _snackBar: MatSnackBar,
+      private formBuilder: FormBuilder,) { }
 
   ngOnInit(): void {
     this.basketList = JSON.parse(localStorage.getItem('basket') !);
+
+    this.observeUrgencyLvls.subscribe( x => {
+      this.UrgencylevelData = x;
+      console.log(this.UrgencylevelData)
+    },
+    (err: HttpErrorResponse) =>{
+      console.log(err)
+    });
+
+
+
+    this.form= this.formBuilder.group({
+      level: ['',Validators.required],
+    })
   }
 
   viewbasket(){
@@ -56,26 +80,55 @@ export class BasketMaterialComponent implements OnInit {
     localStorage.setItem('basket',JSON.stringify(this.basketList));
   }
 
+  ChangeUrgencylvl(e:any){
+    this.form.patchValue({
+         id: e.target.value
+       })
+   }
 
-urgencylevelid = 1;
+get levelId(){
+  return this.form.get('level')
+
+}
+
+
+
   createMaterialReq(){
 
+ console.log(this.form.get('level'))
 
-    const basketMaterials = {
-      projectid: this.data.id,
-      urgencyLevelId : 1,
-      fulfillment :1,
+    if(this.form.valid && this.basketList != null)
 
-      basketMaterial: this.basketList
+
+     {
+      const basketMaterials = {
+        projectid: this.data.id,
+        urgencyLevelId : this.form.controls['level'].value,
+
+
+        basketMaterial: this.basketList
+      }
+      console.log(basketMaterials)
+
+      this.service.AddMaterialRequest(basketMaterials)
+      .subscribe((res:any) => {
+        this.requestAlert()
+        localStorage.removeItem('basket')
+
+      } )
+
     }
-    console.log(basketMaterials)
 
-    this.service.AddMaterialRequest(basketMaterials)
-    .subscribe((res:any) => {
-      this.requestAlert()
-      localStorage.removeItem('basket')
+    else if (this.basketList == null){
+      this._snackBar.open('basket is empty', 'Ok',{
+        duration: 3000,
+        verticalPosition: 'bottom',
+      });
+    }
 
-    } )
+
+
+
   }
 
 }

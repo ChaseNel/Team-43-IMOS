@@ -8,6 +8,22 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
   <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
 
+<form  [formGroup]="form" >
+  <mat-form-field appearance="outline" class="control-w">
+    <mat-label>Select Status</mat-label>
+    <mat-select formControlName="name"  (change)="ChangeMaterialRequestStatus($event)"  >
+      <mat-option *ngFor="let item of materialRequestData" [value] = "item.id">
+          {{item.name}}
+      </mat-option>
+    </mat-select>
+
+  </mat-form-field>
+</form>
+
+<button class="CheckoutBut"  mat-flat-button color="primary" (click)="ManageRequest()">Update Status</button>
+
+
+
 <!-- add [dataSource]="dataSource" when API is connected -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 

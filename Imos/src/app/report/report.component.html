@@ -1,0 +1,29 @@
+<p>report works!</p>
+<mat-grid-list cols="4" rowHeight="1:1" [gutterSize]="'20px'">
+
+  <mat-grid-tile>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Project Material Request Report</mat-card-title>
+
+        </mat-card-header>
+
+        <form  [formGroup]="form" >
+          <mat-form-field appearance="outline" class="control-w">
+            <mat-label>Select Status</mat-label>
+            <mat-select formControlName="name"  (change)="ChangeMaterialRequestStatus($event)"  >
+              <mat-option *ngFor="let item of materialRequestData" [value] = "item.id">
+                  {{item.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+        </form>
+
+        <button class="CheckoutBut" (click)="openDialog()"  mat-flat-button color="primary">Generate report</button>
+
+    </mat-card>
+</mat-grid-tile>
+
+</mat-grid-list>
+

@@ -5,61 +5,65 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IMOSApi.Dtos.ProjectMaterials;
+using Microsoft.EntityFrameworkCore;
 
 namespace IMOSApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectmaterialController : ControllerBase
+
     {
-        [HttpGet("GetProjectmaterials")]
-        public IEnumerable<Projectmaterial> Retrieve()
+        private readonly IMOSContext db = new IMOSContext();
+
+        private readonly IMOSContext _context;
+
+        public ProjectmaterialController(IMOSContext context)
         {
-            using (var context = new IMOSContext())
-            {
-                return context.Projectmaterials.ToList();
-            }
-        }
-        [HttpGet("GetProjectmaterial/{id}")]
-        public IEnumerable<Projectmaterial> Get(int id)
-        {
-            using (var context = new IMOSContext())
-            {
-                IEnumerable<Projectmaterial> tmp = context.Projectmaterials.Where(emp => emp.ProjectId == id).ToList();
-                return tmp;
-            }
-        }
-        [HttpPost("CreateProjectmaterial")]
-        public IActionResult Create([FromBody] Projectmaterial Projectmaterial)
-        {
-            using (var context = new IMOSContext())
-            {
-                context.Projectmaterials.Add(Projectmaterial);
-                context.SaveChanges();
-                return Ok();
-            }
+            _context = context;
         }
 
-        [HttpPut("UpdateProjectmaterial/{Id}")]
-        public void Update([FromBody] Projectmaterial Projectmaterial, [FromRoute] int Id)
+
+
+
+     /*   [HttpPost]
+        [Route("CreateProjectmaterial/{projectId}")]
+        public object AddMaterialToProject(BasketMaterial[] basketMaterial, int projectId)
         {
-            using (var context = new IMOSContext())
+            try
             {
-                var clie = context.Projectmaterials.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
-                //emp.
-                context.SaveChanges();
+
+
+
+                foreach (var item in basketMaterial)
+                {
+                    Projectmaterial projectmaterial = new Projectmaterial
+                    {
+                        ProjectId = projectId,
+                        MaterialId = item.id,
+                        Quantity = item.quantity,
+
+                    };
+
+                    db.Projectmaterial.Add(projectmaterial);
+                }
+
+
+
+                return Ok();
+
             }
-        }
-        [HttpDelete("DeleteProjectmaterial/{Id}")]
-        public void Delete(int id)
-        {
-            using (var context = new IMOSContext())
+
+            catch (Exception e)
             {
-                var clie = context.Projectmaterials.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                context.Projectmaterials.Remove(clie);
-                context.SaveChanges();
+                Console.WriteLine(e.InnerException.Message);
+
+                return BadRequest(e.Message);
+
             }
-        }
+        }*/
+
     }
 }
 

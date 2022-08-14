@@ -1,0 +1,9 @@
+mat-card {
+  background-color: rgba(79, 108, 212, 0.274);
+  border-radius: 20px;
+}
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+  max-height: 300px;
+}

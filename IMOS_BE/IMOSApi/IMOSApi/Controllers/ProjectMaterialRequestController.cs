@@ -126,8 +126,8 @@ namespace IMOSApi.Controllers
 
 
         [HttpPost]
-        [Route("CreateMaterialRequest/{projectid}/{urgencyLevelId}/{fulfillment}")]
-        public object CreateMaterialRequest([FromBody] BasketMaterial[] basketmaterial, int projectid, int urgencyLevelId, int fulfillment)
+        [Route("CreateMaterialRequest/{projectid}/{urgencyLevelId}")]
+        public object CreateMaterialRequest([FromBody] BasketMaterial[] basketmaterial, int projectid, int urgencyLevelId)
         {
 
 
@@ -138,7 +138,8 @@ namespace IMOSApi.Controllers
                 RequestDate = DateTime.Now,
                 ProjectId = projectid,
                 UrgencylevelId = urgencyLevelId,
-                Fulfillmenttype = fulfillment,
+                Fulfillmenttype = 1,
+                ProjectmaterialrequeststatusId = 1,
 
 
             };
@@ -178,8 +179,45 @@ namespace IMOSApi.Controllers
 
         }
 
+        [HttpPut]
+        [Route("ManageMaterialRequestStatus/{projectmaterialrequestId}/{projectmaterialrequeststatusId}")]
 
-        [HttpDelete("DeleteMaterialRequest/{Id}")]
+        public object ApproveMaterialRequest( int projectmaterialrequestId, int projectmaterialrequeststatusId)
+        {
+            var recordInDB = _context.Projectmaterialrequest
+                .FirstOrDefault(item => item.ProjectmaterialrequestId == projectmaterialrequestId);
+
+            
+
+            if (recordInDB == null)
+            {
+                return NotFound();
+            }
+            try
+            {
+
+                recordInDB.ProjectmaterialrequeststatusId = projectmaterialrequeststatusId;
+
+               _context.SaveChanges();
+
+                return Ok();
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+                return BadRequest(e.Message);
+
+
+
+
+
+            }
+        }
+
+
+
+            [HttpDelete("DeleteMaterialRequest/{Id}")]
         public async Task<ActionResult<Projectmaterialrequest>> DeleteMaterialRequest(int Id)
         {
             var recordInd = await _context.Projectmaterialrequest.FindAsync(Id);
@@ -304,6 +342,19 @@ namespace IMOSApi.Controllers
 
             return Ok();
 
+        }
+
+        [HttpGet("GetAllRequestsStatus")]
+        public ActionResult<IEnumerable<GetRequestStatus>> GetAllRequestsStatus()
+        {
+            var recordInDb = _context.Projectmaterialrequeststatus
+                .Select(item => new GetRequestStatus()
+                {
+                    Id = item.ProjectmaterialrequeststatusId,
+                    Name = item.Name,
+                }).ToList();
+
+            return recordInDb;
         }
 
 

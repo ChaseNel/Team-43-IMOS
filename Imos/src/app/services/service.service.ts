@@ -67,6 +67,15 @@ export interface ViewMatarialRequest{
     description: string
 }
 
+export interface ReportMaterialRequest{
+
+  clientName: string,
+  urgencyLevelName: string,
+  statusName: string,
+  materialCount: number,
+  requestDate :string,
+}
+
 
 
 export interface ProjectMaterialRequest{
@@ -93,6 +102,11 @@ export interface UrgencyLevel{
   id : number,
   level: string,
   description: string
+}
+
+export interface MaterialRequestStatus{
+  id : number,
+  name: string,
 }
 
 
@@ -392,14 +406,22 @@ export class ServiceService {
     return this.http.get<ViewMatarialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/ViewRequestDetails/' + id)
   }
 
+  getMaterialRequetsReport(id: number): Observable<ReportMaterialRequest[]> {
+    return this.http.get<ReportMaterialRequest[]>(this.Root_URL + '/ProjectMaterialRequestReportsController1/GetMaterialRequesytByStatus/' + id)
+  }
+
+
+
   //Delete
   deleteMaterialRequest(id: number) {
     return this.http.delete(this.Root_URL + '/ProjectMaterialRequest/DeleteMaterialRequest/' + id);
   }
 
   AddMaterialRequest(basketMaterials: any){
-    return this.http.post(this.Root_URL + `/ProjectMaterialRequest/CreateMaterialRequest/${basketMaterials.projectid}/${basketMaterials.urgencyLevelId}/${basketMaterials.fulfillment}` , basketMaterials.basketMaterial);
+    return this.http.post(this.Root_URL + `/ProjectMaterialRequest/CreateMaterialRequest/${basketMaterials.projectid}/${basketMaterials.urgencyLevelId}/` , basketMaterials.basketMaterial);
   }
+
+
 
 
 
@@ -413,6 +435,17 @@ export class ServiceService {
   addProjMatRequest(basketMaterials: any, ) {
     return this.http.post(this.Root_URL + '/ProjectMaterialRequest/CreateMaterialRequest/', basketMaterials)
   }
+
+  /*ManageRequestStatus(StatusDetails: any){
+    return this.http.put(this.Root_URL + `/ProjectMaterialRequest/ManageMaterialRequestStatus/${StatusDetails.projectmaterialrequestId}/${StatusDetails.projectmaterialrequeststatusId}/`);
+  }*/
+
+  ManageRequestStatus( data: any) {
+    return this.http.put(this.Root_URL + `/ProjectMaterialRequest/ManageMaterialRequestStatus/${data.projectmaterialrequestId}/${data.projectmaterialrequeststatusId}/`,{} );
+  }
+
+
+
 
 
 
@@ -618,7 +651,9 @@ updateclient(val: any,id: number){
 
 
 
-
+  getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
+    return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
+  }
 
 
 
