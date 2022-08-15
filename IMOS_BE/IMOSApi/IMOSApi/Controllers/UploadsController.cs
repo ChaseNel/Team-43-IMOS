@@ -57,5 +57,45 @@ namespace IMOSApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+
+        [HttpPost("ProjectSafetyFile/Uploads"), DisableRequestSizeLimit] //Done
+        public IActionResult ProjectPaperUploadPublished()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Uploads", "SafetyFile");
+                var uploadsFolderPath = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+
+                if (!Directory.Exists(uploadsFolderPath))
+                {
+                    Directory.CreateDirectory(uploadsFolderPath);
+                }
+
+                var fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                var filePath = Path.Combine(uploadsFolderPath, fileName);
+
+
+                if (file.Length > 0)
+                {
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    return Ok(new { filePath });
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
     }
 }

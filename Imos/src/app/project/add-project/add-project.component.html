@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/material">Back</button>
+<button class="btnBack" mat-raised-button color="warn" routerLink="/project">Back</button>
 
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success !</strong> Project Added Successfully
@@ -17,23 +17,27 @@
         <mat-card-content>
             <div class="row">
                 <mat-form-field class="full-width">
-                    <mat-label>Choose a Cosntruction Site</mat-label>
-                    <mat-placeholder>Choose a Cosntruction Site</mat-placeholder>
-                    <mat-select formArrayName="Site">
-                        <mat-option>Clear</mat-option>
-                        <mat-option mat-cell *matCellDef="let element">{{ConstructionSite[element.constructionsiteId-1]?.address}}</mat-option>
+                    <mat-label>Name</mat-label>
+                    <input matInput  placeholder="Enter Name" #nameInput  formControlName="name">
+                     <!--     <mat-error>Name is required</mat-error> -->
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Select  Construction Site</mat-label>
+                    <mat-select formControlName="constructionsiteId">
+                        <mat-option *ngFor="let type of SiteList" [value]="type.address">
+                            {{type.address}}
+                        </mat-option>
                       </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Req' matInput placeholder="Inital Request" name="Request"
-                        formControlName="Req">
+                    <mat-label>Select Request</mat-label>
+                    <mat-select formControlName="initialrequestId">
+                        <mat-option *ngFor="let type of requestList" [value]="type.description">
+                            {{type.description}}
+                        </mat-option>
+                      </mat-select>
                 </mat-form-field>
-                <!-- <mat-error *ngIf="hasError('Request', 'required')"></mat-error> -->
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='SaftyFile' matInput placeholder="Safty File" name="SaftyFile"
-                        formControlName="SaftyFile">
-                </mat-form-field>
-                <mat-error *ngIf="hasError('SaftyFile', 'required')"></mat-error>
+
                 <mat-card-actions>
                     <button (click)="addProject()" mat-raised-button color="primary">Add</button>
                     <button (click)="back()" mat-raised-button color="warn">back</button>

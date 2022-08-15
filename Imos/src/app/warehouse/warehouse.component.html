@@ -5,29 +5,6 @@
 
 <h2 style="margin-left:45% ;">Warehouse</h2>
 
-
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog model-dialog-centered modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Update Warehouse</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    (click)='closeClick()'></button>
-            </div>
-            <div class="modal-body">
-                <app-update-warehouse *ngIf="hide"></app-update-warehouse>
-            </div>
-        </div>
-    </div>
-</div>
-<button (click)="EQCheck()" mat-flat-button color="primary" class="URbtn">Warehouse Equipment Check</button>
-
-
-<!-- Material Type
-<button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
-<button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
-<br> -->
-
 <!-- Search Field -->
 <mat-form-field appearance="standard">
     <mat-label>Search Table</mat-label>

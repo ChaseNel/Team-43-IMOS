@@ -11,7 +11,5 @@ namespace IMOSApi.Models
         public DateTime Date { get; set; }
         public int Odomoter { get; set; }
         public int VehicleId { get; set; }
-
-        public virtual Vehicle Vehicle { get; set; }
     }
 }

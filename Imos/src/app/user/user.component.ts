@@ -21,7 +21,7 @@ export interface User {
   stocktakes: [],
   tasks: [],
   userincidents: [],
-  Vehicles: []
+  vehicles: []
 }
 
 @Component({
@@ -74,8 +74,9 @@ export class UserComponent implements OnInit {
     }
   }
   addUser() {
-    this.route.navigateByUrl('adduser')
+    this.route.navigateByUrl('addUser')
   }
+  
   resendLoginAccountEmail(){
     
   }
