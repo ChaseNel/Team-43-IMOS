@@ -96,8 +96,13 @@ import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle
 import {MatDialogModule} from '@angular/material/dialog';
 import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-vehicle.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatCheckboxModule} from '@angular/material/checkbox'; //matSelectionList
+import {MatSelectionList} from '@angular/material/list/selection-list';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
+import {MatListModule} from '@angular/material/list';
+import { ReportingComponent } from './reports/reporting.component';
+
+
 
 @NgModule({
   declarations: [
@@ -172,6 +177,7 @@ import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplie
     VehicleAllocationComponent,
     AllocateVehicleComponent,
     AddSupplierOrderComponent,
+    ReportingComponent,
   ],
   entryComponents:[ AllocateVehicleComponent],
   imports: [
@@ -187,6 +193,7 @@ import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplie
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
+    MatListModule,
     MatToolbarModule,
     MatGridListModule,
     MatTableModule,
@@ -198,7 +205,8 @@ import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplie
     MatSelectModule,
     MatCheckboxModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+
   ],
   providers: [
     ServiceService

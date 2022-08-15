@@ -53,6 +53,10 @@ addSupplierOrder(){
 cancelOrder(id:number) {
   this.route.navigate(['CancelSupplierOrder',id])
 }
+report(){
+    this.route.navigateByUrl('report')
+
+}
 
   ngOnInit(): void {
   }

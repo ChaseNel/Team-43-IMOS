@@ -61,6 +61,8 @@ import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-rol
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
+import { ReportingComponent } from './reports/reporting.component';
+
 
 const routes: Routes = [
   //Default
@@ -159,7 +161,11 @@ const routes: Routes = [
   { path: 'AddSafetyChecklistCategory', component: AddSaftyChecklistCatagoryComponent },
   
   //Safty Checklist Items
-  {path: 'AddSaftyChecklist', component: AddSaftyChecklistComponent }
+  {path: 'AddSaftyChecklist', component: AddSaftyChecklistComponent },
+
+// reporting 
+{ path: 'report', component: ReportingComponent }
+
   
 ];
 

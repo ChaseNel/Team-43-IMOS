@@ -48,26 +48,24 @@ namespace IMOSApi.Controllers.UserFolder
             var message = "";
             if (!ModelState.IsValid)
             {
-   
-                    var recordInDb =  _context.Users.FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
+
+                var recordInDb = _context.Users.FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
 
                 if (recordInDb != null)
-                    {
-                        message = "Record exists in database";
-                        return BadRequest(new { message });
-                    }
-
-                    var assignedPassword = UserManagementExtension.GenerateRandomPassword();
-                    var newUser = new User()
-                    {
-                        Username = model.Username,
-                        UserroleId = model.UserroleId,
-                        EmployeeId=model.EmployeeId
-                ,
-                        Userpassword = assignedPassword,// auto  generate 
-                    };
-                    // add notification extension
-                     _context.Add(newUser);
+                {
+                    message = "Record exists in database";
+                    return BadRequest(new { message });
+                }
+                var assignedPassword = UserManagementExtension.GenerateRandomPassword();
+                var newUser = new User()
+                {
+                    Username = model.Username,
+                    UserroleId = model.UserroleId,
+                    EmployeeId = model.EmployeeId,
+                    Userpassword = assignedPassword,// auto  generate 
+                };
+                // add notification extension
+                _context.Add(newUser);
                      _context.SaveChanges();
              
                 }

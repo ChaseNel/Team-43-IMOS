@@ -107,8 +107,8 @@ export interface suppliermaterial{
   materialId: number,
   material: string,
   supplierId: number,
-  supplier: string
-
+  supplier: string,
+  supplierName?: string
 }
 
 //Vehicle Interface
@@ -311,7 +311,10 @@ export class ServiceService {
 
   //Material Http requests 
   //getById
-
+//Get
+  getSupplierMaterial(id: number): Observable<material[]> {
+  return this.http.get<material[]>(this.Root_URL + '/Material/GetSupplierMaterial/'+ id)
+}
   //Get
   getMaterial(): Observable<material[]> {
     return this.http.get<material[]>(this.Root_URL + '/Material/GetMaterials')
@@ -360,7 +363,7 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/Projectmaterialrequest/DeleteProjectmaterialrequest/' + id);
   }
 
-  //Supplier
+  //Supplier Endpoints
 getSupplierById(id:number){
   return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
 }
@@ -383,10 +386,7 @@ getSupplierById(id:number){
   deleteSupplier(id: number) {
     return this.http.delete(this.Root_URL + '/Supplier/' + id);
   }
-  //Add
-  // addSupplier(val: any) {
-  //   return this.http.post(this.Root_URL + '/Supplier/CreateSupplier', val)
-  //   }
+  
   //GetBy ID
   SupplierID(id: number)
   {
@@ -430,6 +430,11 @@ getSupplierById(id:number){
   getSupplierOrder(): Observable< orderline[]> {
     return this.http.get< orderline[]>(this.Root_URL + '/Supplierorderlines/GetSupplierorderlines')
   }
+  // get Material by Supplier Id
+  getMaterialBySupplierId(): Observable<suppliermaterial []> {
+    return this.http.get<suppliermaterial []>(this.Root_URL + '/Material/BySupplierId')
+  }
+
   // add new order
 
   //Delete OR Cancel Order
@@ -645,5 +650,9 @@ UpdateEquipment(id: number, data: any){
   }
   addProjectEmployee(val:any){
     return this.http.post(this.Root_URL + '/ProjectEmployee/Assign',val);
+  }
+
+  addToOrderSupplierCart(order: any) {
+    return this.http.post(this.Root_URL + '/Material/AddSupplierMaterialOrdersCart',order);
   }
 }
