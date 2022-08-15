@@ -87,13 +87,11 @@ export class IncidentReportComponent implements OnInit {
           type: 'doughnut',
           data: {
             labels: [
-              'Red',
-              'Blue',
-              'Yellow'
+              'Tuks', 'UJ', 'WITS'
             ],
             datasets: [{
               label: 'My First Dataset',
-              data: [300, 50, 100],
+              data: this.project,
               backgroundColor: [
                 'rgb(255, 99, 132)',
                 'rgb(54, 162, 235)',
