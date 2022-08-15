@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
-
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -14,11 +13,11 @@ import { VehicleComponent } from './vehicle/vehicle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { MatInputModule} from '@angular/material/input';
-
+import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import {MatDialogModule} from '@angular/material/dialog';
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
 import { SuccessComponent } from './login/Dialogs/success/success.component';
@@ -31,6 +30,9 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
+import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
+import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
+import { UserRoleComponent } from './user/user-role/user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
@@ -71,7 +73,6 @@ import { AddProjectComponent } from './project/add-project/add-project.component
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { TaskComponent } from './task/task.component';
-import {MatIconModule} from '@angular/material/icon';
 import { AddTaskComponent } from './task/add-task/add-task.component';
 import { UpdateTaskComponent } from './task/update-task/update-task.component';
 import { TaskTypeComponent } from './task/task-type/task-type.component';
@@ -82,22 +83,18 @@ import { AddProjectStaffComponent } from './project/project-staff/add-project-st
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-
+import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
-import { AddWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/add-warehouse-equipment/add-warehouse-equipment.component';
-import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/update-warehouse-equipment/update-warehouse-equipment.component';
-import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-vehicle.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
-import { UserRoleComponent } from './user/userrole/user-role.component';
+import { ReportsComponent } from './reports/reports.component';
+import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
+
+
 
 @NgModule({
   declarations: [
@@ -107,6 +104,7 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     VehicleComponent,
     LoginComponent,
     LogoutComponent,
+    HeaderComponent,
     PopUpComponent,
     HomeComponent,
     SuccessComponent,
@@ -163,13 +161,12 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
+
     SaftyChecklistCatagoryComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
-    WarehouseEquipmentComponent,
-    AddWarehouseEquipmentComponent,
-    UpdateWarehouseEquipmentComponent,
-  
+    ReportsComponent,
+    IncidentReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,8 +176,8 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    FormsModule,
     MatButtonModule,
+    FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
@@ -196,7 +193,6 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     MatNativeDateModule,
     MatCheckboxModule,
     MatExpansionModule
-
   ],
   providers: [
     ServiceService
