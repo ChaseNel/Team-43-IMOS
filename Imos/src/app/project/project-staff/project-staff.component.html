@@ -16,12 +16,7 @@
 
     <ng-container matColumnDef="projectname">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Employee Role </th>
-        <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.projectName}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
@@ -45,7 +40,6 @@
         <td mat-cell *matCellDef="let element">
             <button (click)="UpdateProjectStaff(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteProjectStaff(element.id)">Delete</button>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

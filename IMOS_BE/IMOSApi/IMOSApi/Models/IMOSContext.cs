@@ -52,8 +52,6 @@ namespace IMOSApi.Models
         public virtual DbSet<Supplier> Suppliers { get; set; }
         public virtual DbSet<Suppliermaterial> Suppliermaterials { get; set; }
         public virtual DbSet<Suppliermaterialorder> Suppliermaterialorders { get; set; }
-        public virtual DbSet<Supplierordersupplier> Supplierordersuppliers { get; set; }
-        public virtual DbSet<Suppliersordersupplier> Suppliersordersuppliers { get; set; }
         public virtual DbSet<Suppliertype> Suppliertypes { get; set; }
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<Taskmaterial> Taskmaterials { get; set; }
@@ -464,6 +462,14 @@ namespace IMOSApi.Models
                     .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Orderlines)
+                    .HasForeignKey(d => d.SupplierId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ORDERLINE_SUPPLIER");
             });
 
             modelBuilder.Entity<Project>(entity =>
@@ -839,53 +845,6 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_SUPPLIERMATERIALORDER_ORDERLINE");
-            });
-
-            modelBuilder.Entity<Supplierordersupplier>(entity =>
-            {
-                entity.HasNoKey();
-
-                entity.ToTable("SUPPLIERORDERSUPPLIERS");
-
-                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
-
-                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany()
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIERORDERSUPPLIERS_ORDERLINE");
-
-                entity.HasOne(d => d.Supplier)
-                    .WithMany()
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIERORDERSUPPLIERS_SUPPLIER");
-            });
-
-            modelBuilder.Entity<Suppliersordersupplier>(entity =>
-            {
-                entity.HasKey(e => new { e.SupplierId, e.OrderId })
-                    .HasName("PK__SUPPLIER__27481AF8E4D87AFF");
-
-                entity.ToTable("SUPPLIERSORDERSUPPLIERS");
-
-                entity.Property(e => e.SupplierId).HasColumnName("SUPPLIER_ID");
-
-                entity.Property(e => e.OrderId).HasColumnName("Order_ID");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.Suppliersordersuppliers)
-                    .HasForeignKey(d => d.OrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIERSORDERSUPPLIERS_ORDERLINE");
-
-                entity.HasOne(d => d.Supplier)
-                    .WithMany(p => p.Suppliersordersuppliers)
-                    .HasForeignKey(d => d.SupplierId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_SUPPLIERSORDERSUPPLIERS_SUPPLIER");
             });
 
             modelBuilder.Entity<Suppliertype>(entity =>

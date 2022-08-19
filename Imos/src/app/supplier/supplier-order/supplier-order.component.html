@@ -28,12 +28,16 @@
 
     <ng-container matColumnDef="number">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </th>
-        <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
     </ng-container>
 
     <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Order Date  </th>
         <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier Name </th>
+        <td mat-cell *matCellDef="let element"> {{supplierList[element.supplierId-1]?.name}}</td>
     </ng-container>
    
     <!-- Actions -->
@@ -41,7 +45,7 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal" mat-flat-button color="accent"  data-backdrop="static" data-keyboard="false" (click)="cancelOrder(element)" mat-flat-button color="accent">Cancel Order</button>
+            <button (click)="cancelOrder(element.id)" mat-flat-button color="accent">Cancel Supplier Order</button>
         </td>
     </ng-container>
 

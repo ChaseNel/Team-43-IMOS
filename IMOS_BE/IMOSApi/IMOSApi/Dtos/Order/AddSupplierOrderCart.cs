@@ -8,20 +8,29 @@ namespace IMOSApi.Dtos.Order
 {
     public class AddSupplierOrderCart
     {
-      
-
         [Required]
         public int Quantity { get; set; }
+        public int supplierId { get; set; }
 
         public List<MaterialItemDto> Materials { get; set; }
+     //   public List<SupplierItemDto> Suppliers { get; set; }
 
-        //public int SupplierId { get; set; }
-     
+        public AddSupplierOrderCart()
+        {
+          //  Suppliers = new List<SupplierItemDto>();
+            Materials = new List<MaterialItemDto>();
+
+        }
     }
-
+   
     public class MaterialItemDto
     {
         [Required]
         public int MaterialId { get; set; }
     }
+    //public class SupplierItemDto
+    //{
+    //    [Required]
+    //    public int SupplierId { get; set; }
+    //}
 }

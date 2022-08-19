@@ -11,15 +11,15 @@ namespace IMOSApi.Models
         {
             Deliveries = new HashSet<Delivery>();
             Suppliermaterialorders = new HashSet<Suppliermaterialorder>();
-            Suppliersordersuppliers = new HashSet<Suppliersordersupplier>();
         }
 
         public int OrderId { get; set; }
         public DateTime Date { get; set; }
         public string OrderNumber { get; set; }
+        public int SupplierId { get; set; }
 
+        public virtual Supplier Supplier { get; set; }
         public virtual ICollection<Delivery> Deliveries { get; set; }
         public virtual ICollection<Suppliermaterialorder> Suppliermaterialorders { get; set; }
-        public virtual ICollection<Suppliersordersupplier> Suppliersordersuppliers { get; set; }
     }
 }

@@ -54,9 +54,13 @@ namespace IMOSApi
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
           services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen( /*c => */ options=>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
+                options.CustomSchemaIds(type => type.ToString());
+
+               // c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
+
+              options.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
             });
         }
 
@@ -80,6 +84,8 @@ namespace IMOSApi
 
             app.UseRouting();
             app.UseAuthorization();
+            app.UseAuthentication();
+           
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute("equipment", "{controller=EquipmentController}");

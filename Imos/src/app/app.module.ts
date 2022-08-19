@@ -101,6 +101,7 @@ import {MatSelectionList} from '@angular/material/list/selection-list';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
 import {MatListModule} from '@angular/material/list';
 import { ReportingComponent } from './reports/reporting.component';
+import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
 
 
 
@@ -178,6 +179,7 @@ import { ReportingComponent } from './reports/reporting.component';
     AllocateVehicleComponent,
     AddSupplierOrderComponent,
     ReportingComponent,
+    CancelOrderComponent,
   ],
   entryComponents:[ AllocateVehicleComponent],
   imports: [

@@ -98,9 +98,10 @@ export interface  orderline {
   orderId: number,
   date:Date,
   orderNumber:string,
-  deliveries:[],
+  supplierId:number,
+  supplier: string,
   suppliermaterialorders:[],
-  suppliersordersuppliers:[]
+  deliveries:[]
 }
 //suppliermaterial
 export interface suppliermaterial{
@@ -109,6 +110,17 @@ export interface suppliermaterial{
   supplierId: number,
   supplier: string,
   supplierName?: string
+}
+export interface projectemployee{
+  employeeId: number,
+  employee: string,
+  projectId: number,
+  project: string,
+  projectName?:string,
+  name?:string,
+  email?:string,
+  contact?:string
+  attendences:[]
 }
 
 //Vehicle Interface
@@ -644,15 +656,26 @@ UpdateEquipment(id: number, data: any){
     return this.http.get<request[]>(this.Root_URL + '/Request/GetAll')
   }
 
-  // Project Staff 
-  getProjectStaff(): Observable<employee[]> {
-    return this.http.get<employee[]>(this.Root_URL + '/Project/EmployeeStaff')
+  // Project Staff EndPoints
+  //Get All
+  getProjectStaff(): Observable<projectemployee[]> {
+    return this.http.get<projectemployee[]>(this.Root_URL + '/ProjectEmployee/GetAll')
   }
-  addProjectEmployee(val:any){
-    return this.http.post(this.Root_URL + '/ProjectEmployee/Assign',val);
+  // Add project employees
+  addProjectEmployee(payload:any){
+    return this.http.post(this.Root_URL + '/ProjectEmployee/Assign',payload);
   }
+  
+  // update project employees
 
-  addToOrderSupplierCart(order: any) {
-    return this.http.post(this.Root_URL + '/Material/AddSupplierMaterialOrdersCart',order);
+  // remove Or delete employees
+
+  // Supplier Order Http enpoints
+// add OR Post order 
+  addToOrderSupplierCart(payload: any) {
+    return this.http.post(this.Root_URL + '/Order/AddSupplierMaterialOrdersCart',payload);
+  }
+  getSupplierOrders(): Observable<orderline[]> {
+    return this.http.get<orderline[]>(this.Root_URL + '/Order/GetAllSupplierOrders')
   }
 }

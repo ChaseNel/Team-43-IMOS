@@ -54,6 +54,7 @@ export class AddMaterialComponent implements OnInit {
     });
     this.service.getMaterialType().subscribe(data=>{
       this.TypeList=data;
+     
     });
     this.service.getWarehouses().subscribe(data=>{
   this.WarehouseTypes=data;
@@ -65,7 +66,6 @@ this.service.getSupplier().subscribe(data=>{
 
 }
 AddMaterial() {
- 
     if(this.materialFrm.valid){
       let payload:any = {};
       payload['Name'] = this.materialFrm.get('name')?.value;
@@ -105,6 +105,7 @@ AddMaterial() {
   closeAlert() {
     this.alert = false;
   }
+  
   back(){
     this.route.navigateByUrl("material")
   }

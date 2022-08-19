@@ -62,6 +62,7 @@ import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update
 import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
 import { ReportingComponent } from './reports/reporting.component';
+import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
 
 
 const routes: Routes = [
@@ -108,6 +109,7 @@ const routes: Routes = [
   //Supplier Order 
   { path: 'supplierOrder', component: SupplierOrderComponent },
   { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
+  { path: 'CancelOrder/:id', component: CancelOrderComponent },
 
   
   //Vehicle
