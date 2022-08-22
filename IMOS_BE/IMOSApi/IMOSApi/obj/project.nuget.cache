@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "fyxFGAQrOTMWv755ncTta/89C9mFnSg2Jr7X2ljbBfPskSFU7/wamL3vqXrcQwmpHIxzlwgRdObAtXR6oIF8TQ==",
+  "dgSpecHash": "JJrxtxso9IkZZMRx2Q+YiywzXAkOVUBIRF69CFmtxqjIOB/QQH6FEtkS2zgLRJJ6o7xSK/InMQEUZbXp2nc/Lg==",
   "success": true,
-  "projectFilePath": "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+  "projectFilePath": "C:\\Users\\User\\Documents\\GitHub\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\chase\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\chase\\.nuget\\packages\\microsoft.aspnet.identity.core\\2.2.3\\microsoft.aspnet.identity.core.2.2.3.nupkg.sha512",
