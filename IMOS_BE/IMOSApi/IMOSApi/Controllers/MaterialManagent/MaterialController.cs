@@ -45,7 +45,7 @@ namespace IMOSApi.Controllers.MaterialManagent
             return recordInDb;
         }
 
-        [HttpGet("GetMaterials")]//gets materials with supplier name ,material type name.
+       /* [HttpGet("GetMaterials")]//gets materials with supplier name ,material type name.
         public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
         {
             var recordsInDb = _context.Materials
@@ -64,6 +64,16 @@ namespace IMOSApi.Controllers.MaterialManagent
           
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
+
+        }*/
+
+        [HttpGet("GetMaterials")]
+        public IEnumerable<Material> Retrieve()
+        {
+            using (var context = new IMOSContext())
+            {
+                return _context.Materials.ToList();
+            }
         }
 
         // add materials by Supplier Id

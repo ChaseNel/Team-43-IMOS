@@ -61,9 +61,8 @@ export class SupplierTypeComponent implements OnInit {
     }
   }
 
-  UpdateSupplierType(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateSupplierType(id: any) {
+    this.route.navigateByUrl('/UpdateSupplierType/'+id)
   }
 
    closeClick(){

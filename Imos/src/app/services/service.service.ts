@@ -406,14 +406,14 @@ getSupplierById(id:number){
     return this.http.get<suppliertype[]>(this.Root_URL + '/SupplierType/GetAll')
   }
 
-  //add 
-
-
-  //update
+  //By ID 
+  SupplierTypeID(id: number) {
+    return this.http.get(this.Root_URL + '/SupplierType/' + id);
+  }
 
   //Delete
   deleteSupplierType(id: number) {
-    return this.http.delete(this.Root_URL + '/SupplierType/DeleteSuppliertype/' + id);
+    return this.http.delete(this.Root_URL + '/SupplierType/' + id);
   }
   //Add
   addSupplierType(val: any) {
@@ -421,11 +421,8 @@ getSupplierById(id:number){
   }
 
   //Update
-  editSupplierType(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + '/Suppliertype/UpdateSuppliertype/' + id;
-    return this.http.put(endPointUrl, val);
-
+  editSupplierType(id: number, val: any){
+    return this.http.put(this.Root_URL + '/SupplierType/' + id, val);
   }
 
   //Supplier Order
