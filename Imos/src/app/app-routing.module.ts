@@ -1,3 +1,4 @@
+import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
@@ -86,6 +87,9 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
   { path: 'AddEmployee', component: AddEmployeeComponent },
+  //Employee Attendance
+  { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
+
   //Material
   { path: 'material', component: MaterialComponent },
   { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },

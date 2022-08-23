@@ -1,5 +1,5 @@
 import { ServiceService } from './services/service.service';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
@@ -18,6 +18,8 @@ import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
@@ -102,10 +104,15 @@ import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplie
 import {MatListModule} from '@angular/material/list';
 import { ReportingComponent } from './reports/reporting.component';
 import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
+import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
+import { ItemsComponent } from './safty-checklist/items/items.component';
+import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
+import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
 
 
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -180,8 +187,12 @@ import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/can
     AddSupplierOrderComponent,
     ReportingComponent,
     CancelOrderComponent,
+    EmployeeAttendanceComponent,
+    ItemsComponent,
+    AddItemsComponent,
+    UpdateItemsComponent,
   ],
-  entryComponents:[ AllocateVehicleComponent],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -211,7 +222,8 @@ import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/can
 
   ],
   providers: [
-    ServiceService
+    ServiceService,
+    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} }
   ],
   bootstrap: [AppComponent]
 })

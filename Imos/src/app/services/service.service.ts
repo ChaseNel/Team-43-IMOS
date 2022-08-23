@@ -210,7 +210,7 @@ export interface warehouse {
 
 export interface safetyitemcategory {
   id: number,
-  categoryName: string,
+  name: string,
   safetyfileitems: [],
 }
 
@@ -219,6 +219,7 @@ export interface safetyItem {
   name:string,
   safetyitemcategoryId:number,
   safetyitemcategory:string,
+  //CategoryName?:string,
   safetyfilechecklists:[]
 }
 
@@ -592,7 +593,11 @@ UpdateEquipment(id: number, data: any){
   //Delete
 
 
-  // SafetyCategory 
+  // SafetyCategory Enpoints 
+  // get by Id
+  /*getItemsFromCategoryById(id:number){
+    return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/CategoryById/' + id)
+  }*/
   //Get
   getSafetyCategory(): Observable<safetyitemcategory[]> {
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
@@ -607,8 +612,37 @@ UpdateEquipment(id: number, data: any){
    deleteSafetyItemCategory(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyItemCategory/DeleteSafetyItemCategory/' + id);
   }
+  // Safety Item Endpoints 
+  // Get Items  By Category Id
 
-  //SafetyFile 
+  getItemsByCategoryId(id: number):  Observable<safetyItem[]> {
+    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetItemByCategory/' + id)
+  }
+
+  // get By Id 
+  getItemById(id:number): Observable<safetyItem[]> {
+    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetItemById/'+id)
+  }
+
+  // Get All 
+  getSafetcyItem(): Observable<safetyItem[]> {
+    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetAll')
+  }
+  // Add Item 
+  addNewItem(val:any,id:number){
+    return this.http.post(this.Root_URL + '/SafetyItem/AddSafetyItem/'+ id,val)
+}
+// Update Item
+updateItem(val: any,id: number){
+  return this.http.put(this.Root_URL + '/SafetyItem/UpdateItem/' + id, val)
+}
+
+
+  //  Delete Item 
+  deleteItem(id: number) {
+    return this.http.delete(this.Root_URL + '/SafetyItem/RemoveItem/' + id);
+  }
+
   //SafetyChecklist 
   //Get All
   getProjectChecklist(): Observable<safetyItem[]> {

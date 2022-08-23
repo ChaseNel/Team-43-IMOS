@@ -8,10 +8,11 @@ import {  project, safetyItem, safetyitemcategory, ServiceService } from '../ser
 
 // safety checklist class on shared types 
 export interface SafetyItem{
-  safetyfileitemId:number,
+  id:number,
   name:string,
   safetyitemcategoryId:number,
   safetyitemcategory:string,
+ //CategoryName?:string,
   safetyfilechecklists:[]
 }
 

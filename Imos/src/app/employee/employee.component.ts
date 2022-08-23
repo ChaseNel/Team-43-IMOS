@@ -84,6 +84,11 @@ export class EmployeeComponent implements OnInit {
     this.route.navigate(['UpdateEmployee',id])
   }
 
+  EmployeeAttendance(){
+    this.route.navigateByUrl('Employee-Attendance')
+
+  }
+
   ngOnInit(): void {
     this.GetAllEmployees()
   }

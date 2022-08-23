@@ -10,6 +10,7 @@ export interface SafetyItem{
   safetyitemcategory:string,
   safetyfilechecklists:[]
 }
+
 @Component({
   selector: 'app-add-safty-checklist',
   templateUrl: './add-safty-checklist.component.html',
