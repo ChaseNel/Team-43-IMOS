@@ -161,6 +161,7 @@ export interface constructionSite {
 
 //Project Interface
 export interface project {
+  id:number,
   projectId: number,
   name:string,
   constructionsiteId: number,
@@ -206,16 +207,26 @@ export interface warehouse {
   materials: []
 }
 
-// add all project,safetychecklist,checklist Item  category 
+// add all ,safetychecklist,Item  category,Item 
+export interface safetyfilechecklist{
+  projectId:number,
+  safetyfileitemId:number,
+  project:string,
+  safetyfileitem:string,
+  projectName?:string,
+  name?:string
+}
 
 export interface safetyitemcategory {
-  id: number,
+  safetyfileitemId: number,
   name: string,
   safetyfileitems: [],
 }
 
+
+
 export interface safetyItem {
-  safetyfileitemId:number,
+  id:number,
   name:string,
   safetyitemcategoryId:number,
   safetyitemcategory:string,
@@ -645,12 +656,16 @@ updateItem(val: any,id: number){
 
   //SafetyChecklist 
   //Get All
-  getProjectChecklist(): Observable<safetyItem[]> {
-    return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyFileItem/GetProjectChecklist/GetAll')
+  getProjectChecklist(): Observable<safetyfilechecklist[]> {
+    return this.http.get<safetyfilechecklist[]>(this.Root_URL + '/SafetyChecklist/GetAll')
   }
   //getById
 
   //Add
+  addProjectChecklist(payload:any){
+    return this.http.post(this.Root_URL + '/SafetyChecklist/AddChecklist',payload);
+  }
+
   //update
 
   // deleteProjectSafetyChecklist

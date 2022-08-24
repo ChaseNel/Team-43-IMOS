@@ -24,12 +24,12 @@
             <mat-accordion>
                 <mat-expansion-panel class="parentPanel" *ngFor="let type of CategoryTypes" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
                     <mat-expansion-panel-header> 
-                        <mat-panel-title > {{type.id}}</mat-panel-title>
+                        <mat-panel-title > {{type.safetyfileitemId}}</mat-panel-title>
                     </mat-expansion-panel-header>
                     <mat-form-field appearance="fill">
                         <mat-label>Select Safety Item</mat-label>
                         <mat-select formControlName="safetyfileitemId" multiple>
-                         <mat-option *ngFor="let SafetyItems of SafetyItems" [value]="SafetyItems.safetyfileitemId">
+                         <mat-option *ngFor="let SafetyItems of SafetyItems" [value]="SafetyItems.id">
                             {{SafetyItems.name}}
                         </mat-option>
                         </mat-select>
