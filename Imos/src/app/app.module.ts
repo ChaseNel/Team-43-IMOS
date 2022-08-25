@@ -1,3 +1,4 @@
+
 import { AddMaterialRequestComponent } from './project/project-material-request/add-material-request/add-material-request.component';
 import { ServiceService } from './services/service.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
@@ -103,7 +104,7 @@ import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-c
 import { ClientRequestComponent } from './client-request/client-request.component';
 import { AddRequestComponent } from './client-request/add-request/add-request.component';
 import { UpdateRequestComponent } from './client-request/update-request/update-request.component';
-import { ProjectMaterialRequestComponent} from './project/project-material-request/project-material-request.component';
+
 
 import { UpdateMaterialRequestComponent} from './project/project-material-request/update-material-request/update-material-request.component';
 import { ViewMaterialRequestDetailsComponent} from './project/project-material-request/view-material-request-details/view-material-request-details.component';
@@ -113,6 +114,29 @@ import { AddUrgencyLevelComponent } from './project/project-material-request/urg
 import { UpdateUrgencyLevelComponent } from './project/project-material-request/urgency-level/update-urgency-level/update-urgency-level.component';
 import { ReportComponent } from './report/report.component';
 import { MaterialRequestReportViewComponent } from './report/material-request-report-view/material-request-report-view.component';
+import { RequestcountreportComponent } from './report/requestcountreport/requestcountreport.component';
+import { NgChartsModule } from 'ng2-charts';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { Component } from '@angular/core';
+import {UploadVehiclePhotoComponent} from './vehicle/upload-vehicle-photo/upload-vehicle-photo.component';
+
+
+import { ProjectMaterialRequestComponent} from './project/project-material-request/project-material-request.component';
+import { UnassignedVehicleViewComponent } from './vehicle/unassigned-vehicle-view/unassigned-vehicle-view.component';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list';
+
+const materialModules = [
+  MatCardModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatInputModule,
+  MatFormFieldModule,
+  MatProgressBarModule,
+  MatListModule
+];
+
 
 
 @NgModule({
@@ -200,7 +224,10 @@ import { MaterialRequestReportViewComponent } from './report/material-request-re
     AddUrgencyLevelComponent,
     UpdateUrgencyLevelComponent,
     ReportComponent,
-    MaterialRequestReportViewComponent
+    MaterialRequestReportViewComponent,
+    RequestcountreportComponent,
+    UnassignedVehicleViewComponent,
+    UploadVehiclePhotoComponent
   ],
   imports: [
     BrowserModule,
@@ -224,7 +251,13 @@ import { MaterialRequestReportViewComponent } from './report/material-request-re
     CommonModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgChartsModule,
+    FlexLayoutModule,
+    MatTooltipModule,
+    MatProgressBarModule,
+    MatListModule
+
   ],
   providers: [
     ServiceService,

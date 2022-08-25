@@ -1,6 +1,10 @@
 import { ServiceService, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { EventEmitter, Output } from '@angular/core';
+
+
 
 export interface Vehicle {
   vehicleId: number,
@@ -23,7 +27,7 @@ export interface Vehicle {
 export class AddVehicleComponent implements OnInit {
   addForm:FormGroup;
   Vehicletypes:vehicletype[]=[];
-  
+
 
   constructor(
     private fb: FormBuilder,
@@ -32,7 +36,7 @@ export class AddVehicleComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildAddForm();
-  
+
   }
   private buildAddForm()
   {
@@ -42,7 +46,7 @@ export class AddVehicleComponent implements OnInit {
       color: ['', [Validators.required]],
       modelYear: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],
-      lastServiced: ['', [Validators.required]],
+      ImageUrl: ['', [Validators.required]],
       vehicletypeId: ['', [Validators.required]]
     });
     this._service.getVehicleType().subscribe(data=>{
@@ -51,16 +55,20 @@ export class AddVehicleComponent implements OnInit {
 
   }
   AddVehicle(){
+
+
+
+
     if(this.addForm.valid){
       console.log(this.addForm.value);
       this._service.addVehicle(this.addForm.value)
       .subscribe(res=>{
-        
+
       });
     }
   }
 
-Cancel(){ 
+Cancel(){
 
 }
 

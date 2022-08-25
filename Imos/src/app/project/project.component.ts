@@ -9,6 +9,8 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component'
 
+
+
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -16,6 +18,10 @@ import {ProjectMaterialRequestComponent} from './project-material-request/projec
   template:' {{data.id}}',
 })
 export class ProjectComponent implements OnInit {
+
+
+
+
 
   // API Test
   info: project[] = [];

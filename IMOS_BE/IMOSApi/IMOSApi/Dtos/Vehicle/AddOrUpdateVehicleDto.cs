@@ -11,6 +11,8 @@ namespace IMOSApi.Dtos.Vehicle
         [Required]
         public int VehicletypeId { get; set; }
 
+        public int AssignedStatus { get; set; }
+
         [Required]
         public string Make { get; set; }
 
@@ -19,6 +21,7 @@ namespace IMOSApi.Dtos.Vehicle
 
         [Required]
         public DateTime Year { get; set; }
+        public string ImageUrl { get; set; }
         [Required]
         public string Color { get; set; }
         [Required]

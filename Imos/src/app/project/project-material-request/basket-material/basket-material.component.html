@@ -14,20 +14,42 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
   </mat-form-field>
 </form>
 
-<button class="CheckoutBut"  mat-flat-button color="primary" (click)="createMaterialReq()">Checkout</button>
+<button class="CheckoutBut"  mat-flat-button color="primary" (click)="createMaterialReq()">Checkout
+  <mat-icon>shopping_cart</mat-icon>
+</button>
 
-<mat-list *ngIf="basketList != []">
-  <mat-list-item *ngFor="let item of basketList">
-        <h2 matLine> {{item.name}} </h2>
-        <p matLine>
-           <span>{{item.quantity}}</span>
-        </p>
-        <span >
-          <button mat-flat-button color="warn" (click)="deleteItem(item)">Delete</button>
-          <span>
-            <br>
-  <mat-list-item>
-<mat-list>
+
+
+
+  <table  *ngIf="basketList != []"  class="table table-hover .table-responsive">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Material Name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of basketList" >
+        <td><span class="material-symbols-outlined">
+          format_paint
+          </span> </td>
+        <td>{{item.name}}</td>
+
+        <td> {{item.quantity}}</td>
+        <td>
+          &nbsp;
+          <button mat-flat-button color="warn" (click)="deleteItem(item)">Delete
+            <mat-icon>delete_forever</mat-icon>
+          </button>
+
+        </td>
+
+      </tr>
+    </tbody>
+
+  </table>
 
 
 

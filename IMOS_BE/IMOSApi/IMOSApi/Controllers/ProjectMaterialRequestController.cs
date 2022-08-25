@@ -53,7 +53,9 @@ namespace IMOSApi.Controllers
                     ProjectId = item.ProjectId,
                     FulfillmentType = item.Fulfillmenttype,
                     RequestDate = item.RequestDate,
+                    StatusName= item.Projectmaterialrequeststatus.Name,
                     UrgencyLevelName = item.Urgencylevel.Level,
+                    
 
                 }).OrderBy(item => item.RequestDate).ToList();
 
@@ -139,7 +141,7 @@ namespace IMOSApi.Controllers
                 ProjectId = projectid,
                 UrgencylevelId = urgencyLevelId,
                 Fulfillmenttype = 1,
-                ProjectmaterialrequeststatusId = 1,
+                ProjectmaterialrequeststatusId = 3,
 
 
             };

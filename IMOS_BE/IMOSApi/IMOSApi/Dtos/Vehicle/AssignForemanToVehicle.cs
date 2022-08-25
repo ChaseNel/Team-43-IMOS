@@ -7,7 +7,7 @@ namespace IMOSApi.Dtos.Vehicle
 {
     public class AssignForemanToVehicle
     {
-     //   public int VehicleId { get; set; }
+         public int VehicleId { get; set; }
         public int UserId { get; set; }
 
     }

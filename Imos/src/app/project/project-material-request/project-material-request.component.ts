@@ -18,6 +18,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 
+
+
 @Component({
   selector: 'app-project-material-request',
   templateUrl: './project-material-request.component.html',
@@ -27,9 +29,14 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 export class ProjectMaterialRequestComponent implements OnInit {
 
 
+
+
+
+
+
   info: ProjectMaterialRequest[] =[];
 
-  displayedColumns: string[] = ['urgencylevelName','RequestDate', 'fulfillmenttype', 'actions'];
+  displayedColumns: string[] = ['urgencylevelName','RequestDate', 'statusName', 'actions'];
 
   dataSource!: MatTableDataSource<ProjectMaterialRequest>;
 
@@ -40,6 +47,28 @@ export class ProjectMaterialRequestComponent implements OnInit {
   posts: ProjectMaterialRequest[];
 
 
+ /* calendarOptions: CalendarOptions = {
+    plugins: [dayGridPlugin],
+    initialView: 'dayGridMonth',
+    weekends: true,// initial value
+    selectable: true,
+    editable: true,
+
+  };
+
+  toggleWeekends() {
+    // make a copy while overriding some values
+    this.calendarOptions = {
+      ...this.calendarOptions,
+      weekends: !this.calendarOptions.weekends,
+    }
+  }*/
+
+
+
+
+
+
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data:{id:number},
      private route: Router,
@@ -48,6 +77,7 @@ export class ProjectMaterialRequestComponent implements OnInit {
         {
           this.GetMaterialRequestByProject(this.data.id);
           console.log(this.data.id);
+
         }
 
 

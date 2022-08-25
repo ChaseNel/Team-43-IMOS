@@ -5,14 +5,27 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
 
  <!-- Search Field -->
 
- <mat-form-field appearance="standard">
-  <mat-label>Search Table</mat-label>
-  <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
-</mat-form-field>
+ <div class='demo-app-main'>
+<mat-card>
+
+</mat-card>
+</div>
+
+
 
 
 <button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openUrgencyDialog()"> Manage Urgency Levels</button>
 &nbsp;
+<br>
+<br>
+
+
+
+
+<mat-form-field appearance="standard">
+  <mat-label>Search Table</mat-label>
+  <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
+</mat-form-field>
 
 <br>
 
@@ -34,9 +47,9 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
         <td mat-cell *matCellDef="let element"> {{element.requestDate}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="fulfillmenttype">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fulfillment Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.fulfillmentType}} </td>
+    <ng-container matColumnDef="statusName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
   </ng-container>
 
     <!-- Actions -->

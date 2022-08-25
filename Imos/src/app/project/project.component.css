@@ -2,6 +2,10 @@ table {
     width: 100%;
   }
 
+  .calendar{
+    width: 56%;
+  }
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,

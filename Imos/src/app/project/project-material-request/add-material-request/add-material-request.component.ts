@@ -22,6 +22,10 @@ import {BasketMaterialComponent} from '../basket-material/basket-material.compon
   template:' {{data.id}}',
 })
 export class AddMaterialRequestComponent implements OnInit {
+  cols = 4;
+gridColumns = 4;
+
+responsive = true;
 
   materialForm!:FormGroup;
   materiallist!: material[];
@@ -63,6 +67,7 @@ export class AddMaterialRequestComponent implements OnInit {
   }
 
 async BasketAlert(){
+
   this._snackBar.open('materail successfully added to the basket', 'Ok',{
     duration: 3000,
     verticalPosition: 'bottom',
@@ -109,13 +114,14 @@ addToBasket(material: material){
 }
 
     console.log(index)
-    if (material == null){
+    if (material == null ){
       this.basketList.push(basketMaterial);
     }
 
 
 
-    else{
+
+    else {
       material.quantity += basketMaterial.quantity;
       this.basketList[index] = material;
     }

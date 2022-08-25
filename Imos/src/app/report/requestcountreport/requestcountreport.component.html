@@ -1,0 +1,28 @@
+
+<div  id="htmlData" #htmlData >
+<div *ngIf = "chartsLoaded">
+  <div  fxLayout="row wrap" fxLayoutGap="16px grid"  >
+    <div fxFlex="10%" fxFlex.xs="0%" fxFlex.sm="0%"  >
+      <div fxFlex="33.33%" fxFlex.xs="100%" fxFlex.sm="40%" >
+        <canvas baseChart
+        [data] = "requestCountData"
+        [type]="'bar'"
+        [options] = "requestCountOptions"
+        >
+
+        </canvas>
+      </div>
+    </div>
+
+
+  </div>
+
+
+
+</div>
+
+</div>
+
+<br>
+
+<button class="CheckoutBut" (click)="downloadPDF()"  mat-flat-button color="primary"> Download PDF</button>

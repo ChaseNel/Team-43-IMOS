@@ -13,7 +13,8 @@ namespace IMOSApi.Models
             Stocktakes = new HashSet<Stocktake>();
             Tasks = new HashSet<Task>();
             Userincidents = new HashSet<Userincident>();
-            Vehicles = new HashSet<Vehicle>();
+            UserVehicle = new HashSet<UserVehicle>();
+
         }
 
         public int UserId { get; set; }
@@ -28,6 +29,6 @@ namespace IMOSApi.Models
         public virtual ICollection<Stocktake> Stocktakes { get; set; }
         public virtual ICollection<Task> Tasks { get; set; }
         public virtual ICollection<Userincident> Userincidents { get; set; }
-        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<UserVehicle> UserVehicle { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace IMOSApi.Dtos.MaterialRequest
         public string UrgencyLevelName { get; set; }
         public int FulfillmentType { get; set; }
         public string RequestDate { get; set; }
+        public string StatusName { get; set; }
 
         public virtual ICollection<MaterialRequestDetailsDTo> Materials { get; set; }
 

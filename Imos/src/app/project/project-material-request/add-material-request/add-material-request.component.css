@@ -10,8 +10,25 @@
   background-color: rgb(244, 228, 228);
 }
 .cartButton{
-  float: right;
-  margin-top: 5%;
+ float: right;
+ /* margin-top: 5%;*/
+  padding-top: 0;
+    padding-bottom: 0;
+
+}
+
+.card{
+
+  background-color:rgb(255, 255, 255);
+}
+.content {
+  padding: 16px;
+}
+
+
+
+.content > mat-card {
+  margin-bottom: 16px;
 }
 
 
@@ -24,3 +41,20 @@
   width: 200px;
   height: 200px;
 }
+
+.example-card {
+  max-width: 400px;
+  margin-bottom: 8px;
+  max-height: 300px;
+}
+.grid-list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background: #fff;
+  text-decoration: none;
+  padding: 4px;
+  width: calc(100% - 10px);
+
+  }

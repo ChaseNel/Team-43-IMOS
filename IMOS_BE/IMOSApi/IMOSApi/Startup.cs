@@ -79,6 +79,15 @@ namespace IMOSApi
 
             app.UseRouting();
             app.UseAuthorization();
+
+
+            app.UseStaticFiles(
+              new StaticFileOptions()
+              {
+                  FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Uploads")),
+                  RequestPath = new PathString("/Uploads")
+              });
+
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute("equipment", "{controller=EquipmentController}");

@@ -49,6 +49,8 @@ namespace IMOSApi.Models
         public virtual DbSet<Tasktype> Tasktypes { get; set; }
         public virtual DbSet<Urgencylevel> Urgencylevels { get; set; }
         public virtual DbSet<User> Users { get; set; }
+
+        public virtual DbSet<UserVehicle> UserVehicle { get;set;}
         public virtual DbSet<Userincident> Userincidents { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
@@ -862,7 +864,7 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("USERPASSWORD");
 
-                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
+                entity.Property(e => e.UserroleId).HasColumnName("USERROLE");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Users)
@@ -876,6 +878,44 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_USER_IS_ASSIGN_USERROLE");
             });
+
+
+
+            modelBuilder.Entity<UserVehicle>(entity =>
+            {
+                entity.HasKey(e => new { e.User_Id, e.Vehicle_Id });
+
+                entity.ToTable("USERVEHICLE");
+
+                entity.Property(e => e.UserVehicle_Id).HasColumnName("USERVEHICLE_ID");
+
+                entity.HasIndex(e => e.User_Id, "FK_USERVEHICLE_USER");
+
+                entity.HasIndex(e => e.Vehicle_Id, "FK_USERVEHICLE_VEHICLE");
+
+                entity.Property(e => e.User_Id).HasColumnName("USER_ID");
+
+                entity.Property(e => e.Vehicle_Id).HasColumnName("VEHICLE_ID");
+
+                entity.HasOne(d => d.Vehicle)
+                    .WithMany(p => p.UserVehicle)
+                    .HasForeignKey(d => d.Vehicle_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERVEHICLE_VEHICLE");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.UserVehicle)
+                    .HasForeignKey(d => d.User_Id)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERVEHICLE_USER");
+
+
+
+            });
+
+
+
+
 
             modelBuilder.Entity<Userincident>(entity =>
             {
@@ -908,7 +948,7 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("USERROLE");
 
-                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
+                entity.Property(e => e.UserroleId).HasColumnName("Userrole");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
@@ -921,7 +961,6 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("VEHICLE");
 
-                entity.HasIndex(e => e.UserId, "ASSIGN_FK");
 
                 entity.HasIndex(e => e.VehicletypeId, "HAS__FK");
 
@@ -930,32 +969,34 @@ namespace IMOSApi.Models
                 entity.Property(e => e.Color)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("Color"); 
 
-                entity.Property(e => e.DatePurchased).HasColumnType("date");
+                entity.Property(e => e.DatePurchased).HasColumnType("date").HasColumnName("DatePurchased"); 
 
-                entity.Property(e => e.LastServiced).HasColumnType("date");
+                entity.Property(e => e.AssignedStatus).HasColumnName("AssignedStatus");
+
+                entity.Property(e => e.ImageUrl).HasColumnName("ImageUrl");
 
                 entity.Property(e => e.Make)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("Make"); 
 
                 entity.Property(e => e.Model)
                     .IsRequired()
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false)
+                    .HasColumnName("Model"); 
 
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+              
 
                 entity.Property(e => e.VehicletypeId).HasColumnName("VEHICLETYPE_ID");
 
-                entity.Property(e => e.Year).HasColumnType("date");
+                entity.Property(e => e.Year).HasColumnName("Year");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Vehicles)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("FK_VEHICLE_ASSIGN_USER");
+             
 
                 entity.HasOne(d => d.Vehicletype)
                     .WithMany(p => p.Vehicles)

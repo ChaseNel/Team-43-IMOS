@@ -9,6 +9,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MaterialRequestReportViewComponent } from './material-request-report-view/material-request-report-view.component';
+import { RequestcountreportComponent } from './requestcountreport/requestcountreport.component';
 
 
 @Component({
@@ -55,6 +56,22 @@ export class ReportComponent implements OnInit {
          id: e.target.value
        })
    }
+
+   openRequestCountReportViewDialog(): void {
+    const dialogRef = this.dialog.open(RequestcountreportComponent, {
+      width: '80%',
+      height:'90%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+  }
+
+
+
 
 
 

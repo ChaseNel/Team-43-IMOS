@@ -78,6 +78,12 @@ export interface ReportMaterialRequest{
 
 
 
+export interface requestcount{
+  clientName:string;
+  count:number;
+}
+
+
 export interface ProjectMaterialRequest{
 
   materialRequestId: number,
@@ -85,6 +91,9 @@ export interface ProjectMaterialRequest{
   urgencylevelName: string,
   fulfillmenttype: number,
   RequestDate :string,
+  statusName:string;
+
+
 }
 
 //Material Request Interface/incomoplete
@@ -93,6 +102,7 @@ export interface materialRequest {
   projectId: number,
   urgencylevelId: number,
   fulfillmenttype: string,
+  statusName:string,
   project: string,
   urgencylevel: string,
   projectmaterialrequestlists: []
@@ -158,6 +168,8 @@ export interface vehicle {
   year: string,
   color: string,
   status: string,
+  imageUrl: string,
+  AssignedStatus: number,
   DatePurchased: string,
   LastServiced: string,
   vehicletype: string,
@@ -244,6 +256,12 @@ export interface safetyfileitems{
 }
 
 
+export interface UploadFinishedEventArgs {
+  filePath: '' //Comes from server
+}
+
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -267,8 +285,18 @@ export class ServiceService {
     return this.http.post(`${this.Root_URL}/Client/AddClient`, addClient, this.httpOptions)
   }*/
 
+  downloadVehiclePhoto(VehicleId:any) {
+    return this.http.get(
+      this.Root_URL.concat("Uploads/Vehicles/Photos/Download/" + VehicleId),
+      { responseType: 'blob', observe: 'response' }
+    );
+  }
 
-
+  //Add
+  uploadVehiclePhoto(obj: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/Uploads/Vehicles/Upload/', obj
+    , {reportProgress: true, observe: 'events'});
+  }
 
 
   //User
@@ -442,6 +470,19 @@ export class ServiceService {
 
   ManageRequestStatus( data: any) {
     return this.http.put(this.Root_URL + `/ProjectMaterialRequest/ManageMaterialRequestStatus/${data.projectmaterialrequestId}/${data.projectmaterialrequeststatusId}/`,{} );
+  }
+
+
+  getMaterialRequetsCount(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/GetProjectMaterialRequestCount')
+    .pipe(map(result => result))
+  }
+
+
+
+  CompileRequestCountDashboard(): Observable<any>{
+    return this.http.get(`${this.Root_URL}/ProjectMaterialRequestReportsController1/GetProjectMaterialRequestCount`)
+    .pipe(map(result => result))
   }
 
 
@@ -729,5 +770,15 @@ UpdateEquipment(id: number, data: any){
   deleteProjectSafetyChecklist(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyChecklist/' + id);
   }
+
+ //Manage Products
+ addProduct(payload: any) {
+  return this.http.post(this.Root_URL.concat("Products"),
+    payload,
+    { reportProgress: true, observe: 'events' });
+}
+
+
+
 
 }
