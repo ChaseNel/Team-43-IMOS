@@ -27,17 +27,21 @@ export class UpdateEquipmentComponent implements OnInit {
     this.updateForm=this.fb.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      warehouseId: ['', [Validators.required]],
-      quantity: ['', [Validators.required]]
+      id: ['', [Validators.required]],
+      quantity: ['', [Validators.required]],
   }, formOptions);
 
   this.id=+this.route.snapshot.params['id'];
   this._service.getEquipmentById(this.id).subscribe((res:any)=>{
     this.Equipment=res;
     console.log(this.Equipment);
+
     this.updateForm=this.fb.group({
       name:[this.Equipment.name,[Validators.required]],
       description:[this.Equipment.description,[Validators.required]],
+    
+  
+
 
 
     }, formOptions)

@@ -102,6 +102,7 @@ AddMaterial() {
        })
     }
   }
+  
   closeAlert() {
     this.alert = false;
   }

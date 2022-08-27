@@ -1,3 +1,5 @@
+import { AddUploadEmployeeComponent } from './employee/upload-employee/add-upload-employee/add-upload-employee.component';
+import { UploadEmployeeComponent } from './employee/upload-employee/upload-employee.component';
 import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
@@ -62,8 +64,9 @@ import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-rol
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
-import { ReportingComponent } from './reports/reporting.component';
+
 import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
+import { ReportingComponent } from './reporting/reporting.component';
 
 
 const routes: Routes = [
@@ -73,6 +76,10 @@ const routes: Routes = [
   { path: 'header', component: HeaderComponent },
   //Home
   { path: 'home', component: HomeComponent },
+
+  //Reporting
+  { path: 'Allreports', component: ReportingComponent },
+
   //User
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
@@ -89,6 +96,10 @@ const routes: Routes = [
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Employee Attendance
   { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
+
+   //Upload employee
+   { path: 'upload-employee', component: UploadEmployeeComponent },
+   { path: 'AddUploadEmployee', component: AddUploadEmployeeComponent },
 
   //Material
   { path: 'material', component: MaterialComponent },
@@ -170,9 +181,7 @@ const routes: Routes = [
   {path: 'AddSaftyChecklist', component: AddSaftyChecklistComponent },
 
 // reporting 
-{ path: 'report', component: ReportingComponent }
 
-  
 ];
 
 @NgModule({

@@ -14,5 +14,20 @@ namespace IMOSApi.Dtos.Equipment
         public string Description { get; set; }
         [Required]
         public int Quantity { get; set; }
+
+        public List<WarehouseItemDto> Warehouses { get; set; }
+
+        public AddOrUpdateEquipmentDto()
+        {
+           
+            Warehouses = new List<WarehouseItemDto>();
+
+        }
+
+        public class WarehouseItemDto
+        {
+            [Required]
+            public int WarehouseId { get; set; }
+        }
     }
 }

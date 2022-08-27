@@ -55,6 +55,7 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
+
   deleteEmployee(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this employee?')) {
@@ -76,6 +77,7 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
+ 
   addEmployee(){
     this.route.navigateByUrl('AddEmployee')
   }
@@ -88,6 +90,10 @@ export class EmployeeComponent implements OnInit {
     this.route.navigateByUrl('Employee-Attendance')
 
   }
+  uploadEmployee(){
+    this.route.navigateByUrl('upload-employee')
+  }
+
 
   ngOnInit(): void {
     this.GetAllEmployees()

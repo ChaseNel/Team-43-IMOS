@@ -56,7 +56,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpPost("AddEmployee")]
-        public  IActionResult AddEmployee(AddEmployeeDto model )
+        public IActionResult AddEmployee(AddEmployeeDto model)
         {
             var message = "";
             if (!ModelState.IsValid)
@@ -66,7 +66,7 @@ namespace IMOSApi.Controllers
             }
             using (var _dbContext = new IMOSContext())
             {
-              
+
                 var newEmployee = new Employee()
                 {
                     Name = model.Name,
@@ -89,7 +89,7 @@ namespace IMOSApi.Controllers
         }
 
         [HttpPut("UpdateEmployee/{Id}")]
-        public void Update([FromBody] Employee employee,[FromRoute] int Id)
+        public void Update([FromBody] Employee employee, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
@@ -103,8 +103,57 @@ namespace IMOSApi.Controllers
             }
         }
 
+
+
+        [HttpPost("AddMultiple")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public async Task<ActionResult<List<GetEmployeeDto>>> AddMutipleEmployeesInCSV([FromBody] UploadEmployeeInCSVDto model)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var lines = await System.IO.File.ReadAllLinesAsync(@model.FileUrl);
+
+                var employees = new List<AddIndividualEmployeeDto>();
+
+                foreach (var line in lines.Skip(2))
+                {
+                    var rowItems = line.Split(';');//Dont input csv empty rows
+                    if (rowItems[(uint)EmployeeRecordInCSV.Name].Length > 1)
+                    {
+                        var tempEmploye = new AddIndividualEmployeeDto()
+                        {
+                            Name = rowItems[(uint)EmployeeRecordInCSV.Name],
+                            Email = rowItems[(uint)EmployeeRecordInCSV.Email],
+                            ContactNumber = "0" + rowItems[(uint)EmployeeRecordInCSV.ContactNumber]
+                        };
+
+                        employees.Add(tempEmploye);
+
+                        foreach (var employeeDto in employees)
+                        {
+                            var newEmployee = new Employee
+                            {
+                                Name=employeeDto.Name,
+                                Email=employeeDto.Email,
+                                Contactnumber=employeeDto.ContactNumber
+                            };
+                            await _dbContext.Employees.AddAsync(newEmployee);
+                            await _dbContext.SaveChangesAsync();
+
+                        }
+
+                    }
+                }
+            }
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
+        }
+
+
         [HttpDelete("DeleteEmployee/{id}")]
-        public async Task<ActionResult<Employee>>Delete(int id)
+        public async Task<ActionResult<Employee>> Delete(int id)
         {
             var recordInDb = await _dbContext.Employees.FindAsync(id);
             if (recordInDb == null)
@@ -125,5 +174,26 @@ namespace IMOSApi.Controllers
             return Ok();
 
         }
+
+
+        public enum EmployeeRecordInCSV
+        {
+            Name,
+            Email,
+            ContactNumber,
+        }
     }
 }
+
+    
+
+
+
+
+
+
+
+       
+    
+
+

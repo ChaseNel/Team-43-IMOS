@@ -102,12 +102,16 @@ import {MatCheckboxModule} from '@angular/material/checkbox'; //matSelectionList
 import {MatSelectionList} from '@angular/material/list/selection-list';
 import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
 import {MatListModule} from '@angular/material/list';
-import { ReportingComponent } from './reports/reporting.component';
 import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
 import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { ItemsComponent } from './safty-checklist/items/items.component';
 import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
 import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
+import { UploadEmployeeComponent } from './employee/upload-employee/upload-employee.component';
+import { AddUploadEmployeeComponent } from './employee/upload-employee/add-upload-employee/add-upload-employee.component';
+import { ReportingComponent } from './reporting/reporting.component';
+import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplier-report/orders-per-supplier-report.component';
+
 
 
 
@@ -185,12 +189,15 @@ import { UpdateItemsComponent } from './safty-checklist/items/update-items/updat
     VehicleAllocationComponent,
     AllocateVehicleComponent,
     AddSupplierOrderComponent,
-    ReportingComponent,
     CancelOrderComponent,
     EmployeeAttendanceComponent,
     ItemsComponent,
     AddItemsComponent,
     UpdateItemsComponent,
+    UploadEmployeeComponent,
+    AddUploadEmployeeComponent,
+    ReportingComponent,
+    OrdersPerSupplierReportComponent,
   ],
 
   imports: [

@@ -33,6 +33,7 @@ export class EquipmentComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+  
   TypeList:warehouse[]=[];
  
 

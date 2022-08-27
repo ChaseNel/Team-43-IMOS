@@ -72,9 +72,10 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
         }
 
 
+        // UPDATE 
 
 
-
+        //DELETE  NB TO be Inserted into audit log ADD OR DELETE OPERATIONS 
 
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,32 @@ namespace IMOSApi
             });
             #endregion
 
+
+            #region Default Password Settings 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 8;
+                options.Password.RequiredUniqueChars = 1; //Only applies to ASP.NET Core 2.0 or later.
+            });
+            #endregion 
+
+
+
+            #region =========== To avoid the MultiPartBodyLength error When uploading a file ===============
+            //Guide: https://code-maze.com/upload-files-dot-net-core-angular/
+            services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
+            #endregion
+
             services.AddMvc();
             //services.AddMvc(
             //    option => option.EnableEndpointRouting = false);
@@ -70,7 +97,10 @@ namespace IMOSApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
+                app.UseSwagger(c=>
+                {
+                    c.RouteTemplate = "/swagger/{documentName}/swagger.json";
+                });
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IMOSApi v1"));
             }
             app.UseCors();

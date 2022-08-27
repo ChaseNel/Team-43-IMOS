@@ -4,33 +4,17 @@
     href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
 
-<h2 style="margin-left:45% ;">Employees</h2>
+<h2 style="margin-left:45% ;">Manage All Employees </h2>
 
-<button (click)="uploadEmployee()" mat-flat-button color="primary" class="URbtn">Upload Employee </button>
-&nbsp;
-<button (click)="EmployeeAttendance()" mat-flat-button color="primary" class="URbtn">Employee Attendance </button>
-
-
-<br>
-
-<!-- Search Field -->
 <mat-form-field appearance="standard">
     <mat-label>Search Table</mat-label>
     <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
-
-<!-- add [dataSource]="dataSource" when API is connected -->
+<br>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
-
-    <!-- EmployeeID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.employeeId}} </td>
-    </ng-container>
-
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
@@ -44,21 +28,14 @@
         <td mat-cell *matCellDef="let element"> {{element.email}} </td>
     </ng-container>
 
-    <!-- Contact Number Column -->
-    <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contact Number </th>
-        <td mat-cell *matCellDef="let element"> {{element.contactnumber}} </td>
-    </ng-container>
-
-    <!-- Actions -->
     <ng-container matColumnDef="actions">
-
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
             <button (click)="UpdateEmployee(element.employeeId)" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteEmployee(element.employeeId)">Delete</button>
+
         </td>
+
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -72,6 +49,5 @@
     </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of employees"></mat-paginator>
-
-<button (click)="addEmployee()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+<button (click)="AddUploadEmployee()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
 

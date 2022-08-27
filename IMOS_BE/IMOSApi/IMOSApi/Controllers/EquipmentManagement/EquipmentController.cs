@@ -20,6 +20,7 @@ namespace IMOSApi.Controllers.EquipmentManagement
             _context = context;
         }
 
+
         [HttpGet("GetEquipmentById/{id}")]
         public ActionResult<GetGenericDto> GetRecord(int id)
         {
@@ -54,10 +55,16 @@ namespace IMOSApi.Controllers.EquipmentManagement
         }
 
         [HttpPost("AddEquipment")]
-        public IActionResult Add( AddOrUpdateEquipmentDto model )
+        public IActionResult Add(AddOrUpdateEquipmentDto model)
         {
             var message = "";
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                message = "Something went wrong on your side.";
+                return BadRequest(new { message });
+            }
+
+            try
             {
                 var recordInDb = _context.Equipment.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
                 if (recordInDb != null)
@@ -65,26 +72,23 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     message = "Record already exist";
                     return BadRequest(new { message });
                 }
-               
+
                 var newEquipment = new Equipment()
                 {
-                   
                     Name = model.Name,
                     Description = model.Description,
                 };
+
                 _context.Equipment.Add(newEquipment);
                 _context.SaveChanges();
 
-                List<Warehouse> warehouseList = _context.Warehouses.ToList();
-                //warehouseList = _context.Warehouses.ToList();
-                foreach (var item in warehouseList)
+                foreach (var item in model.Warehouses)
                 {
-                    Warehouseequipment warehouseequipment = new Warehouseequipment()
+                    var warehouseequipment = new Warehouseequipment()
                     {
-                        WarehouseId=item.WarehouseId,
+                        WarehouseId = item.WarehouseId,
                         EquipmentId = newEquipment.EquipmentId,
-                        Quantity=model.Quantity,
-                        Warehouse = _context.Warehouses.Where(x => x.WarehouseId ==item.WarehouseId).FirstOrDefault(),
+                        Quantity = model.Quantity
                     };
                     _context.Warehouseequipments.Add(warehouseequipment);
 
@@ -92,9 +96,14 @@ namespace IMOSApi.Controllers.EquipmentManagement
                 _context.SaveChanges();
                 return Ok();
             }
-            message = "Something went wrong on your side.";
-            return BadRequest(new { message });
+
+            catch (Exception e)
+            {
+               
+                throw  ;
+            }
         }
+    
 
         [HttpPut("UpdateEquipment/{id}")]
         public IActionResult Update(GetGenericDto model, int id)

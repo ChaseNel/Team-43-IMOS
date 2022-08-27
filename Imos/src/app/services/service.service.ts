@@ -314,11 +314,27 @@ export class ServiceService {
   getEmployeeById(id:number){
     return this.http.get(this.Root_URL + '/Employee/GetEmployeeById/' + id);
   }
-
   //Get
   getEmployees(): Observable<employee[]> {
     return this.http.get<employee[]>(this.Root_URL + '/Employee')
   }
+  // Get All For  Upload Component 
+  getAllmployees(): Observable<employee[]> {
+    return this.http.get<employee[]>(this.Root_URL + '/Employee')
+  }
+  // CSV 
+  // add employee In CSV
+  addEmployeeInCSV(payload:any) {
+    return this.http.post(this.Root_URL + '/Employee/AddMultiple',payload)
+    
+  }
+
+  //upload employee In CSV
+  uploadEmployeeInCSV(payload: any) {
+    return this.http.post(this.Root_URL + '/Uploads/Employee/Upload',payload)
+     // payload, { reportProgress: true, observe: 'events' };
+  }
+
   //add 
   addEmployee(val: any){
     return this.http.post(this.Root_URL + '/Employee/AddEmployee',val)
@@ -575,8 +591,8 @@ getEquipmentById(id:number){
 
 }
 //add equipment
-addEquipment(val:any){
-  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',val);
+addEquipment(payload:any){
+  return this.http.post(this.Root_URL + '/Equipment/AddEquipment',payload);
 }
 //Update
 UpdateEquipment(id: number, data: any){

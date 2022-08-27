@@ -16,7 +16,7 @@
             <div class="row">
                 <mat-form-field class="fill">
                     <mat-label>Select  Project To Create CheckList For</mat-label>
-                    <mat-select formControlName="id">
+                    <mat-select formControlName="id" multiple="true">
                         <mat-option *ngFor="let type of TypeList" [value]="type.name">
                             {{type.name}}
                         </mat-option>
