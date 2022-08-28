@@ -21,20 +21,32 @@ namespace IMOSApi.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Employee> Get()
+        public ActionResult<GetEmployeeDto> Get()
         {
-            using (var context = new IMOSContext())
+
+            var recordInDb = _dbContext.Employees
+                .Include(item => item.Documents)
+                .Select(item => new GetEmployeeDto()
+                {
+                    EmployeeId = item.EmployeeId,
+                    Name = item.Name,
+                    Email = item.Email,
+                    ContactNumber = item.Contactnumber
+
+                }).OrderBy(item => item.Name).First();
+            if (recordInDb == null)
             {
-                return _dbContext.Employees.ToList();
+                return NotFound();
             }
+            return recordInDb;
+
         }
 
 
         [HttpGet("GetEmployeeById/{id}")]
         public ActionResult<GetEmployeeDto> GetRecord(int id)
         {
-            using (var context = new IMOSContext())
-            {
+           
                 var recordInDb = _dbContext.Employees
                   .Where(item => item.EmployeeId == id)
                   .Include(item => item.Documents)
@@ -51,7 +63,7 @@ namespace IMOSApi.Controllers
                     return NotFound();
                 }
                 return recordInDb;
-            }
+            
         }
 
 
@@ -64,8 +76,6 @@ namespace IMOSApi.Controllers
                 message = "Something went wrong on your side.";
                 return BadRequest(new { message });
             }
-            using (var _dbContext = new IMOSContext())
-            {
 
                 var newEmployee = new Employee()
                 {
@@ -85,10 +95,10 @@ namespace IMOSApi.Controllers
                 _dbContext.Documents.Add(document);
                 _dbContext.SaveChanges();
                 return Ok();
-            }
+            
         }
 
-        [HttpPut("UpdateEmployee/{Id}")]
+      /*  [HttpPut("UpdateEmployee/{Id}")]
         public void Update([FromBody] Employee employee, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
@@ -101,7 +111,7 @@ namespace IMOSApi.Controllers
                 emp = employee;
                 context.SaveChanges();
             }
-        }
+        }*/
 
 
 

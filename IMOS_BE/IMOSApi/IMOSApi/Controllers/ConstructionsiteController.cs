@@ -11,15 +11,11 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ConstructionsiteController : ControllerBase
-    {
-        [HttpGet("GetConstructionsites")]
-        public IEnumerable<Constructionsite> Retrieve()
-        {
-            using (var context = new IMOSContext())
-            {
-                return context.Constructionsites.ToList();
-            }
-        }
+    {  /*
+    
+        private readonly IMOSContext _context;
+
+
         [HttpGet("GetConstructionsite/{id}")]
         public IEnumerable<Constructionsite> Get(int id)
         {
@@ -59,6 +55,6 @@ namespace IMOSApi.Controllers
                 context.Constructionsites.Remove(clie);
                 context.SaveChanges();
             }
-        }
+        }*/
     }
 }

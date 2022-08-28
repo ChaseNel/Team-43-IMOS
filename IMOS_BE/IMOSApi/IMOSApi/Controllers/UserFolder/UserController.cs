@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,12 @@ namespace IMOSApi.Controllers.UserFolder
     public class UserController : ControllerBase
     {
         private readonly IMOSContext _context;
-        public UserController(IMOSContext dbContext)
+
+        private readonly IConfiguration _configuration;
+
+        public UserController(IMOSContext context)
         {
-            _context = dbContext;
+            _context = context;
         }
 
         [HttpGet("GetAll/Users")]
@@ -36,53 +40,21 @@ namespace IMOSApi.Controllers.UserFolder
                     autoAssignedPassword =item.Userpassword,
                     Userrole = item.Userrole.Description,
                     UserroleId = item.UserroleId,
-                    Employee = item.Employee.Name,
+                    Name = item.Employee.Name,
                     EmployeeId=item.EmployeeId
-                }).OrderBy(item => item.Id).ToList();
+                }).OrderBy(item => item.Username).ToList();
             return recordsInDb;
         }
 
-        [HttpPost("")]
-        public IActionResult AddNewUser(AddOrUpdateUserDto model)
-        {
-            var message = "";
-            if (!ModelState.IsValid)
-            {
 
-                var recordInDb = _context.Users.FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
-
-                if (recordInDb != null)
-                {
-                    message = "Record exists in database";
-                    return BadRequest(new { message });
-                }
-                var assignedPassword = UserManagementExtension.GenerateRandomPassword();
-                var newUser = new User()
-                {
-                    Username = model.Username,
-                    UserroleId = model.UserroleId,
-                    EmployeeId = model.EmployeeId,
-                    Userpassword = assignedPassword,// auto  generate 
-                };
-                // add notification extension
-                _context.Add(newUser);
-                     _context.SaveChanges();
-             
-                }
-             message = "Something went wrong on your side.";
-            return BadRequest(new { message });
-
-        }
-
-       /* [HttpPost("Register")]
-        public async Task<ActionResult> Add(AddOrUpdateUserDto model)
+       [HttpPost("Register")]
+        public IActionResult  Add(AddOrUpdateUserDto model)
         {
             var message = "";
             if (ModelState.IsValid)
             {
-                var recordInDb = await _context.Users
-                    .Include(item => item.Employee)
-                    .Where(item => item.UserroleId == model.UserroleId).FirstOrDefaultAsync(item => item.EmployeeId == model.EmployeeId);
+                var recordInDb =  _context.Users.FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
+
                 if (recordInDb != null)
                 {
                     message = "Record exists in database";
@@ -92,18 +64,24 @@ namespace IMOSApi.Controllers.UserFolder
                 var assignedPassword = UserManagementExtension.GenerateRandomPassword();
                 var newUser = new User()
                 {
-                    Username = model.Username,
-                    EmployeeId = model.EmployeeId,
                     UserroleId = model.UserroleId,
+                    EmployeeId=model.EmployeeId,
+                    Username = model.Username,
                     Userpassword = assignedPassword,// auto  generate 
-
+                  
                 };
-                // add notification extension
-                await _context.AddAsync(newUser);
-                await _context.SaveChangesAsync();
+
+                 _context.Users.Add(newUser);
+                 _context.SaveChanges();
+
+                var notificationExtension = new NotificationsExtension(_configuration);
+                notificationExtension.NewUserNotification(newUser.UserId);
             }
-            return Ok();
-        }*/
+
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+        }
+
 
         [HttpPut("UpdateUser")]
         public IActionResult Update(User model, int id)
@@ -116,6 +94,7 @@ namespace IMOSApi.Controllers.UserFolder
                 {
                     return NotFound();
                 }
+
                 recordInDb.EmployeeId = model.EmployeeId;
                 recordInDb.Userrole = model.Userrole;
                 recordInDb.Username = model.Username;

@@ -18,7 +18,7 @@ export interface employee {
 }
 //User Role Interface
 export interface userrole {
-  id: string,
+  userroleId: string,
   description: string,
   users: []
 }
@@ -30,6 +30,7 @@ export interface user {
   username: string,
   userPassword: string,
   employee:string,
+  name?:string,
   userrole:string,
   equipmentchecks: [],
   stocktakes: [],
@@ -271,9 +272,10 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
   //Add
-  registerUser(obj: any): Observable<any> {
-    return this.http.post(this.Root_URL + '/User', obj);
+  registerUser(payload: any): Observable<any> {
+    return this.http.post(this.Root_URL + '/User/Register', payload);
   }
+
   //Update
   updateUser(payload: any, id: number) {
     return this.http.put(this.Root_URL.concat("User/" + "/" + id),

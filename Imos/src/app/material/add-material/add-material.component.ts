@@ -54,6 +54,7 @@ export class AddMaterialComponent implements OnInit {
     });
     this.service.getMaterialType().subscribe(data=>{
       this.TypeList=data;
+      console.log(data)
      
     });
     this.service.getWarehouses().subscribe(data=>{
@@ -95,11 +96,11 @@ AddMaterial() {
       payload['Warehouses'] = listOfWarehouses;
           
      console.log(payload);
-       this.service.addMaterial(payload)
+      /* this.service.addMaterial(payload)
        .subscribe(res=>{
        console.log(res);
        // add validation and WarehouseTypes "are you sure to add supplier notification"
-       })
+       })*/
     }
   }
   

@@ -16,6 +16,7 @@ export interface User {
   username: string,
   userPassword: string,
   employee:string,
+  name?:string,
   userrole:string,
   equipmentchecks: [],
   stocktakes: [],
@@ -37,7 +38,7 @@ export class UserComponent implements OnInit {
 
   data: user[] = [];
 
-  displayedColumns: string[] = ['id', 'userrole', 'employee', 'userName', 'password', 'actions'];
+  displayedColumns: string[] = ['id', 'userrole', 'name', 'userName', 'password', 'actions'];
 
   dataSource!: MatTableDataSource<User>;
 

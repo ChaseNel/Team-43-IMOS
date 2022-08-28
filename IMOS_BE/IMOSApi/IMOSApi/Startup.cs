@@ -50,6 +50,10 @@ namespace IMOSApi
             #endregion
 
 
+
+
+
+
             #region Default Password Settings 
             services.Configure<IdentityOptions>(options =>
             {
@@ -89,6 +93,10 @@ namespace IMOSApi
 
               options.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
             });
+
+            var jwtSection = Configuration.GetSection("JWTSettings");
+            services.Configure<JWTSettings>(jwtSection);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,8 +121,9 @@ namespace IMOSApi
             });
 
             app.UseRouting();
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+           
            
             //app.UseMvc(routes =>
             //{

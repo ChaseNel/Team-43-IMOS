@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -8,13 +9,16 @@ namespace IMOSApi.Models
 {
     public partial class IMOSContext : DbContext
     {
+        private readonly IConfiguration _configuration;
         public IMOSContext()
         {
+          
         }
 
         public IMOSContext(DbContextOptions<IMOSContext> options)
             : base(options)
         {
+          
         }
 
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
