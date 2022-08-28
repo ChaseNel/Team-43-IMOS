@@ -15,5 +15,12 @@ namespace IMOSApi.Dtos.Material
 
         [Required]
         public int MaterialtypeId { get; set; }
+
+        [Required]
+        public int WarehouseId { get; set; }
+
+        [Required]
+        public int Quantity { get; set; }
+
     }
 }

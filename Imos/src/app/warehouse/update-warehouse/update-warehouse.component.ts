@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ServiceService, warehouse } from './../../services/service.service';
+import { Warehouse } from './../add-warehouse/add-warehouse.component';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,51 +11,51 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./update-warehouse.component.css']
 })
 export class UpdateWarehouseComponent implements OnInit {
-
-  Id!: string;
-  Name1: any;
-  Location: any;
-  public warehouseFrm!: FormGroup;
+  Warehouse!:warehouse;
+  updateForm:FormGroup;
   alert: boolean = false;
-  @Input() type: any;
-  
+  id!:number;
 
-
-  constructor(private service: ServiceService, private routed: ActivatedRoute, private route: Router) { }
+  constructor( private fb:FormBuilder, private _service:ServiceService,
+    private route: ActivatedRoute,private router:Router,private http:HttpClient)
+     { 
+      
+     }
 
   ngOnInit(): void {
+    const formOptions: AbstractControlOptions = {};
+    this.updateForm=this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]]
+    }, 
+    formOptions);
 
-    this.warehouseFrm= new FormGroup({
-      Name: new FormControl('', [Validators.required]),
-      Location: new FormControl('', [Validators.required]),
-    })
-
-    this.Id = this.type.suppliertypeId;
-    this.Name1 = this.type.name;
-    this.Location = this.type.location;
-
+    this.id=+this.route.snapshot.params['id'];
+    this._service.getWarehouseById(this.id).subscribe((res:any)=>{
+      this.Warehouse=res;
+      console.log(this.Warehouse);
+      this.updateForm=this.fb.group({
+        name:[this.Warehouse.name,[Validators.required]],
+        description:[this.Warehouse.location,[Validators.required]]
+      },formOptions)
+    });
   }
-
-
-  updateWarehouse(){
-
-    if (confirm('Are you sure you want to update this Warehouse?')){
-    var id = this.type.warehouseId;
-    var val = {Name : this.Name1, Location: this.Location};
-    this.service.editWarehouse(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    this.Name1 = "";
-    this.Location = "";
-    this.alert = true;
+  onSubmit(){
+    this._service.UpdateWarehouse(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
+      res=>{
+      //  console.log(res + "success");
+      })
+      
     }
-  }
+    Update(){
+      console.log(this.updateForm.value)
 
-  closeAlert() {
-    this.alert = false;
-  }
-
-  public hasError = (controlName: string, errorName: string) => {
-    return this.warehouseFrm.controls[controlName].hasError(errorName);
-  }
-
-
+    }
+    back(){
+      
+    }
+    closeAlert() {
+      this.alert = false;
+    }
+  
 }

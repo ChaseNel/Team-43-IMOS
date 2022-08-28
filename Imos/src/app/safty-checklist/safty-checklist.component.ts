@@ -48,9 +48,6 @@ export class SaftyChecklistComponent implements OnInit {
  }
   
 
- UpdateSaftyFile() {
-   this.route.navigateByUrl("updatesaftyChecklist")
- }
 
  addSaftyFile(){
    this.route.navigateByUrl('addsaftyChecklist')
@@ -79,6 +76,9 @@ export class SaftyChecklistComponent implements OnInit {
  }
  ngOnInit(): void {
    this.GetAllSafetyFiles()
+ }
+ safetyChecklistcategory(){
+  this.route.navigateByUrl('safty-checklist-catagory')
  }
 
 }

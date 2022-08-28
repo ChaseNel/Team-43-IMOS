@@ -1,17 +1,12 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Route, Router } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators,FormGroup,FormBuilder, Form } from '@angular/forms';
+import { FormControl, Validators, FormGroup, FormBuilder, Form } from '@angular/forms';
 import { ServiceService, suppliertype } from 'src/app/services/service.service';
-import { FormGroupDirective, NgForm} from '@angular/forms';
-import {ErrorStateMatcher} from '@angular/material/core';
-
-
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control:FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 export interface Supplier {
   supplierId: number,
@@ -22,59 +17,66 @@ export interface Supplier {
   contactnumber: number,
   suppliertype: string,
   supplierorderlines: [],
-  Suppliermaterials:[]
+  Suppliermaterials: []
 }
-
 
 @Component({
   selector: 'app-add-supplier',
-  templateUrl: 
-  './add-supplier.component.html',
+  templateUrl:
+    './add-supplier.component.html',
   styleUrls: ['./add-supplier.component.css']
 })
 
 export class AddSupplierComponent implements OnInit {
 
-  form:FormGroup;
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  
-  matcher = new MyErrorStateMatcher();
+  form: FormGroup;
   Suppliertypes: suppliertype[] = [];
 
-  constructor(private fb: FormBuilder, private _service:ServiceService
- ) { }
+  constructor(
+    private fb: FormBuilder, 
+    private _service: ServiceService, private route: Router, 
+    private _snackbar: MatSnackBar) {
+  }
 
   ngOnInit(): void {
     this.buildAddForm();
   }
-  private buildAddForm(){
-    this.form=this.fb.group({
-      name: ['', [Validators.required]],
-      Address: ['', [Validators.required]],
-      Email: ['', [Validators.required]],
-      ContactNumber: ['', [Validators.required]],
+
+  private buildAddForm() {
+    this.form = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+      Address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(40)]],
+      Email: ['', [Validators.required, Validators.email]],
+      ContactNumber: ['', [Validators.required, Validators.pattern("^((//+91-?)|0)?[0-9]{10}$")]],
       suppliertypeId: ['', [Validators.required]],
-      
 
     });
-    this._service.getSupplierType().subscribe(data =>{
+    this._service.getSupplierType().subscribe(data => {
       this.Suppliertypes = data;
-      //console.log(data);
     });
   }
 
-  AddSupplier(){
-    if(this.form.valid){
-      console.log(this.form.value);
-       this._service.addSupplier(this.form.value)
-       .subscribe(res=>{
-       //console.log(res);
-       // add validation and "are you sure to add supplier notification"
-       })
-    }
+  get formdet(){
+      return this.form.controls;
   }
 
-  Cancel(){
+  AddSupplier() {
+    if (this.form.valid) {
+    console.log(this.form.value);
+    this._service.addSupplier(this.form.value)
+      .subscribe(res => {
+        if (confirm('Are you sure you want to Add this Supplier?')) {
+          this._snackbar.open("Success, you have Add a Supplier!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      })
+    }
+    this.form.reset();
+  }
 
+  back() {
+    this.route.navigateByUrl('supplier')
   }
 }

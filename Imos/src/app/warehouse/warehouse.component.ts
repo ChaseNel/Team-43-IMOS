@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './warehouse.component.html',
   styleUrls: ['./warehouse.component.css']
 })
+
 export class WarehouseComponent implements OnInit {
 
   type: any;
@@ -19,15 +20,13 @@ export class WarehouseComponent implements OnInit {
   // API Test
   data: warehouse[] = [];
 
-  displayedColumns: string[] = ['name', 'location', 'actions'];
+  displayedColumns: string[] = [ 'name', 'location', 'actions'];
 
-  dataSource!: MatTableDataSource<equipment>;
+  dataSource!: MatTableDataSource<warehouse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
-
   posts: any;
-  //typelist: materialType[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllWarehouses();
@@ -55,9 +54,8 @@ export class WarehouseComponent implements OnInit {
     }
   }
 
-  UpdateWarehouse(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateWarehouse(id:number) {
+  this.route.navigate(['updateWarehouse',id])
   }
 
    closeClick(){

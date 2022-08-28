@@ -1,4 +1,4 @@
-import { materialType, constructionSite } from './../../services/service.service';
+import { materialtype, constructionSite } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';

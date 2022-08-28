@@ -41,6 +41,8 @@ export class ProjectComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(this.data);
+      
     })
   }
 
@@ -78,7 +80,7 @@ export class ProjectComponent implements OnInit {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
     this.service.getConstructionSite().subscribe(x => {this.sitelist = x; console.log("Sitelist" , this.sitelist)});
     this.service.getRequeast().subscribe(x => {this.reqlist = x; console.log("reqlist" , this.reqlist)});
-
+    
   }
 
 }

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {  Materialtype, ServiceService } from 'src/app/services/service.service';
+import {  materialtype, ServiceService } from 'src/app/services/service.service';
 
 export interface MaterialType {
   materialtypeId: number,
@@ -20,17 +20,13 @@ export interface MaterialType {
 })
 export class MaterialTypeComponent implements OnInit {
 
-
-  type: any;
-  name: any;
-  description: any;
-  id: any;
+  type:any;
   hide: boolean = false;
 
 // API Test
-data: Materialtype[] = [];
+data: materialtype[] = [];
 
-displayedColumns: string[] = ['id', 'name', 'description', 'actions'];
+displayedColumns: string[] = ['name', 'description', 'actions'];
 
 dataSource!: MatTableDataSource<MaterialType>;
 
@@ -55,7 +51,6 @@ posts: any;
       this.dataSource.sort = this.sort;
     })
   }
-
   applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -83,11 +78,6 @@ posts: any;
       this.dataSource.sort = this.sort;
   })
 } 
-
-
-
-
-
   addMaterialType() {
     this.route.navigateByUrl('/AddMaterialType')
   }

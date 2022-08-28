@@ -7,26 +7,26 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 
-
 export interface Employee {
-  employeeId: number;
-  name: string;
-  email: string;
-  contactnumber: string;
+  EmployeeId: number,
+  documentId: number,
+  name: string,
+  email: string,
+  contactNumber: number,
+  document: string,
+  projectemployees: [],
+  users: [],
 }
-
-
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
 export class EmployeeComponent implements OnInit {
-
   // API Test
   data: employee[] = [];
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
+  displayedColumns: string[] = [ 'name', 'email', 'number', 'actions'];
 
   dataSource!: MatTableDataSource<Employee>;
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -34,15 +34,15 @@ export class EmployeeComponent implements OnInit {
   posts: any;
 
   constructor(private route: Router, private service: ServiceService,
-    private _snackBar:MatSnackBar,
-    public dialog: MatDialog
+    private _snackBar:MatSnackBar,public dialog: MatDialog
     ) {
 
     this.service.getEmployees().subscribe(x => {
       this.data = x;
       console.log(this.data);
-    })
+    });
    }
+   
    GetAllEmployees() {
     this.service.getEmployees().subscribe(x => {
       this.data = x;
@@ -55,16 +55,6 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.sort = this.sort;
     })
   }
-   
-
-  UpdateEmployee() {
-    this.route.navigateByUrl("UpdateEmployee")
-  }
-
-  addEmployee(){
-    this.route.navigateByUrl('AddEmployee')
-  }
- 
   deleteEmployee(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this employee?')) {
@@ -86,8 +76,15 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
+  addEmployee(){
+    this.route.navigateByUrl('AddEmployee')
+  }
+  
+  UpdateEmployee(id:number) {
+    this.route.navigate(['UpdateEmployee',id])
+  }
+
   ngOnInit(): void {
     this.GetAllEmployees()
   }
-
 }

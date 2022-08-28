@@ -1,35 +1,36 @@
+
+<button class="btnBack" mat-raised-button color="warn" routerLink="/warehouse">Back</button>
+
 <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Warehouse Updated Successfully
+    <strong>Success !</strong> Warehouse updated Successfully
     <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
         <mat-icon>close</mat-icon>
     </button>
 </div>
 
-<form [formGroup]="warehouseFrm" class="form-container">
+<form [formGroup]="updateForm" class="form-container" (ngSubmit)="onSubmit()">
     <mat-card>
+
         <mat-card-header>
-            <mat-card-title>Update Warehouse</mat-card-title>
+            <mat-card-title>Add Warehouse</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div class="row">
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Name1' matInput placeholder="Material Type Name" name="Name"
-                        formControlName="Name">
+                    <mat-label>Name</mat-label>
+                    <input matInput  placeholder=" Warehouse Name" #nameInput  formControlName="name">
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Name', 'required')"></mat-error>
 
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Location' matInput placeholder="Warehouse Location" name="Location"
-                        formControlName="Location">
+                    <input matInput placeholder="Location/Address" #nameInput  formControlName="description">
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Location', 'required')"></mat-error>
-
 
                 <mat-card-actions>
-                    <button (click)="updateWarehouse()" mat-raised-button color="primary">Update</button>
+                <button  (click)="Update" mat-raised-button color="primary">Update</button>
+                    <button (click)="back()" mat-raised-button color="warn">back</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>
     </mat-card>
 </form>
-

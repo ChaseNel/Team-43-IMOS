@@ -71,7 +71,7 @@ namespace IMOSApi.Controllers.SupplierManagement
 
         }
 
-        [HttpPost]
+        [HttpPost("CreateSuppliertype")]
         public IActionResult AddSupplierType(AddOrUpdateGenericNameOnlyDto model)
         {
 

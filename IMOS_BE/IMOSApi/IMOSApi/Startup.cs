@@ -1,9 +1,11 @@
 using IMOSApi.Data;
 using IMOSApi.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -46,10 +48,12 @@ namespace IMOSApi
             });
             #endregion
 
-            services.AddMvc(option => option.EnableEndpointRouting = false) ;
+            services.AddMvc();
+            //services.AddMvc(
+            //    option => option.EnableEndpointRouting = false);
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
+          services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
@@ -77,10 +81,10 @@ namespace IMOSApi
             app.UseRouting();
             app.UseAuthorization();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute("equipment", "{contoller = EquipmentController}");
-            });
+            //app.UseMvc(routes =>
+            //{
+            //  //  routes.MapRoute("equipment", "{contoller = EquipmentController}");
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

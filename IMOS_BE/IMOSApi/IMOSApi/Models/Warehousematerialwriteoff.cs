@@ -11,7 +11,6 @@ namespace IMOSApi.Models
         public int MaterialId { get; set; }
         public int WarehouseId { get; set; }
 
-        public virtual Warehousematerial Warehousematerial { get; set; }
         public virtual Writeoff Writeoff { get; set; }
     }
 }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace IMOSApi.Controllers.MaterialManagent
 {
     [Route("api/[controller]")]
-    //[ApiController]
+    [ApiController]
     public class MaterialController : ControllerBase
     {
         private readonly IMOSContext _context;
@@ -26,6 +26,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         {
             var recordInDb = _context.Materials
                 .Include(item => item.Materialtype)
+                .Include(item=>item.Warehouse)
                 .Select(item => new GetMaterialDto()
                 {
                     Id = item.MaterialId,
@@ -33,7 +34,9 @@ namespace IMOSApi.Controllers.MaterialManagent
                     Description = item.Description,
                     Supplier = item.Name,
                     Materialtype = item.Materialtype.Name,
-                    MaterialtypeId = item.MaterialtypeId
+                    MaterialtypeId = item.MaterialtypeId,
+                    Warehouse = item.Warehouse.Name,
+                   // WarehouseId = item.WarehouseId
                 }).First();
             if (recordInDb == null)
             {
@@ -42,32 +45,41 @@ namespace IMOSApi.Controllers.MaterialManagent
             return recordInDb;
         }
 
-        [HttpGet("GetMaterials")]//gets materials with supplier name ,material type name.
+       /* [HttpGet("GetMaterials")]//gets materials with supplier name ,material type name.
         public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
         {
             var recordsInDb = _context.Materials
-                //.Include(item => item.Supplier)
                 .Include(item => item.Materialtype)
+                .Include(item=>item.Warehouse)
+                .Include(item=>item.Suppliermaterials)
                 .Select(item => new GetMaterialDto()
                 {
                     Id = item.MaterialId,
                     Name = item.Name,
                     Description = item.Description,
-
-                    //Supplier = item.Supplier.Name,
-                    //SupplierId = item.SupplierId,
-
                     Materialtype = item.Materialtype.Name,
                     MaterialtypeId = item.MaterialtypeId,
-
+                    Warehouse = item.Warehouse.Name,
+                  //  WarehouseId = item.WarehouseId,
+          
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
+
+        }*/
+
+        [HttpGet("GetMaterials")]
+        public IEnumerable<Material> Retrieve()
+        {
+            using (var context = new IMOSContext())
+            {
+                return _context.Materials.ToList();
+            }
         }
 
         // add materials by Supplier Id
-        //will create/add   in material Table &&  materials  with selected supplier Id in table (SupplierMaterial)
+        //will create/add   in material Table &&  materials  with selected supplier Id in table (SupplierMaterial) with material typeFK & warehouse FK
         [HttpPost("AddMaterial")]
-        public IActionResult AddSupplierMaterial( AddOrUpdateSupplierMaterialDto model,List<int>supplierList)
+        public IActionResult AddSupplierMaterial(AddOrUpdateSupplierMaterialDto model)
         {
             var message = "";
             if (ModelState.IsValid)
@@ -82,18 +94,20 @@ namespace IMOSApi.Controllers.MaterialManagent
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    MaterialtypeId = model.MaterialtypeId
-                   
+                    MaterialtypeId = model.MaterialtypeId,
+                    WarehouseId=model.WarehouseId 
                 };
                 _context.Materials.Add(newMaterial);
                 _context.SaveChanges();
-                foreach(var item in supplierList)
+                List<Supplier> supplierList = _context.Suppliers.ToList();
+                foreach (var item in supplierList)
                 {
                     Suppliermaterial suppliermaterial = new Suppliermaterial()
                     {
-                        SupplierId=item,
+                        SupplierId=item.SupplierId,
                        MaterialId=newMaterial.MaterialId,
-                        Supplier = _context.Suppliers.Where(x => x.SupplierId == item).FirstOrDefault(),  
+                        Quantity = model.Quantity,
+                        Supplier = _context.Suppliers.Where(x => x.SupplierId == item.SupplierId).FirstOrDefault(),  
                     };
                     _context.Suppliermaterials.Add(suppliermaterial);
                 }

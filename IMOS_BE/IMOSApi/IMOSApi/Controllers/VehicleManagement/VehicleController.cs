@@ -46,7 +46,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             return recordInDb;
         }
 
-        [HttpGet("GetAllVehicles")]
+        /*[HttpGet("GetAllVehicles")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetAll()
         {
             var recordsInDb = _context.Vehicles
@@ -67,6 +67,14 @@ namespace IMOSApi.Controllers.VehicleManagement
 
                 }).OrderBy(item => item.Model).ToList();
             return recordsInDb;
+        }*/
+        [HttpGet("GetAllVehicles")]
+        public IEnumerable<Vehicle> Retrieve()
+        {
+            using (var context = new IMOSContext())
+            {
+                return _context.Vehicles.ToList();
+            }
         }
 
         [HttpPost("AddVehicle")]

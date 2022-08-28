@@ -30,9 +30,9 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
+// import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
+// import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
+// import { UserRoleComponent } from './user/user-role/user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
@@ -86,17 +86,13 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+// import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
-import { AddWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/add-warehouse-equipment/add-warehouse-equipment.component';
-import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/update-warehouse-equipment/update-warehouse-equipment.component';
-
+import { ReportsComponent } from './reports/reports.component';
+import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
 
 
 @NgModule({
@@ -115,9 +111,9 @@ import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipme
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
-    AddUserRoleComponent,
-    UpdateUserRoleComponent,
-    UserRoleComponent,
+    // AddUserRoleComponent,
+    // UpdateUserRoleComponent,
+    // UserRoleComponent,
     MaterialComponent,
     SupplierComponent,
     MaterialTypeComponent,
@@ -166,14 +162,10 @@ import { UpdateWarehouseEquipmentComponent } from './warehouse/warehouse-equipme
     SaftyChecklistComponent,
 
     SaftyChecklistCatagoryComponent,
-    SaftyChecklistItemsComponent,
-    AddSaftyChecklistItemsComponent,
-    UpdateSaftyChecklistItemsComponent,
     AddCheckListComponent,
     UpdateCheckListComponent,
-    WarehouseEquipmentComponent,
-    AddWarehouseEquipmentComponent,
-    UpdateWarehouseEquipmentComponent,
+    ReportsComponent,
+    IncidentReportComponent,
   ],
   imports: [
     BrowserModule,

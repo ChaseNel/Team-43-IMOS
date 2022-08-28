@@ -13,6 +13,5 @@ namespace IMOSApi.Models
         public int? Quantity { get; set; }
 
         public virtual Stocktake Stocktake { get; set; }
-        public virtual Warehousematerial Warehousematerial { get; set; }
     }
 }

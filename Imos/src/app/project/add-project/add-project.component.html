@@ -21,7 +21,7 @@
                     <mat-placeholder>Choose a Cosntruction Site</mat-placeholder>
                     <mat-select formArrayName="Site">
                         <mat-option>Clear</mat-option>
-                        <mat-option mat-cell *matCellDef="let element">{{ConstructionSite[element.constructionsiteId-1]?.address}}</mat-option>
+                        <mat-option mat-cell *matCellDef="let element">{{ConstructionSite[element.constructionsiteId-1].address}}</mat-option>
                       </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width">
