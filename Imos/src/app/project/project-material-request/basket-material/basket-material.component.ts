@@ -127,6 +127,7 @@ getBasket(){
    this.dataSource = new MatTableDataSource(this.basketList)
    this.dataSource.paginator = this.paginator;
    this.dataSource.sort = this.sort;
+   console.log(this.basketList)
   }
 
   applyFilter(event: Event) {

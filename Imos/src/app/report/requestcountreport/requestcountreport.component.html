@@ -1,9 +1,14 @@
 
+
+<div  >
+
 <div  id="htmlData" #htmlData >
 <div *ngIf = "chartsLoaded">
-  <div  fxLayout="row wrap" fxLayoutGap="16px grid"  >
-    <div fxFlex="10%" fxFlex.xs="0%" fxFlex.sm="0%"  >
-      <div fxFlex="33.33%" fxFlex.xs="100%" fxFlex.sm="40%" >
+
+
+  <div    >
+    <div  >
+      <div  >
         <canvas baseChart
         [data] = "requestCountData"
         [type]="'bar'"
@@ -16,12 +21,10 @@
 
 
   </div>
-
-
-
+</div>
+</div>
 </div>
 
-</div>
 
 <br>
 

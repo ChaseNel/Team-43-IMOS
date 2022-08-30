@@ -1,4 +1,7 @@
-import { project, ServiceService } from './../services/service.service';
+
+import { map } from 'rxjs/operators';
+
+import { project, ServiceService, ProjectMaterialRequest } from './../services/service.service';
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -9,15 +12,112 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component'
 
+import {
+  ChangeDetectionStrategy,
+
+  TemplateRef,
+} from '@angular/core';
+import {
+  startOfDay,
+  endOfDay,
+  subDays,
+  addDays,
+  endOfMonth,
+  isSameDay,
+  isSameMonth,
+  addHours,
+  startOfMonth,
+  startOfWeek,
+  endOfWeek,
+format,
+
+} from 'date-fns';
+import { Subject, Observable } from 'rxjs';
+import {
+  CalendarEvent,
+  CalendarEventAction,
+  CalendarEventTimesChangedEvent,
+  CalendarView,
+} from 'angular-calendar';
+import { EventColor } from 'calendar-utils';
+import { HttpParams } from '@angular/common/http';
+import { colors } from '../demo-utils/colors';
+
+
+
+
+
+
+
+
+function getTimezoneOffsetString(date: Date): string {
+  const timezoneOffset = date.getTimezoneOffset();
+  const hoursOffset = String(
+    Math.floor(Math.abs(timezoneOffset / 60))
+  ).padStart(2, '0');
+  const minutesOffset = String(Math.abs(timezoneOffset % 60)).padEnd(2, '0');
+  const direction = timezoneOffset > 0 ? '-' : '+';
+
+  return `T00:00:00${direction}${hoursOffset}:${minutesOffset}`;
+}
 
 
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
   styleUrls: ['./project.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      h3 {
+        margin: 0 0 10px;
+      }
+
+      pre {
+        background-color: #f5f5f5;
+        padding: 15px;
+      }
+    `,
+  ],
   template:' {{data.id}}',
 })
 export class ProjectComponent implements OnInit {
+//calendar settings
+  @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
+
+  view: CalendarView = CalendarView.Month;
+
+
+  viewDate: Date = new Date();
+
+  endDate: Date = new Date();
+
+  events$: Observable<CalendarEvent<{requestList:ProjectMaterialRequest}>[]>
+
+  activeDayIsOpen: boolean = false;
+
+
+  refresh = new Subject<void>();
+
+
+
+
+
+
+
+
+
+
+  setView(view: CalendarView) {
+    this.view = view;
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+//calendar settings
+
 
 
 
@@ -43,6 +143,103 @@ export class ProjectComponent implements OnInit {
      private _snackBar: MatSnackBar) {
     this.GetAllProjects();
   }
+
+
+  ngOnInit(): void {
+    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+    this.fetchEvents();
+
+  }
+  fetchEvents(): void
+  {
+    const getStart: any = {
+      month: startOfMonth,
+      week: startOfWeek,
+      day: startOfDay,
+    }[this.view];
+
+    const getEnd: any = {
+      month: endOfMonth,
+      week: endOfWeek,
+      day: endOfDay,
+    }[this.view];
+
+    const params = new HttpParams()
+    .set(
+      'primary_release_date.gte',
+      format(getStart(this.viewDate), 'yyyy-MM-dd')
+    )
+    .set(
+      'primary_release_date.lte',
+      format(getEnd(this.endDate), 'yyyy-MM-dd')
+    )
+    
+    .set('api_key', '0ec33936a68018857d727958dca1424f');
+
+    this.events$ = this.service.getMaterialRequest()
+    .pipe(
+      map(({ results }:{ results: ProjectMaterialRequest[] }) =>{
+        console.log(results)
+
+        return results.map((requestList: ProjectMaterialRequest) =>{
+          return {
+            title : requestList.statusName,
+
+            start: new Date(
+
+              requestList.requestDate + getTimezoneOffsetString(this.viewDate)
+
+            ),
+
+            end: new Date(
+              requestList.statusUpdateDate + getTimezoneOffsetString(this.endDate)
+            ),
+
+            colors:colors.yellow,
+            allDay: true,
+            meta:{
+              requestList,
+            },
+
+          };
+        });
+
+      })
+    );
+  }
+
+
+  dayClicked({
+    date,
+    events
+  }:{
+    date:Date;
+    events: CalendarEvent<{requestList: ProjectMaterialRequest}>[];
+  }): void
+  {
+
+    if(isSameMonth(date,this.viewDate)){
+
+      if(
+        (isSameDay(this.viewDate, date) && this.activeDayIsOpen ===true) ||
+        events.length === 0
+        )
+        {
+          this.activeDayIsOpen = false;
+        }
+        else{
+          this.activeDayIsOpen = true;
+        this.viewDate = date;
+        }
+
+    }
+  }
+
+  eventClicked(event: CalendarEvent<{requestList: ProjectMaterialRequest}>): void{
+
+  }
+
+
 
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(ProjectMaterialRequestComponent, {
@@ -104,9 +301,24 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
 
-  }
+ViewRequests(){
+
+this.service.getMaterialRequest()
+.subscribe(result => {
+
+  result.forEach((element: { results: CalendarEvent<any>; }) => {
+
+    //this.events..push(element.results)
+
+  });
+
+  console.log(this.events$)
+})
+
+}
+
+
+
 
 }

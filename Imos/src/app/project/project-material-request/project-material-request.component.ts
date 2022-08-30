@@ -36,7 +36,7 @@ export class ProjectMaterialRequestComponent implements OnInit {
 
   info: ProjectMaterialRequest[] =[];
 
-  displayedColumns: string[] = ['urgencylevelName','RequestDate', 'statusName', 'actions'];
+  displayedColumns: string[] = ['urgencylevelName','RequestDate', 'statusName','statusUpdateDate', 'actions'];
 
   dataSource!: MatTableDataSource<ProjectMaterialRequest>;
 

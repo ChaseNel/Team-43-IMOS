@@ -83,6 +83,164 @@ namespace IMOSApi.Controllers
             return results;
         }
 
+        [HttpGet]
+        [Route("GetApprovedRequestCount")]
+        public dynamic GetApprovedRequestCount()
+        {
+            var recordInDb = _context.Projectmaterialrequest
+                .Include(item => item.Project)
+                .Include(item => item.Project.Initialrequest.Client)
+                .Where(item => item.ProjectmaterialrequeststatusId ==1)
+                .Select(item => new ProjectRequestDTOcs()
+                {
+                    Project = item.Project.ProjectId,
+                    ProjectmaterialrequestId = item.ProjectmaterialrequestId,
+                    ClientName = item.Project.Initialrequest.Client.Clientname,
+
+                }).OrderBy(x => x.ClientName).ToList();
+
+
+
+            var results = recordInDb.GroupBy(x => x.ClientName)
+                .Select(y => new
+                {
+
+                    ClientName = y.Key,
+                    Count = y.Count()
+                });
+
+            return results;
+        }
+
+        [HttpGet]
+        [Route("MaterialCompositionCount")]
+        public dynamic  MaterialCompositionCount()
+        {
+            var recordInDb = _context.Projectmaterialrequestlist
+               .Include(item => item.Material)
+               .Include(item => item.Projectmaterialrequest)
+               .Where(item => item.Projectmaterialrequest.ProjectmaterialrequeststatusId == 1)
+               .Select(item => new MaterialCompositionDto()
+               {
+         
+                   ProjectmaterialrequestId = item.ProjectmaterialrequestId,
+                   MaterialName = item.Material.Name,
+                   Quantity = item.Quantity,
+
+               }).OrderBy(x => x.MaterialName).ToList();
+
+
+
+            var results = recordInDb.GroupBy(x => x.MaterialName)
+             .Select(y => new
+             {
+
+                 MaterialName = y.Key,
+                 Count = y.Count(),
+                 MaterialTotal = Math.Round((double)y.Sum(p => p.Quantity), 2),
+                 MaterialAverage = Math.Round(y.Average(p => p.Quantity), 2),
+             });
+
+            return results;
+
+        }
+
+
+        [HttpGet]
+        [Route("ApprovalRate")]
+        public dynamic ApprovalRate()
+        {
+
+            var recordInDb = _context.Projectmaterialrequest
+                .Include(item => item.Project)
+                .Include(item => item.Project.Initialrequest.Client)
+                .Where(item => item.ProjectmaterialrequeststatusId == 1).ToList();
+
+            if( recordInDb == null)
+            {
+                return NotFound();
+            }
+
+
+              foreach (var item in recordInDb)
+                {
+
+                TimeSpan ts = item.StatusUpdateDate - item.RequestDate;
+
+                double differenceInHours =  ((long)(ts.TotalMinutes));
+
+                return differenceInHours;
+                }
+
+
+                 //   TimeSpan ts = (item.StatusUpdateDate - item.RequestDate);
+
+                  //  double differenceInHours = ((long)(ts.Minutes));
+
+                 // return differenceInHours;
+         
+            
+
+        return false;
+
+
+        }
+
+
+      [HttpGet]
+        [Route("RequestMaterialControl")]
+        
+        public dynamic RequestMaterialControl()
+        {
+
+            var reportData = _context.Projectmaterialrequestlist
+                .Include(xx => xx.Material)
+                .Include(xx => xx.Projectmaterialrequest)
+                .Where(xx => xx.Projectmaterialrequest.ProjectmaterialrequeststatusId == 1).ToList();
+
+
+            
+                dynamic dynTableData = new ExpandoObject();
+                dynTableData.reportData = null;
+
+                var requests = reportData.GroupBy(item => item.Material.Name);
+                List<dynamic> requestGroups = new List<dynamic>();
+
+
+                foreach (var item in requests)
+                {
+                    dynamic requestList = new ExpandoObject();
+
+                    requestList.MaterialName = item.Key;
+                    requestList.AverageQuantityRequested = Math.Round((double)item.Average(xx => xx.Quantity), 2);
+                      requestList.ToTalQuantity = Math.Round((double)item.Sum(xx => xx.Quantity), 2);
+
+                    List<dynamic> materialRequests = new List<dynamic>();
+
+                    foreach (var request in item)
+                    {
+                        dynamic requestObject = new ExpandoObject();
+                        requestObject.RequestDate = request.Projectmaterialrequest.RequestDate;
+                        requestObject.ApproveDate = request.Projectmaterialrequest.StatusUpdateDate;
+                        requestObject.requestQuantity = request.Quantity;
+
+
+                        materialRequests.Add(requestObject);
+                    }
+
+                    requestList.MaterialRequests = materialRequests;
+                    requestGroups.Add(requestList);
+
+                }
+
+
+                dynTableData.reportData = requestGroups;
+                return dynTableData;
+
+        }
+
+
+
 
     }
 }

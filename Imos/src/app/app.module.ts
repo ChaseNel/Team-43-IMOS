@@ -127,6 +127,12 @@ import { UnassignedVehicleViewComponent } from './vehicle/unassigned-vehicle-vie
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatListModule } from '@angular/material/list';
 
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { ApprovedRequestReportViewComponent } from './report/approved-request-report-view/approved-request-report-view.component';
+import { DemoUtilsModule } from '../app/demo-utils/module';
+
 const materialModules = [
   MatCardModule,
   MatToolbarModule,
@@ -227,7 +233,8 @@ const materialModules = [
     MaterialRequestReportViewComponent,
     RequestcountreportComponent,
     UnassignedVehicleViewComponent,
-    UploadVehiclePhotoComponent
+    UploadVehiclePhotoComponent,
+    ApprovedRequestReportViewComponent
   ],
   imports: [
     BrowserModule,
@@ -256,8 +263,13 @@ const materialModules = [
     FlexLayoutModule,
     MatTooltipModule,
     MatProgressBarModule,
-    MatListModule
-
+    MatListModule,
+    FlatpickrModule.forRoot(),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+    DemoUtilsModule
   ],
   providers: [
     ServiceService,

@@ -25,19 +25,29 @@
     </mat-card>
   </mat-grid-tile>
 
-    <br>
-    <br>
 
   <mat-grid-tile>
     <mat-card class="example-card">
       <mat-card-header>
-          <mat-card-title>Project Material Request Count Report</mat-card-title>
+          <mat-card-title>Project Material <br> Request Count Report</mat-card-title>
 
       </mat-card-header>
 
       <button class="CheckoutBut" (click)="openRequestCountReportViewDialog()"  mat-flat-button color="primary">Generate report</button>
 
   </mat-card>
+</mat-grid-tile>
+
+<mat-grid-tile>
+  <mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>Approved Material<br> Request Count Report</mat-card-title>
+
+    </mat-card-header>
+
+    <button class="CheckoutBut" (click)="openApprovedReportViewDialog()"  mat-flat-button color="primary">Generate report</button>
+
+</mat-card>
 </mat-grid-tile>
 
 </mat-grid-list>

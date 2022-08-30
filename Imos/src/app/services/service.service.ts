@@ -78,10 +78,37 @@ export interface ReportMaterialRequest{
 
 
 
+
+
+
+
+///Report INterface
+
 export interface requestcount{
   clientName:string;
   count:number;
 }
+
+export interface ApprovedRequestCount{
+  clientName:string;
+  count:number;
+}
+
+export interface MaterialComposition{
+  materialName: string;
+  count:number;
+  materialTotal: number;
+  materialAverage: number;
+}
+
+
+
+
+
+
+
+
+
 
 
 export interface ProjectMaterialRequest{
@@ -89,9 +116,9 @@ export interface ProjectMaterialRequest{
   materialRequestId: number,
   projectId: number,
   urgencylevelName: string,
-  fulfillmenttype: number,
-  RequestDate :string,
-  statusName:string;
+  requestDate :string,
+  statusName:string,
+  statusUpdateDate: string,
 
 
 }
@@ -105,7 +132,7 @@ export interface materialRequest {
   statusName:string,
   project: string,
   urgencylevel: string,
-  projectmaterialrequestlists: []
+
 }
 
 export interface UrgencyLevel{
@@ -478,6 +505,27 @@ export class ServiceService {
     .pipe(map(result => result))
   }
 
+  getApprovedRequestCount(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/GetApprovedRequestCount')
+    .pipe(map(result => result))
+  }
+
+  getMaterialCompositonCount(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/MaterialCompositionCount')
+    .pipe(map(result => result))
+  }
+
+  getMaterialRequestControls(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/RequestMaterialControl')
+    .pipe(map(result => result))
+  }
+
+  getMaterialRequest(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequest/GetAllMaterialRequests')
+    .pipe(map(result => result))
+  }
+
+
 
 
   CompileRequestCountDashboard(): Observable<any>{
@@ -494,10 +542,6 @@ export class ServiceService {
 
 
 
-  placeOrder( val: any,projectid: number, urgencyLevelId:number, fulfillment:number) {
-    return this.http.post(this.Root_URL.concat("ProjectMaterialRequest/CreateMaterialRequest/" + val + projectid + urgencyLevelId + fulfillment),
-      { reportProgress: true, observe: 'events' });
-  }
 
 
 

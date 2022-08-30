@@ -52,6 +52,11 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
       <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="statusUpdateDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Satus Update Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.statusUpdateDate}} </td>
+</ng-container>
+
     <!-- Actions -->
     <ng-container matColumnDef="actions">
 

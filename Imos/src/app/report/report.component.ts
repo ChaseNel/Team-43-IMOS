@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {MaterialRequestReportViewComponent } from './material-request-report-view/material-request-report-view.component';
 import { RequestcountreportComponent } from './requestcountreport/requestcountreport.component';
+import {ApprovedRequestReportViewComponent} from './approved-request-report-view/approved-request-report-view.component';
 
 
 @Component({
@@ -69,6 +70,20 @@ export class ReportComponent implements OnInit {
 
     });
   }
+
+  openApprovedReportViewDialog(): void {
+    const dialogRef = this.dialog.open(ApprovedRequestReportViewComponent, {
+      width: '80%',
+      height:'90%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+  }
+
 
 
 

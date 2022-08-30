@@ -471,12 +471,14 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.ProjectmaterialrequestId).HasColumnName("PROJECTMATERIALREQUEST_ID");
 
-                entity.Property(e => e.Fulfillmenttype).HasColumnName("FULFILLMENTTYPE");
+             
                 entity.Property(e => e.RequestDate).HasColumnName("REQUESTDATE");
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
+
+               
 
                 entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("MATERIALREQUESTSTATUS_ID");
 

@@ -1,0 +1,93 @@
+<div id="htmlData" #htmlData fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="50px">
+<br> <br>
+<mat-card fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)"  class="matcard" >
+<div  >
+
+  <div   >
+  <div *ngIf = "chartsLoaded">
+
+
+    <div    >
+      <div  >
+        <div >
+          <canvas baseChart
+          [data] = "ApprovedCountData"
+          [type]="'bar'"
+          [options] = "ApprovedCountOptions"
+          >
+
+          </canvas>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+  </div>
+</mat-card>
+
+  <br>
+
+
+  <mat-card fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" >
+<div  >
+
+  <div >
+  <div *ngIf = "chartsLoaded">
+
+
+    <div    >
+      <div  >
+        <div  >
+          <canvas baseChart
+          [data] = "MaterialCompData"
+          [type]="'pie'"
+          [options] = "MaterialCompOptions"
+          >
+
+          </canvas>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  </div>
+  </div>
+</mat-card>
+
+<br><br><br>
+
+<mat-card  fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)">
+
+<div class="tableContainer">
+<div  class="table table-bordered"  *ngFor="let item of tableData; let j = index;">
+
+  <h1 >Material Name: {{item.MaterialName}}</h1>
+  <h2 >Average Quantity Requested: {{item.AverageQuantityRequested}}</h2>
+  <h2 >Total Quantity Requested: {{item.ToTalQuantity}}</h2>
+
+  <table  id="testing{{j}}" >
+    <tr>
+      <th>Requested Date</th>
+      <th>Approved Date </th>
+      <th>Requested Quantity </th>
+  </tr>
+
+    <tr  *ngFor="let rows of item.MaterialRequests">
+      <th>{{rows.RequestDate}}</th>
+      <th>{{rows.ApproveDate}} </th>
+      <th>{{rows.requestQuantity}}</th>
+  </tr>
+  </table>
+<br> <br>
+</div>
+</div>
+
+</mat-card>
+
+</div>
+<br>
+
+  <button class="CheckoutBut" (click)="downloadPDF()"  mat-flat-button color="primary"> Download PDF</button>

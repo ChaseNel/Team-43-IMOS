@@ -19,11 +19,12 @@ namespace IMOSApi.Models
         public int ProjectmaterialrequestId { get; set; }
         public int ProjectId { get; set; }
         public int UrgencylevelId { get; set; }
-        public int Fulfillmenttype { get; set; }
+
         public int ProjectmaterialrequeststatusId { get; set; }
 
       //  [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime RequestDate { get; set; }
+        public DateTime StatusUpdateDate { get; set; }
 
         public virtual Projectmaterialrequeststatus Projectmaterialrequeststatus { get; set; }
 

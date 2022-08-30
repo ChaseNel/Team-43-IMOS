@@ -35,7 +35,7 @@ namespace IMOSApi.Controllers
                     UrgencyLevelName = item.Urgencylevel.Level,
                     ProjectId = item.ProjectId,
                     RequestDate = item.RequestDate,
-                    FulfillmentType = item.Fulfillmenttype
+                    
 
                 }).OrderBy(item => item.RequestDate).ToList();
             return recordInDb;
@@ -43,7 +43,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpGet("GetRequestBYProject/{Id}")]
-        public ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
+        public  ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
         {
             var recordInDb = _context.Projectmaterialrequest
                 .Where(item => item.ProjectId == Id)
@@ -51,9 +51,10 @@ namespace IMOSApi.Controllers
                 {
                     MaterialRequestId = item.ProjectmaterialrequestId,
                     ProjectId = item.ProjectId,
-                    FulfillmentType = item.Fulfillmenttype,
+                
                     RequestDate = item.RequestDate,
                     StatusName= item.Projectmaterialrequeststatus.Name,
+                    StatusUpdateDate = item.StatusUpdateDate,
                     UrgencyLevelName = item.Urgencylevel.Level,
                     
 
@@ -92,7 +93,7 @@ namespace IMOSApi.Controllers
                 .OrderBy(item => item.RequestDate)
                 .Select(item => new GetMaterialRequestByProjectDTO()
                 {
-                    FulfillmentType = item.Fulfillmenttype,
+                 
                     RequestDate = item.RequestDate.ToString("f"),
                     UrgencyLevelName = item.Urgencylevel.Level,
                     Materials = (ICollection<MaterialRequestDetailsDTo>)item.Projectmaterialrequestlist
@@ -138,9 +139,10 @@ namespace IMOSApi.Controllers
             Projectmaterialrequest requestCreate = new Projectmaterialrequest()
             {
                 RequestDate = DateTime.Now,
+                StatusUpdateDate = DateTime.Now,
                 ProjectId = projectid,
                 UrgencylevelId = urgencyLevelId,
-                Fulfillmenttype = 1,
+           
                 ProjectmaterialrequeststatusId = 3,
 
 
@@ -199,6 +201,7 @@ namespace IMOSApi.Controllers
             {
 
                 recordInDB.ProjectmaterialrequeststatusId = projectmaterialrequeststatusId;
+                recordInDB.StatusUpdateDate = DateTime.Now;
 
                _context.SaveChanges();
 
@@ -354,6 +357,7 @@ namespace IMOSApi.Controllers
                 {
                     Id = item.ProjectmaterialrequeststatusId,
                     Name = item.Name,
+
                 }).ToList();
 
             return recordInDb;
