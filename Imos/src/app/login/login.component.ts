@@ -1,76 +1,57 @@
-import { user } from './../services/service.service';
-import { UnsuccessfulComponent } from './Dialogs/unsuccessful/unsuccessful.component';
-import { PopUpComponent } from './../logout/pop-up/pop-up.component';
+import { HttpClient } from '@angular/common/http';
+import { user } from 'src/app/services/service.service';
+
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormControl, NgForm,FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule,FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
+
 export class LoginComponent implements OnInit {
-  hide = true;
-  loggedIn: boolean | undefined;
+
+  readonly Root_URL = 'https://localhost:5001/api'
+
+  hide:any;
+  showAuthenticationError: boolean = false;
+  authenticationError: string = "";
   data: user[] = [];
 
+  loginForm!:FormGroup; 
+
   constructor(
-    private formBuilder: FormBuilder, 
-    private service: ServiceService, 
-    private route: Router,
-    private diologRef: MatDialog
-    ) { }
-
-  LoginForm = this.formBuilder.group({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required)
-  });
-
-  get loginform() {
-    return this.LoginForm.controls
+    private fb: FormBuilder, private router: Router, private _service: ServiceService
+   /* private _AuthService:AuthService*/ ,private http:HttpClient) 
+    { 
+    
+    }  
+  LogIn(){
+    if(this.loginForm.valid){
+      let payload:any={};
+      payload['UserName'] =this.loginForm.value.username;
+      payload['Password'] =this.loginForm.value.userPassword;
+      console.log(payload)
+      this._service.userLogin(payload).subscribe(res=>{
+        alert("Login Success!!");
+        this.router.navigate(['home']);
+      })
   }
-
-  login() {
-    let userName = "Chase3325";
-    let password = "123456789";
-
-    if (this.LoginForm.controls["username"].value == userName
-     && this.LoginForm.controls["password"].value == password) {
-      this.loggedIn = true
-      console.log('yes');
-      this.route.navigateByUrl("/home");
-    }
-    else if(this.LoginForm.controls["username"].value == userName && this.LoginForm.controls["password"].value !== password)
-    {
-      this.loggedIn = false
-      this.diologRef.open(UnsuccessfulComponent)
-      console.log("wrong p");
-    }
-    else {
-      this.loggedIn = false
-      console.log('No');
-    }
-
-    console.log('Login values are: ', this.LoginForm.value);
-  }
-
-  onLogin(LoginForm: FormGroup) {
-    //console.log(LoginForm.value)
-
-  }
-
-  log(){
-    this.service.getUser().subscribe(x =>{
-      this.data = x;
-      console.log(this.data);
-    });
-  }
+}
 
   ngOnInit(): void {
-
+    this.loginForm=this.fb.group({
+      username: [null, [Validators.required]],
+      userPassword: [null, [Validators.required]]
+    });
+    localStorage.clear();
   }
+  /*
+  DYy9$a2F  */
 
 }

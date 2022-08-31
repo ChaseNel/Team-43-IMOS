@@ -1,30 +1,32 @@
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { employee, ServiceService } from './../services/service.service';
+import { Empdocument, employee, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { UploadsService } from '../services/uploads/uploads.service';
 
-export interface Employee {
-  EmployeeId: number,
-  documentId: number,
+export interface Employee{
+  employeeId: number,
   name: string,
   email: string,
   contactNumber: number,
-  document: string,
   projectemployees: [],
   users: [],
+  documents: [],
 }
+
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
+
 export class EmployeeComponent implements OnInit {
   // API Test
   data: employee[] = [];
+  listOfProccessedDocuments: Empdocument[] = [];
 
   displayedColumns: string[] = [ 'name', 'email', 'number', 'actions'];
 
@@ -34,7 +36,7 @@ export class EmployeeComponent implements OnInit {
   posts: any;
 
   constructor(private route: Router, private service: ServiceService,
-    private _snackBar:MatSnackBar,public dialog: MatDialog
+    private _snackBar:MatSnackBar, private _uploads:UploadsService
     ) {
 
     this.service.getEmployees().subscribe(x => {
@@ -48,9 +50,7 @@ export class EmployeeComponent implements OnInit {
       this.data = x;
       console.log(this.data);
       this.posts = x
-
       this.dataSource = new MatTableDataSource(this.posts)
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
@@ -69,6 +69,7 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+
   applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -86,15 +87,26 @@ export class EmployeeComponent implements OnInit {
     this.route.navigate(['UpdateEmployee',id])
   }
 
+   viewContract(item:Empdocument){
+    this.listOfProccessedDocuments=[];
+    this._uploads.downloadEmployeeDocument(item.documentId).subscribe(res=>{
+      let image = res.body as Blob;
+      let reader = new FileReader();
+      reader.addEventListener("load" ,()=>{
+        item.fileUrl=reader.result;
+        this.listOfProccessedDocuments.push(item);
+      },false);
+      if (image){
+        reader.readAsDataURL(image);
+      }
+    });
+  }
+
   EmployeeAttendance(){
     this.route.navigateByUrl('Employee-Attendance')
 
   }
-  uploadEmployee(){
-    this.route.navigateByUrl('upload-employee')
-  }
-
-
+ 
   ngOnInit(): void {
     this.GetAllEmployees()
   }

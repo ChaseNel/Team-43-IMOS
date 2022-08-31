@@ -27,7 +27,7 @@ namespace IMOSApi.Extensions
         }
 
 
-        public void NewUserNotification (int userId)
+       public void NewUserNotification (int userId)
         {
 
             var context = new IMOSContext();// add /OR pass configuration parameter

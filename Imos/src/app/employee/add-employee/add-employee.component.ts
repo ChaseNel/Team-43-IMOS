@@ -29,7 +29,7 @@ export class AddEmployeeComponent implements OnInit {
    
   ngOnInit(): void {
     this.employeeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
+      Name: new FormControl('', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]),
       Email: new FormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       ContactNumber: new FormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
       FilePath:new FormControl('')
@@ -89,6 +89,7 @@ export class AddEmployeeComponent implements OnInit {
     public hasError = (controlName: string, errorName: string) =>{
       return this.employeeFrm.controls[controlName].hasError(errorName);
   }
+  
   closeAlert() {
     this.alert = false;
   }

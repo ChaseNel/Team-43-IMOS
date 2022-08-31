@@ -21,10 +21,7 @@ import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
-import { PopUpComponent } from './logout/pop-up/pop-up.component';
 import { HomeComponent } from './home/home.component';
-import { SuccessComponent } from './login/Dialogs/success/success.component';
-import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -107,8 +104,6 @@ import { EmployeeAttendanceComponent } from './employee/employee-attendance/empl
 import { ItemsComponent } from './safty-checklist/items/items.component';
 import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
 import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
-import { UploadEmployeeComponent } from './employee/upload-employee/upload-employee.component';
-import { AddUploadEmployeeComponent } from './employee/upload-employee/add-upload-employee/add-upload-employee.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplier-report/orders-per-supplier-report.component';
 
@@ -125,10 +120,7 @@ import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplie
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-    PopUpComponent,
     HomeComponent,
-    SuccessComponent,
-    UnsuccessfulComponent,
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
@@ -194,8 +186,6 @@ import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplie
     ItemsComponent,
     AddItemsComponent,
     UpdateItemsComponent,
-    UploadEmployeeComponent,
-    AddUploadEmployeeComponent,
     ReportingComponent,
     OrdersPerSupplierReportComponent,
   ],

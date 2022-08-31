@@ -1,3 +1,4 @@
+import { FormBuilder } from '@angular/forms';
 import { User } from './../user/user.component';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -5,17 +6,24 @@ import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
-//Employee Interface
+//Employee Interface Documents
 export interface employee {
   employeeId: number,
-  documentId: number,
   name: string,
   email: string,
   contactNumber: number,
-  document: string,
   projectemployees: [],
   users: [],
+  documents: [],
 }
+
+export interface Empdocument{
+  documentId:number,
+  fileUrl:any,
+  employeeId: number,
+  employee:string
+}
+
 //User Role Interface
 export interface userrole {
   userroleId: string,
@@ -257,9 +265,16 @@ export class ServiceService {
     headers: new HttpHeaders({
       contentType: 'application/json'
     })
-  };
+  }; 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient) 
+    {
+
+
+  }
+  // LOGIN USER
+  userLogin(payload:any){
+    return this.http.post(this.Root_URL + '/Account/Login', payload)
   }
 
   //User
@@ -307,10 +322,6 @@ export class ServiceService {
     return this.http.post(this.Root_URL + '/UserRole/AddRole/', val)
   }
 
-
-
-
-
   //Employee Http requests 
   //get By Id
   getEmployeeById(id:number){
@@ -318,12 +329,9 @@ export class ServiceService {
   }
   //Get
   getEmployees(): Observable<employee[]> {
-    return this.http.get<employee[]>(this.Root_URL + '/Employee')
+    return this.http.get<employee[]>(this.Root_URL + '/Employee/GetAll')
   }
-  // Get All For  Upload Component 
-  getAllmployees(): Observable<employee[]> {
-    return this.http.get<employee[]>(this.Root_URL + '/Employee')
-  }
+ 
   // CSV 
   // add employee In CSV
   addEmployeeInCSV(payload:any) {
@@ -343,7 +351,7 @@ export class ServiceService {
   }
   // update employee 
   updateEmployee(id:number,data:any){
-    return this.http.put(this.Root_URL + '/Employee/updateEmployee/'+id,data);
+    return this.http.put(this.Root_URL + '/Employee/UpdateEmployee/'+id,data);
   }
 
   //Delete
@@ -705,9 +713,7 @@ updateItem(val: any,id: number){
   editConstructionSite(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + '/Constructionsite/UpdateConstructionsite/' + id;
-    return this.http.put(endPointUrl, val);
-
-    return this.http.get<materialtype[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
+    return this.http.put(endPointUrl, val)
   }
   //Delete
   deleteConstructionSite(id: number) {

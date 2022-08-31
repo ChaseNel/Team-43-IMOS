@@ -33,8 +33,9 @@ export class AddUserComponent implements OnInit {
     this.addForm = this.fb.group({
       employeeId: ['', [Validators.required]],
       username: ['', [Validators.required]],
-      userroleId: ['', [Validators.required]]
+      id: ['', [Validators.required]]
     })
+
     this._service.getUserRole().subscribe(data=> {
       this.roleList = data;
       console.log(data);
@@ -43,19 +44,19 @@ export class AddUserComponent implements OnInit {
       this.employeeList = data;
     })
   }
+
   addUser(){
         // add validation and "are you sure to add user notification"
     if(this.addForm.valid){
       let payload:any = {};
       payload['EmployeeId'] = this.addForm.get('employeeId')?.value;
       payload['Username'] = this.addForm.get('username')?.value;
-      payload['UserroleId'] = this.addForm.get('userroleId')?.value;
+      payload['UserroleId'] = this.addForm.get('id')?.value;
       console.log(payload);
     this._service.registerUser(payload)
        .subscribe(res=>{
-       console.log(res);
-
-      })
+        console.log(res)
+       })
     }
   }
  

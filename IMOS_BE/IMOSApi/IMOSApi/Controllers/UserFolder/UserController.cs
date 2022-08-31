@@ -1,7 +1,9 @@
 ﻿using IMOSApi.Dtos;
 using IMOSApi.Dtos.User;
 using IMOSApi.Extensions;
+using IMOSApi.Helpers;
 using IMOSApi.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +29,8 @@ namespace IMOSApi.Controllers.UserFolder
             _context = context;
         }
 
+
+       // [Authorize]
         [HttpGet("GetAll/Users")]
         public ActionResult<IEnumerable<GetUserDto>> GetAll()
         {
@@ -65,10 +69,9 @@ namespace IMOSApi.Controllers.UserFolder
                 var newUser = new User()
                 {
                     UserroleId = model.UserroleId,
-                    EmployeeId=model.EmployeeId,
+                    EmployeeId = model.EmployeeId,
                     Username = model.Username,
-                    Userpassword = assignedPassword,// auto  generate 
-                  
+                    Userpassword =EncDscPassword.EncryptPassword(assignedPassword)
                 };
 
                  _context.Users.Add(newUser);

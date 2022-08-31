@@ -1,7 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
 
 #nullable disable
 
@@ -9,25 +8,15 @@ namespace IMOSApi.Models
 {
     public partial class IMOSContext : DbContext
     {
-        private readonly IConfiguration _configuration;
         public IMOSContext()
         {
-          
         }
 
         public IMOSContext(DbContextOptions<IMOSContext> options)
             : base(options)
         {
-          
         }
 
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
-        public virtual DbSet<AspNetRoleClaim> AspNetRoleClaims { get; set; }
-        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
-        public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
-        public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetUserRole> AspNetUserRoles { get; set; }
-        public virtual DbSet<AspNetUserToken> AspNetUserTokens { get; set; }
         public virtual DbSet<Attendence> Attendences { get; set; }
         public virtual DbSet<Client> Clients { get; set; }
         public virtual DbSet<Constructionsite> Constructionsites { get; set; }
@@ -39,6 +28,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Incident> Incidents { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
+        public virtual DbSet<Materialrequeststatus> Materialrequeststatuses { get; set; }
         public virtual DbSet<Materialtype> Materialtypes { get; set; }
         public virtual DbSet<Orderline> Orderlines { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -47,6 +37,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Projectmaterial> Projectmaterials { get; set; }
         public virtual DbSet<Projectmaterialrequest> Projectmaterialrequests { get; set; }
         public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
+        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<SafetyFile> SafetyFiles { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
@@ -65,8 +56,6 @@ namespace IMOSApi.Models
         public virtual DbSet<Userincident> Userincidents { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
-        public virtual DbSet<VehicleCheckIn> VehicleCheckIns { get; set; }
-        public virtual DbSet<VehicleCheckOut> VehicleCheckOuts { get; set; }
         public virtual DbSet<Vehicletype> Vehicletypes { get; set; }
         public virtual DbSet<Warehouse> Warehouses { get; set; }
         public virtual DbSet<Warehouseequipment> Warehouseequipments { get; set; }
@@ -90,93 +79,6 @@ namespace IMOSApi.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
-
-            modelBuilder.Entity<AspNetRole>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedName, "RoleNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedName] IS NOT NULL)");
-
-                entity.Property(e => e.Name).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedName).HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<AspNetRoleClaim>(entity =>
-            {
-                entity.HasIndex(e => e.RoleId, "IX_AspNetRoleClaims_RoleId");
-
-                entity.Property(e => e.RoleId).IsRequired();
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetRoleClaims)
-                    .HasForeignKey(d => d.RoleId);
-            });
-
-            modelBuilder.Entity<AspNetUser>(entity =>
-            {
-                entity.HasIndex(e => e.NormalizedEmail, "EmailIndex");
-
-                entity.HasIndex(e => e.NormalizedUserName, "UserNameIndex")
-                    .IsUnique()
-                    .HasFilter("([NormalizedUserName] IS NOT NULL)");
-
-                entity.Property(e => e.Email).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedEmail).HasMaxLength(256);
-
-                entity.Property(e => e.NormalizedUserName).HasMaxLength(256);
-
-                entity.Property(e => e.UserName).HasMaxLength(256);
-            });
-
-            modelBuilder.Entity<AspNetUserClaim>(entity =>
-            {
-                entity.HasIndex(e => e.UserId, "IX_AspNetUserClaims_UserId");
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserClaims)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserLogin>(entity =>
-            {
-                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
-
-                entity.HasIndex(e => e.UserId, "IX_AspNetUserLogins_UserId");
-
-                entity.Property(e => e.UserId).IsRequired();
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserLogins)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserRole>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.RoleId });
-
-                entity.HasIndex(e => e.RoleId, "IX_AspNetUserRoles_RoleId");
-
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.RoleId);
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserRoles)
-                    .HasForeignKey(d => d.UserId);
-            });
-
-            modelBuilder.Entity<AspNetUserToken>(entity =>
-            {
-                entity.HasKey(e => new { e.UserId, e.LoginProvider, e.Name });
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.AspNetUserTokens)
-                    .HasForeignKey(d => d.UserId);
-            });
 
             modelBuilder.Entity<Attendence>(entity =>
             {
@@ -297,8 +199,6 @@ namespace IMOSApi.Models
                 entity.Property(e => e.DocumentId).HasColumnName("Document_ID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
-
-                entity.Property(e => e.FileUrl).IsRequired();
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Documents)
@@ -431,6 +331,22 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.MaterialtypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
+            });
+
+            modelBuilder.Entity<Materialrequeststatus>(entity =>
+            {
+                entity.HasKey(e => e.MaterialrequestsstatusId);
+
+                entity.ToTable("MATERIALREQUESTSTATUS");
+
+                entity.Property(e => e.MaterialrequestsstatusId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("MATERIALREQUESTSSTATUS_ID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Materialtype>(entity =>
@@ -605,9 +521,19 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.Fulfillmenttype).HasColumnName("FULFILLMENTTYPE");
 
+                entity.Property(e => e.MaterialrequestsstatusId).HasColumnName("MATERIALREQUESTSSTATUS_ID");
+
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
+                entity.Property(e => e.RequestDate).HasColumnType("date");
+
                 entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
+
+                entity.HasOne(d => d.Materialrequestsstatus)
+                    .WithMany(p => p.Projectmaterialrequests)
+                    .HasForeignKey(d => d.MaterialrequestsstatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_PROJECTMATERIALREQUEST_MATERIALREQUESTSTATUS");
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Projectmaterialrequests)
@@ -648,6 +574,31 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.ProjectmaterialrequestId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_APPROVAL_PROJECTM");
+            });
+
+            modelBuilder.Entity<RefreshToken>(entity =>
+            {
+                entity.HasKey(e => e.TokenId);
+
+                entity.ToTable("RefreshToken");
+
+                entity.Property(e => e.TokenId).HasColumnName("Token_Id");
+
+                entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Token)
+                    .IsRequired()
+                    .HasMaxLength(200)
+                    .IsUnicode(false)
+                    .HasColumnName("token");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.RefreshTokens)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_RefreshToken_USER");
             });
 
             modelBuilder.Entity<Request>(entity =>
@@ -1084,32 +1035,6 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.VehicletypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_VEHICLE_HAS__VEHICLET");
-            });
-
-            modelBuilder.Entity<VehicleCheckIn>(entity =>
-            {
-                entity.HasKey(e => e.CheckInId);
-
-                entity.ToTable("VehicleCheckIn");
-
-                entity.Property(e => e.CheckInId).HasColumnName("CheckIn_Id");
-
-                entity.Property(e => e.Date).HasColumnType("date");
-
-                entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
-            });
-
-            modelBuilder.Entity<VehicleCheckOut>(entity =>
-            {
-                entity.HasKey(e => e.CheckOutId);
-
-                entity.ToTable("VehicleCheckOut");
-
-                entity.Property(e => e.CheckOutId).HasColumnName("CheckOut_Id");
-
-                entity.Property(e => e.Date).HasColumnType("date");
-
-                entity.Property(e => e.VehicleId).HasColumnName("Vehicle_Id");
             });
 
             modelBuilder.Entity<Vehicletype>(entity =>

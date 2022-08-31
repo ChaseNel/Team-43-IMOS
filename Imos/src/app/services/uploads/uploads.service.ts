@@ -11,12 +11,12 @@ export class UploadsService {
 
   constructor( private _httpClient:HttpClient,private _router:Router) { }
 
-
   uploadFile(payload:any){
-    
-    return this._httpClient.post(
-      this.endpointBase.concat("Uploads/EmployeeDocuments/Uploads"),
-      payload,
-      { reportProgress: true, observe: 'events' });
+    return this._httpClient.post(this.endpointBase.concat("Uploads/EmployeeDocuments/Uploads"),
+      payload,{ reportProgress: true, observe: 'events' });
+  }
+  downloadEmployeeDocument(documentId:number){
+    return this._httpClient.get(this.endpointBase.concat("Uploads/Enployees/Documents/Download/" + documentId),
+    { responseType: 'blob', observe: 'response' });
   }
 }

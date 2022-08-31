@@ -1,32 +1,35 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { Employee } from './../employee.component';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ServiceService } from 'src/app/services/service.service';
 import { UploadsService } from 'src/app/services/uploads/uploads.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 
+export interface Employee{
+
+}
 @Component({
   selector: 'app-update-employee',
   templateUrl: './update-employee.component.html',
   styleUrls: ['./update-employee.component.css']
 })
 export class UpdateEmployeeComponent implements OnInit {
+  
   Name: any;
   Email:any;
   ContactNumber:any;
   alert: boolean = false;
-  Employee!:Employee;
   updateForm:FormGroup;
   id!:number;
-
   progress: any;
   message: any = "";
   errorMessage: any = "";
+  Employee!:any;
 
 
   constructor(private _service:ServiceService,private _uploadsService:UploadsService,
-    private fb:FormBuilder,private http:HttpClient,private _route:Router,private route: ActivatedRoute) { 
+    private fb:FormBuilder,private http:HttpClient,private _route:Router,private route: ActivatedRoute)
+    { 
 
     }
 
@@ -52,10 +55,13 @@ export class UpdateEmployeeComponent implements OnInit {
     });
   }
   onSubmit(){
+    console.log(this.updateForm.value);
+
     this._service.updateEmployee(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{
-       // console.log(res + "success");
+       console.log(this.updateForm.value);
       });
+
     }
     public uploadFile = (files:any) => {
       this.errorMessage = null;

@@ -1,6 +1,7 @@
 using IMOSApi.Data;
 using IMOSApi.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -14,11 +15,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IMOSApi
@@ -94,9 +97,40 @@ namespace IMOSApi
               options.SwaggerDoc("v1", new OpenApiInfo { Title = "IMOSApi", Version = "v1" });
             });
 
+
+            #region JWT Settings 
+
             var jwtSection = Configuration.GetSection("JWTSettings");
             services.Configure<JWTSettings>(jwtSection);
 
+            var authKey = Configuration.GetValue<string>("JWTSettings:JwtKey");
+
+
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //  ValidIssuer = Configuration["JwtIssuer"],
+                    ValidateIssuerSigningKey=true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authKey)),
+                    ValidIssuer = false.ToString(),
+                    ValidAudience = false.ToString(),
+                  
+                   // ClockSkew = TimeSpan.Zero
+                };
+
+            });
+
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -112,7 +146,7 @@ namespace IMOSApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "IMOSApi v1"));
             }
             app.UseCors();
-            app.UseHttpsRedirection();
+      
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
@@ -120,6 +154,7 @@ namespace IMOSApi
                 RequestPath = new PathString("/Uploads")
             });
 
+            app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();

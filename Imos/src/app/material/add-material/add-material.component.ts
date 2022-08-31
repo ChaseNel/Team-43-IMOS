@@ -96,11 +96,11 @@ AddMaterial() {
       payload['Warehouses'] = listOfWarehouses;
           
      console.log(payload);
-      /* this.service.addMaterial(payload)
+       this.service.addMaterial(payload)
        .subscribe(res=>{
        console.log(res);
        // add validation and WarehouseTypes "are you sure to add supplier notification"
-       })*/
+       })
     }
   }
   

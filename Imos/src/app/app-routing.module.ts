@@ -1,5 +1,4 @@
-import { AddUploadEmployeeComponent } from './employee/upload-employee/add-upload-employee/add-upload-employee.component';
-import { UploadEmployeeComponent } from './employee/upload-employee/upload-employee.component';
+
 import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
@@ -83,6 +82,9 @@ const routes: Routes = [
   //User
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/login' }, 
+
+  
   { path: 'user', component: UserComponent },
   { path: 'addUser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
@@ -98,9 +100,7 @@ const routes: Routes = [
   { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
 
    //Upload employee
-   { path: 'upload-employee', component: UploadEmployeeComponent },
-   { path: 'AddUploadEmployee', component: AddUploadEmployeeComponent },
-
+  
   //Material
   { path: 'material', component: MaterialComponent },
   { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },

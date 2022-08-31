@@ -6,19 +6,15 @@ using System.Threading.Tasks;
 
 namespace IMOSApi.Dtos.Employee
 {
-    public class AddEmployeeDto
+    public class UpdateEmployeeDto
     {
-
-        [Required]
-        public int EmployeeId { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]
         public string ContactNumber { get; set; }
-
+        [Required]
         public string FilePath { get; set; }
-
     }
 }
