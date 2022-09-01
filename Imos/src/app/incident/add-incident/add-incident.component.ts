@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-incident',
@@ -15,28 +16,40 @@ export class AddIncidentComponent implements OnInit {
   public incidentFrm!: FormGroup;
   alert: boolean = false;
 
-  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router) { }
+  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router, private _snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.incidentFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required])
+      Description: new FormControl('', [Validators.required, Validators.maxLength(50),  Validators.pattern("[A-Za-z ]{1,25}")])
     })
   }
 
   addIncident() {
 
-    if (confirm('Are you sure you want to add this Incident?')){
+    if (this.incidentFrm.valid) {
     var val = { Description: this.Description }
-    this.service.addIncident(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
+    this.service.addIncident(val).subscribe(res => {
+      if (confirm('Are you sure you want to Add this Supplier Type?')) {
+        this._snackbar.open("Success, you have Add a Supplier Type!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      else{
+        this._snackbar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+    });
+
     this.Description = '';
     console.log(val);
-    this.alert = true;
+   
     }
   }
 
-  closeAlert() {
-    this.alert = false;
-  }
+  
 
   back(){
     this.route.navigateByUrl("incident")
