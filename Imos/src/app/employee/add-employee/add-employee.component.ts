@@ -84,6 +84,8 @@ export class AddEmployeeComponent implements OnInit {
             }
           });
       }
+
+      // add preview Helpers Method
     }
 
     public hasError = (controlName: string, errorName: string) =>{

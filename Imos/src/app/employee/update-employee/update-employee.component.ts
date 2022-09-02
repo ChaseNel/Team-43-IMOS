@@ -30,6 +30,7 @@ export class UpdateEmployeeComponent implements OnInit {
   constructor(private _service:ServiceService,private _uploadsService:UploadsService,
     private fb:FormBuilder,private http:HttpClient,private _route:Router,private route: ActivatedRoute)
     { 
+      
 
     }
 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import {  project, safetyItem, ServiceService } from '../services/service.service';
 
 export interface Safetyfilechecklist{
+  
   projectId:number,
   safetyfileitemId:number,
   project:string,

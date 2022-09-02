@@ -1,4 +1,5 @@
 ﻿using IMOSApi.Dtos.Authentication;
+using IMOSApi.Helpers;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -36,64 +37,77 @@ namespace IMOSApi.Controllers
         [AllowAnonymous]
         public async Task<ActionResult>Login([FromBody] LogInDto model)
         {
-            var message = "";
-            if(!ModelState.IsValid)
+
+            try
             {
-                message = "Something went wrong on your side. Please try again";
-                return BadRequest(new { message });
+                var message = "";
+                if (!ModelState.IsValid)
+                {
+                    message = "Something went wrong on your side. Please try again";
+                    return BadRequest(new { message });
 
-            }
+                }
 
-            var _user = await _context.Users
-                .Where(u => u.Username == model.Username.ToLower() && u.Userpassword == model.Password).FirstOrDefaultAsync();
+                var password = EncDscPassword.EncryptPassword(model.Password.ToString());
+                var _user = await _context.Users
+                    .Where(u => u.Username == model.Username.ToLower() && u.Userpassword == password).FirstOrDefaultAsync();
 
-            if (_user == null)
-            {
+                if (_user != null)
+                {
+
+                    var token = GenerateToken(_user);
+                    return GenerateToken(_user);
+                }
+
                 return Unauthorized();
-
             }
-
-            var tokenHandler = new JwtSecurityTokenHandler(); // declaring token handler
-            var key = Encoding.UTF8.GetBytes(_jwtsettings.JwtKey);
-            var tokenDescriptor = new SecurityTokenDescriptor()
+            catch (Exception c)
             {
-                Subject = new ClaimsIdentity(
-                    new Claim[]
-                    {
-                        new Claim(ClaimTypes.Name, _user.Username)
-
-                    }),
-                Expires = DateTime.Now.AddMinutes(15),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
-            };
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            string finalToken = tokenHandler.WriteToken(token);
-            return Ok(finalToken);
-
-
-            //sign your token here here..
-            //userWithToken.AccessToken = GenerateAccessToken(user.Username);
-            //return userWithToken;
-
-            //UserWithToken userWithToken = null;
-            //if (user != null)
-            //{
-            //    RefreshToken refreshToken = GenerateRefreshToken();
-            //    user.RefreshTokens.Add(refreshToken);
-            //    await _context.SaveChangesAsync();
-            //    userWithToken = new UserWithToken(user);
-            //    userWithToken.RefreshToken = refreshToken.Token;
-            //}
-
-            //if (userWithToken == null)
-            //{
-            //    return NotFound();
-            //}
+                throw new Exception(c.Message);
+                return null;
+            }
+           
         }
 
 
-        private RefreshToken GenerateRefreshToken()
+        List <Claim> claims = new List<Claim>();
+        private ActionResult GenerateToken(User user)
+        {
+            var  key = "xvbxjkbgvnxcgbxcjkvxcvvAEWaWW* Ra9wre7ERW&*GIRLS * GDERFDFCCVZBCVB";
+            var issuer = "http://localhost:4200/";
+
+            var tokenHandler = new JwtSecurityTokenHandler(); // declaring token handler
+           var Securitykey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
+            var credentials = new SigningCredentials(Securitykey, SecurityAlgorithms.HmacSha256);
+            
+            claims.Add(new Claim("Name", user.Username));
+            claims.Add(new Claim("Role", user.UserroleId.ToString()));
+          // claims.Add(new Claim("DisplayName", user.Userrole.Description));
+            var token = new JwtSecurityToken(
+
+             issuer,
+             issuer,
+            claims,
+             expires: DateTime.Now.AddDays(1),
+             signingCredentials: credentials
+            );
+
+
+            return Created("", new
+            {
+                token = new JwtSecurityTokenHandler().WriteToken(token),
+                expiration = token.ValidTo
+
+            });
+        }
+    
+
+
+
+
+
+
+     /*   private RefreshToken GenerateRefreshToken()
         {
             RefreshToken refreshToken = new RefreshToken();
 
@@ -105,7 +119,7 @@ namespace IMOSApi.Controllers
             }
             refreshToken.ExpiryDate = DateTime.UtcNow.AddMonths(3);
             return refreshToken;
-        }
+        }*/
 
 
         //private string GenerateAccessToken(string username)
@@ -113,7 +127,8 @@ namespace IMOSApi.Controllers
         //    var tokenHandler = new JwtSecurityTokenHandler();
         //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtsettings.JwtKey));
         //    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        //    var claims = new List<Claim>
+        //    var claims = new List<Claim>                Subject = new ClaimsIdentity(
+        
         //    {
         //         new Claim(ClaimTypes.Name,username),
         //           new Claim("CompanyName","Imos Syetem"),
@@ -125,6 +140,7 @@ namespace IMOSApi.Controllers
 
         //             signingCredentials: credentials
         //        );
+
         //}
     }
 }

@@ -42,7 +42,7 @@ export class EquipmentComponent implements OnInit {
    }
 
    GetAllEquipment() {
-    this.service.getEquipment().subscribe(x => {
+    this.service.getEquipments().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x;

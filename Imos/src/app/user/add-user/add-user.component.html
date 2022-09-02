@@ -35,7 +35,7 @@
                 <mat-form-field class="full-width">
                   <mat-label>Select  Role</mat-label>
                   <mat-select formControlName="id">
-                      <mat-option *ngFor="let type of roleList" [value]="type.userroleId">
+                      <mat-option *ngFor="let type of roleList" [value]="type.id">
                           {{type.description}}
                       </mat-option>
                     </mat-select>

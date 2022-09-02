@@ -9,7 +9,6 @@ namespace IMOSApi.Models
     {
         public Employee()
         {
-            Documents = new HashSet<Document>();
             Projectemployees = new HashSet<Projectemployee>();
             Users = new HashSet<User>();
         }
@@ -18,8 +17,8 @@ namespace IMOSApi.Models
         public string Name { get; set; }
         public string Email { get; set; }
         public string Contactnumber { get; set; }
+        public string FileUrl { get; set; }
 
-        public virtual ICollection<Document> Documents { get; set; }
         public virtual ICollection<Projectemployee> Projectemployees { get; set; }
         public virtual ICollection<User> Users { get; set; }
     }

@@ -31,6 +31,7 @@ namespace IMOSApi.Controllers
                     Name = item.Name,
                     Email = item.Email,
                     ContactNumber = item.Contactnumber,
+                    FileUrl=item.FileUrl,
                 }).OrderBy(item => item.Name).ToList();
 
             return recordInDb;
@@ -43,13 +44,13 @@ namespace IMOSApi.Controllers
            
                 var recordInDb = _dbContext.Employees
                   .Where(item => item.EmployeeId == id)
-                  .Include(item => item.Documents)
                   .Select(item => new GetEmployeeDto()
                   {
                       EmployeeId = item.EmployeeId,
                       Name = item.Name,
                       Email = item.Email,
-                      ContactNumber = item.Contactnumber
+                      ContactNumber = item.Contactnumber,
+                      FileUrl=item.FileUrl
 
                   }).OrderBy(item => item.Name).First();
                 if (recordInDb == null)
@@ -75,21 +76,21 @@ namespace IMOSApi.Controllers
                 {
                     Name = model.Name,
                     Email = model.Email,
-                    Contactnumber = model.ContactNumber
-                };
+                    Contactnumber = model.ContactNumber,
+                    FileUrl=model.FilePath
+                }; 
                 _dbContext.Employees.Add(newEmployee);
                 _dbContext.SaveChanges();
 
-                var document = new Document()
+               /* var document = new Document()
                 {
                     EmployeeId = newEmployee.EmployeeId,
                     FileUrl = model.FilePath
-                };
+                };*/
 
-                _dbContext.Documents.Add(document);
-                _dbContext.SaveChanges();
-                return Ok();
-            
+                /// _dbContext.Documents.Add(document);
+            //    _dbContext.SaveChanges();
+              return Ok(); 
         }
 
         [HttpPut("UpdateEmployee/{id}")]
@@ -98,8 +99,7 @@ namespace IMOSApi.Controllers
             var message = "";
             if (ModelState.IsValid)
             {
-                var recordInDb = _dbContext.Employees.
-                    Include(item=>item.Documents).FirstOrDefault(item => item.EmployeeId == id);
+                var recordInDb = _dbContext.Employees.FirstOrDefault(item => item.EmployeeId == id);
 
                 if (recordInDb == null)
                 {
@@ -109,16 +109,17 @@ namespace IMOSApi.Controllers
                 recordInDb.Name = model.Name;
                 recordInDb.Email = model.Email;
                 recordInDb.Contactnumber = model.ContactNumber;
+                recordInDb.FileUrl = model.FilePath;
                 _dbContext.SaveChanges();
 
-                var document = new Document()
+              /*  var document = new Document()
                 {
                     EmployeeId = recordInDb.EmployeeId,
                     FileUrl = model.FilePath
-                };
+                };*/
 
-                _dbContext.Documents.Add(document);
-                _dbContext.SaveChanges();
+               // _dbContext.Documents.Add(document);
+             //   _dbContext.SaveChanges();
                 return Ok();
             }
 
@@ -140,9 +141,6 @@ namespace IMOSApi.Controllers
             _dbContext.Users.RemoveRange(employeeUsers);
             await _dbContext.SaveChangesAsync();
 
-            var employeeDocuments = _dbContext.Documents.Where(item => item.EmployeeId == id);
-            _dbContext.Documents.RemoveRange(employeeDocuments);
-            await _dbContext.SaveChangesAsync();
 
             _dbContext.Employees.Remove(recordInDb);
             await _dbContext.SaveChangesAsync();

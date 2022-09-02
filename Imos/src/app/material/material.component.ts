@@ -31,7 +31,7 @@ export class MaterialComponent implements OnInit {
   // API Test
   data: material[] = [];
 
-  displayedColumns: string[] = ['id', 'type','name', 'description','warehouses','quantity', 'suppliers','actions'];
+  displayedColumns: string[] = ['id', 'type','name', 'description','actions'];
 
   dataSource!: MatTableDataSource<Material>;
 
@@ -77,8 +77,7 @@ export class MaterialComponent implements OnInit {
     this.route.navigateByUrl('/addMaterial')
   }
 
-  deleteMaterial(id: number) {
-    console.log(id);
+  deleteMaterial(id:number) {
     if (confirm('Are you sure you want to delete this Material?')) {
       this.service.deleteMaterial(id).subscribe(res => {
         this.GetAllMaterials();

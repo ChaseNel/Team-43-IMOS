@@ -1,7 +1,7 @@
 import { ServiceService } from './services/service.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -106,6 +106,7 @@ import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.c
 import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
 import { ReportingComponent } from './reporting/reporting.component';
 import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplier-report/orders-per-supplier-report.component';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
 
 
 
@@ -220,7 +221,8 @@ import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplie
   ],
   providers: [
     ServiceService,
-    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} }
+    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

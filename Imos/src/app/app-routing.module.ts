@@ -66,6 +66,7 @@ import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplie
 
 import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
 import { ReportingComponent } from './reporting/reporting.component';
+import { AuthGuard } from './services/auth/auth.guard';
 
 
 const routes: Routes = [
@@ -74,13 +75,12 @@ const routes: Routes = [
   //Header
   { path: 'header', component: HeaderComponent },
   //Home
-  { path: 'home', component: HomeComponent },
+  { path: 'home', component: HomeComponent,canActivate:[AuthGuard] },
 
   //Reporting
   { path: 'Allreports', component: ReportingComponent },
 
-  //User
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent,  },
   { path: 'logout', component: LogoutComponent },
   { path: '', pathMatch: 'full', redirectTo: '/login' }, 
 

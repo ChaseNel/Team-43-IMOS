@@ -53,10 +53,6 @@ namespace IMOSApi
             #endregion
 
 
-
-
-
-
             #region Default Password Settings 
             services.Configure<IdentityOptions>(options =>
             {
@@ -87,7 +83,7 @@ namespace IMOSApi
             //    option => option.EnableEndpointRouting = false);
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
-          services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
+           services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
             services.AddSwaggerGen( /*c => */ options=>
             {
                 options.CustomSchemaIds(type => type.ToString());

@@ -103,12 +103,11 @@ namespace IMOSApi.Controllers
         }
 
 
-        [HttpGet("Enployees/Documents/Download/{id}")]
+        [HttpGet("Employees/Documents/Download/{id}")]
         //[AllowAnonymous] 
         public async Task<IActionResult>DownloadEmployeeDocument(int id)
         {
-            var isEmployeeDocumentInDb = _context.Documents.
-                Include(item => item.Employee).FirstOrDefault(item => item.DocumentId ==id);
+            var isEmployeeDocumentInDb = _context.Employees.FirstOrDefault(item => item.EmployeeId ==id);
             if (isEmployeeDocumentInDb == null)
             {
                 var message = "Error: Employee Document  not found.";

@@ -37,7 +37,6 @@ namespace IMOSApi.Models
         public virtual DbSet<Projectmaterial> Projectmaterials { get; set; }
         public virtual DbSet<Projectmaterialrequest> Projectmaterialrequests { get; set; }
         public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
-        public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<SafetyFile> SafetyFiles { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
@@ -199,12 +198,6 @@ namespace IMOSApi.Models
                 entity.Property(e => e.DocumentId).HasColumnName("Document_ID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("Employee_ID");
-
-                entity.HasOne(d => d.Employee)
-                    .WithMany(p => p.Documents)
-                    .HasForeignKey(d => d.EmployeeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__Documnt__Employe__634EBE90");
             });
 
             modelBuilder.Entity<Employee>(entity =>
@@ -214,16 +207,19 @@ namespace IMOSApi.Models
                 entity.Property(e => e.EmployeeId).HasColumnName("EMPLOYEE_ID");
 
                 entity.Property(e => e.Contactnumber)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("CONTACTNUMBER");
 
                 entity.Property(e => e.Email)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("EMAIL");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("NAME");
@@ -519,13 +515,13 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.ProjectmaterialrequestId).HasColumnName("PROJECTMATERIALREQUEST_ID");
 
-                entity.Property(e => e.Fulfillmenttype).HasColumnName("FULFILLMENTTYPE");
-
                 entity.Property(e => e.MaterialrequestsstatusId).HasColumnName("MATERIALREQUESTSSTATUS_ID");
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.RequestDate).HasColumnType("date");
+
+                entity.Property(e => e.StatusUpdateDate).HasColumnType("date");
 
                 entity.Property(e => e.UrgencylevelId).HasColumnName("URGENCYLEVEL_ID");
 
@@ -574,31 +570,6 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.ProjectmaterialrequestId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_APPROVAL_PROJECTM");
-            });
-
-            modelBuilder.Entity<RefreshToken>(entity =>
-            {
-                entity.HasKey(e => e.TokenId);
-
-                entity.ToTable("RefreshToken");
-
-                entity.Property(e => e.TokenId).HasColumnName("Token_Id");
-
-                entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
-
-                entity.Property(e => e.Token)
-                    .IsRequired()
-                    .HasMaxLength(200)
-                    .IsUnicode(false)
-                    .HasColumnName("token");
-
-                entity.Property(e => e.UserId).HasColumnName("USER_ID");
-
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.RefreshTokens)
-                    .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_RefreshToken_USER");
             });
 
             modelBuilder.Entity<Request>(entity =>
@@ -917,9 +888,7 @@ namespace IMOSApi.Models
 
                 entity.HasIndex(e => e.EmployeeId, "IS_FK");
 
-                entity.Property(e => e.UserId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("USER_ID");
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
 
                 entity.Property(e => e.EmployeeId).HasColumnName("EMPLOYEE_ID");
 
@@ -1006,6 +975,8 @@ namespace IMOSApi.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.DatePurchased).HasColumnType("date");
+
+                entity.Property(e => e.ImageUrl).HasMaxLength(50);
 
                 entity.Property(e => e.LastServiced).HasColumnType("date");
 

@@ -21,7 +21,6 @@ namespace IMOSApi.Dtos.Equipment
         {
            
             Warehouses = new List<WarehouseItemDto>();
-
         }
 
         public class WarehouseItemDto
@@ -29,5 +28,6 @@ namespace IMOSApi.Dtos.Equipment
             [Required]
             public int WarehouseId { get; set; }
         }
+
     }
 }

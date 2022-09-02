@@ -45,6 +45,7 @@ namespace IMOSApi.Controllers.UserFolder
                     Userrole = item.Userrole.Description,
                     UserroleId = item.UserroleId,
                     Name = item.Employee.Name,
+                    Email=item.Employee.Email,
                     EmployeeId=item.EmployeeId
                 }).OrderBy(item => item.Username).ToList();
             return recordsInDb;
@@ -76,13 +77,12 @@ namespace IMOSApi.Controllers.UserFolder
 
                  _context.Users.Add(newUser);
                  _context.SaveChanges();
+            
 
-                var notificationExtension = new NotificationsExtension(_configuration);
-                notificationExtension.NewUserNotification(newUser.UserId);
+              //  var notificationExtension = new NotificationsExtension(_configuration);
+               // notificationExtension.NewUserNotification(newUser.UserId);
             }
-
-            message = "Something went wrong on your side.";
-            return BadRequest(new { message });
+            return Ok();
         }
 
 

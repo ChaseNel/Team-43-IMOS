@@ -10,7 +10,5 @@ namespace IMOSApi.Models
         public int DocumentId { get; set; }
         public string FileUrl { get; set; }
         public int EmployeeId { get; set; }
-
-        public virtual Employee Employee { get; set; }
     }
 }

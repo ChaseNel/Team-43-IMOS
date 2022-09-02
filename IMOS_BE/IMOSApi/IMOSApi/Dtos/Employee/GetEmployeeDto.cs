@@ -10,6 +10,7 @@ namespace IMOSApi.Dtos.Employee
         public int EmployeeId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
+        public string FileUrl { get; set; }
         public string ContactNumber { get; set; }
     }
 }

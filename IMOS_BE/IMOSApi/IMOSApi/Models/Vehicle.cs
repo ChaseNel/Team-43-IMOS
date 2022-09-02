@@ -17,6 +17,7 @@ namespace IMOSApi.Models
         public DateTime DatePurchased { get; set; }
         public DateTime LastServiced { get; set; }
         public bool VehicleStatus { get; set; }
+        public string ImageUrl { get; set; }
 
         public virtual User User { get; set; }
         public virtual Vehicletype Vehicletype { get; set; }

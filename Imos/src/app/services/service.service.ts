@@ -11,6 +11,7 @@ export interface employee {
   employeeId: number,
   name: string,
   email: string,
+  FileUrl: any,
   contactNumber: number,
   projectemployees: [],
   users: [],
@@ -26,7 +27,7 @@ export interface Empdocument{
 
 //User Role Interface
 export interface userrole {
-  userroleId: string,
+  id: string,
   description: string,
   users: []
 }
@@ -49,6 +50,7 @@ export interface user {
 
 //Material Interface
 export interface material {
+  id:number,
   materialId: number,
   materialtypeId: number,
   name: string,
@@ -249,7 +251,8 @@ export interface equipment {
   name: string,
   description: string,
   projectequipments: [],
-  warehouseequipments: []
+  warehouseequipments: [],
+  quantity?:number
 }
 
 @Injectable({
@@ -360,7 +363,12 @@ export class ServiceService {
   }
 
   //Material Http requests 
-  //getById
+  //get Material By Id
+  getMaterialById(id:number){
+    return this.http.get(this.Root_URL + '/Material/MaterialsById/' + id);
+  }
+
+
 //Get
   getSupplierMaterial(id: number): Observable<material[]> {
   return this.http.get<material[]>(this.Root_URL + '/Material/GetSupplierMaterial/'+ id)
@@ -592,7 +600,7 @@ getSupplierById(id:number){
 
   //Equipment
   //Get
-  getEquipment(): Observable<equipment[]> {
+  getEquipments(): Observable<equipment[]> {
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
   //get by Id

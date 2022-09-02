@@ -26,7 +26,7 @@ export interface Employee{
 export class EmployeeComponent implements OnInit {
   // API Test
   data: employee[] = [];
-  listOfProccessedDocuments: Empdocument[] = [];
+  listOfProccessedEmployees: employee[] = [];
 
   displayedColumns: string[] = [ 'name', 'email', 'number', 'actions'];
 
@@ -87,14 +87,14 @@ export class EmployeeComponent implements OnInit {
     this.route.navigate(['UpdateEmployee',id])
   }
 
-   viewContract(item:Empdocument){
-    this.listOfProccessedDocuments=[];
-    this._uploads.downloadEmployeeDocument(item.documentId).subscribe(res=>{
+   viewContract(item:employee){
+    this.listOfProccessedEmployees=[];
+    this._uploads.downloadEmployeeDocument(item.employeeId).subscribe(res=>{
       let image = res.body as Blob;
       let reader = new FileReader();
       reader.addEventListener("load" ,()=>{
-        item.fileUrl=reader.result;
-        this.listOfProccessedDocuments.push(item);
+      item.FileUrl=reader.result;
+        this.listOfProccessedEmployees.push(item);
       },false);
       if (image){
         reader.readAsDataURL(image);

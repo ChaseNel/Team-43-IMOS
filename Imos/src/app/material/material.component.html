@@ -7,6 +7,8 @@
 
 <!-- Material Type -->
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
+&nbsp;
+
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br>
 
@@ -31,7 +33,7 @@
     <!-- Material Type Column -->
     <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Type </th>
-        <td mat-cell *matCellDef="let element"> {{TypeList[element.materialtypeId-1]?.description}}</td>
+        <td mat-cell *matCellDef="let element"> {{element.materialtype}} </td>
     </ng-container>
 
     <!-- Material Name Column  TypeList  -->
@@ -45,31 +47,14 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
         <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
-
-      <!-- Warehouse  Column -->
-      <ng-container matColumnDef="warehouses">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Warehouses </th>
-        <td mat-cell *matCellDef="let element"> {{ WarehouseTypes[element.warehouseId-1]?.name}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="quantity">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-    </ng-container>
    
-    <ng-container matColumnDef="suppliers">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Suppliers </th>
-        <td mat-cell *matCellDef="let element"> {{SupplierList[element.supplierId-1]?.name}} </td>
-    </ng-container>
-        
     <!-- Actions -->
     <ng-container matColumnDef="actions">
-
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
             <button (click)="UpdateMaterial(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteMaterial(element.materialId)">Delete</button>
+            <button mat-flat-button color="warn" (click)="deleteMaterial(element.id)">Delete</button>
         </td>
     </ng-container>
 

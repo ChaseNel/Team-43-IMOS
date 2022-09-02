@@ -26,7 +26,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         public ActionResult<List<GetMaterialDto>> GetRecord(int id)
         {
             var recordInDb = _context.Suppliermaterials
-                .Include(mat => mat.Material).Where( x => x.SupplierId == id)
+                .Include(mat => mat.Material).Where(x => x.SupplierId == id)
                 //     .Include(item=>item.Warehouse)
                 .Select(item => new GetMaterialDto()
                 {
@@ -46,7 +46,6 @@ namespace IMOSApi.Controllers.MaterialManagent
         }
 
 
-
         [HttpGet("GetMaterials")]//gets materials with supplier name ,material type, warehouse and quantity in that located.
         public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
         {
@@ -64,6 +63,8 @@ namespace IMOSApi.Controllers.MaterialManagent
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
         }
+
+
 
 
         [HttpGet("BySupplierId")] //get materials by supplierId
@@ -100,8 +101,159 @@ namespace IMOSApi.Controllers.MaterialManagent
                 message = "Something went wrong on your side.";
                 return BadRequest(new { message });
             }
-
             try
+            {
+
+                var recordInDb = _context.Materials.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
+                if (recordInDb != null)
+                {
+                    message = "Record already exist";
+                    return BadRequest(new { message });
+                }
+
+                var newMaterial = new Material()
+                {
+                    Name = model.Name,
+                    Description = model.Description,
+                    MaterialtypeId = model.MaterialtypeId
+                };
+
+                _context.Materials.Add(newMaterial);
+                _context.SaveChanges();
+
+                foreach (var item in model.Warehouses)
+                {
+                    var warehousematerial = new Warehousematerial()
+                    {
+                        WarehouseId = item.WarehouseId,
+                        MaterialId = newMaterial.MaterialId,
+                        QuantityOnHand = model.Quantity,
+                    };
+                    _context.Warehousematerials.Add(warehousematerial);
+                }
+
+                foreach (var item in model.Suppliers)
+                {
+                    Suppliermaterial suppliermaterial = new Suppliermaterial()
+                    {
+                        SupplierId = item.SupplierId,
+                        MaterialId = newMaterial.MaterialId,
+                    };
+                    _context.Suppliermaterials.Add(suppliermaterial);
+                }
+                _context.SaveChanges();
+
+            }
+
+            catch (Exception e)
+            {
+
+                //if errors remove catch code block
+                var material = _context.Materials.FirstOrDefault(o => o.Name.Equals(model.Name));
+                if (material != null)
+                {
+                    _context.Materials.Remove(material);
+                    _context.SaveChanges();
+                }
+
+                throw;
+            }
+            return Ok();
+        }
+
+        [HttpGet("MaterialsById/{id}")] //get materials by Id
+        public ActionResult<GetMaterialsByIdDto> GetRecords(int id)
+        {
+            var recordInDb = _context.Materials
+               .Where(item => item.MaterialId == id)
+                .Select(item => new GetMaterialsByIdDto()
+                {
+                    MaterialId = item.MaterialId,
+                    Name = item.Name,
+                    Description = item.Description,
+                    MaterialTypeName=item.Materialtype.Name,
+
+                   // add qauntity
+                   // add suppliermaterial
+                   //add warehouse material
+                }).First();
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+            return recordInDb;
+        }
+
+
+
+
+        [HttpPut("UpdateMaterial/{id}")]
+        public IActionResult Update(AddMaterialDto model, int id)
+        {
+            var message = "";
+            if (ModelState.IsValid)
+            {
+                var recordInDb = _context.Materials.FirstOrDefault(item => item.MaterialId == id);
+
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+
+                recordInDb.Name = model.Name;
+                recordInDb.Description = model.Description;
+                _context.SaveChanges();
+
+                foreach (var item in model.Warehouses)
+                {
+                    var warehousematerial = new Warehousematerial()
+                    {
+                        WarehouseId = item.WarehouseId,
+                        MaterialId = recordInDb.MaterialId,
+                        QuantityOnHand = model.Quantity,
+                    };
+                    _context.Warehousematerials.Add(warehousematerial);
+                }
+
+                foreach (var item in model.Suppliers)
+                {
+                    Suppliermaterial suppliermaterial = new Suppliermaterial()
+                    {
+                        SupplierId = item.SupplierId,
+                        MaterialId = recordInDb.MaterialId,
+                    };
+                    _context.Suppliermaterials.Add(suppliermaterial);
+                }
+                _context.SaveChanges();
+            }
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+        }
+
+        [HttpDelete("DeleteMaterial/{id}")]
+        public async Task<ActionResult<Material>> Delete(int id)
+        {
+            var recordInDb = await _context.Materials.FindAsync(id);
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+
+            var materialsWarehouse = _context.Warehousematerials.Where(item => item.MaterialId == id);
+            _context.Warehousematerials.RemoveRange(materialsWarehouse);
+            await _context.SaveChangesAsync();
+
+            var materialsSuppliers = _context.Suppliermaterials.Where(item => item.MaterialId == id);
+            _context.Suppliermaterials.RemoveRange(materialsSuppliers);
+            await _context.SaveChangesAsync();
+
+            _context.Materials.Remove(recordInDb);
+            await _context.SaveChangesAsync();
+            return Ok();
+
+        }
+
+        /*               try
             {
                 var recordInDb = _context.Materials.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
                 if (recordInDb != null)
@@ -156,7 +308,9 @@ namespace IMOSApi.Controllers.MaterialManagent
                 }
                 throw;
             }
-        }
+         
+         */
+    
 
     }
 }
