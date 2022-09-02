@@ -21,6 +21,7 @@
     </div>
 </div>
 <button (click)="EQCheck()" mat-flat-button color="primary" class="URbtn">Warehouse Equipment Check</button>
+<br>
 
 
 <!-- Material Type
@@ -59,7 +60,7 @@
         <td mat-cell *matCellDef="let element">
             <button (click)="UpdateWarehouse(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteWarehouse(element.warehouseId)">Delete</button>
+            <button mat-flat-button color="warn" (click)="deleteWarehouse(element.id)">Delete</button>
         </td>
     </ng-container>
 

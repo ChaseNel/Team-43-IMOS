@@ -9,6 +9,7 @@
             <mat-form-field class="standard">
                 <mat-label>Type Name</mat-label>
                 <input [(ngModel)]='Name' matInput placeholder="Supplier Type Name" name="Name" formControlName="Name">
+                <mat-hint>Enter the type of Supplier(Letter Only)</mat-hint>
                 <mat-error *ngIf="formdet['Name'].touched && formdet['Name'].invalid">
                     <mat-error *ngIf="formdet['Name'].errors?.['required'] && formdet['Name'].dirty">Name is required
                     </mat-error>

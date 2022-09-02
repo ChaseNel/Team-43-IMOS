@@ -13,6 +13,7 @@
                         {{type.name}}
                     </mat-option>
                 </mat-select>
+                
                 <mat-error *ngIf="formdet['suppliertypeId'].touched && formdet['suppliertypeId'].invalid">
                     <mat-error *ngIf="formdet['suppliertypeId'].errors?.['required'] && formdet['suppliertypeId'].dirty">Supplier type is required</mat-error>
                 </mat-error>

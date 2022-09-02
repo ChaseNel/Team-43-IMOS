@@ -124,7 +124,7 @@ const routes: Routes = [
   //Warehouses
   { path: 'warehouse', component: WarehouseComponent },
   { path: 'addWarehouse', component: AddWarehouseComponent },
-  { path: 'updateWarehouse', component: UpdateWarehouseComponent },
+  { path: 'updateWarehouse/:id', component: UpdateWarehouseComponent },
   //Equipment
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },

@@ -180,7 +180,7 @@ export interface client {
 export interface warehouse {
   id: number,
   name: string,
-  location: string,
+  description: string,
   warehouseequipments: [],
   materials: []
 }
@@ -541,7 +541,7 @@ getSupplierById(id:number){
   }
   //Delete
   deleteWarehouse(id: number) {
-    return this.http.delete(this.Root_URL + '/Warehouse/DeleteWarehouse/' + id);
+    return this.http.delete(this.Root_URL + '/Warehouse/' + id);
   }
 
   //Equipment
@@ -720,7 +720,7 @@ getSupplierById(id:number){
   
   //Add
   addWarehouse(val: any) {
-    return this.http.post(this.Root_URL + "/warehouse/createwarehouse", val)
+    return this.http.post(this.Root_URL + "/Warehouse/AddWarehouse", val)
 
   }
 

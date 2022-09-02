@@ -1,3 +1,4 @@
+<app-header></app-header>
 
 <button class="btnBack" mat-raised-button color="warn" routerLink="/home">Back</button>
 
@@ -8,28 +9,61 @@
     </button>
 </div>
 
-<form [formGroup]="form" class="form-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Add Warehouse</mat-card-title>
-        </mat-card-header>
+<div class="main">
 
-        <mat-card-content>
-            <div class="row">
-                <mat-form-field class="full-width">
-                    <mat-label>Name</mat-label>
-                    <input matInput  placeholder="Enter Name" #nameInput  formControlName="name">
-                </mat-form-field>
+    <h1>Add Warehouse</h1>
 
-                <mat-form-field class="full-width">
-                    <input matInput placeholder="Address/Location" #nameInput  formControlName="description">
-                </mat-form-field>
+    <form [formGroup]="form" class="addSupplier">
+        <div>
+            <mat-card>
+                <mat-card-content>
+                    <div class="row">
+                        <mat-form-field class="full-width">
+                            <mat-label>Name</mat-label>
+                            <input matInput placeholder="Enter Name" #nameInput formControlName="name">
+                            <mat-hint>Input the name of the Warehouse(Only Letters)</mat-hint>
+                            <mat-error *ngIf="formdet['name'].touched && formdet['name'].invalid">
+                                <mat-error *ngIf="formdet['name'].errors?.['required'] && formdet['name'].dirty">Name is
+                                    required</mat-error>
+                                <mat-error *ngIf="formdet['name'].errors?.['pattern'] && formdet['name'].dirty">Please
+                                    enter a
+                                    letter only name</mat-error>
+                                <mat-error *ngIf="formdet['name'].errors?.['maxlength'] && formdet['name'].dirty">25
+                                    Characters
+                                    maximum is required for a full name</mat-error>
+                            </mat-error>
+                        </mat-form-field>
 
-                <mat-card-actions>
-                    <button (click)="addWarehouse()" mat-raised-button color="primary">Add</button>
-                    <button (click)="back()" mat-raised-button color="warn">back</button>
-                </mat-card-actions>
-            </div>
-        </mat-card-content>
-    </mat-card>
-</form>
+                        <mat-form-field class="full-width">
+                            <input matInput placeholder="Address/Location" #nameInput formControlName="description">
+                            <mat-hint>Input your Address of this Warehouse</mat-hint>
+                            <mat-error *ngIf="formdet['description'].touched && formdet['description'].invalid">
+                                <mat-error
+                                    *ngIf="formdet['description'].errors?.['required'] && formdet['description'].dirty">
+                                    Address
+                                    is required</mat-error>
+                                <mat-error
+                                    *ngIf="formdet['description'].errors?.['minlength'] && formdet['description'].dirty">
+                                    10
+                                    Characters minimum is required for location/description</mat-error>
+                                <mat-error
+                                    *ngIf="formdet['description'].errors?.['maxlength'] && formdet['description'].dirty">
+                                    40
+                                    Characters maximum is required for location/description</mat-error>
+                            </mat-error>
+                        </mat-form-field>
+
+                        <div class="btn">
+                            <mat-card-actions>
+                                <button (click)="addWarehouse()" mat-raised-button color="primary"
+                                    [disabled]="!form.valid">Add</button>
+                                <button (click)="back()" mat-raised-button color="warn">back</button>
+                            </mat-card-actions>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </form>
+
+</div>
