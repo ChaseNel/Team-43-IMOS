@@ -38,8 +38,7 @@ export class LoginComponent implements OnInit {
     });
     localStorage.clear();
   }
-  /*
-  DYy9$a2F  */
+
   LogIn() {
     if (this.loginForm.valid) {
       let payload: any = {};
@@ -54,15 +53,16 @@ export class LoginComponent implements OnInit {
           if (role == 5) {
             this.router.navigate(['home']);
           }
+
           else if (role == 4) {
             //this.router.navigate(['home']);
           }
-        }
 
+        }
       })
     }
   }
-  
+
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);

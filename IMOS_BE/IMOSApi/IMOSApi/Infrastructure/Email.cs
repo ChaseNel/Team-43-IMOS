@@ -9,7 +9,7 @@ namespace IMOSApi.Infrastructure
 {
     public class Email
     {
-        private const string ApiKey = "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";
+        private const string ApiKey = "";
         private static async Task GenericEmail(string fromEmail, string fromName, string toEmail, string toName, string subjectLine, string htmlMessage, string plainTextMessage)
         {
             var client = new SendGridClient(ApiKey);

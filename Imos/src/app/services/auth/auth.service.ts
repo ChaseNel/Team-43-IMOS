@@ -16,7 +16,6 @@ export class AuthService {
 
   }
 
-
   setToken(token: string) {
     sessionStorage.setItem(token, "token")
   }
@@ -33,7 +32,6 @@ export class AuthService {
     }
   }
 
-
   logIn(payload: any) {
     return this._httpClient
       .post(this.endpointBase.concat("Account/Login"),
@@ -43,7 +41,5 @@ export class AuthService {
   logOut() {
     localStorage.removeItem('token')
     this._router.navigate(['']);// to navigate back to login
-
-
   }
 }
