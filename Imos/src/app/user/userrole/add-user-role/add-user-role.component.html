@@ -29,31 +29,34 @@ Latest commit db05e18 on May 18
 
 <app-header></app-header>
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/userrole">Back</button>
+<div class="main">
 
-<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> User Role Added Successfully
-    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
-
-<form [formGroup]="userRoleFrm" class="form-container">
+    <h1> Add New User Role</h1>
+<form [formGroup]="userRoleFrm" class="addUserRole">
     <mat-card>
-        <mat-card-header>
-            <mat-card-title>Add User Role</mat-card-title>
-        </mat-card-header>
+      
         <mat-card-content>
+
             <div class="row">
-                <mat-form-field class="full-width">
+                <mat-form-field appearance="standard">
                     <input [(ngModel)]='Description' matInput placeholder="User Role Name" name="Description"
                         formControlName="Description">
+                        <mat-error *ngIf="hasError('Description', 'required')">User Role name is required</mat-error>
+                        <mat-error *ngIf="hasError('Description', 'pattern')">Enter user role name with letters only</mat-error>
+                        <mat-error *ngIf="hasError('Description', 'maxlength')">25 characters maximum</mat-error>
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
-                <mat-card-actions>
-                    <button (click)="addRole()" mat-raised-button color="primary">Add</button>
-                </mat-card-actions>
+
+              
+                <div class="btn">
+                    <button mat-raised-button color="primary" type="button" (click)="addUserRole()"
+                        [disabled]="!userRoleFrm.valid">Add
+                    </button>
+                    &nbsp;
+                    <button mat-raised-button color="warn" type="button" (click)="back()">Back</button>
+                </div>
             </div>
         </mat-card-content>
     </mat-card>
 </form>
+
+</div>
