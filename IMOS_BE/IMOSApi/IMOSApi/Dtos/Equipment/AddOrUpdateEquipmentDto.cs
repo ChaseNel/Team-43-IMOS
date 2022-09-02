@@ -14,5 +14,7 @@ namespace IMOSApi.Dtos.Equipment
         public string Description { get; set; }
         [Required]
         public int Quantity { get; set; }
+
+        public string WarehouseEquipments { get; set; }
     }
 }

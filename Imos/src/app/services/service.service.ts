@@ -190,8 +190,9 @@ export interface equipment {
   equipmentId: number,
   name: string,
   description: string,
+  quantity: number,
   projectequipments: [],
-  warehouseequipments: []
+  warehouseequipments: [],
 }
 
 //Safty File Interface
@@ -338,7 +339,7 @@ export class ServiceService {
   }
   //Add
   addMaterialType(val: any) {
-    return this.http.post(this.Root_URL + '/Materialtype/CreateMaterialtype', val)
+    return this.http.post(this.Root_URL + '/Materialtype/AddMaterialType', val)
   }
 
   //Update
@@ -351,7 +352,7 @@ export class ServiceService {
   }
   //Delete
   deleteMaterialType(id: number) {
-    return this.http.delete(this.Root_URL + '/MaterialType/DeleteMaterialtype/' + id);
+    return this.http.delete(this.Root_URL + '/MaterialType/DeleteType/' + id);
   }
 
   //Material Request
@@ -403,7 +404,7 @@ getSupplierById(id:number){
   //Supplier Type
   //Get
   getSupplierType(): Observable<suppliertype[]> {
-    return this.http.get<suppliertype[]>(this.Root_URL +'/SupplierType/Getsuppliertype')
+    return this.http.get<suppliertype[]>(this.Root_URL +'/SupplierType/GetAll')
   }
 
   //By ID 
@@ -413,7 +414,7 @@ getSupplierById(id:number){
 
   //Delete
   deleteSupplierType(id: number) {
-    return this.http.delete(this.Root_URL +'/deleteSupplierType/' + id);
+    return this.http.delete(this.Root_URL +'/SupplierType/' + id);
   }
   //Add
   addSupplierType(val: any) {
@@ -422,7 +423,7 @@ getSupplierById(id:number){
 
   //Update
   editSupplierType(id: number, val: any){
-    return this.http.put(this.Root_URL + '/SupplierType/updatesuppliertype/' + id, val);
+    return this.http.put(this.Root_URL + '/SupplierType/' + id, val);
   }
 
   //Supplier Order
@@ -449,7 +450,7 @@ getSupplierById(id:number){
   //Vehicle Type
   //Get
   getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleType/GetAll')
+    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/Vehicletype/GetVehicletypes')
   }
 
 
@@ -470,7 +471,7 @@ getSupplierById(id:number){
   // add vehicle
   //Delete
   deleteVehicleType(id: number) {
-    return this.http.delete(this.Root_URL + '/VehicleType/DeleteEmployee/' + id);
+    return this.http.delete(this.Root_URL + '/VehicleType/' + id);
   }
 
   
