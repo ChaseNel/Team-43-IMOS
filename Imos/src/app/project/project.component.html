@@ -12,9 +12,8 @@
 <br> -->
 
 <mat-card>
-
   <mwl-demo-utils-calendar-header
-
+  [(view)]="view"
   [(viewDate)]="viewDate"
   (viewDateChange)="fetchEvents()"
   (viewChange)="fetchEvents()"
@@ -55,7 +54,6 @@
     </mwl-calendar-day-view>
   </div>
 </div>
-
 
 
 </mat-card>

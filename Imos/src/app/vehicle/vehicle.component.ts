@@ -108,7 +108,7 @@ export class VehicleComponent implements OnInit {
   openUploadVehiclePhotoDialog(id: number): void {
     const dialogRef = this.dialog.open(UploadVehiclePhotoComponent, {
 
-      width: '60%',
+      width: '40%',
       height:'70%',
       data:{id},
 

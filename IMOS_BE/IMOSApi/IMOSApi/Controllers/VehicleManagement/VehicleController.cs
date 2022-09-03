@@ -196,9 +196,12 @@ namespace IMOSApi.Controllers.VehicleManagement
 
         }
 
+      
 
-        [HttpPut("UploadVehiclePhoto/{VehicleId}")]
-        public IActionResult UploadVehiclePhoto([FromBody] AddOrUpdateVehicleDto model, int VehicleId)
+        [HttpPost]
+        [Route("UploadVehiclePhoto/{VehicleId}")]
+
+        public object UploadVehiclePhoto( [FromBody] UploadImageDto model, int VehicleId)
         {
             var vehicle = _context.Vehicles
                 .Where(item => item.VehicleId == VehicleId)
@@ -209,8 +212,10 @@ namespace IMOSApi.Controllers.VehicleManagement
                 return NotFound();
             }
 
-            vehicle.ImageUrl = model.ImageUrl;
+            vehicle.ImageUrl = model.imageUrl as string;
+
                 _context.SaveChanges();
+
             return Ok();
 
         }
