@@ -55,8 +55,8 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  UpdateProject() {
-    this.route.navigateByUrl('/updateProject')
+  UpdateProject(id:number) {
+    this.route.navigateByUrl('/updateProject/' + id)
   }
 
   addProject() {
@@ -74,6 +74,10 @@ export class ProjectComponent implements OnInit {
         });
       });
     }
+  }
+
+  deliveryNote(){
+    this.route.navigateByUrl('DeliveryNote');
   }
 
   ngOnInit(): void {

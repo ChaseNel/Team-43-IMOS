@@ -50,7 +50,7 @@
 
                 <mat-form-field  appearance="standard">
                     <mat-label>Select Supplier</mat-label>
-                    <mat-select formControlName="supplierId" multiple>
+                    <mat-select formControlName="supplierId">
                      <mat-option *ngFor="let type of  SupplierList" [value]="type.name">
                         {{type.name}}
                     </mat-option>

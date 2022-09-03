@@ -24,7 +24,7 @@ export class AddProjectComponent implements OnInit {
   ngOnInit(): void {
     this.projectfrm = new FormGroup({
       Site: new FormControl('', [Validators.required]),
-      Req: new FormControl('', [Validators.required]),
+      Req: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(100)]),
       SaftyFile: new FormControl('', [Validators.required])
     })
     this.service.getConstructionSite().subscribe(x => { this.ConstructionSite = x; console.log("ConstructionSite", this.ConstructionSite) });
@@ -43,6 +43,10 @@ export class AddProjectComponent implements OnInit {
   closeAlert() {
     this.alert = false;
   }
+
+  get formdet(){
+    return this.projectfrm.controls;
+}
 
   back(){
     this.route.navigateByUrl("project")

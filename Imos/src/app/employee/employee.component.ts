@@ -57,7 +57,7 @@ export class EmployeeComponent implements OnInit {
   }
   deleteEmployee(id: number) {
     console.log(id);
-    if (confirm('Are you sure you want to delete this employee?')) {
+    if (confirm('Are you sure you want to delete this Employee?')) {
       this.service.deleteEmployee(id).subscribe(res => {
         this.GetAllEmployees();
         this._snackBar.open("Success, you have deleted an Employee", 'OK', {
@@ -81,7 +81,7 @@ export class EmployeeComponent implements OnInit {
   }
   
   UpdateEmployee(id:number) {
-    this.route.navigate(['UpdateEmployee',id])
+    this.route.navigateByUrl('UpdateEmployee/' + id);
   }
 
   ngOnInit(): void {

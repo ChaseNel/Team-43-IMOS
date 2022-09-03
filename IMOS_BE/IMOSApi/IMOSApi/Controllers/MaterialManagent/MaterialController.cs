@@ -137,25 +137,25 @@ namespace IMOSApi.Controllers.MaterialManagent
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
-        //[HttpDelete("DeleteMaterialSupplier/{id}")]
-        //    public async Task<ActionResult<Material>> Delete(int id)
-        //    {
+        [HttpDelete("DeleteMaterialSupplier/{id}")]
+            public async Task<ActionResult<Material>> Delete(int id)
+            {
 
 
-        //        //    var recordInDb = await _context.Materials.FindAsync(id);
-        //        //    if (recordInDb == null)
-        //        //    {
-        //        //        return NotFound();
-        //        //    }
+                    var recordInDb = await _context.Materials.FindAsync(id);
+                    if (recordInDb == null)
+                    {
+                        return NotFound();
+                    }
 
-        //        //    _context.Materials.Remove(recordInDb);
-        //        //    await _context.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //}
+                    _context.Materials.Remove(recordInDb);
+                    await _context.SaveChangesAsync();
+                return Ok();
+            }
+        }
 
 
     }
-}
+
 
     

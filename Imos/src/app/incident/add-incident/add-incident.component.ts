@@ -20,7 +20,7 @@ export class AddIncidentComponent implements OnInit {
 
   ngOnInit(): void {
     this.incidentFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required, Validators.maxLength(50),  Validators.pattern("[A-Za-z ]{1,25}")])
+      Description: new FormControl('', [Validators.required, Validators.maxLength(100),  Validators.pattern("[A-Za-z ]{1,25}")])
     })
   }
 
@@ -29,8 +29,8 @@ export class AddIncidentComponent implements OnInit {
     if (this.incidentFrm.valid) {
     var val = { Description: this.Description }
     this.service.addIncident(val).subscribe(res => {
-      if (confirm('Are you sure you want to Add this Supplier Type?')) {
-        this._snackbar.open("Success, you have Add a Supplier Type!", 'OK', {
+      if (confirm('Are you sure you want to Add this Incident?')) {
+        this._snackbar.open("Success, you have Add a Incident!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });

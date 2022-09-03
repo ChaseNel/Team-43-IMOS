@@ -93,6 +93,12 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ReportsComponent } from './reports/reports.component';
 import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
+import { StockTakeComponent } from './warehouse/stock-take/stock-take.component';
+import { UpdateStockTakeComponent } from './warehouse/stock-take/update-stock-take/update-stock-take.component';
+import { AddStockTakeComponent } from './warehouse/stock-take/add-stock-take/add-stock-take.component';
+import { DeliveryNoteComponent } from './project/delivery-note/delivery-note.component';
+import { AddDeliveryNoteComponent } from './project/delivery-note/add-delivery-note/add-delivery-note.component';
+import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-delivery-note/update-delivery-note.component';
 
 
 @NgModule({
@@ -166,6 +172,12 @@ import { IncidentReportComponent } from './reports/incident-report/incident-repo
     UpdateCheckListComponent,
     ReportsComponent,
     IncidentReportComponent,
+    StockTakeComponent,
+    UpdateStockTakeComponent,
+    AddStockTakeComponent,
+    DeliveryNoteComponent,
+    AddDeliveryNoteComponent,
+    UpdateDeliveryNoteComponent,
   ],
   imports: [
     BrowserModule,

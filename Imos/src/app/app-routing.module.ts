@@ -1,3 +1,6 @@
+import { AddDeliveryNoteComponent } from './project/delivery-note/add-delivery-note/add-delivery-note.component';
+import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-delivery-note/update-delivery-note.component';
+import { DeliveryNoteComponent } from './project/delivery-note/delivery-note.component';
 import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
 import { ReportsComponent } from './reports/reports.component';
 //import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
@@ -78,15 +81,15 @@ const routes: Routes = [
   // { path: 'updateuserrole', component: UpdateUserRoleComponent },
   //Employee
   { path: 'employee', component: EmployeeComponent },
-  { path: 'UpdateEmployee', component: UpdateEmployeeComponent },
+  { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Material
   { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial', component: UpdateMaterialComponent },
+  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
   { path: 'AddMaterial', component: AddMaterialComponent },
   //Material Type
   { path: 'materialtype', component: MaterialTypeComponent },
-  { path: 'UpdateMaterialType', component: UpdateMaterialTypeComponent },
+  { path: 'UpdateMaterialType/:id', component: UpdateMaterialTypeComponent },
   { path: 'AddMaterialType', component: AddMaterialTypeComponent },
   //Material Requst
   { path: 'materialRequest', component: MaterialRequestComponent },
@@ -108,15 +111,15 @@ const routes: Routes = [
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
-  { path: 'updateVehicleType', component: UpdateVehicleTypeComponent },
+  { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
-  { path: 'updateIncident', component: UpdateIncidentComponent },
+  { path: 'updateIncident/:id', component: UpdateIncidentComponent },
   //Projects
   { path: 'project', component: ProjectComponent },
   { path: 'addProject', component: AddProjectComponent },
-  { path: 'updateProject', component: UpdateProjectComponent },
+  { path: 'updateProject/:id', component: UpdateProjectComponent },
   //Clients
   { path: 'client', component: ClientComponent },
   { path: 'addClient', component: AddClientComponent },
@@ -143,6 +146,11 @@ const routes: Routes = [
   //Reports 
   { path: 'reports', component: ReportsComponent },
   { path: 'incidentReport', component: IncidentReportComponent },
+
+  //Delivery Note
+  { path: 'DeliveryNote', component: DeliveryNoteComponent },
+  { path: 'UpdateDeliveryNote/:id', component: UpdateDeliveryNoteComponent },
+  { path: 'AddDeliveryNote', component: AddDeliveryNoteComponent },
 ];
 
 @NgModule({

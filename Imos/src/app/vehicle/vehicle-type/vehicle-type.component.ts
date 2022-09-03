@@ -54,9 +54,8 @@ export class VehicleTypeComponent implements OnInit {
     }
   }
 
-  UpdateVehicleType(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateVehicleType(id: number) {
+    this.route.navigateByUrl('updateVehicleType/' + id);
   }
 
    closeClick(){

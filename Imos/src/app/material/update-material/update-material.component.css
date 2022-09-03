@@ -1,4 +1,4 @@
-.form-container{
+.form-container {
     margin: auto;
     max-width: 700px;
     padding: 10px;
@@ -6,6 +6,23 @@
     background-color: lightgray;
 }
 
-form{
-    background-color: lightgrey;
+h1{
+    position: relative;
+    left: 31%;
+}
+
+form {
+    background-color: rgb(255, 255, 255);
+}
+
+.main {
+    position: absolute;
+    width: 50%;
+    left: 25%;
+    border: solid;
+    border-style: groove;
+}
+
+.btn{
+    left: 25%
 }

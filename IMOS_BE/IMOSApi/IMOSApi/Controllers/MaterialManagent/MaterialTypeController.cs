@@ -41,6 +41,23 @@ namespace IMOSApi.Controllers.MaterialManagent
             return BadRequest(new { message });
         }
 
+        [HttpGet("GetMaterialType/{id}")]
+        public ActionResult<GetMaterialTypeDto> GetRecord(int id)
+        {
+            var recordInDb = _context.Materialtypes
+                .Select(item => new GetMaterialTypeDto()
+                {
+                    MaterialtypeId = item.MaterialtypeId,
+                    Name = item.Name,
+                    Description = item.Description,
+                }).First();
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+            return recordInDb;
+        }
+
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllMaterialTypes()
         {

@@ -41,8 +41,8 @@ export class AddVehicleComponent implements OnInit {
   private buildAddForm()
   {
     this.addForm=this.fb.group({
-      make: ['', [Validators.required]],
-      model: ['', [Validators.required]],
+      make: ['', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}")]],
+      model: ['', [Validators.required], Validators.pattern("[A-Za-z ]{1,25}")],
       color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
       modelYear: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],

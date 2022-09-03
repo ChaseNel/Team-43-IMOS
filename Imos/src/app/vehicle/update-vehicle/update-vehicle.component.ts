@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { vehicle, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions,FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -17,17 +18,16 @@ export class UpdateVehicleComponent implements OnInit {
   Vehicletypes:vehicletype[]=[];
 
   constructor(private fb: FormBuilder, private _service:ServiceService,
-    private route: ActivatedRoute,private router:Router,private http:HttpClient) { }
+    private route: ActivatedRoute,private router:Router,private http:HttpClient, 
+    private _snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
-    if(this.updateForm.valid){
-      console.log(this.updateForm);
-    }
+
     const formOptions:AbstractControlOptions={};
     this.updateForm=this.fb.group({
-      make: ['', [Validators.required]],
-      model: ['', [Validators.required]],
-      color: ['', [Validators.required]],
+      make: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
+      model: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
+      color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
       modelYear: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],
       lastServiced: ['', [Validators.required]],
@@ -39,9 +39,9 @@ export class UpdateVehicleComponent implements OnInit {
       this.Vehicle=res;
       console.log(this.Vehicle);
       this.updateForm=this.fb.group({
-        make: ['', [Validators.required]],
-        model: ['', [Validators.required]],
-        color: ['', [Validators.required]],
+        make: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
+        model: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
+        color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
         modelYear: ['', [Validators.required]],
         datePurchased: ['', [Validators.required]],
         lastServiced: ['', [Validators.required]],
@@ -56,11 +56,24 @@ export class UpdateVehicleComponent implements OnInit {
     })
   }
   onSubmit(){
+    if(this.updateForm.valid)
+    {
     this._service.updateVehicle(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
-  
-    )
+      res=>{
+        if (confirm('Are you sure you want to Update this Vehicle?')) {
+            this._snackbar.open("Success, you have Update a Vehicle!", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+        }
+      })
+    }
   }
   Cancel(){
+    this.router.navigateByUrl('vehicle')
+  }
 
+  public hasError = (controlName: string, errorName: string) => {
+    return this.updateForm.controls[controlName].hasError(errorName);
   }
 }

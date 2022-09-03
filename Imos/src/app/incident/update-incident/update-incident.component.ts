@@ -1,8 +1,11 @@
+import { incident } from './../../services/service.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,38 +15,54 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UpdateIncidentComponent implements OnInit {
 
-  Id!: string;
-  Description1: any;
+  id!: number;
   public incidentFrm!: FormGroup;
   alert: boolean = false;
   @Input() type: any;
+  Incident!:incident;
   
-
-
-  constructor(private service: ServiceService, private routed: ActivatedRoute, private route: Router) { }
+  constructor(private service: ServiceService,
+    private routed: ActivatedRoute,
+    private route: Router,
+    private _snackbar: MatSnackBar,
+    private fb: FormBuilder,
+    private http: HttpClient,) { }
 
   ngOnInit(): void {
+    const formOptions: AbstractControlOptions = {};
 
-    this.incidentFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required])
+    this.incidentFrm = this.fb.group({
+      description: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,100}"), Validators.maxLength(100)]],
     })
-    this.Id = this.type.incidentId;
-    this.Description1 = this.type.description;
-
+    this.id = +this.routed.snapshot.params['id'];
+    this.service.getIncidentById(this.id).subscribe((res: any) => {
+      this.Incident = res;
+      console.log(this.Incident);
+      this.incidentFrm = this.fb.group({
+        description: [this.Incident.description, [Validators.required, Validators.pattern("[A-Za-z ]{1,100}"), Validators.maxLength(100)]],
+      }, formOptions)
+    });
   }
 
-  updateIncident(){
-
-    if (confirm('Are you sure you want to update this Incident?')){
-    var id = this.type.incidentId;
-    var val = {Description: this.Description1};
-    this.service.editIncident(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    this.alert = true;
-    }
+  updateIncident() {
+    this.service.editIncident(this.routed.snapshot.params['id'], this.incidentFrm.value).subscribe(
+      res => {
+        if (confirm('Are you sure you want to Update this Incident?')) {
+          this._snackbar.open("Success, you have Update a Incident!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      })
   }
 
-  closeAlert() {
-    this.alert = false;
+  get formdet() {
+    return this.incidentFrm.controls;
+  }
+
+
+  back() {
+    this.route.navigateByUrl('incident')
   }
 
   public hasError = (controlName: string, errorName: string) => {
