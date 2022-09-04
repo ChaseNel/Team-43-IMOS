@@ -14,7 +14,7 @@ export class AddSupplierOrderComponent implements OnInit {
   alert:boolean=false;
   supplierList:suppliermaterial[]=[];
   form:FormGroup;
-  form1:FormGroup;
+  //form1:FormGroup;
   supplierMaterialsList:material[]=[];
   id!: number;
 
@@ -27,56 +27,91 @@ export class AddSupplierOrderComponent implements OnInit {
  
   ngOnInit(): void {
     this.buildOrderForm();
-
-    this.form.controls['SupplierId'].valueChanges.subscribe( val =>{
+   this.form.controls['SupplierId'].valueChanges.subscribe( val =>{
       this.getSuppierMaterial(Number(val))
     })
   }
-
   setCurrentId(id:number){
     this.id=id
   }
  
   private buildOrderForm(){
-
-  
     this.form=this.fb.group({
       SupplierId: ['', [Validators.required]],
-      Quantity:['',[Validators.required]],
-      Materials: ['',[Validators.required]],
-      
+      quantity:['',[Validators.required]],
+     // Materials: ['',[Validators.required]],
+     materialId: ['', [Validators.required]],
+   //  Quantity:['',[Validators.required]],
     })
   
     this._service.getMaterialBySupplierId().subscribe(data=>{
       this.supplierList=data;
-      console.log(data)
+      //console.log(data)
     })
-  
   }
   
   getSuppierMaterial(id: number) {
     this._service.getSupplierMaterial(id).subscribe(res =>{
       this.supplierMaterialsList = res;
+      //console.log(res)
     })
-
   }
-  addToOrderSupplierCart(materials: any){
-    console.table(this.form.value);
-    let order = {
+
+  
+ /* addToOrderSupplierCart(){
+    if(this.form.valid){
+      let payload:any={};
+
+      payload['Quantity'] = this.form.get('quantity')?.value;
+
+      let materialIds=this.form.get('materialId')?.value as [];
+      let listOfMaterials:any[]=[];
+      materialIds.forEach((element:any)=>{
+        let materialObj:any={};
+        materialObj['MaterialId'] = element as number;
+        listOfMaterials.push(materialObj);
+      });
+      
+      payload['Materials'] = listOfMaterials;
+   
+      console.log(payload)
+      this._service.addToOrderSupplierCart(payload)
+      .subscribe(res=>{
+      })
+    }
+  }*/
+
+   addToOrderSupplierCart(materials: any){
+    if(this.form.valid){
+      let order:any={};
+      order['Quantity'] = this.form.get('quantity')?.value;
+      order['SupplierId'] = this.form.get('SupplierId')?.value;
+
+      let materialIds=this.form.get('materialId')?.value as [];
+      let listOfMaterials:any[]=[];
+      materialIds.forEach((element: any) => {
+        let materialObj:any = {};
+        materialObj['MaterialId'] = element as number;
+        listOfMaterials.push(materialObj);
+       });
+
+       order['Materials'] = listOfMaterials;
+       console.log(order)
+       this._service.addToOrderSupplierCart(order).subscribe(res =>{
+         console.log(res)
+       })
+    }
+    
+   /* let order = {
       SupplierId: this.form.value.SupplierId,
       Quantity: this.form.value.Quantity,
-      Materials: [...this.form.value.Materials,]
+     // Materials: [...this.form.value.Materials,]
+     
     }
-    console.log(order)
-    this._service.addToOrderSupplierCart(order).subscribe(res =>{
-      console.log(res)
-    })
+   ;*/
   }
-
   generateSupplierOrder(){
 
   }
   
-
-
 }

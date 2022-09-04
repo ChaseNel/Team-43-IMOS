@@ -13,8 +13,10 @@
         <mat-card-header>
             <mat-card-title>Register New User Account</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
             <div class="row">
+
                 <mat-form-field class="full-width">
                     <mat-label>Select  Employee</mat-label>
                     <mat-select formControlName="employeeId">
@@ -32,8 +34,8 @@
 
                 <mat-form-field class="full-width">
                   <mat-label>Select  Role</mat-label>
-                  <mat-select formControlName=" userRoleId">
-                      <mat-option *ngFor="let type of roleList" [value]="type.description">
+                  <mat-select formControlName="id">
+                      <mat-option *ngFor="let type of roleList" [value]="type.id">
                           {{type.description}}
                       </mat-option>
                     </mat-select>

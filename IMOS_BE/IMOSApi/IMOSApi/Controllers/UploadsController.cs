@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using IMOSApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +15,11 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class UploadsController : ControllerBase
     {
+        private readonly IMOSContext _context;
 
-        public UploadsController()
+        public UploadsController(IMOSContext context)
         {
-
+            _context = context;
         }
 
         [HttpPost("EmployeeDocuments/Uploads"), DisableRequestSizeLimit] //Done
@@ -97,5 +101,53 @@ namespace IMOSApi.Controllers
                 return StatusCode(500, $"Internal server error: {ex}");
             }
         }
+
+
+        [HttpGet("Employees/Documents/Download/{id}")]
+        //[AllowAnonymous] 
+        public async Task<IActionResult>DownloadEmployeeDocument(int id)
+        {
+            var isEmployeeDocumentInDb = _context.Employees.FirstOrDefault(item => item.EmployeeId ==id);
+            if (isEmployeeDocumentInDb == null)
+            {
+                var message = "Error: Employee Document  not found.";
+                return BadRequest(new { message });
+            }
+
+            var fileToDownload = isEmployeeDocumentInDb.FileUrl;
+
+            var memory = new MemoryStream();
+            await using (var stream = new FileStream(fileToDownload, FileMode.Open))
+            {
+                await stream.CopyToAsync(memory);
+            }
+
+            memory.Position = 0;
+            var ext = Path.GetExtension(fileToDownload)?.ToLowerInvariant();
+            return File(memory, GetMimeTypes()[ext], Path.GetFileName(fileToDownload));
+        }
+        private Dictionary<string, string> GetMimeTypes()
+        {
+            return new Dictionary<string, string>
+      {
+                {".png", "image/png"},
+                {".jpg", "image/jpeg"},
+                {".jpeg", "image/jpeg"},
+                {".jfif", "image/jpeg"},
+                {".pjpeg", "image/jpeg"},
+                {".pjp", "image/jpeg"},
+                {".gif", "image/gif"},
+                {".svg", "image/svg+xml"},
+                {".bmp", "image/bmp"},
+                {".apng", "image/apng"},
+                {".pdf", "application/pdf"},
+                {".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+                {".doc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"},
+                {".csv", "application/vnd.ms-excel"},
+                {".zip", "application/zip"}
+      };
+        }
+
+
     }
 }

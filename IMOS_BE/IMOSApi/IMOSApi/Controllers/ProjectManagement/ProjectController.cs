@@ -38,7 +38,7 @@ namespace IMOSApi.Controllers
         }
 
 
-        [HttpGet("GetProject/{id}")]
+     /*   [HttpGet("GetProject/{id}")]
         public IEnumerable<Project> Get(int id)
         {
             using (var context = new IMOSContext())
@@ -46,7 +46,7 @@ namespace IMOSApi.Controllers
                 IEnumerable<Project> tmp = context.Projects.Where(emp => emp.ProjectId == id).ToList();
                 return tmp;
             }
-        }
+        }*/
 
         [HttpPost("AddProject")]
         public IActionResult Create(AddOrUpdateProjectDto model)
@@ -84,7 +84,7 @@ namespace IMOSApi.Controllers
         }
 
 
-        [HttpPut("UpdateProject/{Id}")]
+       /* [HttpPut("UpdateProject/{Id}")]
         public void Update([FromBody] Project Project, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
@@ -93,9 +93,9 @@ namespace IMOSApi.Controllers
                 //emp.
                 context.SaveChanges();
             }
-        }
+        }*/
 
-        [HttpDelete("DeleteProject/{Id}")]
+       /* [HttpDelete("DeleteProject/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
@@ -104,6 +104,6 @@ namespace IMOSApi.Controllers
                 _context.Projects.Remove(clie);
                 _context.SaveChanges();
             }
-        }
+        }*/
     }
 }

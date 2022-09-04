@@ -12,7 +12,7 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class ClientController : ControllerBase
     {
-        private IMOSContext _dbContext;
+      /*  private IMOSContext _dbContext;
         public ClientController(IMOSContext dbContext)
         {
             _dbContext = dbContext;
@@ -64,6 +64,6 @@ namespace IMOSApi.Controllers
                 _dbContext.Clients.Remove(clie);
                 _dbContext.SaveChanges();
             }
-        }
+        }*/
     }
 }

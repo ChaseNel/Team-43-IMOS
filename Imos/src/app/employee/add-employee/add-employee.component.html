@@ -16,9 +16,9 @@
       <div class="row">
         <mat-form-field class="full-width">
           <input [(ngModel)]='Name' matInput placeholder="Name" name="Name" type="text" formControlName="Name">
+          
         </mat-form-field>
-        <mat-error *ngIf="hasError('Name', 'required')"></mat-error>
-
+       
         <mat-form-field class="full-width">
           <input [(ngModel)]='Email' matInput placeholder="Email" name="Email" type="email" formControlName="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
         </mat-form-field>

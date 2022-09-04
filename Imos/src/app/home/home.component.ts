@@ -53,8 +53,11 @@ export class HomeComponent implements OnInit {
   saftyCheclist(){
     this.route.navigateByUrl('/saftyChecklist')
   }
+ reports(){
+    this.route.navigateByUrl('/Allreports')
+  }
+
 
   ngOnInit(): void {
   }
-
 }

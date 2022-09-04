@@ -4,15 +4,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { orderline, ServiceService } from 'src/app/services/service.service';
+import { orderline, ServiceService, supplier } from 'src/app/services/service.service';
 
 export interface Orderline {
   orderId: number,
   date:Date,
   orderNumber:string,
-  deliveries:[],
+  supplierId:number,
+  supplier: string,
   suppliermaterialorders:[],
-  suppliersordersuppliers:[]
+  deliveries:[]
 }
 @Component({
   selector: 'app-supplier-order',
@@ -23,7 +24,9 @@ export class SupplierOrderComponent implements OnInit {
 
   data:orderline[]=[];
 
-  displayedColumns: string[] = ['id', 'date', 'number','actions'];
+  supplierList:supplier[]=[];
+
+  displayedColumns: string[] = ['id', 'date', 'number', 'type','actions'];
 
   dataSource!: MatTableDataSource<Orderline>;
   
@@ -34,7 +37,20 @@ export class SupplierOrderComponent implements OnInit {
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar)
  { 
+  this.GetAllSupplierOrder();
 
+ }
+ GetAllSupplierOrder(){
+  this.service.getSupplierOrders().subscribe(x=>{
+    console.log(this.data);
+    this.posts = x;
+
+    this.dataSource = new MatTableDataSource(this.posts)
+
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+  })
  }
 
  applyFilter(event: Event) {
@@ -51,7 +67,7 @@ addSupplierOrder(){
 }
 
 cancelOrder(id:number) {
-  this.route.navigate(['CancelSupplierOrder',id])
+  this.route.navigate(['CancelOrder',id])
 }
 report(){
     this.route.navigateByUrl('report')

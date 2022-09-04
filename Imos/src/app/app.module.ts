@@ -1,7 +1,7 @@
 import { ServiceService } from './services/service.service';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
 
@@ -19,10 +19,9 @@ import { MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { PopUpComponent } from './logout/pop-up/pop-up.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import { HomeComponent } from './home/home.component';
-import { SuccessComponent } from './login/Dialogs/success/success.component';
-import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -88,7 +87,7 @@ import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checkli
 
 import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+
 import {MatExpansionModule} from '@angular/material/expansion';
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { AddWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/add-warehouse-equipment/add-warehouse-equipment.component';
@@ -98,8 +97,26 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
 import { UserRoleComponent } from './user/userrole/user-role.component';
+import {MatCheckboxModule} from '@angular/material/checkbox'; //matSelectionList
+import {MatSelectionList} from '@angular/material/list/selection-list';
+import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
+import {MatListModule} from '@angular/material/list';
+import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
+import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
+import { ItemsComponent } from './safty-checklist/items/items.component';
+import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
+import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
+import { ReportingComponent } from './reporting/reporting.component';
+import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplier-report/orders-per-supplier-report.component';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
+import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
+import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+
+
+
 
 @NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -107,10 +124,8 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     VehicleComponent,
     LoginComponent,
     LogoutComponent,
-    PopUpComponent,
+    HeaderComponent,
     HomeComponent,
-    SuccessComponent,
-    UnsuccessfulComponent,
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
@@ -169,8 +184,19 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
     WarehouseEquipmentComponent,
     AddWarehouseEquipmentComponent,
     UpdateWarehouseEquipmentComponent,
-  
+    AddSaftyChecklistCatagoryComponent,
+    UpdateSaftyChecklistCatagoryComponent,
+    AllocateVehicleComponent,
+    AddSupplierOrderComponent,
+    CancelOrderComponent,
+    EmployeeAttendanceComponent,
+    ItemsComponent,
+    AddItemsComponent,
+    UpdateItemsComponent,
+    ReportingComponent,
+    OrdersPerSupplierReportComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -199,7 +225,9 @@ import { UserRoleComponent } from './user/userrole/user-role.component';
 
   ],
   providers: [
-    ServiceService
+    ServiceService,
+    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

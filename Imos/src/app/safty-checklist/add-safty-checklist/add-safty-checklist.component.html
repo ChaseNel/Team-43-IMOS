@@ -13,29 +13,28 @@
             <mat-card-title>Add New Project Safety Checklist</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <mat-form-field class="fill">
-                <mat-label>Select  Project To Create CheckList For</mat-label>
-                <mat-select formControlName="projectId">
-                    <mat-option *ngFor="let type of TypeList" [value]="type.name">
+            <div class="row">
+                <mat-form-field class="fill">
+                    <mat-label>Select  Project To Create CheckList For</mat-label>
+                    <mat-select formControlName="id" multiple="true">
+                        <mat-option *ngFor="let type of TypeList" [value]="type.name">
+                            {{type.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Satefy Items </mat-label>
+                    <mat-select formControlName="Id" multiple>
+                     <mat-option *ngFor="let type of  SafetyItems" [value]="type.id">
                         {{type.name}}
                     </mat-option>
-                  </mat-select>
-            </mat-form-field>
-            <mat-accordion>
-                <mat-expansion-panel class="parentPanel" *ngFor="let type of CategoryTypes" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header> 
-                        <mat-panel-title > {{type.id}}</mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <mat-form-field appearance="fill">
-                        <mat-label>Select Safety Item</mat-label>
-                        <mat-select formControlName="safetyfileitemId" multiple>
-                         <mat-option *ngFor="let SafetyItems of SafetyItems" [value]="SafetyItems.safetyfileitemId">
-                            {{SafetyItems.name}}
-                        </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </mat-expansion-panel>
-            </mat-accordion>
+                    </mat-select>
+                </mat-form-field>
+
+            </div>
+
+
         </mat-card-content>
         <mat-card-actions>
             <button (click)="addNewChecklist()" mat-raised-button color="primary">Add</button>

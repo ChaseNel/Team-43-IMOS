@@ -29,8 +29,8 @@
 
                 <mat-form-field appearance="fill">
                     <mat-label>Select Warehouse</mat-label>
-                    <mat-select formControlName="warehouseId" multiple>
-                     <mat-option *ngFor="let type of   WarehouseTypes" [value]="type.name">
+                    <mat-select formControlName="id" multiple>
+                     <mat-option *ngFor="let type of   WarehouseTypes" [value]="type.id">
                         {{type.name}}
                      </mat-option>
                     </mat-select>

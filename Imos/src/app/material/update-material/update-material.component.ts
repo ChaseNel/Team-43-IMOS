@@ -13,6 +13,7 @@ import { HttpClient } from '@angular/common/http';
 export class UpdateMaterialComponent implements OnInit {
   Material!:Material;
   id!:number;
+
   TypeList: materialtype[] = [];
   SupplierList:supplier[]=[];
   WarehouseTypes: warehouse[] = [];
@@ -35,22 +36,19 @@ export class UpdateMaterialComponent implements OnInit {
     }, formOptions);
 
     this.id=+this.route.snapshot.params['id'];
-    this._service.getSupplierById(this.id).subscribe((res:any)=>{
+    this._service. getMaterialById(this.id).subscribe((res:any)=>{
       this.Material=res;
       console.log(this.Material);
       this.updateForm=this.fb.group({
-        materialtypeId:[this.Material.name,[Validators.required]],
+        materialtypeId:[this.Material.materialtypeId,[Validators.required]],
         name:[this.Material.name,[Validators.required]],
         description:[this.Material.description,[Validators.required]],
         warehouseId:[this.Material.name,[Validators.required]],
         supplierId:[this.Material.name,[Validators.required]],
       },formOptions)
     });
-   /* this._service.getSupplier().subscribe(data =>{
-      this.SupplierList = data;
-      });*/
-    
   }
+
   closeAlert() {
     this.alert = false;
   }

@@ -18,8 +18,9 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
         {
             _context = context;
         }
-        [HttpGet("{id}")]
-        public ActionResult<GetGenericIdAndNameDto> GetRecord(int id)//method to get  Category  by Id 
+
+        [HttpGet("CategoryById/{id}")] //Get category By Id
+        public ActionResult<GetGenericIdAndNameDto> GetRecord(int id) 
         {
             var recordInDb = _context.Safetyitemcategories.Where(item => item.SafetyitemcategoryId == id).Select(item => new GetGenericIdAndNameDto()
             {
@@ -35,7 +36,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
             return recordInDb;
         }
 
-        [HttpGet("GetAll")]
+        [HttpGet("GetAll")] // Get All Categories 
         public ActionResult<IEnumerable<GetGenericIdAndNameDto>> GetAll()
         {
             var recordsInDb = _context.Safetyitemcategories.Select(item => new GetGenericIdAndNameDto
@@ -43,11 +44,10 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
                 Name = item.CategoryName,
                 Id = item.SafetyitemcategoryId
             }).OrderBy(item => item.Name).ToList();
-
             return recordsInDb;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{id}")] // update Category Description
         public IActionResult Update(AddOrUpdateGenericNameOnlyDto model, int id)
         {
             if (ModelState.IsValid)
@@ -68,7 +68,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
 
         }
 
-        [HttpPost("AddCategory")]
+        [HttpPost("AddCategory")] //Add New Category Details
         public IActionResult AddItemCategory(AddOrUpdateGenericNameOnlyDto model)
         {
             var message = "";
@@ -94,7 +94,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
             return BadRequest(new { message });
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{id}")] // Delete Category 
         public async Task<ActionResult<Safetyitemcategory>> DeleteRecord(int id)
         {
             var recordInDb = await _context.Safetyitemcategories.FindAsync(id);

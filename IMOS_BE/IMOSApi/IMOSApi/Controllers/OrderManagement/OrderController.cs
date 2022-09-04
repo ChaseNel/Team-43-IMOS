@@ -3,6 +3,7 @@ using IMOSApi.Extensions;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,27 +22,56 @@ namespace IMOSApi.Controllers.OrderManagement
             _context = context;
         }
 
+        // Get Order By Id 
+
+        // Get All Supplier  Orders 
+        [HttpGet("GetAllSupplierOrders")]
+        public ActionResult<IEnumerable<GetSupplierOrderDto>> GetAll()
+        {
+            var recordsInDb = _context.Orderlines
+                .Include(item => item.Supplier)
+                .Include(item => item.Suppliermaterialorders)
+                .Select(item => new GetSupplierOrderDto()
+                {
+                    Id = item.OrderId,
+                    Date = item.Date.ToString(),
+                    OrderNumber = item.OrderNumber,
+                    SupplierId = item.SupplierId,
+
+                }).OrderBy(item => item.Date);
+            return recordsInDb.ToList();
+        }
+
+
+
         // Add to Supplier Order Cart 
         [HttpPost("AddSupplierMaterialOrdersCart")]
-        public IActionResult AddSupplierOderCart([FromBody]AddSupplierOrderCart model)
+        public IActionResult AddSupplierOderCart(AddSupplierOrderCart model)
         {
-
             var message = "";
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var recordIbDb = _context.Orderlines.FirstOrDefault();
-              //  var autoOrderNuberCode = OrderAutoCode.GenerateOrderNumber();
                 if (recordIbDb != null)
                 {
                     message = "Record exists in database";
                     return BadRequest(new { message });
-
                 }
-                //var autoOrderNuberCode = OrderAutoCode.GenerateOrderNumber();
+
+                var orderNumber = "";
+                Orderline orderNumberExists;
+                do
+                {
+                    orderNumber = GenerateOrderNumber();
+                    orderNumberExists = _context.Orderlines.FirstOrDefault(item => item.OrderNumber == orderNumber);
+
+                } while (orderNumberExists != null);
+
                 var newOrderDetails = new Orderline()
                 {
-                    //OrderNumber = autoOrderNuberCode
-                    Date=DateTime.Now,
+                    OrderNumber = orderNumber,
+                    Date = DateTime.Now,
+                    SupplierId = model.supplierId
                 };
                 _context.Orderlines.Add(newOrderDetails);
                 _context.SaveChanges();
@@ -50,30 +80,30 @@ namespace IMOSApi.Controllers.OrderManagement
                 {
                     var supplierMaterialsOrder = new Suppliermaterialorder()
                     {
-                        MaterialId = item.MaterialId,  
+                        MaterialId = item.MaterialId,
                         OrderId = newOrderDetails.OrderId,
                         QuantityOrdered = model.Quantity,
                     };
                     _context.Suppliermaterialorders.Add(supplierMaterialsOrder);
                 }
-
-                //foreach (var item in model.Suppliers)
-                //{
-                //    var  supplierOrders = new Suppliersordersupplier()
-                //    {
-                //        SupplierId = item.SupplierId,
-                //        OrderId=newOrderDetails.OrderId,
-                      
-                //    };
-                //    _context.Suppliersordersuppliers.Add(supplierOrders);
-                //}
-
-                // send email to supplier //notification extension 
                 _context.SaveChanges();
+                return Ok();
             }
+
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
+
+        private static readonly Random random = new Random();
+        public static string GenerateOrderNumber()
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 5)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+        //update
+        // Delete 
+
     }
 }
      

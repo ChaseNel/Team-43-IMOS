@@ -1,18 +1,20 @@
+
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import {  project, safetyItem, safetyitemcategory, ServiceService } from '../services/service.service';
+import {  project, safetyItem, ServiceService } from '../services/service.service';
 
-// safety checklist class on shared types 
-export interface SafetyItem{
+export interface Safetyfilechecklist{
+  
+  projectId:number,
   safetyfileitemId:number,
-  name:string,
-  safetyitemcategoryId:number,
-  safetyitemcategory:string,
-  safetyfilechecklists:[]
+  project:string,
+  safetyfileitem:string,
+  projectName?:string,
+  name?:string
 }
 
 @Component({
@@ -22,20 +24,18 @@ export interface SafetyItem{
 })
 export class SaftyChecklistComponent implements OnInit {
 
-  data: safetyItem []=[];
 
   displayedColumns: string[] = ['id', 'projectname','Categories', 'SafetyItems','actions'];
 
-  dataSource!: MatTableDataSource<SafetyItem>;
+  dataSource!: MatTableDataSource<Safetyfilechecklist>;
   
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
+
   SafetyItems:safetyItem[]=[];
   TypeList:project[]=[];
-  
-  CategoryTypes:safetyitemcategory[]=[];
 
   constructor(private _route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllProjectSafetyChecklistItem();
@@ -43,16 +43,14 @@ export class SaftyChecklistComponent implements OnInit {
    }
    GetAllProjectSafetyChecklistItem(){
     this._service.getProjectChecklist().subscribe(x => {
-      this.data = x;
-      console.log(this.data);
       this.posts = x;
-
       this.dataSource = new MatTableDataSource(this.posts)
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
    }
+
    applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -66,11 +64,13 @@ export class SaftyChecklistComponent implements OnInit {
 addNewSafetyChecklist() {
   this._route.navigateByUrl('/AddSaftyChecklist')
 }
+
   // update method route
   UpdateProjectSafetyChecklist(id:number) {
     //console.log("Test " +id)
     this._route.navigate(['UpdateProjectSafetyChecklist',id])
   }
+
   // delete method route   getSafetyCategory
   removeProjectSafetyChecklist(id: number) {
     console.log(id);
@@ -84,9 +84,11 @@ addNewSafetyChecklist() {
       });
     }
   }
+
   saftychecklistcatagory(){
     this._route.navigateByUrl('/saftyChecklistCatagory')
   }
+
 
   ngOnInit(): void {
     this._service.getSafetyCategory().subscribe(x=>{

@@ -1,54 +1,71 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ServiceService } from 'src/app/services/service.service';
-
-export interface Safetyitemcategory{
-  safetyitemcategoryId:number,
-  categoryName:string,
-  Safetyfileitems:[]
-}
+import { safetyItem, safetyitemcategory, ServiceService } from 'src/app/services/service.service';
+import { ItemsComponent } from '../items/items.component';
 
 @Component({
   selector: 'app-safty-checklist-catagory',
   templateUrl: './safty-checklist-catagory.component.html',
-  styleUrls: ['./safty-checklist-catagory.component.css']
+  styleUrls: ['./safty-checklist-catagory.component.css'],
+  template:' {{data.id}}',
 })
+
 export class SaftyChecklistCatagoryComponent implements OnInit {
 
-  type: any;
-  hide: boolean = false;
-  
+  hide:any;
+  type:any;
   // API Test
-  data: Safetyitemcategory[] = [];
+  APIdata: safetyitemcategory[] = [];
+
+  info:safetyItem[]=[];
+
+  requestData:safetyItem[]=[];
+  CategoryId:number;
+
   displayedColumns: string[] = ['id', 'name', 'actions'];
 
-  dataSource!: MatTableDataSource<Safetyitemcategory>;
+  dataSource!: MatTableDataSource<safetyitemcategory>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  constructor(private route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
- //  this.GetAllSafetyitemcategories();
 
+  constructor(private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:{id:number},private route: Router,
+  private _service: ServiceService, private _snackBar: MatSnackBar) {
+    this.GetAllSafetyitemcategories();
    }
-   // get all http method 
-   GetAllSafetyitemcategories(){
-    /*this._service.getSafetyCategory().subscribe(x => {
-      this.data = x;
-      console.log(this.data);
-      this.posts = x;
-
-      this.dataSource = new MatTableDataSource(this.posts)
-
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })*/
+     // get all http method 
+     GetAllSafetyitemcategories(){
+      this._service.getSafetyCategory().subscribe(x => {
+        this.APIdata = x;
+        console.log(this.APIdata);
+        this.posts = x;
+  
+        this.dataSource = new MatTableDataSource(this.posts)
+  
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      })
+     }
+ 
+   openDialog(id:number):void{
+   const dialogRef=this.dialog.open(ItemsComponent,{
+    data:{id},
+    width: '80%',
+    height:'90%'
+   });
+   dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
    }
+
+
    //search 
    applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
@@ -60,22 +77,19 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
   }
    // update
    UpdateSafetyItemCategory(element: any) {
-    this.type = element;
-    this.hide = true;
+ 
   }
   // close
- closeClick(){
-    this.hide= false;
-   /* this._service.getSafetyCategory().subscribe(x => {
-      this.data = x;
+  closeClick(){
+    this._service.getSafetyCategory().subscribe(x => {
+      this.APIdata = x;
       console.log(this.data);
       this.posts = x;
 
       this.dataSource = new MatTableDataSource(this.posts)
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-  })*/
+  })
   }
 
    //add 
@@ -95,7 +109,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
       });
     }
    }
-
   ngOnInit(): void {
+    
   }
 }

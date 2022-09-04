@@ -1,8 +1,5 @@
 
-import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
-import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
-import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
-
+import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -58,6 +55,16 @@ import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checkli
 import { UserRoleComponent } from './user/userrole/user-role.component';
 import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
 import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+import { ReportingComponent } from './reporting/reporting.component';
+import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
+import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
+
+import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
+
+import { AuthGuard } from './services/auth/auth.guard';
+import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
 
 
 const routes: Routes = [
@@ -66,10 +73,16 @@ const routes: Routes = [
   //Header
   { path: 'header', component: HeaderComponent },
   //Home
-  { path: 'home', component: HomeComponent },
-  //User
-  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent, /*canActivate:[AuthGuard] */},
+
+  //Reporting
+  { path: 'Allreports', component: ReportingComponent },
+
+  { path: 'login', component: LoginComponent,  },
   { path: 'logout', component: LogoutComponent },
+  { path: '', pathMatch: 'full', redirectTo: '/login' }, 
+
+  
   { path: 'user', component: UserComponent },
   { path: 'adduser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
@@ -81,6 +94,11 @@ const routes: Routes = [
   { path: 'employee', component: EmployeeComponent },
   { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
   { path: 'AddEmployee', component: AddEmployeeComponent },
+  //Employee Attendance
+  { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
+
+   //Upload employee
+  
   //Material
   { path: 'material', component: MaterialComponent },
   { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
@@ -102,6 +120,10 @@ const routes: Routes = [
   { path: 'AddSupplierType', component: AddSupplierTypeComponent },
   //Supplier Order
   { path: 'supplierOrder', component: SupplierOrderComponent },
+  { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
+  { path: 'CancelOrder/:id', component: CancelOrderComponent },
+
+  
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
@@ -145,6 +167,8 @@ const routes: Routes = [
   { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
   //Safty Checklist Caragory
   { path: 'safty-checklist-catagory', component: SaftyChecklistCatagoryComponent },
+
+// reporting 
 
 ];
 

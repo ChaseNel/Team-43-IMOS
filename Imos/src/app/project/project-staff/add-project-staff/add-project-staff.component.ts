@@ -24,27 +24,40 @@ export class AddProjectStaffComponent implements OnInit {
   ngOnInit(): void {
     this.buildAddForm();
   }
+
   private buildAddForm(){
     this.form=this.fb.group({
       employeeId: ['', [Validators.required]],
       projectId: ['', [Validators.required]]
-     
-     
     })
     this._service.getProject().subscribe(data=>{
       this.TypeList=data;
     });
+
     this._service.getEmployees().subscribe(data=>{
       this.EmployeeTypes=data;
     });
   }
 
-  AddStaff(){
+  AddProjectEmployees(){
     if(this.form.valid){
-      console.log(this.form.value)
-      this._service.addProjectEmployee(this.form.value)
+      let payload:any={};
+      payload['ProjectId'] = this.form.get('projectId')?.value;
+
+        //Process employees
+        let employeeIds = this.form.get('employeeId')?.value as [];
+        let listOfEmployees:any[] = [];
+        employeeIds.forEach((element: any) => {
+         let employeeObj:any = {};
+         employeeObj['EmployeeId'] = element as number;
+         listOfEmployees.push(employeeObj);
+        });
+
+        payload['Employees'] = listOfEmployees;
+        console.log(payload)
+      this._service.addProjectEmployee(payload)
       .subscribe(res=>{
-        //add validation and "are you sure to add equipment  notification"
+        //add validation and "are you sure to add project employee  notification"
       })
   }
 }

@@ -10,6 +10,7 @@ namespace IMOSApi.Dtos.SafetyChecklist
     {
         [Required]
         public string Name { get; set; }
+
         [Required]
         public int SafetyitemcategoryId { get; set; }
     }

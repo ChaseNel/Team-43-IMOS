@@ -3,13 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { project, safetyItem, safetyitemcategory, ServiceService } from 'src/app/services/service.service';
 import { Router } from '@angular/router';
 
-export interface SafetyItem{
-  safetyfileitemId:number,
-  name:string,
-  safetyitemcategoryId:number,
-  safetyitemcategory:string,
-  safetyfilechecklists:[]
-}
 @Component({
   selector: 'app-add-safty-checklist',
   templateUrl: './add-safty-checklist.component.html',
@@ -18,14 +11,10 @@ export interface SafetyItem{
 export class AddSaftyChecklistComponent implements OnInit {
 
   alert: boolean = false;
-  toppings = this.fb.group({
-    //get all of the items
-  });
-  panelOpenState = false;
   form:FormGroup; 
    SafetyItems:safetyItem[]=[];
    TypeList:project[]=[];
-  CategoryTypes:safetyitemcategory[]=[];
+  
 
   constructor( private fb: FormBuilder, private _service:ServiceService, private route: Router) { }
 
@@ -34,18 +23,43 @@ export class AddSaftyChecklistComponent implements OnInit {
   }
   private buildAddForm(){
     this.form=this.fb.group({
-      projectId: ['', [Validators.required]],
-      safetyfileitemId :['', [Validators.required]]
+  //    id: ['', [Validators.required]], // project
+      id :['', [Validators.required]] // safety Items 
     })
-    this._service.getSafetyCategory().subscribe(data=>{
-      this.CategoryTypes=data;
-    });
     this._service.getProject().subscribe(data=>{
       this.TypeList=data;
+      console.log(data)
+    });
+
+    this._service.getSafetcyItem().subscribe(data=>{
+      this.SafetyItems=data;
+      console.log(data)
     });
   }
  
   addNewChecklist(){
+    if(this.form.valid){
+      let payload:any;
+
+      //payload['Id'] = this.form.get('id')?.value;
+
+      //Processes Safety Items 
+      let SafetyItemsIds = this.form.get('id')?.value as [];
+      let listOfSafetyItems:any[] = [];
+      SafetyItemsIds.forEach((element: any) => {
+       let safetyItemObj:any = {};
+       safetyItemObj['Id'] = element as number;
+       listOfSafetyItems.push(safetyItemObj);
+      });
+     
+
+      payload['SafetyItems'] = listOfSafetyItems;
+      console.log(listOfSafetyItems)
+    /*  this._service.addProjectChecklist(payload).subscribe(res=>{
+        console.log(res)
+      })*/
+
+    }
 
   }
   closeAlert() {

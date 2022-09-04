@@ -11,10 +11,11 @@ namespace IMOSApi.Dtos
 
         [Required]
         public string Username { get; set; }
-   
-        public int UserroleId { get; set; }
 
+        [Required]
         public int EmployeeId { get; set; }
+
+        public int UserroleId { get; set; }
 
     }
 }
