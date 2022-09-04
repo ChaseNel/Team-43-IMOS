@@ -75,7 +75,7 @@ const routes: Routes = [
   //Header
   { path: 'header', component: HeaderComponent },
   //Home
-  { path: 'home', component: HomeComponent,canActivate:[AuthGuard] },
+  { path: 'home', component: HomeComponent, /*canActivate:[AuthGuard] */},
 
   //Reporting
   { path: 'Allreports', component: ReportingComponent },

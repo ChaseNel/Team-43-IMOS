@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -102,7 +103,7 @@ namespace IMOSApi
             var authKey = Configuration.GetValue<string>("JWTSettings:JwtKey");
 
 
-
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();//remove default claims 
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -117,11 +118,10 @@ namespace IMOSApi
                 {
                     //  ValidIssuer = Configuration["JwtIssuer"],
                     ValidateIssuerSigningKey=true,
+                    ValidIssuer =Configuration["JwtIssuer"],
+                    ValidAudience = Configuration["JwtIssuer"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authKey)),
-                    ValidIssuer = false.ToString(),
-                    ValidAudience = false.ToString(),
-                  
-                   // ClockSkew = TimeSpan.Zero
+                    ClockSkew = TimeSpan.Zero
                 };
 
             });

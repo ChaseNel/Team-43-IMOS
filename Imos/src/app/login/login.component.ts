@@ -3,7 +3,6 @@ import { user } from 'src/app/services/service.service';
 
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
 import { AuthService } from '../services/auth/auth.service';
@@ -31,12 +30,13 @@ export class LoginComponent implements OnInit {
    /* private _AuthService:AuthService*/, private http: HttpClient) {
 
   }
+
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: [null, [Validators.required]],
       userPassword: [null, [Validators.required]]
     });
-    localStorage.clear();
+   localStorage.clear();
   }
 
   LogIn() {
@@ -51,18 +51,16 @@ export class LoginComponent implements OnInit {
           let role = Number(this.getDecodedAccessToken(res.token).Role[0]);
 
           if (role == 5) {
+        
             this.router.navigate(['home']);
           }
-
           else if (role == 4) {
             //this.router.navigate(['home']);
           }
-
         }
       })
     }
   }
-
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
@@ -70,6 +68,4 @@ export class LoginComponent implements OnInit {
       return null;
     }
   }
-
-
 }

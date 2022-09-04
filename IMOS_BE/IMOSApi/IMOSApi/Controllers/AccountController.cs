@@ -32,12 +32,10 @@ namespace IMOSApi.Controllers
             _jwtsettings = jwtsettings.Value;
         }
 
-
         [HttpPost("Login")]
         [AllowAnonymous]
         public async Task<ActionResult>Login([FromBody] LogInDto model)
         {
-
             try
             {
                 var message = "";
@@ -47,7 +45,6 @@ namespace IMOSApi.Controllers
                     return BadRequest(new { message });
 
                 }
-
                 var password = EncDscPassword.EncryptPassword(model.Password.ToString());
                 var _user = await _context.Users
                     .Where(u => u.Username == model.Username.ToLower() && u.Userpassword == password).FirstOrDefaultAsync();
@@ -58,17 +55,16 @@ namespace IMOSApi.Controllers
                     var token = GenerateToken(_user);
                     return GenerateToken(_user);
                 }
+                    return Unauthorized(); 
 
-                return Unauthorized();
             }
+
             catch (Exception c)
             {
                 throw new Exception(c.Message);
                 return null;
             }
-           
         }
-
 
         List <Claim> claims = new List<Claim>();
         private ActionResult GenerateToken(User user)
@@ -91,8 +87,6 @@ namespace IMOSApi.Controllers
              expires: DateTime.Now.AddDays(1),
              signingCredentials: credentials
             );
-
-
             return Created("", new
             {
                 token = new JwtSecurityTokenHandler().WriteToken(token),
@@ -100,47 +94,5 @@ namespace IMOSApi.Controllers
 
             });
         }
-    
-
-
-
-
-
-
-     /*   private RefreshToken GenerateRefreshToken()
-        {
-            RefreshToken refreshToken = new RefreshToken();
-
-            var randomNumber = new byte[32];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(randomNumber);
-                refreshToken.Token = Convert.ToBase64String(randomNumber);
-            }
-            refreshToken.ExpiryDate = DateTime.UtcNow.AddMonths(3);
-            return refreshToken;
-        }*/
-
-
-        //private string GenerateAccessToken(string username)
-        //{
-        //    var tokenHandler = new JwtSecurityTokenHandler();
-        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtsettings.JwtKey));
-        //    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        //    var claims = new List<Claim>                Subject = new ClaimsIdentity(
-        
-        //    {
-        //         new Claim(ClaimTypes.Name,username),
-        //           new Claim("CompanyName","Imos Syetem"),
-        //    };
-
-        //    var token = new JwtSecurityToken(
-
-              
-
-        //             signingCredentials: credentials
-        //        );
-
-        //}
     }
 }

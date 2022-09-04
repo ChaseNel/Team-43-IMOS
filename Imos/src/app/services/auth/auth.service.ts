@@ -6,24 +6,18 @@ import jwt_decode from 'jwt-decode';
 @Injectable({
   providedIn: 'root'
 })
+
 export class AuthService {
-
-
   endpointBase = environment.endpointBase;
-
   constructor(private _httpClient: HttpClient,
-    private _router: Router) {
-
+    /*private _router: Router*/) {
   }
-
   setToken(token: string) {
-    sessionStorage.setItem(token, "token")
+    localStorage.setItem(token, "token")
   }
-
   getToken() {
-   return sessionStorage.getItem('token')
+   return localStorage.getItem('token')
   }
-
   getDecodedAccessToken(token: string): any {
     try {
       return jwt_decode(token);
@@ -37,9 +31,8 @@ export class AuthService {
       .post(this.endpointBase.concat("Account/Login"),
         payload, { reportProgress: true, observe: 'events' });
   }
-
   logOut() {
     localStorage.removeItem('token')
-    this._router.navigate(['']);// to navigate back to login
+   // this._router.navigate(['']);// to navigate back to login
   }
 }

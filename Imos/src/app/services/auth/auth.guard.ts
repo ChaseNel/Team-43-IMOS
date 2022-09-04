@@ -9,19 +9,18 @@ import { AuthService } from './auth.service';
 export class AuthGuard implements CanActivate {
   token: string | null;
   constructor(  private auth: AuthService,private router: Router){
-    this.token =  this.auth.getToken();
+   // this.token =  this.auth.getToken();
   }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
   
       if(this.token != null) {
-      return true
+        return false
+     // return true
     }
-
-      this.router.navigate(['login']);
+     // this.router.navigate(['login']);
       return false;
   }
-
-
 }
