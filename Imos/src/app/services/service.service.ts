@@ -1,4 +1,3 @@
-import { Vehicle } from './../vehicle/add-vehicle/add-vehicle.component';
 
 
 
@@ -386,32 +385,6 @@ export class ServiceService {
     , {reportProgress: true, observe: 'events'});
   }
 
-  uploadVehiclePhoto222222(VehicleId: number, imageUrl: string) {
-    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/' + VehicleId, imageUrl)
-  }
-
-
-  uploadVehiclePhoto1(finalform: any){
-    return this.http.put(this.Root_URL + `/Vehicle/UploadVehiclePhoto/${finalform.VehicleId}/`, finalform.imageUrl);
-  }
-
-  uploadvehimg(finalform: any){
-    return this.http.post(this.Root_URL + `/Vehicle/UploadVehiclePhoto/${finalform.VehicleId}/` , finalform.imageUrl);
-  }
-
-
-
-  uploadVehiclePhoto33(id:number, finalform: any){
-    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/'+ id, finalform.imageUrl);
-  }
-
-  updateVehicleImage(id:number, imageUrl:any){
-    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/' + id, imageUrl)
-  }
-
-
-
-
 
   //User
   //Get
@@ -547,37 +520,11 @@ export class ServiceService {
   getUrgencylvl(): Observable<UrgencyLevel[]> {
     return this.http.get<[UrgencyLevel]>(this.Root_URL + '/ProjectMaterialRequest/GetAllUrgencyLvl')
   }
-  getUrgencylvlById(id:number): Observable<UrgencyLevel[]> {
-    return this.http.get<[UrgencyLevel]>(this.Root_URL + '/Urgencylevel/GetUrgencylevel/' +id)
-  }
 
   updateUgencylvl(id:number,data:any){
     return this.http.put(this.Root_URL + '/ProjectMaterialRequest/UpdateUrgencyLvl/'+id,data);
 
   }
-
-  addRequestStatus(val: any) {
-    return this.http.post(this.Root_URL + '/ProjectMaterialRequestStatus/AddRequestStatus', val)
-  }
-
-  updateRequestStatus(id:number,data:any){
-    return this.http.put(this.Root_URL + '/ProjectMaterialRequestStatus/UpdateRequestStatus/'+ id, data);
-
-  }
-
-  deleteRequestStatus(id: number) {
-    return this.http.delete(this.Root_URL + '/ProjectMaterialRequestStatus/DeleteRequestStatus/' + id);
-  }
-
-  getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
-    return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
-  }
-
-
-
-
-
-
 
 
 
@@ -661,16 +608,12 @@ export class ServiceService {
     .pipe(map(result => result))
   }
 
-  CalendarViewRequest(): Observable<any> {
-    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequest/GetCalendarViewRequests')
-  }
 
 
 
   CompileRequestCountDashboard(): Observable<any>{
     return this.http.get(`${this.Root_URL}/ProjectMaterialRequestReportsController1/GetProjectMaterialRequestCount`)
     .pipe(map(result => result))
-
   }
 
 
@@ -900,6 +843,9 @@ updateclient(val: any,id: number){
 
 
 
+  getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
+    return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
+  }
 
 
 

@@ -94,9 +94,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
+
+
+
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 import { ClientRequestComponent } from './client-request/client-request.component';
@@ -130,9 +130,6 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ApprovedRequestReportViewComponent } from './report/approved-request-report-view/approved-request-report-view.component';
 import { DemoUtilsModule } from '../app/demo-utils/module';
-import { MaterialRequestStatusComponent } from './project/project-material-request/material-request-status/material-request-status.component';
-import { AddMaterialRequestStatusComponent } from './project/project-material-request/material-request-status/add-material-request-status/add-material-request-status.component';
-import { UpdateMaterialRequestStatusComponent } from './project/project-material-request/material-request-status/update-material-request-status/update-material-request-status.component';
 
 const materialModules = [
   MatCardModule,
@@ -224,11 +221,7 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
-
     SaftyChecklistCatagoryComponent,
-    SaftyChecklistItemsComponent,
-    AddSaftyChecklistItemsComponent,
-    UpdateSaftyChecklistItemsComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
     ClientRequestComponent,
@@ -261,6 +254,7 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     DeliveryNoteComponent,
     AddDeliveryNoteComponent,
     UpdateDeliveryNoteComponent,
+    ApprovedRequestReportViewComponent
   ],
   imports: [
     BrowserModule,
@@ -298,6 +292,7 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     DemoUtilsModule,
     MatCheckboxModule,
     MatExpansionModule
+
   ],
   providers: [
     ServiceService,

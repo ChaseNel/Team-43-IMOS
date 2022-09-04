@@ -2,6 +2,7 @@
 import { map } from 'rxjs/operators';
 
 
+import {  ProjectMaterialRequest } from './../services/service.service';
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import { project, ServiceService, constructionSite, request } from './../services/service.service';
 
@@ -46,14 +47,6 @@ import { HttpParams } from '@angular/common/http';
 import { colors } from '../demo-utils/colors';
 
 
- interface ProjectMaterialRequest{
-  materialRequestId: number,
-  projectId: number,
-  urgencyLevelName: string,
-  requestDate :string,
-  statusName:string,
-  statusUpdateDate: string,
-}
 
 
 
@@ -102,12 +95,19 @@ export class ProjectComponent implements OnInit {
 
   endDate: Date = new Date();
 
-  events$: Observable<CalendarEvent<{requestList:ProjectMaterialRequest}>[]>;
+  events$: Observable<CalendarEvent<{requestList:ProjectMaterialRequest}>[]>
 
   activeDayIsOpen: boolean = false;
 
 
   refresh = new Subject<void>();
+
+
+
+
+
+
+
 
 
 
@@ -155,7 +155,6 @@ export class ProjectComponent implements OnInit {
     this.service.getConstructionSite().subscribe(x => {this.sitelist = x; console.log("Sitelist" , this.sitelist)});
     this.service.getRequeast().subscribe(x => {this.reqlist = x; console.log("reqlist" , this.reqlist)});
 
-
   }
   fetchEvents(): void
   {
@@ -173,64 +172,44 @@ export class ProjectComponent implements OnInit {
 
     const params = new HttpParams()
     .set(
-      'requestDate',
+      'primary_release_date.gte',
       format(getStart(this.viewDate), 'yyyy-MM-dd')
     )
+    .set(
+      'primary_release_date.lte',
+      format(getEnd(this.endDate), 'yyyy-MM-dd')
+    )
 
+    .set('api_key', '0ec33936a68018857d727958dca1424f');
 
-    this.events$ = this.service.CalendarViewRequest()
+    this.events$ = this.service.getMaterialRequest()
     .pipe(
-      map((  request : {
-        map: any; request: ProjectMaterialRequest[]
-} )  => {
+      map(({ results }:{ results: ProjectMaterialRequest[] }) =>{
+        console.log(results)
 
-        return request.map((requestList: ProjectMaterialRequest) => {
-          console.log(requestList)
-          if(requestList.statusName==="pending")
-          {
-            console.log("peding this side only")
-
-            return{
-              title: requestList.statusName +  "," + " "+    requestList.urgencyLevelName,
-              start: new Date(
-                requestList.requestDate
-              ),
-              end: new Date(
-                requestList.statusUpdateDate
-              ),
-              actions:[
-                {
-                  label: '<i class="fas fa-fw fa-pencil-alt"></i>',
-                  onclick: (requestList: CalendarEvent): void =>{
-                    console.log('Edit event', requestList);
-
-                  }
-                }
-              ],
-              color: colors.blue,
-              allDay: true,
-              meta:{
-                requestList,
-              },
-            };
-          }
-
-          else
+        return results.map((requestList: ProjectMaterialRequest) =>{
           return {
-              title: requestList.statusName +  "," + " "+    requestList.urgencyLevelName,
-              start: new Date(
-                requestList.requestDate
-              ),
-              end: new Date(
-                requestList.statusUpdateDate
-              ),
-              color: colors.green,
-              allDay: true,
-              meta:{
-                requestList,
-              },
-            };
+            title : requestList.statusName,
+
+            start: new Date(
+
+              requestList.requestDate + getTimezoneOffsetString(this.viewDate)
+
+            ),
+
+            end: new Date(
+              requestList.statusUpdateDate + getTimezoneOffsetString(this.endDate)
+            ),
+
+            colors:colors.yellow,
+            allDay: true,
+            meta:{
+              requestList,
+            },
+
+          };
         });
+
       })
     );
   }
@@ -288,7 +267,7 @@ export class ProjectComponent implements OnInit {
   GetAllProjects() {
     this.service.getProject().subscribe(x => {
       this.info = x;
-
+      console.log(this.data);
       this.posts = x;
 
       this.dataSource = new MatTableDataSource(this.posts)
@@ -333,6 +312,23 @@ export class ProjectComponent implements OnInit {
   deliveryNote(){
     this.route.navigateByUrl('DeliveryNote');
   }
+
+ViewRequests(){
+
+this.service.getMaterialRequest()
+.subscribe(result => {
+
+  result.forEach((element: { results: CalendarEvent<any>; }) => {
+
+    //this.events..push(element.results)
+
+  });
+
+  console.log(this.events$)
+})
+
+}
+
 
 
 
