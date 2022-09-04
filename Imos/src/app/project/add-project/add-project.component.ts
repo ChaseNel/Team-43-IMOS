@@ -29,7 +29,7 @@ export class AddProjectComponent implements OnInit {
     this.service.getConstructionSite().subscribe(data=>{
       this.SiteList=data;
     });
-    this.service.getRequest().subscribe(data=>{
+    this.service.getRequeast().subscribe(data=>{
   this.requestList=data;
 });
   }

@@ -60,11 +60,17 @@ export class SaftyChecklistComponent implements OnInit {
     }
   }
 
+  deleteSaftyFile(){
+
+  }
+
 // add method route addNewSafetyChecklist
 addNewSafetyChecklist() {
   this._route.navigateByUrl('/AddSaftyChecklist')
 }
-
+addSaftyFile(){
+  
+}
   // update method route
   UpdateProjectSafetyChecklist(id:number) {
     //console.log("Test " +id)

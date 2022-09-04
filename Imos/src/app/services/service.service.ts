@@ -67,7 +67,7 @@ export interface material {
 
 //Material Type Interface
 export interface materialtype {
-  id: number,
+  materialtypeId: number,
   name: string,
   description: string,
   materials: []
@@ -119,8 +119,9 @@ export interface  orderline {
 export interface suppliermaterial{
   materialId: number,
   material: string,
+  supplierId: number,
   supplier: string,
-  deliveries: []
+  supplierName?: string
 }
 export interface projectemployee{
   employeeId: number,
@@ -174,6 +175,7 @@ export interface constructionSite {
 //Project Interface
 export interface project {
   id:number,
+  name:string,
   projectId: number,
   constructionsiteId: number,
   initialrequestId: number,
@@ -515,6 +517,10 @@ getSupplierById(id:number){
 
   //Supplier Order
   //Get
+   // get Material by Supplier Id
+   getMaterialBySupplierId(): Observable<suppliermaterial []> {
+    return this.http.get<suppliermaterial []>(this.Root_URL + '/Material/BySupplierId')
+  }
 
   //Delete
   deleteSupplierOrder(id: number) {
