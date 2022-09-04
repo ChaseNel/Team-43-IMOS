@@ -1,4 +1,5 @@
-import { materialType } from './../services/service.service';
+import { materialtype } from './../services/service.service';
+import { supplier, equipment, warehouse } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,8 +17,10 @@ export interface Material {
   projectmaterialrequestlists: [],
   projectmaterials: [],
   supplierorderlines: [],
+  suppliermaterials:[],
   taskmaterials: [],
-  warehousematerials: [],
+  warehouse:string
+  warehouseId:number
 }
 
 @Component({
@@ -30,7 +33,7 @@ export class MaterialComponent implements OnInit {
   // API Test
   data: material[] = [];
 
-  displayedColumns: string[] = ['id', 'materialType', 'name', 'description', 'actions'];
+  displayedColumns: string[] = ['id', 'Materialtype', 'Warehouses','name', 'description','Materialsupplier','Quantity', 'actions'];
 
   dataSource!: MatTableDataSource<Material>;
 
@@ -38,7 +41,9 @@ export class MaterialComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  typelist: materialType[] = [];
+  TypeList: materialtype[] = [];
+  SupplierList:supplier[]=[];
+  WarehouseTypes: warehouse[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllMaterials();
@@ -66,8 +71,8 @@ export class MaterialComponent implements OnInit {
     }
   }
 
-  UpdateMaterial() {
-    this.route.navigateByUrl('/UpdateMaterial')
+  UpdateMaterial(id:number) {
+    this.route.navigateByUrl('UpdateMaterial/' + id);
   }
 
   addMaterial() {
@@ -96,8 +101,8 @@ export class MaterialComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+    this.service.getMaterialType().subscribe(x => { this.TypeList = x; console.log("typelist", this.TypeList) });
+    this.service.getWarehouses().subscribe(x => { this.WarehouseTypes = x; console.log("warehouselist", this.WarehouseTypes) });
 
   }
-
 }

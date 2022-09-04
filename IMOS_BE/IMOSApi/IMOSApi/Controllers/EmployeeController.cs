@@ -1,6 +1,7 @@
 ﻿using IMOSApi.Dtos.Employee;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -27,15 +28,30 @@ namespace IMOSApi.Controllers
                 return _dbContext.Employees.ToList();
             }
         }
-        [HttpGet("GetEmployee/{id}")]
-        public IEnumerable<Employee> Get(int id)
+        [HttpGet("GetEmployeeById /{id}")]
+        public ActionResult<GetEmployeeDto> GetRecord(int id)
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Employee> tmp = context.Employees.Where(emp => emp.EmployeeId == id).ToList();
-                return tmp;
+                var recordInDb = _dbContext.Employees
+                  .Where(item => item.EmployeeId == id)
+                  .Include(item => item.Documents)
+                  .Select(item => new GetEmployeeDto()
+                  {
+                      EmployeeId = item.EmployeeId,
+                      Name = item.Name,
+                      Email = item.Email,
+                      ContactNumber = item.Contactnumber
+
+                  }).OrderBy(item => item.Name).First();
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+                return recordInDb;
             }
         }
+
 
         [HttpPost("AddEmployee")]
         public  IActionResult AddEmployee(AddEmployeeDto model )
@@ -48,13 +64,7 @@ namespace IMOSApi.Controllers
             }
             using (var _dbContext = new IMOSContext())
             {
-              /* var recordInDb = _dbContext.Employees;
-                if (recordInDb != null)
-                {
-                    message = "Employee  already exists in Database";
-                    return BadRequest(new { message });
-                }*/
-
+              
                 var newEmployee = new Employee()
                 {
                     Name = model.Name,
@@ -76,17 +86,6 @@ namespace IMOSApi.Controllers
             }
         }
 
-        [HttpPost("CreateEmployee")]
-        public IActionResult Create([FromBody] Employee employee)
-        {
-            using (var context = new IMOSContext())
-            {
-                context.Employees.Add(employee);
-                context.SaveChanges();
-                return Ok();
-            }
-        }
-
         [HttpPut("UpdateEmployee/{Id}")]
         public void Update([FromBody] Employee employee,[FromRoute] int Id)
         {
@@ -101,15 +100,22 @@ namespace IMOSApi.Controllers
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteEmployee/{Id}")]
-        public void Delete(int id)
+
+        [HttpDelete("DeleteEmployee/{id}")]
+        public async Task<ActionResult<Employee>> Delete(int id)
         {
-            using (var context = new IMOSContext())
+            var recordInDb = await _dbContext.Employees.FindAsync(id);
+            if (recordInDb == null)
             {
-                var emp = _dbContext.Employees.Where(emp => emp.EmployeeId == id).ToList().FirstOrDefault(); ;
-                _dbContext.Employees.Remove(emp);
-                _dbContext.SaveChanges();
+                return NotFound();
             }
+
+            _dbContext.Employees.Remove(recordInDb);
+            await _dbContext.SaveChangesAsync();
+           
+
+
+            return Ok();
         }
     }
 }

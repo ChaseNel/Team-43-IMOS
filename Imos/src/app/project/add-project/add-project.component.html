@@ -1,1 +1,47 @@
-<p>add-project works!</p>
+<app-header></app-header>
+
+<div class="main">
+
+    <h1>Add Project</h1>
+
+<form [formGroup]="projectfrm" class="addSupplier">
+
+            <div class="row">
+                <mat-form-field class="full-width">
+                    <mat-label>Choose a Cosntruction Site</mat-label>
+                    <mat-placeholder>Choose a Cosntruction Site</mat-placeholder>
+                    <mat-select formArrayName="Site">
+                        <mat-option>Clear</mat-option>
+                        <mat-option mat-cell *matCellDef="let element">
+                            {{ConstructionSite[element.constructionsiteId-1].address}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formdet['Site'].touched && formdet['Site'].invalid">
+                        <mat-error *ngIf="formdet['Site'].errors?.['required'] && formdet['Site'].dirty">Construction Site is required</mat-error>
+                      </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='Req' matInput placeholder="Inital Request" name="Request" formControlName="Req">
+                    <mat-error *ngIf="formdet['Req'].touched && formdet['Req'].invalid">
+                        <mat-error *ngIf="formdet['Req'].errors?.['required'] && formdet['Req'].dirty">Request is required</mat-error>
+                        <mat-error *ngIf="formdet['Req'].errors?.['minlength'] && formdet['Req'].dirty">10 Characters minimum is required</mat-error>
+                        <mat-error *ngIf="formdet['Req'].errors?.['maxlength'] && formdet['Req'].dirty">100 Characters maximum is required</mat-error>
+                      </mat-error>
+                </mat-form-field>
+                <!-- <mat-error *ngIf="hasError('Request', 'required')"></mat-error> -->
+                <mat-form-field class="full-width">
+                    <input [(ngModel)]='SaftyFile' matInput placeholder="Safty File" name="SaftyFile"
+                        formControlName="SaftyFile">
+                        <mat-error *ngIf="formdet['SaftyFile'].touched && formdet['SaftyFile'].invalid">
+                            <mat-error *ngIf="formdet['SaftyFile'].errors?.['required'] && formdet['SaftyFile'].dirty">Safty File is required</mat-error>
+                          </mat-error>
+                </mat-form-field>
+                
+                <div class="btn">
+                    <button (click)="addProject()" mat-raised-button color="primary" [disabled]="projectfrm.invalid!">Add</button>
+                    &nbsp;
+                    <button (click)="back()" mat-raised-button color="warn">Back</button>
+                </div>
+            </div>
+</form>
+</div>

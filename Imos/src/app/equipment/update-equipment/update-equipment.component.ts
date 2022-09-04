@@ -1,5 +1,5 @@
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { equipment, ServiceService } from './../../services/service.service';
+import { equipment, ServiceService, warehouse } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -13,6 +13,8 @@ export class UpdateEquipmentComponent implements OnInit {
   Equipment!:equipment;
   id!:number;
   updateForm:FormGroup;
+  alert: boolean = false;
+  WarehouseTypes: warehouse[] = [];
 
   constructor(
     private fb:FormBuilder, private _service:ServiceService,
@@ -24,7 +26,9 @@ export class UpdateEquipmentComponent implements OnInit {
     const formOptions: AbstractControlOptions = {};
     this.updateForm=this.fb.group({
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['', [Validators.required]],
+      warehouseId: ['', [Validators.required]],
+      quantity: ['', [Validators.required]]
   }, formOptions);
 
   this.id=+this.route.snapshot.params['id'];
@@ -33,9 +37,13 @@ export class UpdateEquipmentComponent implements OnInit {
     console.log(this.Equipment);
     this.updateForm=this.fb.group({
       name:[this.Equipment.name,[Validators.required]],
-        description:[this.Equipment.description,[Validators.required]],
-    }, formOptions)
+      description:[this.Equipment.description,[Validators.required]],
 
+
+    }, formOptions)
+  })
+  this._service.getWarehouses().subscribe(data=>{
+    this.WarehouseTypes=data;
   })
   }
   onSubmit(){
@@ -45,7 +53,10 @@ export class UpdateEquipmentComponent implements OnInit {
       })
 
   }
-  Cancel(){
+  closeAlert() {
+    this.alert = false;
+  }
+  back(){
 
   }
 }

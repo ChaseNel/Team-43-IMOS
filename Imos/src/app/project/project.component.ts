@@ -1,8 +1,10 @@
 
 import { map } from 'rxjs/operators';
 
-import { project, ServiceService } from './../services/service.service';
+
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
+import { project, ServiceService, constructionSite, request } from './../services/service.service';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -135,7 +137,8 @@ export class ProjectComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  //typelist: materialType[] = [];
+  sitelist: constructionSite[] = [];
+  reqlist: request[] = [];
 
   constructor(private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data:{id:number},
@@ -149,6 +152,8 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
     this.fetchEvents();
+    this.service.getConstructionSite().subscribe(x => {this.sitelist = x; console.log("Sitelist" , this.sitelist)});
+    this.service.getRequeast().subscribe(x => {this.reqlist = x; console.log("reqlist" , this.reqlist)});
 
 
   }
@@ -290,6 +295,8 @@ export class ProjectComponent implements OnInit {
 
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      console.log(this.data);
+
     })
   }
 
@@ -302,8 +309,8 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  UpdateProject() {
-    this.route.navigateByUrl('/updateProject')
+  UpdateProject(id:number) {
+    this.route.navigateByUrl('/updateProject/' + id)
   }
 
   addProject() {
@@ -323,7 +330,9 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-
+  deliveryNote(){
+    this.route.navigateByUrl('DeliveryNote');
+  }
 
 
 

@@ -1,6 +1,9 @@
+import { warehouse } from './../../services/service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-add-equipment',
@@ -9,9 +12,15 @@ import { ServiceService } from 'src/app/services/service.service';
 })
 export class AddEquipmentComponent implements OnInit {
   form:FormGroup;
+  WarehouseTypes:warehouse[]=[];
+  alert: boolean = false;
 
-  constructor(private fb: FormBuilder, private _service:ServiceService ) 
-  { }
+
+  constructor(private fb: FormBuilder,
+     private _service:ServiceService,private route: Router ) 
+  { 
+
+  }
 
   ngOnInit(): void {
     this.buildAddForm();
@@ -19,10 +28,15 @@ export class AddEquipmentComponent implements OnInit {
   private buildAddForm(){
     this.form=this.fb.group({
       name: ['', [Validators.required]],
-      description: ['', [Validators.required]]
+      description: ['', [Validators.required]],
+      warehouseId: ['', [Validators.required]],
+      quantity: ['', [Validators.required]]
     })
+    this._service.getWarehouses().subscribe(data=>{
+      this.WarehouseTypes=data;
+    });
   }
-  AddEquipment(){
+  addEquipment(){
     if(this.form.valid){
       console.log(this.form.value);
       this._service.addEquipment(this.form.value)
@@ -31,8 +45,14 @@ export class AddEquipmentComponent implements OnInit {
       })
   }
 }
-  Cancel(){
-
-  }
+closeAlert() {
+  this.alert = false;
+}
+back(){
+  this.route.navigateByUrl("equipment")
+}
+public hasError = (controlName: string, errorName: string) => {
+  return this.form.controls[controlName].hasError(errorName);
+}
 
 }

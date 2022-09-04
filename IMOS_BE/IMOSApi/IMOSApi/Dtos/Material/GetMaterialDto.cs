@@ -12,8 +12,10 @@ namespace IMOSApi.Dtos.Material
         public string Description { get; set; }
         public string Materialtype { get; set; }
         public int MaterialtypeId { get; set; }
+        public string Warehouse { get; set; }
+        public int WarehouseId { get; set; }
         public string Supplier { get; set; }
-
         public int SupplierId { get; set; }
+        public int Quantity { get; set; }
     }
 }

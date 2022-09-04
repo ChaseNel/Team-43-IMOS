@@ -7,13 +7,9 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { ServiceService, suppliertype } from 'src/app/services/service.service';
 import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+
 @Component({
   selector: 'app-update-supplier',
   templateUrl: './update-supplier.component.html',
@@ -24,21 +20,24 @@ export class UpdateSupplierComponent implements OnInit {
  Supplier!:supplier;
   id!: number;
   updateForm:FormGroup;
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  matcher = new MyErrorStateMatcher();
   Suppliertypes: suppliertype[] = [];
 //  Supplier:supplier=new supplier();
 
-  constructor( private fb:FormBuilder, private _service:ServiceService,
-    private route: ActivatedRoute,private router:Router,private http:HttpClient) { }
+  constructor( 
+    private fb:FormBuilder, 
+    private _service:ServiceService,
+    private route: ActivatedRoute,
+    private router:Router,
+    private http:HttpClient, 
+    private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
     this.updateForm=this.fb.group({
-      name: ['', [Validators.required]],
-      address: ['', [Validators.required]],
-      email: ['', [Validators.required]],
-      contactnumber: ['', [Validators.required]],
+      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+      address: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(40)]],
+      email: ['', [Validators.required, Validators.email]],
+      contactnumber: ['', [Validators.required, Validators.pattern("^((//+91-?)|0)?[0-9]{10}$")]],
       suppliertypeId: ['', [Validators.required]]
     }, formOptions);
 
@@ -48,25 +47,34 @@ export class UpdateSupplierComponent implements OnInit {
       console.log(this.Supplier);
       this.updateForm=this.fb.group({
         suppliertypeId:[this.Supplier.name,[Validators.required]],
-        name:[this.Supplier.name,[Validators.required]],
-        address:[this.Supplier.address,[Validators.required]],
-        email:[this.Supplier.email,[Validators.required]],
-        contactnumber:[this.Supplier.contactNumber,[Validators.required]],
+        name:[this.Supplier.name,[Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+        address:[this.Supplier.address,[Validators.required,  Validators.minLength(10), Validators.maxLength(40)]],
+        email:[this.Supplier.email,[Validators.required, Validators.email]],
+        contactnumber:[this.Supplier.contactNumber,[Validators.required, Validators.pattern("^((//+91-?)|0)?[0-9]{10}$")]],
       },formOptions)
     });
     this._service.getSupplierType().subscribe(data =>{
       this.Suppliertypes = data;
       });
-
   }
+
+  get formdet(){
+    return this.updateForm.controls;
+}
+  
   onSubmit(){
     this._service.updateSupplier(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{
-       // console.log(res + "success");
+        if (confirm('Are you sure you want to Update this Supplier?')) {
+            this._snackBar.open("Success, you have Update a Supplier!", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+        }
       })
     }
-  Cancel(){
-    
+  back(){
+    this.router.navigateByUrl('supplier')
   }
 }
 

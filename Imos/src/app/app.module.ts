@@ -36,9 +36,9 @@ import { AddEmployeeComponent } from './employee/add-employee/add-employee.compo
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
+// import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
+// import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
+// import { UserRoleComponent } from './user/user-role/user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
@@ -93,8 +93,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.component';
-import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
-import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
 import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
@@ -146,6 +144,19 @@ const materialModules = [
   MatListModule
 ];
 
+// import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
+import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { ReportsComponent } from './reports/reports.component';
+import { IncidentReportComponent } from './reports/incident-report/incident-report.component';
+import { StockTakeComponent } from './warehouse/stock-take/stock-take.component';
+import { UpdateStockTakeComponent } from './warehouse/stock-take/update-stock-take/update-stock-take.component';
+import { AddStockTakeComponent } from './warehouse/stock-take/add-stock-take/add-stock-take.component';
+import { DeliveryNoteComponent } from './project/delivery-note/delivery-note.component';
+import { AddDeliveryNoteComponent } from './project/delivery-note/add-delivery-note/add-delivery-note.component';
+import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-delivery-note/update-delivery-note.component';
 
 
 @NgModule({
@@ -165,9 +176,9 @@ const materialModules = [
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
-    AddUserRoleComponent,
-    UpdateUserRoleComponent,
-    UserRoleComponent,
+    // AddUserRoleComponent,
+    // UpdateUserRoleComponent,
+    // UserRoleComponent,
     MaterialComponent,
     SupplierComponent,
     MaterialTypeComponent,
@@ -213,8 +224,7 @@ const materialModules = [
     AddProjectStaffComponent,
     UpdateProjectStaffComponent,
     SaftyChecklistComponent,
-    AddSaftyChecklistComponent,
-    UpdateSaftyChecklistComponent,
+
     SaftyChecklistCatagoryComponent,
     SaftyChecklistItemsComponent,
     AddSaftyChecklistItemsComponent,
@@ -241,6 +251,16 @@ const materialModules = [
     MaterialRequestStatusComponent,
     AddMaterialRequestStatusComponent,
     UpdateMaterialRequestStatusComponent
+    AddCheckListComponent,
+    UpdateCheckListComponent,
+    ReportsComponent,
+    IncidentReportComponent,
+    StockTakeComponent,
+    UpdateStockTakeComponent,
+    AddStockTakeComponent,
+    DeliveryNoteComponent,
+    AddDeliveryNoteComponent,
+    UpdateDeliveryNoteComponent,
   ],
   imports: [
     BrowserModule,
@@ -276,6 +296,8 @@ const materialModules = [
       useFactory: adapterFactory,
     }),
     DemoUtilsModule,
+    MatCheckboxModule,
+    MatExpansionModule
   ],
   providers: [
     ServiceService,

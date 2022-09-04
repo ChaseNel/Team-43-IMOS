@@ -1,4 +1,4 @@
-import { equipment } from './../services/service.service';
+import { equipment, warehouse } from './../services/service.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -7,11 +7,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ServiceService } from '../services/service.service';
 
-export interface Equipment{
-  equipmentId:number,
+export interface Equipment {
+  equipmentId: number,
   name: string,
-  description: string
+  description: string,
+  quantity: string,
+  projectequipments: [],
+  warehouseequipments: []
 }
+
 @Component({
   selector: 'app-equipment',
   templateUrl: './equipment.component.html',
@@ -22,7 +26,7 @@ export class EquipmentComponent implements OnInit {
   // API Test
   data: equipment[] = [];
 
-  displayedColumns: string[] = [ 'name', 'description', 'actions'];
+  displayedColumns: string[] = [ 'name', 'description', 'WarehouseEquipments','Quantity','actions'];
 
   dataSource!: MatTableDataSource<Equipment>;
 
@@ -30,7 +34,8 @@ export class EquipmentComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  //typelist: materialType[] = [];
+  TypeList:warehouse[]=[];
+ 
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllEquipment();
@@ -79,10 +84,7 @@ export class EquipmentComponent implements OnInit {
     }
   }
 
-  
-
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
   }
-
 }

@@ -2,6 +2,7 @@ table {
     width: 100%;
   }
 
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
@@ -12,6 +13,5 @@ table {
   font-size: 30px;
   position: fixed;
   left: 95%;
-  bottom: 70%;
+  bottom: 76%;
 }
-

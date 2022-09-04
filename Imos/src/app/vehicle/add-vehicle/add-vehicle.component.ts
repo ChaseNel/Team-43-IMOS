@@ -1,10 +1,8 @@
 import { ServiceService, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { EventEmitter, Output } from '@angular/core';
-
-
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 export interface Vehicle {
   vehicleId: number,
@@ -31,7 +29,9 @@ export class AddVehicleComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private _service:ServiceService
+    private _service:ServiceService,
+    private _snackbar: MatSnackBar,
+    private route: Router
   ) { }
 
   ngOnInit(): void {
@@ -41,9 +41,9 @@ export class AddVehicleComponent implements OnInit {
   private buildAddForm()
   {
     this.addForm=this.fb.group({
-      make: ['', [Validators.required]],
-      model: ['', [Validators.required]],
-      color: ['', [Validators.required]],
+      make: ['', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}")]],
+      model: ['', [Validators.required], Validators.pattern("[A-Za-z ]{1,25}")],
+      color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
       modelYear: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],
       ImageUrl: ['', [Validators.required]],
@@ -60,16 +60,36 @@ export class AddVehicleComponent implements OnInit {
 
 
     if(this.addForm.valid){
+
       console.log(this.addForm.value);
       this._service.addVehicle(this.addForm.value)
-      .subscribe(res=>{
+      .subscribe(
 
-      });
+        res => {
+          if (confirm('Are you sure you want to Add this Vehicle?')) {
+            this._snackbar.open("Success, you have Add a Vehicle!", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+          }
+          else{
+            this._snackbar.open("Unsuccessful", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+          }
+        });
     }
   }
 
-Cancel(){
 
+
+  Cancel(){
+    this.route.navigateByUrl('/vehicle')
+  }
+
+public hasError = (controlName: string, errorName: string) => {
+  return this.addForm.controls[controlName].hasError(errorName);
 }
 
 }

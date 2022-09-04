@@ -11,20 +11,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './warehouse.component.html',
   styleUrls: ['./warehouse.component.css']
 })
+
 export class WarehouseComponent implements OnInit {
+
+  type: any;
+  hide: boolean = false;
 
   // API Test
   data: warehouse[] = [];
 
-  displayedColumns: string[] = ['name', 'location', 'actions'];
+  displayedColumns: string[] = [ 'name', 'location', 'actions'];
 
-  dataSource!: MatTableDataSource<equipment>;
+  dataSource!: MatTableDataSource<warehouse>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
-
   posts: any;
-  //typelist: materialType[] = [];
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllWarehouses();
@@ -52,10 +54,25 @@ export class WarehouseComponent implements OnInit {
     }
   }
 
-  UpdateWarehouse() {
-    this.route.navigateByUrl('/updateWarehouse')
+  UpdateWarehouse(id:number) {
+  this.route.navigate(['updateWarehouse/'+id])
   }
 
+   closeClick(){
+    this.hide= false;
+    this.service.getWarehouses().subscribe(x => {
+      this.data = x;
+      console.log(this.data);
+      this.posts = x;
+
+      this.dataSource = new MatTableDataSource(this.posts)
+
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+  })
+
+
+}
   addWarehouse() {
     this.route.navigateByUrl('/addWarehouse')
   }
@@ -71,6 +88,10 @@ export class WarehouseComponent implements OnInit {
         });
       });
     }
+  }
+
+  EQCheck(){
+    this.route.navigateByUrl('warehouseEquipment');
   }
 
   ngOnInit(): void {
