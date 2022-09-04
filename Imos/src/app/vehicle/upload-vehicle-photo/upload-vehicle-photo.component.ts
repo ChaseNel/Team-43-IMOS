@@ -1,4 +1,3 @@
-import { UploadFinishedEventArgs } from './../../services/service.service';
 import { Vehicle } from './../add-vehicle/add-vehicle.component';
 
 import { ServiceService, vehicle, vehicletype, user } from 'src/app/services/service.service';
@@ -15,11 +14,8 @@ import { Observable } from 'rxjs';
 
 import {  EventEmitter, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FormBuilder, FormGroup, Validators, FormGroupDirective, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-
-import { fileExtensionValidator } from './file-extension-validator.directive';
-
 
 
 @Component({
@@ -30,20 +26,7 @@ import { fileExtensionValidator } from './file-extension-validator.directive';
 })
 export class UploadVehiclePhotoComponent implements OnInit {
 
- uploadform = this.fb.group({
-   VehicleId: this.data.id,
-   imageUrl: ['', [Validators.required]],
-    file: new FormControl('',[Validators.required]),
-  })
-
-
-
-
-
-
-
- validation:boolean;
-
+  uploadform:FormGroup;
   filePath: string;
 
   progress: number;
@@ -51,16 +34,9 @@ export class UploadVehiclePhotoComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
 
-
-  imageSrc: string = '';
-
-
 vehicleImageUploadUrl = environment.endpointBase
       .concat("Uploads/Vehicles/Upload")
 
-
-   acceptedExtensions = "jpg, jpeg, png, ";
-  filereponse: UploadFinishedEventArgs;
 
 
   constructor( private fb: FormBuilder,
@@ -72,27 +48,22 @@ vehicleImageUploadUrl = environment.endpointBase
        private http: HttpClient) { }
 
   ngOnInit(): void {
-
+    console.log(this.data.id)
   }
 
-  /*private buildUploadForm() {
+  private buildUploadForm() {
     this.uploadform = this.fb.group({
       VehicleId: ['',[Validators.required]],
       imageUrl: ['', [Validators.required]],
     });
-  }*/
-
-
-
-
-
-
+  }
 
 uploadFile = (files:any) => {
 
   if (files.length === 0) {
     return;
   }
+
 
   let fileToUpload = <File>files[0];
   const obj = new FormData();
@@ -117,88 +88,23 @@ this.service.uploadVehiclePhoto(obj)
 
 }
 
-onFileChange(event:any) {
-  const reader = new FileReader();
 
-  if(event.target.files && event.target.files.length){
-    const [file] = event.target.files;
+url = '';
+onSelectedFile(event: any){
+  if (event.target.files && event.target.files[0])
+{
+  var reader = new FileReader();
 
-    var pattern = /image-*/;
+  reader.readAsDataURL(event.target.files[0]); // read file as data url
 
-    reader.readAsDataURL(file);
-
-    if (!file.type.match(pattern)) {
-      this._snackBar.open("Invalid Format!. Only Images can be uploaded", 'OK', {
-        duration: 5000,
-        verticalPosition: 'bottom',
-      });
-      return;
-    }
-
-    else
-     {
-
-      reader.onload = () => {
-
-        this.imageSrc = reader.result as string;
-
-        this.uploadform.patchValue({
-          imageUrl: reader.result as string
-        });
-
-       /* this.uploadform.patchValue({
-          imageUrl:  reader.result as string,
-        })*/
-
-       // console.log(this.uploadform.value)
-      }
-
-      this.uploadFile(event.target.files);
-    }
-  }
-}
-
-
-
-UploadVehiclePhoto() {
-
- const finalform = {
-    VehicleId: this.data.id,
-    imageUrl: this.uploadform.controls['imageUrl'].value,
-
+  reader.onload = (event: any) => {
+    console.log(event);
+        this.url = event.target.result;
   }
 
-
- console.log(finalform.imageUrl)
-
-
-
- if(this.uploadform.valid)
- {
-
-
-  this.service.uploadvehimg(finalform)
-  .subscribe(() => {
-
-    this._snackBar.open('Vehicle Image Uploaded successfully', 'Ok',{
-      duration: 4000,
-      verticalPosition: 'bottom',
-    });
-  })
-
-
-
-}
-
-else {
-  this._snackBar.open('Select an image to upload', 'Ok',{
-    duration: 4000,
-    verticalPosition: 'bottom',
-  });
 }
 
 }
-
 
 
 

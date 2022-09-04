@@ -132,9 +132,6 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ApprovedRequestReportViewComponent } from './report/approved-request-report-view/approved-request-report-view.component';
 import { DemoUtilsModule } from '../app/demo-utils/module';
-import { MaterialRequestStatusComponent } from './project/project-material-request/material-request-status/material-request-status.component';
-import { AddMaterialRequestStatusComponent } from './project/project-material-request/material-request-status/add-material-request-status/add-material-request-status.component';
-import { UpdateMaterialRequestStatusComponent } from './project/project-material-request/material-request-status/update-material-request-status/update-material-request-status.component';
 
 const materialModules = [
   MatCardModule,
@@ -237,10 +234,7 @@ const materialModules = [
     RequestcountreportComponent,
     UnassignedVehicleViewComponent,
     UploadVehiclePhotoComponent,
-    ApprovedRequestReportViewComponent,
-    MaterialRequestStatusComponent,
-    AddMaterialRequestStatusComponent,
-    UpdateMaterialRequestStatusComponent
+    ApprovedRequestReportViewComponent
   ],
   imports: [
     BrowserModule,
@@ -275,7 +269,7 @@ const materialModules = [
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    DemoUtilsModule,
+    DemoUtilsModule
   ],
   providers: [
     ServiceService,

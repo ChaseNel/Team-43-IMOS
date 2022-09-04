@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CalendarModule } from 'angular-calendar';
+import { CalendarModule, CalendarView } from 'angular-calendar';
 import { CalendarHeaderComponent } from './calendar-header.component';
 
 @NgModule({
@@ -11,4 +11,5 @@ import { CalendarHeaderComponent } from './calendar-header.component';
 })
 export class DemoUtilsModule {
 
+  view: CalendarView = CalendarView.Month;
 }

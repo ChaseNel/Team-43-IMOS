@@ -15,7 +15,7 @@ import {ServiceService, ProjectMaterialRequest} from 'src/app/services/service.s
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {UrgencyLevelComponent} from 'src/app/project/project-material-request/urgency-level/urgency-level.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import{ MaterialRequestStatusComponent } from '../project-material-request/material-request-status/material-request-status.component';
+
 
 
 
@@ -95,22 +95,6 @@ openUrgencyDialog(): void {
 
   });
 }
-
-openRequestStatusDialog(): void {
-  const dialogRef = this.dialog.open(MaterialRequestStatusComponent
-    , {
-    width: '50%',
-    height:'70%',
-  });
-
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    this.GetMaterialRequestByProject(this.data.id);
-
-  });
-}
-
 
 
 
