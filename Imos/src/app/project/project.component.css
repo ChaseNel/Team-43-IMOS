@@ -2,6 +2,10 @@ table {
     width: 100%;
   }
 
+  .calendar{
+    width: 56%;
+  }
+
 .material-symbols-outlined {
   font-variation-settings:
   'FILL' 0,
@@ -14,3 +18,19 @@ table {
   left: 95%;
   bottom: 70%;
 }
+h3 {
+  margin: 0 0 10px;
+}
+pre {
+  background-color: #f5f5f5;
+  padding: 15px;
+}
+
+.calendarcard{
+  width: 100% ;
+  color: blue;
+  padding: 30px;
+
+}
+
+

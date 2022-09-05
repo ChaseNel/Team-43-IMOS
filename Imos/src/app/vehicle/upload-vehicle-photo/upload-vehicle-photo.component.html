@@ -1,0 +1,33 @@
+<p>upload-vehicle-photo works!</p>
+
+
+
+<div class="row" style="margin-bottom:15px;">
+
+  <div class="col-md-3">
+
+
+    <input type="file"  #file placeholder="Choose file" (change)="uploadFile(file.files)" >
+
+
+    <br>
+
+
+
+    <div class="Image" >
+      <img  [src]="url">
+
+
+    <button type="button" class="btn btn-success">Upload File</button>
+  </div>
+  <div class="col-md-4">
+    <span class="upload" *ngIf="progress > 0">
+      {{progress}}%
+    </span>
+    <span class="upload" *ngIf="message">
+      {{message}}
+    </span>
+  </div>
+</div>
+
+

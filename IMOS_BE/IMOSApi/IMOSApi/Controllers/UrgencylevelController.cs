@@ -50,7 +50,7 @@ namespace IMOSApi.Controllers
                 context.SaveChanges();
             }
         }
-        [HttpDelete("DeleteEmployee/{Id}")]
+        [HttpDelete("DeleteUrgencyLvl/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())

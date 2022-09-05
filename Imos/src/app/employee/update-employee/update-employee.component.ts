@@ -110,7 +110,7 @@ export class UpdateEmployeeComponent implements OnInit {
       return this.updateForm.controls[controlName].hasError(errorName);
   }
   Cancel(){
-    
+    this._route.navigateByUrl('employee')
   }
 
   closeAlert() {

@@ -60,9 +60,8 @@ posts: any;
     }
   }
 
-  UpdateMaterialType(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateMaterialType(id: number) {
+    this.route.navigateByUrl('UpdateMaterialType/' + id)
   }
 
    closeClick(){

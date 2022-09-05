@@ -59,26 +59,9 @@ export class IncidentComponent implements OnInit {
     }
   }
 
-  UpdateIncident(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateIncident(id: number) {
+    this.route.navigateByUrl('updateIncident/' + id)
   }
-
-   closeClick(){
-    this.hide= false;
-    this.service.getIncident().subscribe(x => {
-      this.data = x;
-      console.log(this.data);
-      this.posts = x;
-
-      this.dataSource = new MatTableDataSource(this.posts)
-
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  })
-} 
-
-
 
   addIncident() {
     this.route.navigateByUrl('/addIncident')
@@ -97,10 +80,7 @@ export class IncidentComponent implements OnInit {
     }
   }
 
-
   ngOnInit(): void {
-    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
-
   }
 
 }

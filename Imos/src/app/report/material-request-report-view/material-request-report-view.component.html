@@ -1,0 +1,66 @@
+
+<h2 style="margin-left:45% ;">Project Material Request Report</h2>
+
+<mat-form-field appearance="standard">
+  <mat-label>Search Table</mat-label>
+  <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
+</mat-form-field>
+
+<div  id="htmlData" #htmlData >
+
+<h2> Project Material Request Report </h2>>
+
+<!-- add [dataSource]="dataSource" when API is connected -->
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort  >
+
+
+
+
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Equipment Name Column -->
+  <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Client Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+  </ng-container>
+
+  <!-- Description Column -->
+  <ng-container matColumnDef="urgencyLevelName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>  Urgency Level</th>
+      <td mat-cell *matCellDef="let element"> {{element.urgencyLevelName}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="requestDate">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>  Request Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.requestDate}} </td>
+</ng-container>
+
+<ng-container matColumnDef="statusName">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+  <td mat-cell *matCellDef="let element"> {{element.statusName}} </td>
+</ng-container>
+
+<ng-container matColumnDef="materialCount">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Count </th>
+  <td mat-cell *matCellDef="let element"> {{element.materialCount}} </td>
+</ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  <!-- Search: Not Found -->
+  <tr *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+          Search was not found for: {{input.value}}
+      </td>
+  </tr>
+
+
+</table>
+
+</div>
+<button class="CheckoutBut" (click)="downloadPDF()"  mat-flat-button color="primary"> Download PDF</button>

@@ -1,5 +1,5 @@
 import { materialtype, warehouse } from './../../services/service.service';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Supplier } from './../../supplier/supplier.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -34,7 +34,7 @@ export class AddMaterialComponent implements OnInit {
    SupplierList :supplier[]=[];
    WarehouseTypes: warehouse[] = [];
 
-  constructor(private service: ServiceService, private fb: FormBuilder, private route: Router)
+  constructor(private service: ServiceService, private formB: FormBuilder, private route: Router,  private _snackbar: MatSnackBar)
    { 
 
    }
@@ -44,9 +44,9 @@ export class AddMaterialComponent implements OnInit {
   }
   
   private buildAddForm(){
-    this.materialFrm=this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+    this.materialFrm=this.formB.group({
+      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+      description: ['', [Validators.required, Validators.maxLength(50)]],
       materialtypeId: ['', [Validators.required]],
       warehouseId: ['', [Validators.required]],
       quantity:['',[Validators.required]],

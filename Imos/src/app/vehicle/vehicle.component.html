@@ -80,11 +80,15 @@
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
             <!-- add element id to assignVehicle-->
-        
+            <button (click)="assignVehicle()" mat-flat-button color="accent">Assign</button>&nbsp;
+            <button (click)="openUploadVehiclePhotoDialog(element.id)" mat-flat-button color="primary">Edit</button>
+            &nbsp;
+
             <button (click)="UpdateVehicle(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteVehicle(element.vehicleId)">Delete</button>
         </td>
+
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -100,4 +104,4 @@
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Vehicles"></mat-paginator>
 
-<button (click)="addVehicle()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+<button (click)="openAddVehicleDialog()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>

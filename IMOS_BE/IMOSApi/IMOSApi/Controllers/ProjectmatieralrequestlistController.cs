@@ -17,7 +17,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                return context.Projectmaterialrequestlists.ToList();
+                return context.Projectmaterialrequestlist.ToList();
             }
         }
         [HttpGet("GetProjectmaterialrequestlist/{id}")]
@@ -25,7 +25,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                IEnumerable<Projectmaterialrequestlist> tmp = context.Projectmaterialrequestlists.Where(emp => emp.ProjectmaterialrequestId == id).ToList();
+                IEnumerable<Projectmaterialrequestlist> tmp = context.Projectmaterialrequestlist.Where(emp => emp.ProjectmaterialrequestId == id).ToList();
                 return tmp;
             }
         }
@@ -34,7 +34,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                context.Projectmaterialrequestlists.Add(Projectmaterialrequestlist);
+                context.Projectmaterialrequestlist.Add(Projectmaterialrequestlist);
                 context.SaveChanges();
                 return Ok();
             }
@@ -45,7 +45,7 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Projectmaterialrequestlists.Where(clie => clie.ProjectmaterialrequestId == Id).ToList().FirstOrDefault();
+                var clie = context.Projectmaterialrequestlist.Where(clie => clie.ProjectmaterialrequestId == Id).ToList().FirstOrDefault();
                 //emp.
                 context.SaveChanges();
             }
@@ -55,8 +55,8 @@ namespace IMOSApi.Controllers
         {
             using (var context = new IMOSContext())
             {
-                var clie = context.Projectmaterialrequestlists.Where(clie => clie.ProjectmaterialrequestId == id).ToList().FirstOrDefault(); ;
-                context.Projectmaterialrequestlists.Remove(clie);
+                var clie = context.Projectmaterialrequestlist.Where(clie => clie.ProjectmaterialrequestId == id).ToList().FirstOrDefault(); ;
+                context.Projectmaterialrequestlist.Remove(clie);
                 context.SaveChanges();
             }
         }

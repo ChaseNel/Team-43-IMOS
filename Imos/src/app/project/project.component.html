@@ -7,16 +7,75 @@
 <button (click)="projectstaff()" mat-flat-button color="primary"  class="URbtn"> Project     Staff</button>
 <br>
 
+<button (click)="deliveryNote()" mat-flat-button color="primary" class="URbtn">Delievery Note</button>
+<br>
 <!-- Material Type
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br> -->
+
+<mat-card>
+
+  <mwl-demo-utils-calendar-header
+
+  [(viewDate)]="viewDate"
+  (viewDateChange)="fetchEvents()"
+  (viewChange)="fetchEvents()"
+>
+</mwl-demo-utils-calendar-header>
+
+<ng-template #loading>
+  <div class="text-center">
+    <i class="fas fa-spin fa-spinner fa-5x"></i> <br />
+    Loading events...
+  </div>
+</ng-template>
+
+<div *ngIf="events$ | async; else loading; let events">
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view
+      *ngSwitchCase="'month'"
+      [viewDate]="viewDate"
+      [events]="events"
+      [activeDayIsOpen]="activeDayIsOpen"
+      (dayClicked)="dayClicked($event.day)"
+      (eventClicked)="eventClicked($event.event)"
+    >
+    </mwl-calendar-month-view>
+    <mwl-calendar-week-view
+      *ngSwitchCase="'week'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="eventClicked($event.event)"
+    >
+    </mwl-calendar-week-view>
+    <mwl-calendar-day-view
+      *ngSwitchCase="'day'"
+      [viewDate]="viewDate"
+      [events]="events"
+      (eventClicked)="eventClicked($event.event)"
+    >
+    </mwl-calendar-day-view>
+  </div>
+</div>
+
+
+
+</mat-card>
+
+
+<br><br>
+
 
 <!-- Search Field -->
 <mat-form-field appearance="standard">
     <mat-label>Search Table</mat-label>
     <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
+
+
+
+<button (click)="addProject()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
 
 <!-- add [dataSource]="dataSource" when API is connected -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
@@ -64,5 +123,4 @@
 
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Projects"></mat-paginator>
-
 <button (click)="addProject()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>

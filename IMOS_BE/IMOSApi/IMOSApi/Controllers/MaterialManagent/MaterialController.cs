@@ -184,6 +184,36 @@ namespace IMOSApi.Controllers.MaterialManagent
             return recordInDb;
         }
 
+       /* [HttpGet("GetMaterials")]//gets materials with supplier name ,material type name.
+        public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
+        {
+            var recordsInDb = _context.Materials
+                .Include(item => item.Materialtype)
+                .Include(item=>item.Warehouse)
+                .Include(item=>item.Suppliermaterials)
+                .Select(item => new GetMaterialDto()
+                {
+                    Id = item.MaterialId,
+                    Name = item.Name,
+                    Description = item.Description,
+                    Materialtype = item.Materialtype.Name,
+                    MaterialtypeId = item.MaterialtypeId,
+                    Warehouse = item.Warehouse.Name,
+                  //  WarehouseId = item.WarehouseId,
+          
+                }).OrderBy(item => item.Name).ToList();
+            return recordsInDb;
+
+        }*/
+
+        [HttpGet("GetMaterials")]
+        public IEnumerable<Material> Retrieve()
+        {
+            using (var context = new IMOSContext())
+            {
+                return _context.Materials.ToList();
+            }
+        }
 
 
 
@@ -311,8 +341,28 @@ namespace IMOSApi.Controllers.MaterialManagent
          
          */
     
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+        }
+        [HttpDelete("DeleteMaterialSupplier/{id}")]
+            public async Task<ActionResult<Material>> Delete(int id)
+            {
+
+
+                    var recordInDb = await _context.Materials.FindAsync(id);
+                    if (recordInDb == null)
+                    {
+                        return NotFound();
+                    }
+
+                    _context.Materials.Remove(recordInDb);
+                    await _context.SaveChangesAsync();
+                return Ok();
+            }
+        }
+
 
     }
-}
+
 
 

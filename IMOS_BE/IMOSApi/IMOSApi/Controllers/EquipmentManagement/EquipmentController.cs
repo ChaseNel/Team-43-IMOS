@@ -51,8 +51,8 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     Id = item.EquipmentId,
                     Name = item.Name,
                     Description = item.Description,
-                    // add quantity 
-                    // add warehouses
+                    /*Quantity = item.Quantity,
+                    WarehouseEquipments = item.WarehouseEquipments*/
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
         }

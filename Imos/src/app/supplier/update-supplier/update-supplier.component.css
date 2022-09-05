@@ -1,80 +1,34 @@
-
-h3 {
-    text-align: center;
-    font-weight: 450;
-    font-size: 30px;
-  }
-  
-  .content {
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  
-  .help{
-    position: absolute;
-    left: 20px;
-    top: 75px;
-  }
-  
-  .mat-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-left: auto;
-  }
-  
-  .mat-col-quarter {
-    width: 60%;
-  }
-  
-  
-  .control-w {
-    margin-top: 20px;
-    width: 350px;
-  }
-  
-  .control-m {
-    margin-top: 20px;
-    margin-left: 15px;
-    width: 500px;
-    margin-right: 15px;
-  }
-  
-  .control-m-s {
-    margin-top: 20px;
-    width: 250px;
-  }
-  
-  .buttons{
-    text-align: center;
-  }
-
-  .example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 50%;
-  }
-  
-  .example-full-width {
-    width: 25%;
-  }
-.updatecard{
-    text-align: center;
-}
-.header title{
-    justify-content: center;
-    text-align: center;
-
-}
-.content{
-  text-align: center;
-    justify-content: center;
-
+.form-container {
+  margin: auto;
+  max-width: 700px;
+  padding: 10px;
+  border-radius: 4px;
+  background-color: lightgray;
 }
 
-.form{
-    text-align: center;
-
+h1{
+  position: relative;
+  left: 35%;
 }
 
+form {
+  background-color: rgb(255, 255, 255);
+}
+
+.btnBack {
+  position: sticky;
+  left: 70%;
+  top: 54%;
+}
+
+.main {
+  position: absolute;
+  width: 50%;
+  left: 25%;
+  border: solid;
+  border-style: groove;
+}
+
+.btn{
+  left: 25%
+}

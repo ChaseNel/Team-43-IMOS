@@ -71,11 +71,11 @@ export class MaterialComponent implements OnInit {
   }
 
   UpdateMaterial(id:number) {
-    this.route.navigate(['UpdateMaterial',id])
+    this.route.navigateByUrl('UpdateMaterial/' + id);
   }
 
   addMaterial() {
-    this.route.navigateByUrl('/addMaterial')
+    this.route.navigateByUrl('/AddMaterial')
   }
 
   deleteMaterial(id:number) {
@@ -93,12 +93,14 @@ export class MaterialComponent implements OnInit {
   materialType() {
     this.route.navigateByUrl('materialtype')
   }
-  
+
   materialRequest(){
     this.route.navigateByUrl('materialRequest')
   }
 
   ngOnInit(): void {
     this.service.getMaterialType().subscribe(x => { this.TypeList = x; console.log("typelist", this.TypeList) });
+    this.service.getWarehouses().subscribe(x => { this.WarehouseTypes = x; console.log("warehouselist", this.WarehouseTypes) });
+
   }
 }

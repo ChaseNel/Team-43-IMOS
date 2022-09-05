@@ -11,30 +11,29 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./update-material.component.css']
 })
 export class UpdateMaterialComponent implements OnInit {
-  Material!:Material;
-  id!:number;
-
+  Material!: Material;
+  id!: number;
   TypeList: materialtype[] = [];
-  SupplierList:supplier[]=[];
+  SupplierList: supplier[] = [];
   WarehouseTypes: warehouse[] = [];
   alert: boolean = false;
-  updateForm:FormGroup;
-  constructor(private fb:FormBuilder, private _service:ServiceService,
-    private route: ActivatedRoute,private router:Router,private http:HttpClient) 
-    { 
-      
-    }
+  updateForm: FormGroup;
+  constructor(private fb: FormBuilder, private _service: ServiceService,
+    private route: ActivatedRoute, private router: Router, private http: HttpClient) {
+
+  }
 
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
-    this.updateForm=this.fb.group({
-      name: ['', [Validators.required]],
-      description: ['', [Validators.required]],
+    this.updateForm = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+      description: ['', [Validators.required, Validators.maxLength(40)]],
       materialtypeId: ['', [Validators.required]],
       warehouseId: ['', [Validators.required]],
       supplierId: ['', [Validators.required]],
-    }, formOptions);
+      quantity: ['', [Validators.required]],
 
+    }, formOptions);
     this.id=+this.route.snapshot.params['id'];
     this._service. getMaterialById(this.id).subscribe((res:any)=>{
       this.Material=res;

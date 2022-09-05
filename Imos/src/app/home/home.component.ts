@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/employee");
   }
 
-  
+
   material() {
     this.route.navigateByUrl("/material");
   }
@@ -53,10 +53,13 @@ export class HomeComponent implements OnInit {
   saftyCheclist(){
     this.route.navigateByUrl('/saftyChecklist')
   }
- reports(){
+ Reports(){
     this.route.navigateByUrl('/Allreports')
   }
-
+  
+  reports(){
+    this.route.navigateByUrl('/reports')
+  }
 
   ngOnInit(): void {
   }

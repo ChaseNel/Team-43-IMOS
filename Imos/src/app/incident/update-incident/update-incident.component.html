@@ -1,26 +1,23 @@
-<div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Incident Updated Successfully
-    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
+<app-header></app-header>
 
-<form [formGroup]="incidentFrm" class="form-container">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Update Incident</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-            <div class="row">
-                <mat-form-field class="full-width">
-                    <input [(ngModel)]='Description1' matInput placeholder="Incident Description" name="Description"
-                        formControlName="Description">
-                </mat-form-field>
-                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
-                <mat-card-actions>
-                    <button (click)="updateIncident()" mat-raised-button color="primary">Update</button>
-                </mat-card-actions>
+<div class="main">
+
+    <h1>Update Incident</h1>
+
+    <form [formGroup]="incidentFrm" class="addSupplier">
+
+        <div class="row">
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Incident Description" name="Description" #nameinput formControlName="description">
+                <mat-error *ngIf="hasError('description', 'required')">The Description is required</mat-error>
+                <mat-error *ngIf="hasError('description', 'pattern')">No more than 100 Characters</mat-error>
+            </mat-form-field>
+            <div class="btn">
+                <button (click)="updateIncident()" mat-raised-button color="primary"
+                    [disabled]="incidentFrm.invalid!">Update</button>
+                &nbsp;
+                <button (click)="back()" mat-raised-button color="warn">back</button>
             </div>
-        </mat-card-content>
-    </mat-card>
-</form>
+        </div>
+    </form>
+</div>

@@ -17,6 +17,7 @@ namespace IMOSApi.Dtos.Vehicle
         public string VehicleStatus { get; set; }
         public string Vehicletype { get; set; }
         public int VehicletypeId { get; set; }
+        public int AssignedStatus { get; set; }
 
 
 

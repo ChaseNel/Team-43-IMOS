@@ -5,6 +5,7 @@ import { ServiceService, tasktype, user } from 'src/app/services/service.service
 import { FormGroupDirective, NgForm} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
@@ -33,7 +34,7 @@ export class AddTaskComponent implements OnInit {
   Users: user[] = [];
   public saveUsername:boolean;
 
-  constructor(private fb: FormBuilder, private _service:ServiceService, private route: Router
+  constructor(private fb: FormBuilder, private _service:ServiceService, private route: Router, private _snackbar: MatSnackBar
  ) { }
 
   ngOnInit(): void {
@@ -62,21 +63,30 @@ export class AddTaskComponent implements OnInit {
   }
 
   AddTask() {
-    if (confirm('Are you sure you want to add this Task?')){
+    if (this.form.valid) {
     var val = {tasktype: this.form.value.tasktypeId, userId: this.form.value.userName,
        startdate: this.form.value.startdate, enddate: this.form.value.enddate, qnapassed: this.form.value.qnapassed }
-    this._service.addTask(val).subscribe((res: { toString: () => any; }) => { alert(res.toString()); });
-  
-
-    console.log(val);
-
-  
-
-    this.alert = true;
+    this._service.addTask(val).subscribe(res => {
+      if (confirm('Are you sure you want to Add this Task?')) {
+        this._snackbar.open("Success, you have Add a Task!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      else{
+        this._snackbar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+    });
     }
 
     
-  }
+    }
+
+    
+  
 
   closeAlert() {
     this.alert = false;
@@ -84,6 +94,10 @@ export class AddTaskComponent implements OnInit {
 
   public onSaveUsernameChanged(value:boolean){
     console.log(this.saveUsername = value);
+}
+
+public hasError = (controlName: string, errorName: string) => {
+  return this.form.controls[controlName].hasError(errorName);
 }
 
 

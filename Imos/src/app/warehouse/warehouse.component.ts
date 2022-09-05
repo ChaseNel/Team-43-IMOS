@@ -55,7 +55,7 @@ export class WarehouseComponent implements OnInit {
   }
 
   UpdateWarehouse(id:number) {
-  this.route.navigate(['updateWarehouse',id])
+  this.route.navigate(['updateWarehouse/'+id])
   }
 
    closeClick(){

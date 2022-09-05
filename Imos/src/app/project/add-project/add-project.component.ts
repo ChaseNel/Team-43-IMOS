@@ -50,6 +50,10 @@ export class AddProjectComponent implements OnInit {
     this.alert = false;
   }
 
+  get formdet(){
+    return this.projectfrm.controls;
+}
+
   back(){
     this.route.navigateByUrl("project")
   }

@@ -1,17 +1,12 @@
 <app-header></app-header>
 
-<div class="container">
 
-  <div *ngIf="alert" class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Success !</strong> Task Added Successfully
-    <button mat-button color="warn" (click)="closeAlert()" class="close" data-dismiss="alert" aria-label="Close">
-        <mat-icon>close</mat-icon>
-    </button>
-</div>
+<div class="main">
 
-    <mat-card>Add New Task </mat-card>
 
-    <form [formGroup]="form"  class="form-container">
+    <h1> Add New Task</h1>
+
+    <form [formGroup]="form"  class="addTask">
         
       
       
@@ -23,6 +18,7 @@
                   {{type.description}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="hasError('tasktypeId', 'required')">Task Type is required </mat-error>
           </mat-form-field> 
     </div>
 
@@ -37,6 +33,7 @@
                   {{type.username}}
               </mat-option>
             </mat-select>
+            <mat-error *ngIf="hasError('userName', 'required')">User Name is required </mat-error>
           </mat-form-field> 
 
         </div >
@@ -50,6 +47,7 @@
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
+            <mat-error *ngIf="hasError('startdate', 'required')">Start date is required </mat-error>
           </mat-form-field>
 
         </div>
@@ -58,12 +56,13 @@
 
         <div>
 
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="standard">
             <mat-label>Choose a your date</mat-label>
             <input matInput [matDatepicker]="picker2" formControlName="enddate">
             <mat-hint>MM/DD/YYYY</mat-hint>
             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
+            <mat-error *ngIf="hasError('enddate', 'required')">End date is required </mat-error>
           </mat-form-field>
           
         </div>
@@ -80,10 +79,17 @@
     (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)" formControlName="qnapassed">
         </div>
 
-        <div>
-          
-                <button mat-raised-button color="primary" type="button" (click)="AddTask()">Add </button>
-                <button mat-raised-button color="warn" type="button" (click)="Cancel()">Cancel</button>
-        </div>
+
+        <div class="btn">
+          <button mat-raised-button color="primary" type="button" (click)="AddTask()"
+              [disabled]="!form.valid">Add
+          </button>
+          &nbsp;
+          <button mat-raised-button color="warn" type="button" (click)="Cancel()">Back</button>
+      </div>
+       
    
     </form>
+
+
+</div>
