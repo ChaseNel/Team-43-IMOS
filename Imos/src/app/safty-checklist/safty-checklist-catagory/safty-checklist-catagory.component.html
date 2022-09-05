@@ -48,6 +48,8 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="primary" (click)="openDialog(element.id)">Safety Items </button>
+            &nbsp;
             <button data-bs-toggle="modal" data-bs-target="#exampleModal" mat-flat-button color="accent"  data-backdrop="static" data-keyboard="false" (click)=" UpdateSafetyItemCategory(element)" mat-flat-button color="accent">Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)=" removeSafetyItemCategory(element.safetyItemCategoryId)">Delete</button>

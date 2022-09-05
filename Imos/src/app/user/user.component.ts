@@ -11,11 +11,18 @@ import { ArrayType } from '@angular/compiler';
 
 export interface User {
   userId: number,
-  userRole: number,
-  RoleDescription?: string,
+  userRoleId: number,
   employeeId: number,
-  name: string,
-  userPassword: string
+  username: string,
+  userPassword: string,
+  employee:string,
+  name?:string,
+  userrole:string,
+  equipmentchecks: [],
+  stocktakes: [],
+  tasks: [],
+  userincidents: [],
+  vehicles: []
 }
 
 @Component({
@@ -31,7 +38,7 @@ export class UserComponent implements OnInit {
 
   data: user[] = [];
 
-  displayedColumns: string[] = ['id', 'userrole', 'employeeid', 'name', 'password', 'actions'];
+  displayedColumns: string[] = ['id', 'userrole', 'name', 'userName', 'password', 'actions'];
 
   dataSource!: MatTableDataSource<User>;
 
@@ -67,13 +74,12 @@ export class UserComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-
-  UpdateUser() {
-    this.route.navigate(['/updateuser',])
-  }
-
   addUser() {
-    this.route.navigateByUrl('adduser')
+    this.route.navigateByUrl('addUser')
+  }
+  
+  resendLoginAccountEmail(){
+    
   }
 
   deleteUser(id: number) {

@@ -56,7 +56,7 @@ export class VehicleComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  Tyoelist: vehicletype[] = [];
+  Typelist: vehicletype[] = [];
  // userlist: user[] = [];
 
   constructor(private route: Router,
@@ -125,10 +125,11 @@ export class VehicleComponent implements OnInit {
   UpdateVehicle(id:number) {
     this.route.navigate(['updateVehicle',id])
   }
-  assignVehicle() {
+/*  assignVehicle() {
     //or navigate (['assignVehicle',id])
-    this.route.navigateByUrl('/assignVehicle')
-  }
+    this.route.navigateByUrl('vehicle-allocation')
+  }*/
+
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
   }
@@ -145,13 +146,15 @@ export class VehicleComponent implements OnInit {
       });
     }
   }
+  assignVehicle() {
+    this.route.navigateByUrl('/vehicle-allocation')
+  }
 
   VehicleType() {
     this.route.navigateByUrl('/vehicleType')
   }
 
   ngOnInit(): void {
-    this.service.getVehicleType().subscribe(x => { this.Tyoelist = x; console.log("type", this.Tyoelist) });
 
 
 this.service.getVehicle().subscribe((x) => {
@@ -159,6 +162,7 @@ this.service.getVehicle().subscribe((x) => {
 })
 
 
+    this.service.getVehicleType().subscribe(x => { this.Typelist = x; console.log("type", this.Typelist) });
     //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
   }
 }

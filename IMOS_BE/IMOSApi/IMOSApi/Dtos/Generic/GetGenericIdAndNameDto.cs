@@ -9,9 +9,6 @@ namespace IMOSApi.Dtos.Generic
     public class GetGenericIdAndNameDto
     {
         public int Id { get; set; }
-
-      
         public string Name { get; set; }
-
     }
 }

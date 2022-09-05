@@ -1,7 +1,9 @@
-﻿using IMOSApi.Dtos.Generic;
+﻿using IMOSApi.Dtos.Equipment;
+using IMOSApi.Dtos.Generic;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +21,18 @@ namespace IMOSApi.Controllers.EquipmentManagement
             _context = context;
         }
 
+
         [HttpGet("GetEquipmentById/{id}")]
         public ActionResult<GetGenericDto> GetRecord(int id)
         {
             var recordInDb = _context.Equipment
                 .Where(item => item.EquipmentId == id)
-                 .Select(item => new GetGenericDto() 
+                 .Select(item => new GetGenericDto()
                  {
                      Id = item.EquipmentId,
                      Name = item.Name,
-                     Description = item.Description,
-
+                     Description = item.Description
                  }).First();
-
             if (recordInDb == null)
             {
                 return NotFound();
@@ -40,28 +41,34 @@ namespace IMOSApi.Controllers.EquipmentManagement
         }
 
         [HttpGet("GetEquipments")]
-        public ActionResult<IEnumerable<GetGenericDto>> GetAll()
+        public ActionResult<IEnumerable<GetEquipmentsDto>> GetAll()
         {
             var recordsInDb = _context.Equipment
-                .Select(item => new GetGenericDto() 
+                 .Include(item => item.Warehouseequipments).
+                ThenInclude(item=>item.Warehouse)
+                .Select(item => new GetEquipmentsDto()
                 {
                     Id = item.EquipmentId,
                     Name = item.Name,
-                    Description = item.Description
+                    Description = item.Description,
+                    // add quantity 
+                    // add warehouses
                 }).OrderBy(item => item.Name).ToList();
             return recordsInDb;
-
         }
 
 
-
-
-       
         [HttpPost("AddEquipment")]
-        public IActionResult Add(AddOrUpdateGenericDto model)
+        public IActionResult Add(AddOrUpdateEquipmentDto model)
         {
             var message = "";
-            if(ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                message = "Something went wrong on your side.";
+                return BadRequest(new { message });
+            }
+
+            try
             {
                 var recordInDb = _context.Equipment.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
                 if (recordInDb != null)
@@ -69,21 +76,43 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     message = "Record already exist";
                     return BadRequest(new { message });
                 }
-                var newRecord = new Equipment
+
+                var newEquipment = new Equipment()
                 {
-                    Name=model.Name,
-                    Description=model.Description
+                    Name = model.Name,
+                    Description = model.Description,
                 };
-                _context.Equipment.Add(newRecord);
+
+                _context.Equipment.Add(newEquipment);
+                _context.SaveChanges();
+
+                foreach (var item in model.Warehouses)
+                {
+                    var warehouseequipment = new Warehouseequipment()
+                    {
+                        WarehouseId = item.WarehouseId,
+                        EquipmentId = newEquipment.EquipmentId,
+                        Quantity = model.Quantity
+                    };
+                    _context.Warehouseequipments.Add(warehouseequipment);
+
+                }
                 _context.SaveChanges();
                 return Ok();
             }
-            message = "Something went wrong on your side.";
-            return BadRequest(new { message });
+
+            catch (Exception e)
+            {
+               
+                throw  ;
+            }
         }
+    
+
         [HttpPut("UpdateEquipment/{id}")]
-        public IActionResult Update(GetGenericDto model, int id)
+        public IActionResult Update(AddOrUpdateEquipmentDto model, int id)
         {
+            var message = "";
             if (ModelState.IsValid)
             {
                 var recordInDb = _context.Equipment.FirstOrDefault(item => item.EquipmentId == id);
@@ -92,14 +121,26 @@ namespace IMOSApi.Controllers.EquipmentManagement
                 {
                     return NotFound();
                 }
+
                 recordInDb.Name = model.Name;
                 recordInDb.Description = model.Description;
 
                 _context.SaveChanges();
-                return Ok();
+
+                foreach (var item in model.Warehouses)
+                {
+                    var warehouseequipment = new Warehouseequipment()
+                    {
+                        WarehouseId = item.WarehouseId,
+                        EquipmentId = recordInDb.EquipmentId,
+                        Quantity=model.Quantity
+                    };
+                    _context.Warehouseequipments.Add(warehouseequipment);
+                    _context.SaveChanges();
+                }
             }
 
-            var message = "Something went wrong on your side.";
+             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
 
@@ -111,6 +152,11 @@ namespace IMOSApi.Controllers.EquipmentManagement
             {
                 return NotFound();
             }
+
+            var equipmentWarehouse = _context.Warehouseequipments.Where(item => item.EquipmentId == id);
+            _context.Warehouseequipments.RemoveRange(equipmentWarehouse);
+            await _context.SaveChangesAsync();
+
 
             _context.Equipment.Remove(recordInDb);
             await _context.SaveChangesAsync();

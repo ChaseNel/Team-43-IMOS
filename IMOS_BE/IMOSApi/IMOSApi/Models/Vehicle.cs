@@ -21,10 +21,9 @@ namespace IMOSApi.Models
         public DateTime Year { get; set; }
         public string Color { get; set; }
         public DateTime DatePurchased { get; set; }
-        public int AssignedStatus { get; set; }
+        public DateTime LastServiced { get; set; }
+        public bool VehicleStatus { get; set; }
         public string ImageUrl { get; set; }
-
-
 
         public virtual Vehicletype Vehicletype { get; set; }
         public virtual ICollection<VehicleCheckIn> VehicleCheckIns { get; set; }

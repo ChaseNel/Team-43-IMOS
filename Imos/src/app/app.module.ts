@@ -3,9 +3,10 @@ import { AddMaterialRequestComponent } from './project/project-material-request/
 import { ServiceService } from './services/service.service';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import {MatTableModule} from '@angular/material/table';
 import { AppRoutingModule } from './app-routing.module';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -19,26 +20,22 @@ import {getMatInputUnsupportedTypeError, MatInputModule} from '@angular/material
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {MatDialogModule} from '@angular/material/dialog';
-import { PopUpComponent } from './logout/pop-up/pop-up.component';
+
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import { HomeComponent } from './home/home.component';
-import { SuccessComponent } from './login/Dialogs/success/success.component';
-import { UnsuccessfulComponent } from './login/Dialogs/unsuccessful/unsuccessful.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSelectModule} from '@angular/material/select';
 import {MatGridListModule} from '@angular/material/grid-list';
 
 
 
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
 import { AddEmployeeComponent } from './employee/add-employee/add-employee.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import { UserComponent } from './user/user.component';
-import { AddUserRoleComponent } from './user/user-role/add-user-role/add-user-role.component';
-import { UpdateUserRoleComponent } from './user/user-role/update-user-role/update-user-role.component';
-import { UserRoleComponent } from './user/user-role/user-role.component';
 import { MaterialComponent } from './material/material.component';
 import { SupplierComponent } from './supplier/supplier.component';
 import { MaterialTypeComponent } from './material/material-type/material-type.component';
@@ -96,9 +93,6 @@ import { SaftyChecklistComponent } from './safty-checklist/safty-checklist.compo
 import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
 import { UpdateSaftyChecklistComponent } from './safty-checklist/update-safty-checklist/update-safty-checklist.component';
 import { SaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-catagory.component';
-import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
-import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
 import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
 import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 import { ClientRequestComponent } from './client-request/client-request.component';
@@ -125,7 +119,7 @@ import {UploadVehiclePhotoComponent} from './vehicle/upload-vehicle-photo/upload
 import { ProjectMaterialRequestComponent} from './project/project-material-request/project-material-request.component';
 import { UnassignedVehicleViewComponent } from './vehicle/unassigned-vehicle-view/unassigned-vehicle-view.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatListModule } from '@angular/material/list';
+
 
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
@@ -143,6 +137,27 @@ const materialModules = [
   MatListModule
 ];
 
+import { AddUserRoleComponent } from './user/userrole/add-user-role/add-user-role.component';
+import { UserRoleComponent } from './user/userrole/user-role.component';
+import { UpdateUserRoleComponent } from './user/userrole/update-user-role/update-user-role.component';
+import { VehicleAllocationComponent } from './vehicle/vehicle-allocation/vehicle-allocation.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { AllocateVehicleComponent } from './vehicle/allocate-vehicle/allocate-vehicle.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatCheckboxModule} from '@angular/material/checkbox'; //matSelectionList
+import {MatSelectionList} from '@angular/material/list/selection-list';
+import { AddSupplierOrderComponent } from './supplier/supplier-order/add-supplier-order/add-supplier-order.component';
+import {MatListModule} from '@angular/material/list';
+import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/cancel-order.component';
+import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
+import { ItemsComponent } from './safty-checklist/items/items.component';
+import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
+import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
+import { ReportingComponent } from './reporting/reporting.component';
+import { OrdersPerSupplierReportComponent } from './reporting/orders-per-supplier-report/orders-per-supplier-report.component';
+import { AuthInterceptor } from './services/auth/auth.interceptor';
+
+
 
 
 @NgModule({
@@ -155,10 +170,7 @@ const materialModules = [
     LoginComponent,
     LogoutComponent,
     HeaderComponent,
-    PopUpComponent,
     HomeComponent,
-    SuccessComponent,
-    UnsuccessfulComponent,
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
@@ -213,9 +225,6 @@ const materialModules = [
     AddSaftyChecklistComponent,
     UpdateSaftyChecklistComponent,
     SaftyChecklistCatagoryComponent,
-    SaftyChecklistItemsComponent,
-    AddSaftyChecklistItemsComponent,
-    UpdateSaftyChecklistItemsComponent,
     AddSaftyChecklistCatagoryComponent,
     UpdateSaftyChecklistCatagoryComponent,
     ClientRequestComponent,
@@ -234,8 +243,19 @@ const materialModules = [
     RequestcountreportComponent,
     UnassignedVehicleViewComponent,
     UploadVehiclePhotoComponent,
-    ApprovedRequestReportViewComponent
+    ApprovedRequestReportViewComponent,
+    VehicleAllocationComponent,
+    AllocateVehicleComponent,
+    AddSupplierOrderComponent,
+    CancelOrderComponent,
+    EmployeeAttendanceComponent,
+    ItemsComponent,
+    AddItemsComponent,
+    UpdateItemsComponent,
+    ReportingComponent,
+    OrdersPerSupplierReportComponent,
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -249,14 +269,17 @@ const materialModules = [
     ReactiveFormsModule,
     MatDialogModule,
     HttpClientModule,
+    MatListModule,
     MatToolbarModule,
     MatGridListModule,
     MatTableModule,
+    MatExpansionModule,
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
     CommonModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
     NgChartsModule,
@@ -274,6 +297,12 @@ const materialModules = [
   providers: [
     ServiceService,
     MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} }
+
+  ],
+  providers: [
+    ServiceService,
+    MatDialogModule, { provide: MAT_DIALOG_DATA, useValue: {} }, { provide: MatDialogRef, useValue: {} },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

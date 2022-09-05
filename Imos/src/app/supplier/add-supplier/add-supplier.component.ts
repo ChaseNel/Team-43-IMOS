@@ -21,7 +21,8 @@ export interface Supplier {
   email: string,
   contactnumber: number,
   suppliertype: string,
-  supplierorderlines: []
+  supplierorderlines: [],
+  Suppliermaterials:[]
 }
 
 
@@ -41,11 +42,14 @@ export class AddSupplierComponent implements OnInit {
   Suppliertypes: suppliertype[] = [];
 
   constructor(private fb: FormBuilder, private _service:ServiceService
- ) { }
+ ) { 
+
+ }
 
   ngOnInit(): void {
     this.buildAddForm();
   }
+
   private buildAddForm(){
     this.form=this.fb.group({
       name: ['', [Validators.required]],
@@ -73,6 +77,5 @@ export class AddSupplierComponent implements OnInit {
   }
 
   Cancel(){
-
   }
 }

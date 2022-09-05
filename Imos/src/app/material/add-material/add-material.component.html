@@ -1,4 +1,4 @@
-<app-header></app-header>
+
 
 <button class="btnBack" mat-raised-button color="warn" routerLink="/material">Back</button>
 
@@ -14,28 +14,54 @@
         <mat-card-header>
             <mat-card-title>Add Material</mat-card-title>
         </mat-card-header>
+
         <mat-card-content>
+
             <div class="row">
                 <mat-form-field class="full-width">
-                    <mat-label>Choose a Material Type</mat-label>
-                    <mat-placeholder>Choose a Material Type</mat-placeholder>
-                    <mat-select [formControl]="Type">
-                        <mat-option>Clear</mat-option>
-                        <mat-option mat-cell *matCellDef="let element">{{typelist[element.materialtypeId-1]?.name}}</mat-option>
+                    <mat-label>Select  Material Type</mat-label>
+                    <mat-select formControlName="materialtypeId">
+                        <mat-option *ngFor="let type of TypeList" [value]="type.materialtypeId">
+                            {{type.name}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                    <mat-label>Select Warehouse </mat-label>
+                    <mat-select formControlName="warehouseId" multiple>
+                        <mat-option *ngFor="let type of WarehouseTypes" [value]="type.id">
+                            {{type.name}}
+                        </mat-option>
                       </mat-select>
                 </mat-form-field>
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Name' matInput placeholder="Material Name" name="Name"
-                        formControlName="Name">
+                    <mat-label>Name</mat-label>
+                    <input matInput  placeholder="Enter Name" #nameInput  formControlName="name">
+                     <!--     <mat-error>Name is required</mat-error> -->
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Name', 'required')"></mat-error>
+
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Description' matInput placeholder="Material Description" name="Description"
-                        formControlName="Description">
+                    <input matInput placeholder="Description" #nameInput  formControlName="description">
+                    <!--  <mat-error>Description is required</mat-error> -->
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
+                <mat-form-field appearance="standard">
+                    <mat-label>Quantity</mat-label>
+                    <input type="number" min="1" max="1000" matInput  #nameInput  formControlName="quantity">
+                    <mat-error>Quantity is required</mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill">
+                    <mat-label>Select Supplier</mat-label>
+                    <mat-select formControlName="supplierId" multiple>
+                     <mat-option *ngFor="let type of  SupplierList" [value]="type.id">
+                        {{type.name}}
+                    </mat-option>
+                    </mat-select>
+                </mat-form-field> 
+             
                 <mat-card-actions>
-                    <button (click)="addMaterial()" mat-raised-button color="primary">Add</button>
+                    <button (click)="AddMaterial()" mat-raised-button color="primary">Add</button>
                     <button (click)="back()" mat-raised-button color="warn">back</button>
                 </mat-card-actions>
             </div>

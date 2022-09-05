@@ -1,8 +1,10 @@
 
 import { map } from 'rxjs/operators';
 
-import { project, ServiceService, ProjectMaterialRequest } from './../services/service.service';
+import {ProjectMaterialRequest } from './../services/service.service';
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
+import { constructionSite, project, request, ServiceService } from './../services/service.service';
+
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -62,6 +64,22 @@ function getTimezoneOffsetString(date: Date): string {
 }
 
 
+export interface Project {
+  projectId: number,
+  name:string,
+  constructionsiteId: number,
+  initialrequestId: number,
+  safetyfilecreated: boolean,
+  constructionsite: string,
+  initialrequest: string,
+  deliveries: [],
+  invoices: [],
+  projectemployees: [],
+  projectequipments: [],
+  projectmaterialrequests: [],
+  projectmaterials: [],
+  safetyfilechecklists: []
+}
 @Component({
   selector: 'app-project',
   templateUrl: './project.component.html',
@@ -123,10 +141,13 @@ export class ProjectComponent implements OnInit {
 
 
 
+  SiteList: constructionSite[] = [];
+  requestList: request[] = [];
+
   // API Test
   info: project[] = [];
 
-  displayedColumns: string[] = ['project', 'construction', 'iRequest','saftyfile', 'actions'];
+  displayedColumns: string[] = ['name', 'constructionSite', 'request', 'actions'];
 
   dataSource!: MatTableDataSource<project>;
 
@@ -173,7 +194,7 @@ export class ProjectComponent implements OnInit {
       'primary_release_date.lte',
       format(getEnd(this.endDate), 'yyyy-MM-dd')
     )
-    
+
     .set('api_key', '0ec33936a68018857d727958dca1424f');
 
     this.events$ = this.service.getMaterialRequest()
@@ -280,8 +301,8 @@ export class ProjectComponent implements OnInit {
     }
   }
 
-  UpdateProject() {
-    this.route.navigateByUrl('/updateProject')
+  UpdateProject(id:number) {
+    this.route.navigate(['updateProject',id])
   }
 
   addProject() {
@@ -321,4 +342,8 @@ this.service.getMaterialRequest()
 
 
 
+
+  projectstaff(){
+    this.route.navigateByUrl('projectstaff')
+  }
 }
