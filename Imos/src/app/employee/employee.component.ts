@@ -1,6 +1,7 @@
+import { employee } from 'src/app/services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Empdocument, employee, ServiceService } from './../services/service.service';
+import { Empdocument, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +12,7 @@ export interface Employee{
   employeeId: number,
   name: string,
   email: string,
+  FileUrl: any,
   contactNumber: number,
   projectemployees: [],
   users: [],
@@ -44,6 +46,10 @@ export class EmployeeComponent implements OnInit {
       console.log(this.data);
     });
    }
+
+   ngOnInit(): void {
+    this.GetAllEmployees()
+  }
    
    GetAllEmployees() {
     this.service.getEmployees().subscribe(x => {
@@ -89,7 +95,10 @@ export class EmployeeComponent implements OnInit {
 
    viewContract(item:employee){
     this.listOfProccessedEmployees=[];
+    console.log(this.listOfProccessedEmployees)
     this._uploads.downloadEmployeeDocument(item.employeeId).subscribe(res=>{
+      console.log(this.viewContract)
+
       let image = res.body as Blob;
       let reader = new FileReader();
       reader.addEventListener("load" ,()=>{
@@ -107,7 +116,5 @@ export class EmployeeComponent implements OnInit {
 
   }
  
-  ngOnInit(): void {
-    this.GetAllEmployees()
-  }
+  
 }

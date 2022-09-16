@@ -73,7 +73,6 @@ async BasketAlert(){
     verticalPosition: 'bottom',
   });
 
-
 }
 
 quanitity: number
@@ -132,5 +131,4 @@ addToBasket(material: material){
 this.BasketAlert();
 
 }
-
 }

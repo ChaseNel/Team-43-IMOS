@@ -4,6 +4,7 @@ import { ServiceService } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormControlName, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-employee',
@@ -15,7 +16,7 @@ export class AddEmployeeComponent implements OnInit {
   alert: boolean = false;
 
   constructor( private service:ServiceService,private _uploadsService:UploadsService,
-    private fb:FormBuilder,private route:Router)
+    private fb:FormBuilder,private route:Router,private _snackbar: MatSnackBar)
      {  }
 
      Name: any;
@@ -40,7 +41,23 @@ export class AddEmployeeComponent implements OnInit {
 
     console.log(this.employeeFrm.value);
     this.service.addEmployee(this.employeeFrm.value)
-    .subscribe((res: { toString: () => any; }) => {alert(res.toString());});
+    .subscribe(res=>{
+      if (confirm('Are you sure you want to Add this Employee ?')) {
+        this._snackbar.open("Success, you have Added New  Employee!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      else {
+        this._snackbar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      
+    }
+
+    )
     }
     public uploadFile = (files:any) => {
       this.errorMessage = null;

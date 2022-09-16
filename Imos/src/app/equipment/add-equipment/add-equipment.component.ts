@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class AddEquipmentComponent implements OnInit {
   alert: boolean = false;
 
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: FormBuilder,private _snackbar: MatSnackBar,
      private _service:ServiceService,private route: Router ) 
   { 
 
@@ -58,6 +59,19 @@ export class AddEquipmentComponent implements OnInit {
       payload['Warehouses'] = listOfWarehouses;
       console.log(payload)
       this._service.addEquipment(payload).subscribe(res=>{
+        if (confirm('Are you sure you want to Add this Equipment ?')) {
+          this._snackbar.open("Success, you have Added New  Equipment!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+        else {
+          this._snackbar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+
         console.log(res)
       })
   }

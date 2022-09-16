@@ -64,7 +64,6 @@ export class AddMaterialComponent implements OnInit {
 this.service.getSupplier().subscribe(data=>{
   this.SupplierList=data;
 })
-
 }
 AddMaterial() {
     if(this.materialFrm.valid){
@@ -98,11 +97,29 @@ AddMaterial() {
      console.log(payload);
        this.service.addMaterial(payload)
        .subscribe(res=>{
+        if (confirm('Are you sure you want to Add this Material ?')) {
+          this._snackbar.open("Success, you have Added New  Material!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+        else {
+          this._snackbar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+
+
        console.log(res);
        // add validation and WarehouseTypes "are you sure to add supplier notification"
        })
     }
   }
+  public hasError = (controlName: string, errorName: string) =>{
+    return this.materialFrm.controls[controlName].hasError(errorName);
+}
+
   
   closeAlert() {
     this.alert = false;

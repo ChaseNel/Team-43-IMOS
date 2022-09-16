@@ -1,7 +1,7 @@
 
 <app-header></app-header>
 
-<button class="btnBack" mat-raised-button color="warn" routerLink="/updateUserRole,userroleId">Back</button>
+<button class="btnBack" mat-raised-button color="warn" routerLink="/userrole">Back</button>
 
 <div *ngIf="hide" class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>Success !</strong> User Role Updated Successfully
@@ -10,20 +10,23 @@
     </button>
 </div>
 
-<form [formGroup]="userRoleFrm" class="form-container">
+<form [formGroup]="form" class="form-container"  (ngSubmit)="onSubmit()">
+
     <mat-card>
+
         <mat-card-header>
             <mat-card-title>Update User Role</mat-card-title>
         </mat-card-header>
+        
         <mat-card-content>
             <div class="row">
                 <mat-form-field class="full-width">
-                    <input [(ngModel)]='Description' matInput placeholder="User Role Name" name="Description"
+                    <input  matInput placeholder="User Role Name" name="Description"
                         formControlName="Description">
                 </mat-form-field>
-                <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
+                 <mat-error *ngIf="hasError('Description', 'required')"></mat-error>
                 <mat-card-actions>
-                    <button (click)="updateUserRole()" mat-raised-button color="primary">Update</button>
+                    <button mat-raised-button color="primary" [disabled]="!form.valid">Update</button>
                 </mat-card-actions>
             </div>
         </mat-card-content>

@@ -21,7 +21,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             _context = context;
         }
 
-        [HttpGet("GetAll/NotAssigned")]
+      /*  [HttpGet("GetAll/NotAssigned")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetAllVehiclesNotAssigned()
         {
             var recordsInDb = _context.Vehicles
@@ -43,7 +43,7 @@ namespace IMOSApi.Controllers.VehicleManagement
 
                 }).OrderBy(item => item.Vehicletype).ToList();
             return recordsInDb;
-        }
+        }*/
 
         [HttpGet("GetAll/Users/NotAssigned/{userRole}")]
         public ActionResult<IEnumerable<GetUserDto>>GetAllUsersToAssign( string userRole)

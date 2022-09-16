@@ -1,6 +1,8 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos.Equipment;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +14,30 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class ProjectEquipmentController : ControllerBase
     {
-        [HttpGet("GetProjectequipments")]
-        public IEnumerable<Projectequipment> Retrieve()
+        private readonly IMOSContext _context;
+        public ProjectEquipmentController(IMOSContext context)
         {
-            using (var context = new IMOSContext())
-            {
-                return context.Projectequipments.ToList();
-            }
+            _context = context;
         }
+
+        [HttpGet("GetAll")]
+        public ActionResult<IEnumerable<GetAllProjectEquipmentsDto>> GetAll()
+        {
+            var recordsInDb = _context.Projectequipments
+                .Include(item => item.Project)
+                .Include(item=>item.Equipment)
+                  .Select(item => new GetAllProjectEquipmentsDto()
+                  {
+                      ProjectId=item.ProjectId,
+                      ProjectName=item.Project.Name,
+                      EquipmentId=item.EquipmentId,
+                      Name=item.Equipment.Name,
+                      Description=item.Equipment.Description
+
+                  }).OrderBy(item => item.ProjectName).ToList();
+            return recordsInDb;
+        }
+
         [HttpGet("GetProjectequipment/{id}")]
         public IEnumerable<Projectequipment> Get(int id)
         {
@@ -29,15 +47,36 @@ namespace IMOSApi.Controllers
                 return tmp;
             }
         }
-        [HttpPost("CreateProjectequipment")]
-        public IActionResult Create([FromBody] Projectequipment Projectequipment)
+
+        [HttpPost("Assign")]
+        public IActionResult Assign(AddEquipmentToProjectDto model)
         {
-            using (var context = new IMOSContext())
+            var message = "";
+            if (ModelState.IsValid)
             {
-                context.Projectequipments.Add(Projectequipment);
-                context.SaveChanges();
+                var projectEquipmentInDb = _context.Projectequipments.FirstOrDefault(item => item.ProjectId == model.ProjectId);
+                if (projectEquipmentInDb != null)
+                {
+                    message = "Project not found";
+                    return BadRequest(new { message });
+                }
+
+                foreach (var item in model.Equipments)
+                {
+                    var record = new Projectequipment()
+                    {
+                        ProjectId = model.ProjectId,
+                        EquipmentId =item.EquipmentId
+                    };
+                    _context.Projectequipments.Add(record);
+                }
+
+                _context.SaveChanges();
                 return Ok();
             }
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
         }
 
         [HttpPut("UpdateProjectequipment/{Id}")]

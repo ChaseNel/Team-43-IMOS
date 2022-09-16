@@ -149,14 +149,13 @@ namespace IMOSApi.Controllers.MaterialManagent
             {
 
                 //if errors remove catch code block
-                var material = _context.Materials.FirstOrDefault(o => o.Name.Equals(model.Name));
-                if (material != null)
-                {
-                    _context.Materials.Remove(material);
-                    _context.SaveChanges();
-                }
-
-                throw;
+                //var material = _context.Materials.FirstOrDefault(o => o.Name.Equals(model.Name));
+                //if (material != null)
+                //{
+                //    _context.Materials.Remove(material);
+                //    _context.SaveChanges();
+                //}
+                return BadRequest(e.InnerException.Message);
             }
             return Ok();
         }
@@ -205,17 +204,6 @@ namespace IMOSApi.Controllers.MaterialManagent
             return recordsInDb;
 
         }*/
-
-        [HttpGet("GetMaterials")]
-        public IEnumerable<Material> Retrieve()
-        {
-            using (var context = new IMOSContext())
-            {
-                return _context.Materials.ToList();
-            }
-        }
-
-
 
         [HttpPut("UpdateMaterial/{id}")]
         public IActionResult Update(AddMaterialDto model, int id)
@@ -283,6 +271,7 @@ namespace IMOSApi.Controllers.MaterialManagent
 
         }
 
+        
         /*               try
             {
                 var recordInDb = _context.Materials.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
@@ -341,27 +330,7 @@ namespace IMOSApi.Controllers.MaterialManagent
          
          */
     
-            var message = "Something went wrong on your side.";
-            return BadRequest(new { message });
         }
-        [HttpDelete("DeleteMaterialSupplier/{id}")]
-            public async Task<ActionResult<Material>> Delete(int id)
-            {
-
-
-                    var recordInDb = await _context.Materials.FindAsync(id);
-                    if (recordInDb == null)
-                    {
-                        return NotFound();
-                    }
-
-                    _context.Materials.Remove(recordInDb);
-                    await _context.SaveChangesAsync();
-                return Ok();
-            }
-        }
-
-
     }
 
 

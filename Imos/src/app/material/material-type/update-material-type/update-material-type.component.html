@@ -14,22 +14,22 @@
                 <mat-error *ngIf="formdet['name'].touched && formdet['name'].invalid">
                     <mat-error *ngIf="formdet['name'].errors?.['required'] && formdet['name'].dirty">Name is required
                     </mat-error>
-                    <mat-error *ngIf="formdet['name'].errors?.['pattern'] && formdet['name'].dirty">Please enter a
+                    <!--  <mat-error *ngIf="formdet['name'].errors?.['pattern'] && formdet['name'].dirty">Please enter a
                         letter only name</mat-error>
                     <mat-error *ngIf="formdet['name'].errors?.['maxlength'] && formdet['name'].dirty">25 Characters
-                        maximum is required for a full name</mat-error>
+                        maximum is required for a full name</mat-error>-->
                 </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="standard">
                 <mat-label>Description</mat-label>
                 <input matInput placeholder="Used to carry water" #nameInput formControlName="description">
-                <!-- <mat-error *ngIf="formdet['description'].touched && formdet['address'].invalid">
+                <mat-error *ngIf="formdet['description'].touched && formdet['description'].invalid">
                     <mat-error *ngIf="formdet['description'].errors?.['required'] && formdet['description'].dirty">Description is
                         required</mat-error>
                     <mat-error *ngIf="formdet['description'].errors?.['maxlength'] && formdet['description'].dirty">40
                         Characters maximum is required for address</mat-error>
-                </mat-error> -->
+                </mat-error> 
             </mat-form-field>
 
             <div class="btn">

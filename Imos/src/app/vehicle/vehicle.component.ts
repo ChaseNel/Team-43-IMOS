@@ -48,7 +48,7 @@ export class VehicleComponent implements OnInit {
   UnAssignedVehicle:vehicle[];
 
 
-  displayedColumns: string[] = ['id', 'vehicleType',  'make','model','color','status','Year','DatePurchased','LastServiced','actions'];
+  displayedColumns: string[] = [ 'vehicleType','make','model','color','Year','DatePurchased','actions'];
 
   dataSource!: MatTableDataSource<vehicle>;
 
@@ -106,9 +106,10 @@ export class VehicleComponent implements OnInit {
   }
 
   openUploadVehiclePhotoDialog(id: number): void {
+    console.log()
     const dialogRef = this.dialog.open(UploadVehiclePhotoComponent, {
 
-      width: '60%',
+      width: '40%',
       height:'70%',
       data:{id},
 
@@ -125,15 +126,13 @@ export class VehicleComponent implements OnInit {
   UpdateVehicle(id:number) {
     this.route.navigate(['updateVehicle',id])
   }
-/*  assignVehicle() {
+  assignVehicle() {
     //or navigate (['assignVehicle',id])
-    this.route.navigateByUrl('vehicle-allocation')
-  }*/
-
+    this.route.navigateByUrl('/assignVehicle')
+  }
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
   }
-
   deleteVehicle(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this Vehicle?')) {
@@ -146,19 +145,20 @@ export class VehicleComponent implements OnInit {
       });
     }
   }
-  assignVehicle() {
-    this.route.navigateByUrl('/assign-vehicle')
-  }
 
   VehicleType() {
     this.route.navigateByUrl('/vehicleType')
   }
-  VehicleAllocation() {
-    this.route.navigateByUrl('/vehicle-allocation')
-  }
 
   ngOnInit(): void {
     this.service.getVehicleType().subscribe(x => { this.Typelist = x; console.log("type", this.Typelist) });
+
+
+this.service.getVehicle().subscribe((x) => {
+  this.UnAssignedVehicle = x;
+})
+
+
     //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
   }
 }

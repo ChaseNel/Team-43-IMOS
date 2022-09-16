@@ -13,7 +13,6 @@ export interface Vehicle {
   color: string,
   status: string,
   datePurchased: string,
-  lastServiced: string,
   vehicletype: string
 }
 
@@ -23,7 +22,7 @@ export interface Vehicle {
   styleUrls: ['./add-vehicle.component.css']
 })
 export class AddVehicleComponent implements OnInit {
-  addForm:FormGroup;
+  addForm!:FormGroup;
   Vehicletypes:vehicletype[]=[];
 
 
@@ -42,11 +41,10 @@ export class AddVehicleComponent implements OnInit {
   {
     this.addForm=this.fb.group({
       make: ['', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}")]],
-      model: ['', [Validators.required], Validators.pattern("[A-Za-z ]{1,25}")],
+      model: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
       color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
-      modelYear: ['', [Validators.required]],
+      year: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],
-      ImageUrl: ['', [Validators.required]],
       vehicletypeId: ['', [Validators.required]]
     });
     this._service.getVehicleType().subscribe(data=>{
@@ -55,16 +53,10 @@ export class AddVehicleComponent implements OnInit {
 
   }
   AddVehicle(){
-
-
-
-
     if(this.addForm.valid){
-
       console.log(this.addForm.value);
       this._service.addVehicle(this.addForm.value)
       .subscribe(
-
         res => {
           if (confirm('Are you sure you want to Add this Vehicle?')) {
             this._snackbar.open("Success, you have Add a Vehicle!", 'OK', {
@@ -82,9 +74,7 @@ export class AddVehicleComponent implements OnInit {
     }
   }
 
-
-
-  Cancel(){
+  back(){
     this.route.navigateByUrl('/vehicle')
   }
 

@@ -19,19 +19,21 @@ namespace IMOSApi.Controllers.VehicleManagement
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetVehicleTypeById/{id}")]
         public ActionResult<GetGenericIdAndDescription> GetRecord(int id)//method to get  Vehicle Type by Id 
         {
-            var recordInDb = _context.Vehicletypes.Where(item => item.VehicletypeId == id).Select(item => new GetGenericIdAndDescription()
-            {
+            var recordInDb = _context.Vehicletypes
+                .Where(item => item.VehicletypeId == id)
+                .Select(item => new GetGenericIdAndDescription()
+                {
                 Description = item.Description,
                 Id = item.VehicletypeId
-            }).First();
+                }).First();
 
-            if (recordInDb == null)
-            {
+               if (recordInDb == null)
+               {
                 return NotFound();
-            }
+               }
 
             return recordInDb;
         }
@@ -48,12 +50,13 @@ namespace IMOSApi.Controllers.VehicleManagement
             return recordsInDb;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("updateVehicleType/{id}")]
         public IActionResult Update(AddOrUpdateGenericDescriptionOnlyDto model, int id)
         {
             if (ModelState.IsValid)
             {
-                var recordInDb = _context.Vehicletypes.FirstOrDefault(item => item.VehicletypeId == id);
+                var recordInDb = _context.Vehicletypes
+                    .FirstOrDefault(item => item.VehicletypeId == id);
 
                 if (recordInDb == null)
                 {
@@ -62,7 +65,6 @@ namespace IMOSApi.Controllers.VehicleManagement
 
                 recordInDb.Description = model.Description;
                 _context.SaveChanges();
-
                 return Ok();
             }
 
@@ -71,7 +73,7 @@ namespace IMOSApi.Controllers.VehicleManagement
 
         }
 
-        [HttpPost]
+        [HttpPost("AddVehicleType")]
         public IActionResult AddVehicleType(AddOrUpdateGenericDescriptionOnlyDto model)
         {
 

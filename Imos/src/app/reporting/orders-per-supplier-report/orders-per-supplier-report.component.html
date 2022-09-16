@@ -30,10 +30,10 @@
     </mat-form-field>
 
     <mat-form-field appearance="fill">
-        <mat-label>Favorite food</mat-label>
+        <mat-label>Select  Supplier</mat-label>
         <mat-select>
-          <mat-option *ngFor="let food of foods" [value]="food.value">
-            {{food.viewValue}}
+          <mat-option *ngFor="let type of SupplierList" [value]="type.name">
+            {{type.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>

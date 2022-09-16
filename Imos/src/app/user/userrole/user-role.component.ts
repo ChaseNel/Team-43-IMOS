@@ -1,5 +1,6 @@
 import { Component, OnInit ,ViewChild} from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -30,17 +31,28 @@ export class UserRoleComponent implements OnInit {
 
   posts: any;
 
-  constructor( private route:Router,private service:ServiceService) {
+  constructor( private route:Router,private service:ServiceService,
+    private _snackBar:MatSnackBar ) {
     this.service.getUserRole().subscribe(x => {
       this.data = x;
       console.log(this.data);
+    });
+   }
+
+   ngOnInit(): void {
+    this.GetAllRoles()
+  }
+   GetAllRoles(){
+    this.service.getUserRole().subscribe(x=>{
+      this.data = x;
+      console.log(this.data);
       this.posts = x
-
       this.dataSource = new MatTableDataSource(this.posts)
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+
     })
+
    }
 
    applyFilter(event: Event) {
@@ -51,15 +63,24 @@ export class UserRoleComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-  UpdateUserRole(){
-    this.route.navigateByUrl('/EditUserRole/{id}')
+  UpdateUserRole(id:number){
+    this.route.navigateByUrl('/EditUserRole/' +id)
   }
 
   addUserRole(){
     this.route.navigateByUrl('AddRole')
   }
-
-  ngOnInit(): void {
+  deleteRole(id: number) {
+    console.log(id);
+    if (confirm('Are you sure you want to delete this UserRole?')) {
+      this.service.deleteUserRole(id).subscribe(res => {
+        this.GetAllRoles();
+        this._snackBar.open("Success, you have deleted an UserRole", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      });
+    }
   }
 
 }

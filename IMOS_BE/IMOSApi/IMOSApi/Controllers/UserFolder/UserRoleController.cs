@@ -37,69 +37,87 @@ namespace IMOSApi.Controllers.UserFolder
 
         }
 
-        /*  [HttpGet("GetUserRole/{id}")]
-          public IEnumerable<Userrole> GetRecord(int id) GetGenericIdAndNameDto
-          {
-              using (var context = new IMOSContext())
-              {
-                  IEnumerable<Userrole> userroles = context.Userroles.Where(usr => usr.UserroleId == id).ToList();
-                  return userroles;
-
-              }
-          }
-        */
-
-        /*  [HttpPost("AddRole")]
-          public IActionResult Add([FromBody] Userrole userrole)
-          {
-              using (var context = new IMOSContext())
-              {
-                  _dbContext.Userroles.Add(userrole);
-                  _dbContext.SaveChanges();
-                  return Ok();
-              }
-          }*/
-
-
-        /*  [HttpPut("EditUserRole/{id}")]
-          public IActionResult Update([FromBody] Userrole userrole,[FromRoute] int Id)
-          {
-              if (ModelState.IsValid)
-              {
-                  using(var context= new IMOSContext())
+        [HttpGet("GetRoleById/{id}")]
+        public ActionResult<GetUserRoleDto> GetRecord(int id)
+        {
+            var message = "";
+            var recordInDb = _dbContext.Userroles
+                  .Where(item => item.UserroleId == id)
+                  .Select(item => new GetUserRoleDto()
                   {
-                      var recordInDb = _dbContext.Userroles.FirstOrDefault();
-                      if (recordInDb == null)
-                      {
-                          return NotFound();
-                      }
-                      recordInDb.Description = userrole.Description;
-                      _dbContext.SaveChanges();
-                      return Ok();
-                  }
-              }
-              var message = "Something went wrong on your side";
-              return BadRequest(new { message });
+                      Id = item.UserroleId,
+                      description = item.Description
+                  }).OrderBy(item => item.description).First();
+            if (recordInDb == null)
+            {
+                message = "Record Not Found";
+                return BadRequest(new { message });
+            }
+            return recordInDb;
 
-          }*/
+        }
+      
 
-        /*  [HttpDelete("RemoveUserRole/{id}")]
-          public async Task<ActionResult<Userrole>>Delete(int Id)
-          {
-              using(var context=new IMOSContext())
-              {
-                  var recordInDb = await _dbContext.Userroles.FindAsync(Id);
-                      if (recordInDb == null)
-                      {
-                          return NotFound();
-                      }
-                  _dbContext.Userroles.Remove(recordInDb);
-                  await _dbContext.SaveChangesAsync();
-                  return Ok();
-              }
 
-          }*/
+        [HttpPost("AddRole")]
+        public IActionResult Add([FromBody] Userrole userrole)
+        {
+            using (var context = new IMOSContext())
+            {
+                _dbContext.Userroles.Add(userrole);
+                _dbContext.SaveChanges();
+                return Ok();
+            }
+        }
+
+        [HttpPut("EditUserRole/{id}")]
+        public IActionResult Update([FromBody] Userrole userrole, [FromRoute] int Id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var context = new IMOSContext())
+                {
+                    var recordInDb = _dbContext.Userroles.FirstOrDefault();
+                    if (recordInDb == null)
+                    {
+                        return NotFound();
+                    }
+                    recordInDb.Description = userrole.Description;
+                    _dbContext.SaveChanges();
+                    return Ok();
+                }
+            }
+            var message = "Something went wrong on your side";
+            return BadRequest(new { message });
+
+        }
+
+
+        [HttpDelete("RemoveUserRole/{id}")] 
+        public async Task<ActionResult<Userrole>> Delete(int id)
+        {
+      
+                var recordInDb = await _dbContext.Userroles.FindAsync(id);
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+                _dbContext.Userroles.Remove(recordInDb);
+                await _dbContext.SaveChangesAsync();
+                return Ok();
+            
+
+        }
+
 
     }
 }
+
+
+   
+
+     
+
+        
+
 

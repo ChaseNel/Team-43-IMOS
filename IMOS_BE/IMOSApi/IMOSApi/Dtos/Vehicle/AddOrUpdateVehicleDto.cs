@@ -26,8 +26,7 @@ namespace IMOSApi.Dtos.Vehicle
         public string Color { get; set; }
         [Required]
         public DateTime DatePurchased { get; set; }
-        [Required]
-        public DateTime LastServiced { get; set; }
+ 
     
     }
 }

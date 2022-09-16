@@ -88,21 +88,9 @@ namespace IMOSApi.Controllers
 
             memory.Position = 0;
             var ext = Path.GetExtension(fileToDownload)?.ToLowerInvariant();
-            return File(memory, GetMimeTypes()[ext], Path.GetFileName(fileToDownload));
+              return File(memory, GetMimeTypes()[ext], Path.GetFileName(fileToDownload));
 
         }
-
-        private Dictionary<string, string> GetMimeTypes()
-        {
-            return new Dictionary<string, string>
-            {
-                
-            };
-        }
-
-
-
-
 
         [HttpPost("EmployeeDocuments/Upload"), DisableRequestSizeLimit] //Done
         public IActionResult PastPaperUploadPublished()
@@ -187,9 +175,9 @@ namespace IMOSApi.Controllers
 
         [HttpGet("Employees/Documents/Download/{id}")]
         //[AllowAnonymous] 
-        public async Task<IActionResult>DownloadEmployeeDocument(int id)
+        public async Task<IActionResult> DownloadEmployeeDocument(int id)
         {
-            var isEmployeeDocumentInDb = _context.Employees.FirstOrDefault(item => item.EmployeeId ==id);
+            var isEmployeeDocumentInDb = _context.Employees.FirstOrDefault(item => item.EmployeeId == id);
             if (isEmployeeDocumentInDb == null)
             {
                 var message = "Error: Employee Document  not found.";
@@ -206,12 +194,12 @@ namespace IMOSApi.Controllers
 
             memory.Position = 0;
             var ext = Path.GetExtension(fileToDownload)?.ToLowerInvariant();
-            return File(memory, GetMimeTypes()[ext], Path.GetFileName(fileToDownload));
+             return File(memory, GetMimeTypes()[ext], Path.GetFileName(fileToDownload));
         }
         private Dictionary<string, string> GetMimeTypes()
         {
             return new Dictionary<string, string>
-      {
+        {
                 {".png", "image/png"},
                 {".jpg", "image/jpeg"},
                 {".jpeg", "image/jpeg"},

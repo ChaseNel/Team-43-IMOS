@@ -45,6 +45,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         public ActionResult<GetMaterialTypeDto> GetRecord(int id)
         {
             var recordInDb = _context.Materialtypes
+                .Where(item => item.MaterialtypeId == id)
                 .Select(item => new GetMaterialTypeDto()
                 {
                     MaterialtypeId = item.MaterialtypeId,

@@ -41,7 +41,7 @@ export interface user {
   username: string,
   userPassword: string,
   employee: string,
-  userrole: string,
+  description: string,
   equipmentchecks: [],
   stocktakes: [],
   tasks: [],
@@ -128,10 +128,9 @@ export interface MaterialComposition{
 
 
 export interface ProjectMaterialRequest{
-
   materialRequestId: number,
   projectId: number,
-  urgencylevelName: string,
+  urgencyLevelName: string,
   requestDate :string,
   statusName:string,
   statusUpdateDate: string,
@@ -167,10 +166,6 @@ export interface MaterialRequestStatus{
 
 
 //User Role Interface
-export interface userrole {
-  userrole1: number,
-  description: string
-}
 
 
 //Supplier Interface
@@ -220,6 +215,17 @@ export interface projectemployee{
   email?:string,
   contact?:string
   attendences:[]
+}
+
+export interface projectequipment{
+  projectId: number,
+  project: string,
+  projectName?:string,
+  equipmentId: number,
+  equipment:string,
+  name: string,
+  description: string,
+
 }
 
 //Vehicle Interface
@@ -412,7 +418,7 @@ export class ServiceService {
   public taskId: number;
 
   //URL from API
-  readonly Root_URL = 'https://localhost:44381/api'
+  readonly Root_URL = 'https://localhost:5001/api'
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -446,7 +452,9 @@ export class ServiceService {
     return this.http.post(this.Root_URL + '/Uploads/Vehicles/Upload/', obj
     , {reportProgress: true, observe: 'events'});
   }
-
+  uploadvehimg(finalform: any){
+    return this.http.put(this.Root_URL + `/Vehicle/UploadVehiclePhoto/${finalform.VehicleId}/`, finalform.imageUrl);
+  }
 
   //User
   //Get
@@ -457,6 +465,7 @@ export class ServiceService {
   deleteUser(id: number) {
     return this.http.delete(this.Root_URL + '/User/DeleteUser/' + id);
   }
+
   //Add
   registerUser(payload: any): Observable<any> {
     return this.http.post(this.Root_URL + '/User/Register', payload);
@@ -468,7 +477,6 @@ export class ServiceService {
       payload,
       { reportProgress: true, observe: 'events' });
   }
-
   //UserRoles Htttp Requests
   //Get
   getUserRole(): Observable<userrole[]> {
@@ -476,21 +484,20 @@ export class ServiceService {
   }
   //get by Id
   getUserRoleById(id: number) {
-    return this.http.get(this.Root_URL + '/UserRole/GetUserRole/' + id);
+    return this.http.get(this.Root_URL + '/UserRole/GetRoleById/' + id);
   }
   //Update
-  editUserRole(id: any, val: any): Observable<any> {
-    console.log(id, val)
+  editUserRole(id:number, val: any): Observable<any> {
     const endPointUrl = this.Root_URL + '/UserRole/EditUserRole/' + id;
     return this.http.put(endPointUrl, val);
   }
   //Delete
   deleteUserRole(id: number) {
-    return this.http.delete(this.Root_URL + '/RemoveUserRole/' + id);
+    return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
   }
   //Add
   addUserRole(val: any) {
-    return this.http.post(this.Root_URL + '/UserRole/AddRole/', val)
+    return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
   }
   //Employee Http requests
   //get By Id
@@ -574,12 +581,8 @@ export class ServiceService {
   }
 
   //Update
-  editMaterialType(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + '/Materialtype/UpdateType/' + id;
-    return this.http.put(endPointUrl, val);
-
-    return this.http.get<materialtype[]>(this.Root_URL + '/MaterialType/GetAll')
+  editMaterialType(id: number, data: any): Observable<any> {
+    return this.http.put(this.Root_URL + '/Materialtype/UpdateType/'+id,data);
   }
   //Delete
   deleteMaterialType(id: number) {
@@ -616,6 +619,9 @@ export class ServiceService {
   //Get
   getMaterialRequets(): Observable<materialRequest[]> {
     return this.http.get<materialRequest[]>(this.Root_URL + '/Projectmaterialrequest/GetProjectmaterialrequests')
+  }
+  CalendarViewRequest(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequest/GetCalendarViewRequests')
   }
 
 
@@ -798,7 +804,7 @@ export class ServiceService {
 
   //By ID
   getVehicleTypeID(id: number) {
-    return this.http.get(this.Root_URL + '/Vehicletype/' + id);
+    return this.http.get(this.Root_URL + '/VehicleType/GetVehicleTypeById/' + id);
   }
 
   //Get
@@ -809,15 +815,12 @@ export class ServiceService {
 
   //Add
   addVehicleType(val: any) {
-    return this.http.post(this.Root_URL + '/Vehicletype/CreateVehicletype', val)
+    return this.http.post(this.Root_URL + '/Vehicletype/AddVehicleType', val)
 
   }
-
   //Update
-  editVehicleType(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + '/Vehicletype/UpdateVehicletype/' + id;
-    return this.http.put(endPointUrl, val);
+  editVehicleType(id: number, data: any): Observable<any> {
+    return this.http.put(this.Root_URL + '/VehicleType/updateVehicleType/' + id, data);
 
   }
 
@@ -1118,6 +1121,19 @@ updateItem(val: any,id: number){
   
   // update project employees
 
+  // Project Equipment Http requests
+  // Get 
+    //Get All
+    getProjectEquipment(): Observable<projectequipment[]> {
+      return this.http.get<projectequipment[]>(this.Root_URL + '/ProjectEquipment/GetAll')
+    }
+
+    // Post
+    addProjectEquipment(payload:any){
+      return this.http.post(this.Root_URL + '/ProjectEquipment/Assign',payload)
+    }
+    
+
 
 
   //Task Type
@@ -1130,7 +1146,7 @@ updateItem(val: any,id: number){
   // Supplier Order Http enpoints
 // add OR Post order 
   addToOrderSupplierCart(payload: any) {
-    return this.http.post(this.Root_URL + '/Order/AddSupplierMaterialOrdersCart',payload);
+    return this.http.post(this.Root_URL + '/AddSupplierMaterialOrdersCart',payload);
   }
   getSupplierOrders(): Observable<orderline[]> {
     return this.http.get<orderline[]>(this.Root_URL + '/Order/GetAllSupplierOrders')
@@ -1263,16 +1279,18 @@ updateItem(val: any,id: number){
   deleteDeliveryNote(id: number) {
     return this.http.delete(this.Root_URL + '/Delivery/DeleteDelivery' + id);
   }
+  addRequestStatus(val: any) {
+    return this.http.post(this.Root_URL + '/ProjectMaterialRequestStatus/AddRequestStatus', val)
+  }
 
- //Manage Products
- addProduct(payload: any) {
-  return this.http.post(this.Root_URL.concat("Products"),
-    payload,
-    { reportProgress: true, observe: 'events' });
-}
+  updateRequestStatus(id:number,data:any){
+    return this.http.put(this.Root_URL + '/ProjectMaterialRequestStatus/UpdateRequestStatus/'+ id, data);
 
+  }
 
-
+  deleteRequestStatus(id: number) {
+    return this.http.delete(this.Root_URL + '/ProjectMaterialRequestStatus/DeleteRequestStatus/' + id);
+  }
 
 }
 

@@ -32,7 +32,7 @@ export class MaterialComponent implements OnInit {
   // API Test
   data: material[] = [];
 
-  displayedColumns: string[] = ['id', 'type','name', 'description','actions'];
+  displayedColumns: string[] = [ 'type','name', 'description','actions'];
 
   dataSource!: MatTableDataSource<Material>;
 
@@ -93,11 +93,6 @@ export class MaterialComponent implements OnInit {
   materialType() {
     this.route.navigateByUrl('materialtype')
   }
-
-  materialRequest(){
-    this.route.navigateByUrl('materialRequest')
-  }
-
   ngOnInit(): void {
     this.service.getMaterialType().subscribe(x => { this.TypeList = x; console.log("typelist", this.TypeList) });
     this.service.getWarehouses().subscribe(x => { this.WarehouseTypes = x; console.log("warehouselist", this.WarehouseTypes) });

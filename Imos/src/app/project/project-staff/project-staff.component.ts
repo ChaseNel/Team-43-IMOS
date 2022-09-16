@@ -45,6 +45,10 @@ export class ProjectStaffComponent implements OnInit {
         this.GetAllProjectEmployee();
        
       }
+      
+      ngOnInit(): void {
+      }
+
       GetAllProjectEmployee(){
         this.service.getProjectStaff().subscribe(x=>{
           this.data=x;
@@ -77,7 +81,6 @@ export class ProjectStaffComponent implements OnInit {
     this.route.navigateByUrl('AddStaff')
   }
 
-  ngOnInit(): void {
-  }
+ 
 
 }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ServiceService, userrole, } from 'src/app/services/service.service';
 import { CommonModule } from '@angular/common'
 import { HttpEventType } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-user',
@@ -22,7 +23,7 @@ export class AddUserComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
     private _service: ServiceService,
-    private route: Router) {
+    private route: Router,private _snackbar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -54,11 +55,23 @@ export class AddUserComponent implements OnInit {
       payload['UserroleId'] = this.addForm.get('id')?.value;
       console.log(payload);
     this._service.registerUser(payload)
-       .subscribe(res=>{
-        console.log(res)
-       })
+       .subscribe(res => {
+        if (confirm('Are you sure you want to Add this User ?')) {
+          this._snackbar.open("Success, you have Add a User!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+       
+        }
+        else{
+          this._snackbar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      });
+      } 
     }
-  }
  
   back(){
     this.route.navigateByUrl("user")

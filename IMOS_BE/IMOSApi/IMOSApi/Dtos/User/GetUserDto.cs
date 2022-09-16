@@ -13,7 +13,7 @@ namespace IMOSApi.Dtos.User
         public int EmployeeId { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
-        public string Userrole { get; set; }
+        public string Description { get; set; }
         public string autoAssignedPassword { get; set; }
     }
 }

@@ -130,9 +130,6 @@ const materialModules = [
 ];
 
 // import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
-import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
-import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
-
 import {MatExpansionModule} from '@angular/material/expansion';
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
 import { AddWarehouseEquipmentComponent } from './warehouse/warehouse-equipment/add-warehouse-equipment/add-warehouse-equipment.component';
@@ -165,6 +162,12 @@ import { AddStockTakeComponent } from './warehouse/stock-take/add-stock-take/add
 import { DeliveryNoteComponent } from './project/delivery-note/delivery-note.component';
 import { AddDeliveryNoteComponent } from './project/delivery-note/add-delivery-note/add-delivery-note.component';
 import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-delivery-note/update-delivery-note.component';
+import { MaterialRequestStatusComponent } from './project/material-request-status/material-request-status.component';
+import { AddMaterialRequestStatusComponent } from './project/material-request-status/add-material-request-status/add-material-request-status.component';
+import { UpdateMaterialRequestStatusComponent } from './project/material-request-status/update-material-request-status/update-material-request-status.component';
+import { ProjectEquipmentComponent } from './equipment/project-equipment/project-equipment.component';
+import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-project-equipment/add-project-equipment.component';
+import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
 
 
 @NgModule({
@@ -181,9 +184,9 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     UserComponent,
-    // AddUserRoleComponent,
-    // UpdateUserRoleComponent,
-    // UserRoleComponent,
+    AddUserRoleComponent,
+     UpdateUserRoleComponent,
+    UserRoleComponent,
     MaterialComponent,
     SupplierComponent,
     MaterialTypeComponent,
@@ -249,11 +252,6 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     UnassignedVehicleViewComponent,
     UploadVehiclePhotoComponent,
     ApprovedRequestReportViewComponent,
-    MaterialRequestStatusComponent,
-    AddMaterialRequestStatusComponent,
-    UpdateMaterialRequestStatusComponent
-    AddCheckListComponent,
-    UpdateCheckListComponent,
     WarehouseEquipmentComponent,
     AddWarehouseEquipmentComponent,
     UpdateWarehouseEquipmentComponent,
@@ -276,7 +274,13 @@ import { UpdateDeliveryNoteComponent } from './project/delivery-note/update-deli
     DeliveryNoteComponent,
     AddDeliveryNoteComponent,
     UpdateDeliveryNoteComponent,
-    ApprovedRequestReportViewComponent
+    ApprovedRequestReportViewComponent,
+    MaterialRequestStatusComponent,
+    AddMaterialRequestStatusComponent,
+    UpdateMaterialRequestStatusComponent,
+    ProjectEquipmentComponent,
+    AddProjectEquipmentComponent,
+    UpdateProjectEquipmentComponent
   ],
 
   imports: [

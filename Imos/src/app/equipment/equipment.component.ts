@@ -26,7 +26,7 @@ export class EquipmentComponent implements OnInit {
   // API Test
   data: equipment[] = [];
 
-  displayedColumns: string[] = [ 'name', 'description', 'WarehouseEquipments','Quantity','actions'];
+  displayedColumns: string[] = [ 'name', 'description','actions'];
 
   dataSource!: MatTableDataSource<Equipment>;
 
@@ -83,6 +83,12 @@ export class EquipmentComponent implements OnInit {
         });
       });
     }
+  }
+  viewDetails(){
+
+  }
+  projectEquipment(){
+    this.route.navigateByUrl('projectEquipment')
   }
 
   ngOnInit(): void {

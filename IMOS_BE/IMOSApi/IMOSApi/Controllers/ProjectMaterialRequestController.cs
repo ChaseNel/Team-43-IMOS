@@ -117,6 +117,28 @@ namespace IMOSApi.Controllers
             return ProjectMaterialReq;
         }
 
+        [HttpGet("GetCalendarViewRequests")]
+        public dynamic GetCalendarViewRequests()
+        {
+
+            var recordInDb = _context.Projectmaterialrequest
+                .Include(item => item.Project.Initialrequest.Client)
+                .Include(item => item.Urgencylevel)
+                .Include(item => item.Projectmaterialrequeststatus)
+                .Where(item => item.ProjectmaterialrequeststatusId == 1 || item.ProjectmaterialrequeststatusId == 3)
+                .Select(item => new CalendarViewDto()
+                {
+                    ClientName = item.Project.Initialrequest.Client.Clientname,
+                    StatusName = item.Projectmaterialrequeststatus.Name,
+                    UrgencyLevelName = item.Urgencylevel.Level,
+                    RequestDate = item.RequestDate.ToString("G"),
+                    StatusUpdateDate = item.StatusUpdateDate.ToString("G"),
+                }).ToList();
+
+
+            return recordInDb;
+        }
+
 
         [HttpGet]
         [Route("getMaterialRequest")]

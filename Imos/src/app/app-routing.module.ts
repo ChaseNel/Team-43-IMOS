@@ -1,3 +1,8 @@
+import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
+import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
+import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
+import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-project-equipment/add-project-equipment.component';
+import { ProjectEquipmentComponent } from './equipment/project-equipment/project-equipment.component';
 
 import { EmployeeAttendanceComponent } from './employee/employee-attendance/employee-attendance.component';
 import { AddDeliveryNoteComponent } from './project/delivery-note/add-delivery-note/add-delivery-note.component';
@@ -7,8 +12,6 @@ import { IncidentReportComponent } from './reports/incident-report/incident-repo
 import { ReportsComponent } from './reports/reports.component';
 //import { SaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/safty-checklist-items.component';
 //import { UpdateSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/update-safty-checklist-items/update-safty-checklist-items.component';
-import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
-import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
 import { AddProjectComponent } from './project/add-project/add-project.component';
 import { AddWarehouseComponent } from './warehouse/add-warehouse/add-warehouse.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -74,12 +77,12 @@ import { CancelOrderComponent } from './supplier/supplier-order/cancel-order/can
 
 import { AuthGuard } from './services/auth/auth.guard';
 import { WarehouseEquipmentComponent } from './warehouse/warehouse-equipment/warehouse-equipment.component';
-import { AddCheckListComponent } from './safty-checklist/add-check-list/add-check-list.component';
-import { UpdateCheckListComponent } from './safty-checklist/update-check-list/update-check-list.component';
+;
 import { ClientRequestComponent } from './client-request/client-request.component';
 import { UrgencyLevelComponent } from './project/project-material-request/urgency-level/urgency-level.component';
 import { ReportComponent } from './report/report.component';
-//import { AddSaftyChecklistItemsComponent } from './safty-checklist/safty-checklist-catagory/safty-checklist-items/add-safty-checklist-items/add-safty-checklist-items.component';
+import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
+import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 
 
 const routes: Routes = [
@@ -103,12 +106,13 @@ const routes: Routes = [
 
   
   { path: 'user', component: UserComponent },
-  { path: 'adduser', component: AddUserComponent },
+  { path: 'addUser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
   //UserRole
-  // { path: 'userrole', component: UserRoleComponent },
-  // { path: 'adduserrole', component: AddUserRoleComponent },
-  // { path: 'updateuserrole', component: UpdateUserRoleComponent },
+  { path: 'userrole', component: UserRoleComponent },
+  { path: 'AddRole', component: AddUserRoleComponent },
+   { path: 'EditUserRole/:id', component: UpdateUserRoleComponent },
+
   //Employee
   { path: 'employee', component: EmployeeComponent },
   { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
@@ -146,7 +150,7 @@ const routes: Routes = [
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle', component: UpdateVehicleComponent },
+  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
   //Vehicle Type
   { path: 'vehicleType', component: VehicleTypeComponent },
   { path: 'addVehicleType', component: AddVehicleTypeComponent },
@@ -159,6 +163,19 @@ const routes: Routes = [
   { path: 'project', component: ProjectComponent },
   { path: 'addProject', component: AddProjectComponent },
   { path: 'updateProject/:id', component: UpdateProjectComponent },
+
+   // Project staff
+   { path: 'projectstaff', component: ProjectStaffComponent },
+   { path: 'AddStaff', component: AddProjectStaffComponent },
+   { path: 'updateProjectStaff/:id', component: UpdateProjectStaffComponent },
+
+// Project Equipment
+{ path: 'projectEquipment', component: ProjectEquipmentComponent },
+{ path: 'AddProjectEquipment', component: AddProjectEquipmentComponent },
+{ path: 'updateProjectEquipment/:id', component: UpdateProjectEquipmentComponent },
+
+// Project
+
   //Clients
   { path: 'client', component: ClientComponent },
   { path: 'addClient', component: AddClientComponent },
@@ -176,16 +193,12 @@ const routes: Routes = [
   //Safty Checklist
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
 
-
-  //Safty Checklist Category
-  { path: 'addsaftyChecklist', component: AddCheckListComponent },
-  { path: 'updatesaftyChecklist/:id', component: UpdateCheckListComponent },
   //Safty Checklist Caragory
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
   //Safty Checklist Items
-  // { path: 'saftyChecklistItems', component: SaftyChecklistItemsComponent },
-  // { path: 'addsaftyChecklistItems', component: AddSaftyChecklistItemsComponent },
-  // { path: 'updatesaftyChecklistItems/:id', component: UpdateSaftyChecklistItemsComponent },
+   { path: 'saftyChecklistItems', component: SaftyChecklistComponent },
+   { path: 'addsaftyChecklistItems', component: AddItemsComponent },
+   { path: 'updatesaftyChecklistItems/:id', component:  UpdateItemsComponent},
 
 // reporting 
 

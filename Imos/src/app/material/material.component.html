@@ -8,7 +8,6 @@
 <!-- Material Type -->
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
 &nbsp;
-<button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br>
 
 <!-- Search Field -->
@@ -23,11 +22,7 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- MaterialID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.materialId}} </td>
-    </ng-container>
+  
 
     <!-- Material Type Column -->
     <ng-container matColumnDef="type">

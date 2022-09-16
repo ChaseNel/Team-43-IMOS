@@ -7,7 +7,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UserRoleService {
-
+  readonly Root_URL = 'https://localhost:5001/api'
   endpointBase= environment.endpointBase;
   constructor(
     private http:HttpClient,
@@ -25,14 +25,16 @@ export class UserRoleService {
       { reportProgress: true, observe: 'events' });
   }
 
-  updateUserRole(payload:any,id: string) {
-    return this.http.put(this.endpointBase.concat("UserRole/EditUserRole/"+id),
-      payload,
-      { reportProgress: true, observe: 'events' });
+  updateUserRole(id: number,data:any) {
+    return this.http.put(this.Root_URL + '/UserRole/EditUserRole/'+id,data);
   }
-  deletetUserRole(id: string) {
+  
+  deletetUserRole(id: number) {
     return this.http.delete(this.endpointBase.concat("UserRole/RemoveUserRole"  + "/" + id),
       { reportProgress: true, observe: 'events' });
+  }
+  getUserRoleById(id: number) {
+    return this.http.get(this.Root_URL + '/UserRole/GetRoleById/' + id);
   }
 
 }

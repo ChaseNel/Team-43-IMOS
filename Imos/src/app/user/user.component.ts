@@ -7,7 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ArrayType } from '@angular/compiler';
+
 
 export interface User {
   userId: number,
@@ -17,7 +17,7 @@ export interface User {
   userPassword: string,
   employee:string,
   name?:string,
-  userrole:string,
+  description:string,
   equipmentchecks: [],
   stocktakes: [],
   tasks: [],

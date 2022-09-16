@@ -9,8 +9,7 @@ namespace IMOSApi.Models
     {
         public Vehicle()
         {
-            VehicleCheckIns = new HashSet<VehicleCheckIn>();
-            VehicleCheckOuts = new HashSet<VehicleCheckOut>();
+          
             UserVehicle = new HashSet<UserVehicle>();
         }
 
@@ -27,9 +26,7 @@ namespace IMOSApi.Models
 
 
         public virtual Vehicletype Vehicletype { get; set; }
-        public virtual ICollection<VehicleCheckIn> VehicleCheckIns { get; set; }
-        public virtual ICollection<VehicleCheckOut> VehicleCheckOuts { get; set; }
-
+      
         public virtual ICollection<UserVehicle> UserVehicle { get; set; }
     }
 }

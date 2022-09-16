@@ -28,7 +28,7 @@ namespace IMOSApi.Models
 
         public virtual Projectmaterialrequeststatus Projectmaterialrequeststatus { get; set; }
 
-        public virtual Materialrequeststatus Materialrequestsstatus { get; set; }
+     //   public virtual Materialrequeststatus Materialrequestsstatus { get; set; }
         public virtual Project Project { get; set; }
         public virtual Urgencylevel Urgencylevel { get; set; }
         public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }

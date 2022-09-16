@@ -33,10 +33,11 @@ namespace IMOSApi.Controllers.VehicleManagement
                 {
                     Make = item.Make,
                     Model = item.Model,
-                    Year = item.Year,
+                    Year = item.Year.ToString("f"),
                     Color = item.Color,
                    // VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
-                    DatePurchased = item.DatePurchased,
+                    DatePurchased = item.DatePurchased.ToString("f" +
+                    ""),
                   ///  LastServiced = item.//LastServiced,
                     Vehicletype = item.Vehicletype.Description,
                     VehicletypeId = item.VehicletypeId
@@ -48,7 +49,7 @@ namespace IMOSApi.Controllers.VehicleManagement
             return recordInDb;
         }
 
-        /*[HttpGet("GetAllVehicles")]
+        [HttpGet("GetAllVehicles")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetAll()
         {
             var recordsInDb = _context.Vehicles
@@ -58,27 +59,17 @@ namespace IMOSApi.Controllers.VehicleManagement
                     Id = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
-                    Year = item.Year,
+                    Year = item.Year.ToString("f"),
                     Color = item.Color,
-                  //  VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
-                    DatePurchased = item.DatePurchased,
-                 //   LastServiced = item.LastServiced,
-
+                    VehicleStatus = item.AssignedStatus,
+                    DatePurchased = item.DatePurchased.ToString("f"),
                     Vehicletype = item.Vehicletype.Description,
                     VehicletypeId = item.VehicletypeId
-
                 }).OrderBy(item => item.Model).ToList();
             return recordsInDb;
-        }*/
-        [HttpGet("GetAllVehicles")]
-        public IEnumerable<Vehicle> Retrieve()
-        {
-            using (var context = new IMOSContext())
-            {
-                return _context.Vehicles.ToList();
-            }
         }
 
+    
         [HttpPost("AddVehicle")]
         public IActionResult Add(AddOrUpdateVehicleDto model)
         {
@@ -206,8 +197,15 @@ namespace IMOSApi.Controllers.VehicleManagement
 
 
         [HttpPut("UploadVehiclePhoto/{VehicleId}")]
-        public IActionResult UploadVehiclePhoto([FromBody] AddOrUpdateVehicleDto model, int VehicleId)
+        public IActionResult UploadVehiclePhoto([FromBody] UploadVehicleDto model, int VehicleId)
         {
+            var message = "";
+            if (!ModelState.IsValid)
+            {
+                message = "Something went wrong on your side!";
+                return BadRequest(new { message });
+            }
+
             var vehicle = _context.Vehicles
                 .Where(item => item.VehicleId == VehicleId)
                 .FirstOrDefault();
@@ -220,7 +218,6 @@ namespace IMOSApi.Controllers.VehicleManagement
             vehicle.ImageUrl = model.ImageUrl;
                 _context.SaveChanges();
             return Ok();
-
         }
 
 
@@ -237,10 +234,10 @@ namespace IMOSApi.Controllers.VehicleManagement
                     Id = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
-                    Year = item.Year,
+                    Year = item.Year.ToString("f"),
                     Color = item.Color,
                     //  VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
-                    DatePurchased = item.DatePurchased,
+                    DatePurchased = item.DatePurchased.ToString("f"),
                     //   LastServiced = item.LastServiced,
                     AssignedStatus = item.AssignedStatus,
                     Vehicletype = item.Vehicletype.Description,

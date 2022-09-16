@@ -15,37 +15,40 @@ import { HttpClient } from '@angular/common/http';
 export class UpdateVehicleTypeComponent implements OnInit {
 
   id!: number;
-  Name1: any;
   public updateForm!: FormGroup;
   alert: boolean = false;
-  @Input() type: any;
   VehcileType!: vehicletype;
 
-  constructor(private service: ServiceService,
-    private routed: ActivatedRoute,
-    private route: Router,
-    private _snackbar: MatSnackBar,
-    private fb: FormBuilder,
-    private http: HttpClient,) { }
+  constructor(private service: ServiceService,private route: ActivatedRoute,
+    private router: Router,private _snackbar: MatSnackBar,
+    private fb: FormBuilder) 
+    {
+      
+     }
 
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
-
     this.updateForm = this.fb.group({
-      description: ['', [Validators.required,, Validators.maxLength(40)]],
-    })
-    this.id = +this.routed.snapshot.params['id'];
-    this.service.getVehicleTypeID(this.id).subscribe((res: any) => {
-      this.VehcileType = res;
+      description: ['', [Validators.required, Validators.maxLength(40)]],
+    },formOptions);
+
+    this.id=+this.route.snapshot.params['id'];
+    this.service.getVehicleTypeID(this.id).subscribe((res:any)=>{
+      this.VehcileType=res;
       console.log(this.VehcileType);
-      this.updateForm = this.fb.group({
-        description: [this.VehcileType.description, [Validators.required, Validators.maxLength(25)]],
-      }, formOptions)
+      this.updateForm=this.fb.group({
+        description:[this.VehcileType.description,[Validators.required,  Validators.minLength(10), Validators.maxLength(30)]],
+      },formOptions)
     });
   }
 
-  updateSupplierT() {
-    this.service.editVehicleType(this.routed.snapshot.params['id'], this.updateForm.value).subscribe(
+  get formdet(){
+    return this.updateForm.controls;
+}
+
+  onSubmit() {
+    console.log(this.updateForm.value)
+    /*this.service.editVehicleType(this.route.snapshot.params['id'], this.updateForm.value).subscribe(
       res => {
         if (confirm('Are you sure you want to Update this Vehicle Type?')) {
           this._snackbar.open("Success, you have Update a Vehicle Type!", 'OK', {
@@ -53,15 +56,17 @@ export class UpdateVehicleTypeComponent implements OnInit {
             verticalPosition: 'bottom',
           });
         }
-      })
-  }
-
-  get formdet() {
-    return this.updateForm.controls;
+        else{
+          this._snackbar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      })*/
   }
 
   back() {
-    this.route.navigateByUrl('suppliertype')
+    this.router.navigateByUrl('vehicleType')
   }
 
   public hasError = (controlName: string, errorName: string) => {

@@ -14,11 +14,15 @@
                         {{type.name}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="formdet['materialtypeId'].touched && formdet['materialtypeId'].invalid">
+                <!-- 
+                      <mat-error *ngIf="formdet['materialtypeId'].touched && formdet['materialtypeId'].invalid">
                     <mat-error
                         *ngIf="formdet['materialtypeId'].errors?.['required'] && formdet['materialtypeId'].dirty">
                         Material type is required</mat-error>
                 </mat-error>
+
+                -->
+              
             </mat-form-field>
 
             <mat-form-field class="full-width">
@@ -28,16 +32,20 @@
                         {{type.name}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="formdet['warehouseId'].touched && formdet['warehouseId'].invalid">
+                <!-- 
+                     <mat-error *ngIf="formdet['warehouseId'].touched && formdet['warehouseId'].invalid">
                     <mat-error *ngIf="formdet['warehouseId'].errors?.['required'] && formdet['warehouseId'].dirty">
                         Warehouse is required</mat-error>
                 </mat-error>
+                -->
+               
             </mat-form-field>
 
             <mat-form-field class="full-width">
                 <mat-label>Name</mat-label>
                 <input matInput placeholder="Enter Name" #nameInput formControlName="name">
-                <mat-error *ngIf="formdet['name'].touched && formdet['name'].invalid">
+                <!-- 
+                             <mat-error *ngIf="formdet['name'].touched && formdet['name'].invalid">
                     <mat-error *ngIf="formdet['name'].errors?.['required'] && formdet['name'].dirty">Name is required
                     </mat-error>
                     <mat-error *ngIf="formdet['name'].errors?.['pattern'] && formdet['name'].dirty">Please enter a
@@ -45,17 +53,24 @@
                     <mat-error *ngIf="formdet['name'].errors?.['maxlength'] && formdet['name'].dirty">25 Characters
                         maximum is required for a full name</mat-error>
                 </mat-error>
+
+                -->
+       
             </mat-form-field>
 
             <mat-form-field class="full-width">
                 <mat-label>Description</mat-label>
                 <input matInput placeholder="Description" #nameInput formControlName="description">
-                <mat-error *ngIf="formdet['description'].touched && formdet['description'].invalid">
+                <!-- 
+                    <mat-error *ngIf="formdet['description'].touched && formdet['description'].invalid">
                     <mat-error *ngIf="formdet['description'].errors?.['required'] && formdet['description'].dirty">Address is
                         required</mat-error>
                     <mat-error *ngIf="formdet['description'].errors?.['maxlength'] && formdet['description'].dirty">40
                         Characters maximum is required for address</mat-error>
                 </mat-error>
+
+                -->
+                
             </mat-form-field>
 
             <mat-form-field class="full-width">
@@ -65,19 +80,26 @@
                         {{type.name}}
                     </mat-option>
                 </mat-select>
-                <mat-error *ngIf="formdet['supplierId'].touched && formdet['supplierId'].invalid">
+                <!--   <mat-error *ngIf="formdet['supplierId'].touched && formdet['supplierId'].invalid">
                     <mat-error *ngIf="formdet['supplierId'].errors?.['required'] && formdet['supplierId'].dirty">
                         Supplier is required</mat-error>
                 </mat-error>
+
+                -->
+              
             </mat-form-field>
 
             <mat-form-field class="full-width">
                 <mat-label>Quantity</mat-label>
                 <input type="number" matInput placeholder="Quantity" #nameInput formControlName="quantity">
-                <mat-error *ngIf="formdet['quantity'].touched && formdet['quantity'].invalid">
+                <!-- 
+                    <mat-error *ngIf="formdet['quantity'].touched && formdet['quantity'].invalid">
                     <mat-error *ngIf="formdet['quantity'].errors?.['required'] && formdet['quantity'].dirty">Quantity is
                         required</mat-error>
                 </mat-error>
+
+                -->
+                
             </mat-form-field>
 
 

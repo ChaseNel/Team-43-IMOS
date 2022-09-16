@@ -1,4 +1,6 @@
-import { Vehicle } from './../add-vehicle/add-vehicle.component';
+import { Vehicle } from './../vehicle.component';
+import { UploadFinishedEventArgs } from './../../services/service.service';
+
 
 import { ServiceService, vehicle, vehicletype, user } from 'src/app/services/service.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
@@ -14,9 +16,8 @@ import { Observable } from 'rxjs';
 
 import {  EventEmitter, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { FormBuilder, FormGroup, Validators, FormGroupDirective } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormGroupDirective, FormControl } from '@angular/forms';
 import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-upload-vehicle-photo',
@@ -26,7 +27,24 @@ import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/ht
 })
 export class UploadVehiclePhotoComponent implements OnInit {
 
-  uploadform:FormGroup;
+ uploadform = this.fb.group({
+   VehicleId: this.data.id,
+   imageUrl: ['', [Validators.required]],
+    file: new FormControl('',[Validators.required]),
+  })
+
+
+  myform = new FormGroup({
+    fileSource: new FormControl('',[Validators.required])
+  });
+
+
+VehiclePhoto: any;
+
+
+
+ validation:boolean;
+
   filePath: string;
 
   progress: number;
@@ -34,9 +52,16 @@ export class UploadVehiclePhotoComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
 
+
+  imageSrc: string = '';
+
+
 vehicleImageUploadUrl = environment.endpointBase
       .concat("Uploads/Vehicles/Upload")
 
+
+   acceptedExtensions = "jpg, jpeg, png, ";
+  filereponse: UploadFinishedEventArgs;
 
 
   constructor( private fb: FormBuilder,
@@ -48,22 +73,27 @@ vehicleImageUploadUrl = environment.endpointBase
        private http: HttpClient) { }
 
   ngOnInit(): void {
-    console.log(this.data.id)
+
   }
 
-  private buildUploadForm() {
+  /*private buildUploadForm() {
     this.uploadform = this.fb.group({
       VehicleId: ['',[Validators.required]],
       imageUrl: ['', [Validators.required]],
     });
-  }
+  }*/
+
+
+
+
+
+
 
 uploadFile = (files:any) => {
 
   if (files.length === 0) {
     return;
   }
-
 
   let fileToUpload = <File>files[0];
   const obj = new FormData();
@@ -78,6 +108,10 @@ this.service.uploadVehiclePhoto(obj)
 
     else if (event.type === HttpEventType.Response){
       this.message = 'Upload success.';
+     // let response = event.body as any;
+     // this.myform.controls['fileSource'].setValue(response.filePath)
+
+      console.log(this.myform.value)
     //  this._snackBar.open(`Upload success`, 'X', {duration: 5000});
       this.onUploadFinished.emit(event.body);
     }
@@ -88,23 +122,90 @@ this.service.uploadVehiclePhoto(obj)
 
 }
 
+onFileChange(event:any) {
+  const reader = new FileReader();
 
-url = '';
-onSelectedFile(event: any){
-  if (event.target.files && event.target.files[0])
-{
-  var reader = new FileReader();
+  if(event.target.files && event.target.files.length){
+    const [file] = event.target.files;
 
-  reader.readAsDataURL(event.target.files[0]); // read file as data url
+    var pattern = /image-*/;
 
-  reader.onload = (event: any) => {
-    console.log(event);
-        this.url = event.target.result;
+    reader.readAsDataURL(file);
+
+    if (!file.type.match(pattern)) {
+      this._snackBar.open("Invalid Format!. Only Images can be uploaded", 'OK', {
+        duration: 5000,
+        verticalPosition: 'bottom',
+      });
+      return;
+    }
+
+    else
+     {
+
+      reader.onload = () => {
+
+        this.imageSrc = reader.result as string;
+       // this.myform.controls['fileSource'].setValue(reader.result as string) 
+        
+
+
+        this.uploadform.patchValue({
+          imageUrl: reader.result as string
+        });
+
+        this.myform.patchValue({
+          fileSource: reader.result as string
+        });
+       /* this.uploadform.patchValue({
+          imageUrl:  reader.result as string,
+        })*/
+
+       // console.log(this.uploadform.value)
+      }
+
+      this.uploadFile(event.target.files);
+    }
+  }
+}
+
+
+
+UploadVehiclePhoto() {
+
+ const finalform = {
+    VehicleId: this.data.id,
+    imageUrl: this.myform.controls['fileSource'].value,
+
   }
 
+
+ console.log(finalform.imageUrl)
+
+
+
+ if(this.uploadform.valid)
+ {
+  this.service.uploadvehimg(finalform)
+  .subscribe(() => {
+
+    this._snackBar.open('Vehicle Image Uploaded successfully', 'Ok',{
+      duration: 4000,
+      verticalPosition: 'bottom',
+    });
+  })
+
+}
+
+else {
+  this._snackBar.open('Select an image to upload', 'Ok',{
+    duration: 4000,
+    verticalPosition: 'bottom',
+  });
 }
 
 }
+
 
 
 

@@ -25,7 +25,7 @@ export interface Safetyfilechecklist{
 export class SaftyChecklistComponent implements OnInit {
 
 
-  displayedColumns: string[] = ['id', 'projectname','Categories', 'SafetyItems','actions'];
+  displayedColumns: string[] = ['id', 'projectname', 'SafetyItems','actions'];
 
   dataSource!: MatTableDataSource<Safetyfilechecklist>;
   
@@ -44,6 +44,7 @@ export class SaftyChecklistComponent implements OnInit {
    GetAllProjectSafetyChecklistItem(){
     this._service.getProjectChecklist().subscribe(x => {
       this.posts = x;
+      console.log(x)
       this.dataSource = new MatTableDataSource(this.posts)
 
       this.dataSource.paginator = this.paginator;
@@ -60,17 +61,11 @@ export class SaftyChecklistComponent implements OnInit {
     }
   }
 
-  deleteSaftyFile(){
-
-  }
-
 // add method route addNewSafetyChecklist
 addNewSafetyChecklist() {
   this._route.navigateByUrl('/AddSaftyChecklist')
 }
-addSaftyFile(){
-  
-}
+
   // update method route
   UpdateProjectSafetyChecklist(id:number) {
     //console.log("Test " +id)
@@ -95,9 +90,9 @@ addSaftyFile(){
     this._route.navigateByUrl('/saftyChecklistCatagory')
   }
 
-
   ngOnInit(): void {
     this._service.getSafetyCategory().subscribe(x=>{
     })
   }
 }
+

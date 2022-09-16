@@ -136,15 +136,14 @@ namespace IMOSApi.Controllers
                 return NotFound();
             }
 
-            var employeeUsers = _dbContext.Users.Where(item => item.EmployeeId == id);
-            _dbContext.Users.RemoveRange(employeeUsers);
+            var projectEmployees  = _dbContext.Projectemployees.Where(item => item.EmployeeId == id);
+            _dbContext.Projectemployees.RemoveRange(projectEmployees);
             await _dbContext.SaveChangesAsync();
 
 
             _dbContext.Employees.Remove(recordInDb);
             await _dbContext.SaveChangesAsync();
             return Ok();
-
         }
 
 
@@ -200,6 +199,7 @@ namespace IMOSApi.Controllers
             Email,
             ContactNumber,
         }
+
     }
 }
 

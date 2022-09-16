@@ -22,8 +22,8 @@ import {UpdateUrgencyLevelComponent} from 'src/app/project/project-material-requ
 })
 export class UrgencyLevelComponent implements OnInit {
 
-posts:UrgencyLevel[];
-displayedColumns: string[] = ['level', 'description'];
+posts:any
+displayedColumns: string[] = ['level', 'description', 'actions'];
 
 @ViewChild(MatPaginator) paginator!: MatPaginator
 @ViewChild(MatSort) sort!: MatSort
@@ -36,11 +36,19 @@ dataSource!: MatTableDataSource<UrgencyLevel>;
     @Inject(MAT_DIALOG_DATA) public data:{id:number},
      private route: Router,
       private service: ServiceService,
-       private _snackBar: MatSnackBar) { }
+       private _snackBar: MatSnackBar)
+       {
+        this.GetUrgencyLvl();
+        }
+        
+        ngOnInit(): void {
+
+        }
 
 GetUrgencyLvl(){
   this.service.getUrgencylvl()
   .subscribe(x => {
+    console.log(x);
     this.posts = x;
     this.dataSource = new MatTableDataSource(this.posts)
 
@@ -62,8 +70,8 @@ applyFilter(event: Event) {
 
 openAddDialog(): void {
   const dialogRef = this.dialog.open(AddUrgencyLevelComponent, {
-    width: '66%',
-    height:'70%'
+    width: '25%',
+    height:'35%'
   }
   );
 
@@ -73,10 +81,11 @@ openAddDialog(): void {
   });
 }
 
-openUpdateUrgencylvlDialog(): void {
+openUpdateUrgencylvlDialog(id:number): void {
   const dialogRef = this.dialog.open(UpdateUrgencyLevelComponent, {
-    width: '66%',
-    height:'70%'
+    width: '25%',
+    height:'35%',
+    data: {id}
   }
   );
 
@@ -93,7 +102,7 @@ deleteUrgencylvl(id: number){
     this.service.deleteUrgencylvl(id)
     .subscribe( res => {
       this.GetUrgencyLvl();
-      this._snackBar.open("Success, you have the Urgency level", 'OK', {
+      this._snackBar.open("Successfully deleted a Urgency level", 'OK', {
         duration: 3000,
         verticalPosition: 'bottom',
     });
@@ -101,7 +110,5 @@ deleteUrgencylvl(id: number){
 }
 }
 
-  ngOnInit(): void {
-  }
-
+  
 }

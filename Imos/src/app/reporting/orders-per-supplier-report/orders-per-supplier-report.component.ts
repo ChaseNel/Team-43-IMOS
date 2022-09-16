@@ -4,6 +4,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { ServiceService, supplier } from 'src/app/services/service.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 interface Food {
   value: string;
@@ -16,15 +18,11 @@ interface Food {
   styleUrls: ['./orders-per-supplier-report.component.css']
 })
 export class OrdersPerSupplierReportComponent implements OnInit {
-
+  form: FormGroup;
   minDate: Date;
   maxDate: Date;
 
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-  ];
+  SupplierList: supplier[] = [];
   
   displayedColumns: string[] =['date','orderNumber','supplierName']
   dataSource!: MatTableDataSource<Orderline>;
@@ -34,9 +32,8 @@ export class OrdersPerSupplierReportComponent implements OnInit {
 
   posts: any;
 
-
-
-  constructor() { 
+  constructor(private fb: FormBuilder, 
+    private _service: ServiceService) { 
 
     const currentYear = new Date().getFullYear();
     this.minDate = new Date(currentYear - 2, 0, 1);
@@ -44,9 +41,21 @@ export class OrdersPerSupplierReportComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.buildTableForm();
   }
+  private buildTableForm(){
+    this.form=this.fb.group({
+      name: ['', [Validators.required]],
+
+    });
+    this._service. getSupplier().subscribe(data=>{
+      this.SupplierList=data;
+    })
+  }
+
 downloadPDF(){
   
 }
+
 
 }

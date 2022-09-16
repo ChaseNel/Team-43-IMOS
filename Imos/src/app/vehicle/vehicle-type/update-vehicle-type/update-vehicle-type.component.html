@@ -4,7 +4,7 @@
 
     <h1>Update Vehicle</h1>
 
-    <form [formGroup]="updateForm" class="addSupplier">
+    <form [formGroup]="updateForm" class="addSupplier" (ngSubmit)="onSubmit()">
         <div class="row">
             <mat-form-field appearance="standard">
                 <mat-label>Description</mat-label>
@@ -18,9 +18,7 @@
             </mat-form-field>
 
             <div class="btn">
-                <button mat-raised-button color="primary" type="button" (click)="updateSupplierT()"
-                    [disabled]="!updateForm.valid">Update
-                </button>
+                <button mat-raised-button color="primary" [disabled]="!updateForm.valid">Update</button>
                 &nbsp;
                 <button mat-raised-button color="warn" type="button" (click)="back()">Back</button>
             </div>

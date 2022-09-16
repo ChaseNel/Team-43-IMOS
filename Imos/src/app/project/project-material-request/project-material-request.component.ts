@@ -16,10 +16,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {UrgencyLevelComponent} from 'src/app/project/project-material-request/urgency-level/urgency-level.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-
-
-
-
 @Component({
   selector: 'app-project-material-request',
   templateUrl: './project-material-request.component.html',
@@ -79,26 +75,6 @@ export class ProjectMaterialRequestComponent implements OnInit {
           console.log(this.data.id);
 
         }
-
-
-openUrgencyDialog(): void {
-  const dialogRef = this.dialog.open(UrgencyLevelComponent
-    , {
-    width: '50%',
-    height:'60%',
-  });
-
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log('The dialog was closed');
-    this.GetMaterialRequestByProject(this.data.id);
-
-  });
-}
-
-
-
-
 
         openDialog(id:number): void {
           const dialogRef = this.dialog.open(AddMaterialRequestComponent

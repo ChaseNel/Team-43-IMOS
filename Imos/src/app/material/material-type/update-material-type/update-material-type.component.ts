@@ -1,4 +1,4 @@
-import { material } from './../../../services/service.service';
+import {  materialtype } from './../../../services/service.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
 import { AbstractControlOptions, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -14,9 +14,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class UpdateMaterialTypeComponent implements OnInit {
 
-  Material!: material;
+  MaterialType!: materialtype;
   id!: number;
-  updateForm:FormGroup;
+   public updateForm!:FormGroup;
 
 
   constructor( 
@@ -24,23 +24,22 @@ export class UpdateMaterialTypeComponent implements OnInit {
     private _service:ServiceService,
     private route: ActivatedRoute,
     private router:Router,
-    private http:HttpClient, 
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     const formOptions: AbstractControlOptions = {};
     this.updateForm=this.fb.group({
-      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
+      name: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,15}"), Validators.maxLength(15)]],
       description: ['', [Validators.required, Validators.maxLength(40)]],
     }, formOptions);
 
     this.id=+this.route.snapshot.params['id'];
     this._service.getMaterialTypeID(this.id).subscribe((res:any)=>{
-      this.Material=res;
-      console.log(this.Material);
+      this.MaterialType=res;
+      console.log(this.MaterialType);
       this.updateForm=this.fb.group({
-        name:[this.Material.name,[Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
-        description:[this.Material.description,[Validators.required,  Validators.minLength(10), Validators.maxLength(40)]],
+        name:[this.MaterialType.name,[Validators.required, Validators.pattern("[A-Za-z ]{1,15}"), Validators.maxLength(15)]],
+        description:[this.MaterialType.description,[Validators.required,  Validators.minLength(10), Validators.maxLength(30)]],
       },formOptions)
     });
   }
@@ -58,7 +57,13 @@ export class UpdateMaterialTypeComponent implements OnInit {
               verticalPosition: 'bottom',
             });
         }
-      })
+        else{
+          this._snackBar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      });
     }
   back(){
     this.router.navigateByUrl('materialtype')

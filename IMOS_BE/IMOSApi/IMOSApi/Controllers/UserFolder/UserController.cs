@@ -38,11 +38,12 @@ namespace IMOSApi.Controllers.UserFolder
                 .Include(item => item.Userrole)
                 .Include(item=>item.Employee)
                 .Select(item => new GetUserDto()
+
                 {
-                    Id = item.UserId,
+                    Id = item.UserId, 
                     Username = item.Username,
                     autoAssignedPassword =item.Userpassword,
-                    Userrole = item.Userrole.Description,
+                    Description = item.Userrole.Description,
                     UserroleId = item.UserroleId,
                     Name = item.Employee.Name,
                     Email=item.Employee.Email,
@@ -79,12 +80,44 @@ namespace IMOSApi.Controllers.UserFolder
                  _context.SaveChanges();
             
 
-              //  var notificationExtension = new NotificationsExtension(_configuration);
-               // notificationExtension.NewUserNotification(newUser.UserId);
+              // var notificationExtension = new NotificationsExtension(_configuration);
+               //notificationExtension.NewUserNotification(newUser.UserId);
             }
             return Ok();
         }
 
+        [HttpDelete("DeleteUser/{id}")]
+        public async Task<ActionResult<User>> Delete(int id)
+        {
+            var message = "";
+            var recordInDb = await _context.Users.FindAsync(id);
+            if (recordInDb == null)
+            {
+                message = "Record Not Found";
+                return BadRequest(new { message });
+            }
+
+            var usersIncident =_context.Userincidents.Where(item => item.UserId == id);
+            _context.Userincidents.RemoveRange(usersIncident);
+            await _context.SaveChangesAsync();
+
+            var usersStockTake= _context.Stocktakes.Where(item => item.UserId == id);
+            _context.Stocktakes.RemoveRange(usersStockTake);
+            await _context.SaveChangesAsync();
+
+            var usersEquipmentChecks = _context.Equipmentchecks.Where(item => item.UserId == id);
+            _context.Equipmentchecks.RemoveRange(usersEquipmentChecks);
+            await _context.SaveChangesAsync();
+
+
+            var usersTasks= _context.Tasks.Where(item => item.UserId == id);
+            _context.Tasks.RemoveRange(usersTasks);
+            await _context.SaveChangesAsync();
+
+            _context.Users.Remove(recordInDb);
+            await _context.SaveChangesAsync();
+            return Ok();
+        }
 
         [HttpPut("UpdateUser")]
         public IActionResult Update(User model, int id)

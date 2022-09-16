@@ -1,7 +1,5 @@
 import { constructionSite, project, ServiceService } from './../services/service.service';
 import { map } from 'rxjs/operators';
-
-import {  ProjectMaterialRequest } from './../services/service.service';
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import {  request } from './../services/service.service';
 
@@ -12,7 +10,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component'
+import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component';
+
 
 import {
   ChangeDetectionStrategy,
@@ -44,6 +43,8 @@ import {
 import { EventColor } from 'calendar-utils';
 import { HttpParams } from '@angular/common/http';
 import { colors } from '../demo-utils/colors';
+import { UrgencyLevelComponent } from './project-material-request/urgency-level/urgency-level.component';
+import { MaterialRequestStatusComponent } from './material-request-status/material-request-status.component';
 
 
 
@@ -79,6 +80,15 @@ export interface Project {
   projectmaterialrequests: [],
   projectmaterials: [],
   safetyfilechecklists: []
+}
+
+interface ProjectMaterialRequest{
+  materialRequestId: number,
+  projectId: number,
+  urgencyLevelName: string,
+  requestDate :string,
+  statusName:string,
+  statusUpdateDate: string,
 }
 @Component({
   selector: 'app-project',
@@ -169,10 +179,11 @@ export class ProjectComponent implements OnInit {
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
     this.fetchEvents();
-    this.service.getConstructionSite().subscribe(x => {this.sitelist = x; console.log("Sitelist" , this.sitelist)});
-    this.service.getRequeast().subscribe(x => {this.reqlist = x; console.log("reqlist" , this.reqlist)});
+    this.service.getConstructionSite().subscribe(x => {this.SiteList = x; console.log("Sitelist" , this.SiteList)});
+    //this.service.getRequeast().subscribe();
 
   }
+
   fetchEvents(): void
   {
     const getStart: any = {
@@ -189,48 +200,67 @@ export class ProjectComponent implements OnInit {
 
     const params = new HttpParams()
     .set(
-      'primary_release_date.gte',
+      'requestDate',
       format(getStart(this.viewDate), 'yyyy-MM-dd')
     )
-    .set(
-      'primary_release_date.lte',
-      format(getEnd(this.endDate), 'yyyy-MM-dd')
-    )
 
-    .set('api_key', '0ec33936a68018857d727958dca1424f');
 
-    this.events$ = this.service.getMaterialRequest()
+    this.events$ = this.service.CalendarViewRequest()
     .pipe(
-      map(({ results }:{ results: ProjectMaterialRequest[] }) =>{
-        console.log(results)
+      map((  request : {
+        map: any; request: ProjectMaterialRequest[]
+} )  => {
 
-        return results.map((requestList: ProjectMaterialRequest) =>{
+        return request.map((requestList: ProjectMaterialRequest) => {
+          console.log(requestList)
+          if(requestList.statusName==="Pending")
+          {
+            console.log("peding this side only")
+
+            return{
+              title: requestList.statusName +  "," + " "+    requestList.urgencyLevelName,
+              start: new Date(
+                requestList.requestDate
+              ),
+              end: new Date(
+                requestList.statusUpdateDate
+              ),
+              actions:[
+                {
+                  label: '<i class="fas fa-fw fa-pencil-alt"></i>',
+                  onclick: (requestList: CalendarEvent): void =>{
+                    console.log('Edit event', requestList);
+
+                  }
+                }
+              ],
+              color: colors.blue,
+              allDay: true,
+              meta:{
+                requestList,
+              },
+            };
+          }
+
+          else
           return {
-            title : requestList.statusName,
-
-            start: new Date(
-
-              requestList.requestDate + getTimezoneOffsetString(this.viewDate)
-
-            ),
-
-            end: new Date(
-              requestList.statusUpdateDate + getTimezoneOffsetString(this.endDate)
-            ),
-
-            colors:colors.yellow,
-            allDay: true,
-            meta:{
-              requestList,
-            },
-
-          };
+              title: requestList.statusName +  "," + " "+    requestList.urgencyLevelName,
+              start: new Date(
+                requestList.requestDate
+              ),
+              end: new Date(
+                requestList.statusUpdateDate
+              ),
+              color: colors.green,
+              allDay: true,
+              meta:{
+                requestList,
+              },
+            };
         });
-
       })
     );
   }
-
 
   dayClicked({
     date,
@@ -284,7 +314,7 @@ export class ProjectComponent implements OnInit {
   GetAllProjects() {
     this.service.getProject().subscribe(x => {
       this.info = x;
-      console.log(this.data);
+      console.log(x);
       this.posts = x;
 
       this.dataSource = new MatTableDataSource(this.posts)
@@ -347,6 +377,48 @@ this.service.getMaterialRequest()
   console.log(this.events$)
 })
 
+}
+openRequestStatusDialog(): void {
+  const dialogRef = this.dialog.open(MaterialRequestStatusComponent
+    , {
+    width: '50%',
+    height:'70%',
+  });
+
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  });
+}
+openUrgencyDialog(): void {
+  const dialogRef = this.dialog.open(UrgencyLevelComponent
+    , {
+    width: '50%',
+    height:'60%',
+  });
+
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+  
+  });
+}
+
+
+openDialogMatRequest(id: number): void {
+  const dialogRef = this.dialog.open(ProjectMaterialRequestComponent, {
+    data:{id},
+    width: '80%',
+    height:'90%'
+  }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    console.log(id);
+    this.GetAllProjects();
+
+  });
 }
 
 

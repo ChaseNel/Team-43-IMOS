@@ -5,9 +5,6 @@ import { ServiceService } from 'src/app/services/service.service';
 import { UploadsService } from 'src/app/services/uploads/uploads.service';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 
-export interface Employee{
-
-}
 @Component({
   selector: 'app-update-employee',
   templateUrl: './update-employee.component.html',

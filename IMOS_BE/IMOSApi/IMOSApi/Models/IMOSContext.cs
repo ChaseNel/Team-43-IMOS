@@ -28,7 +28,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Incident> Incidents { get; set; }
         public virtual DbSet<Invoice> Invoices { get; set; }
         public virtual DbSet<Material> Materials { get; set; }
-        public virtual DbSet<Materialrequeststatus> Materialrequeststatuses { get; set; }
+      //  public virtual DbSet<Materialrequeststatus> Materialrequeststatuses { get; set; }
         public virtual DbSet<Materialtype> Materialtypes { get; set; }
         public virtual DbSet<Orderline> Orderlines { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
@@ -74,7 +74,7 @@ namespace IMOSApi.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=Hloni;Database=IMOS;Trusted_Connection=True;Initial Catalog=IMOS;");
+                optionsBuilder.UseSqlServer("Server=.;Database=IMOS;Trusted_Connection=True;Initial Catalog=IMOS;");
             }
         }
 
@@ -334,21 +334,7 @@ namespace IMOSApi.Models
                     .HasConstraintName("FK_MATERIAL_MATERIALTYPE");
             });
 
-            modelBuilder.Entity<Materialrequeststatus>(entity =>
-            {
-                entity.HasKey(e => e.MaterialrequestsstatusId);
-
-                entity.ToTable("MATERIALREQUESTSTATUS");
-
-                entity.Property(e => e.MaterialrequestsstatusId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("MATERIALREQUESTSSTATUS_ID");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-            });
+            
 
             modelBuilder.Entity<Materialtype>(entity =>
             {
@@ -533,7 +519,7 @@ namespace IMOSApi.Models
 
                
 
-                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("MATERIALREQUESTSTATUS_ID");
+                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("PROJECTMATERIALREQUESTSTATUS_ID");
 
 
                 entity.HasOne(d => d.Project)
@@ -558,8 +544,8 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Projectmaterialrequeststatus>(entity =>
             {
-                entity.ToTable("MATERIALREQUESTSTATUS");
-                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("MATERIALREQUESTSTATUS_ID");
+                entity.ToTable("PROJECTMATERIALREQUESTSTATUS");
+                entity.Property(e => e.ProjectmaterialrequeststatusId).HasColumnName("PROJECTMATERIALREQUESTSTATUS_ID");
 
                 entity.Property(e => e.Name)
                    .HasMaxLength(255)
@@ -605,7 +591,7 @@ namespace IMOSApi.Models
                 entity.Property(e => e.Quantity).HasColumnName("QUANTITY");
 
                 entity.HasOne(d => d.Material)
-                    .WithMany(p => p.Projectmaterialrequestlist)
+                    .WithMany(p => p.Projectmaterialrequestlists)
                     .HasForeignKey(d => d.MaterialId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PROJECTM_IS_IN_MATERIAL");
@@ -949,7 +935,7 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("USERPASSWORD");
 
-                entity.Property(e => e.UserroleId).HasColumnName("USERROLE");
+                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
 
                 entity.HasOne(d => d.Employee)
                     .WithMany(p => p.Users)
@@ -1033,7 +1019,7 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("USERROLE");
 
-                entity.Property(e => e.UserroleId).HasColumnName("Userrole");
+                entity.Property(e => e.UserroleId).HasColumnName("USERROLE_ID");
 
                 entity.Property(e => e.Description)
                     .IsRequired()
