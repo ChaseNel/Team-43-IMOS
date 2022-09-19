@@ -1,5 +1,7 @@
 ﻿
 
+using IMOSApi.Dtos.Generic;
+using IMOSApi.Dtos.User;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,23 +22,43 @@ namespace IMOSApi.Controllers.UserFolder
             _dbContext = dbContext;
         }
 
+
         [HttpGet("Roles/GetAll")]
-        public ActionResult<IEnumerable<Userrole>> GetAllRoles()
+        public ActionResult<IEnumerable<GetUserRoleDto>> GetAllRoles()
         {
-            using (var context = new IMOSContext())
+            var recordsInDb = _dbContext.Userroles
+                .Select(item => new GetUserRoleDto()
+                {
+                    Id = item.UserroleId,
+                    description = item.Description
 
-                return _dbContext.Userroles.ToList();
+                }).OrderBy(item => item.description).ToList();
+            return recordsInDb;
+
         }
-        [HttpGet("GetUserRole/{id}")]
-        public IEnumerable<Userrole> GetRecord(int id)
+
+        [HttpGet("GetRoleById/{id}")]
+        public ActionResult<GetUserRoleDto> GetRecord(int id)
         {
-            using (var context = new IMOSContext())
+            var message = "";
+            var recordInDb = _dbContext.Userroles
+                  .Where(item => item.UserroleId == id)
+                  .Select(item => new GetUserRoleDto()
+                  {
+                      Id = item.UserroleId,
+                      description = item.Description
+                  }).OrderBy(item => item.description).First();
+            if (recordInDb == null)
             {
-                IEnumerable<Userrole> userroles = context.Userroles.Where(usr => usr.UserroleId == id).ToList();
-                return userroles;
-
+                message = "Record Not Found";
+                return BadRequest(new { message });
             }
+            return recordInDb;
+
         }
+      
+
+
         [HttpPost("AddRole")]
         public IActionResult Add([FromBody] Userrole userrole)
         {
@@ -47,12 +69,13 @@ namespace IMOSApi.Controllers.UserFolder
                 return Ok();
             }
         }
+
         [HttpPut("EditUserRole/{id}")]
-        public IActionResult Update([FromBody] Userrole userrole,[FromRoute] int Id)
+        public IActionResult Update([FromBody] Userrole userrole, [FromRoute] int Id)
         {
             if (ModelState.IsValid)
             {
-                using(var context= new IMOSContext())
+                using (var context = new IMOSContext())
                 {
                     var recordInDb = _dbContext.Userroles.FirstOrDefault();
                     if (recordInDb == null)
@@ -68,23 +91,33 @@ namespace IMOSApi.Controllers.UserFolder
             return BadRequest(new { message });
 
         }
-        [HttpDelete("RemoveUserRole/{id}")]
-        public async Task<ActionResult<Userrole>>Delete(int Id)
+
+
+        [HttpDelete("RemoveUserRole/{id}")] 
+        public async Task<ActionResult<Userrole>> Delete(int id)
         {
-            using(var context=new IMOSContext())
-            {
-                var recordInDb = await _dbContext.Userroles.FindAsync(Id);
-                    if (recordInDb == null)
-                    {
-                        return NotFound();
-                    }
+      
+                var recordInDb = await _dbContext.Userroles.FindAsync(id);
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
                 _dbContext.Userroles.Remove(recordInDb);
                 await _dbContext.SaveChangesAsync();
                 return Ok();
-            }
             
+
         }
+
 
     }
 }
+
+
+   
+
+     
+
+        
+
 

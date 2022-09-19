@@ -5,6 +5,24 @@
 
 <h2 style="margin-left:45% ;">Warehouse</h2>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog model-dialog-centered modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Update Warehouse</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)='closeClick()'></button>
+            </div>
+            <div class="modal-body">
+                <app-update-warehouse *ngIf="hide"></app-update-warehouse>
+            </div>
+        </div>
+    </div>
+</div>
+<button (click)="EQCheck()" mat-flat-button color="primary" class="URbtn">Warehouse Equipment Check</button>
+<br>
+
+
 <!-- Material Type
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
@@ -31,7 +49,7 @@
     <!-- Description Column -->
     <ng-container matColumnDef="location">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
-        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
     <!-- Actions -->
@@ -39,9 +57,9 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="UpdateWarehouse()" mat-flat-button color="accent">Edit</button>
+            <button (click)="UpdateWarehouse(element.id)" mat-flat-button color="accent">Edit</button>
             &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteWarehouse(element.warehouseId)">Delete</button>
+            <button mat-flat-button color="warn" (click)="deleteWarehouse(element.id)">Delete</button>
         </td>
     </ng-container>
 

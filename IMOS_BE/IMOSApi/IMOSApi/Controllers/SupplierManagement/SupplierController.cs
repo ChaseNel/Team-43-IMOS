@@ -36,7 +36,7 @@ namespace IMOSApi.Controllers.SupplierManagement
 
                     Suppliertype = item.Suppliertype.Name,
                     SuppliertypeId = item.SuppliertypeId//navigation to suppliertype
-                }).First();
+                }).OrderBy(item => item.Name).First();
             if (recordInDb == null)
             {
                 return NotFound();
@@ -51,7 +51,7 @@ namespace IMOSApi.Controllers.SupplierManagement
                 .Include(item => item.Suppliertype)
                 .Select(item => new GetSupplierDto()
                 {
-                    Id = item.SuppliertypeId,
+                    Id = item.SupplierId,
                     Name = item.Name,
                     Address = item.Address,
                     Email = item.Email,
@@ -93,6 +93,8 @@ namespace IMOSApi.Controllers.SupplierManagement
             return BadRequest(new { message });
         }
 
+
+
         [HttpPut("updateSupplier/{id}")]
         public IActionResult Update(AddOrUpdateSupplierDto model, int id)
         {
@@ -104,6 +106,7 @@ namespace IMOSApi.Controllers.SupplierManagement
                 {
                     return NotFound();
                 }
+
                 recordInDb.Name = model.Name;
                 recordInDb.Address = model.Address;
                 recordInDb.Email = model.Email;

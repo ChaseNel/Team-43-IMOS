@@ -1,8 +1,11 @@
+import { vehicletype } from './../../../services/service.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-vehicle-type',
@@ -11,43 +14,62 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UpdateVehicleTypeComponent implements OnInit {
 
-  Id!: string;
-  Description1: any;
-  public vehicleTypeFrm!: FormGroup;
+  id!: number;
+  public updateForm!: FormGroup;
   alert: boolean = false;
-  @Input() type: any;
-  
+  VehcileType!: vehicletype;
 
-
-  constructor(private service: ServiceService, private routed: ActivatedRoute, private route: Router) { }
+  constructor(private service: ServiceService,private route: ActivatedRoute,
+    private router: Router,private _snackbar: MatSnackBar,
+    private fb: FormBuilder) 
+    {
+      
+     }
 
   ngOnInit(): void {
+    const formOptions: AbstractControlOptions = {};
+    this.updateForm = this.fb.group({
+      description: ['', [Validators.required, Validators.maxLength(40)]],
+    },formOptions);
 
-    this.vehicleTypeFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required]),
-    })
-
-    this.Id = this.type.vehicleTypeId;
-    this.Description1 = this.type.description;
-
+    this.id=+this.route.snapshot.params['id'];
+    this.service.getVehicleTypeID(this.id).subscribe((res:any)=>{
+      this.VehcileType=res;
+      console.log(this.VehcileType);
+      this.updateForm=this.fb.group({
+        description:[this.VehcileType.description,[Validators.required,  Validators.minLength(10), Validators.maxLength(30)]],
+      },formOptions)
+    });
   }
 
+  get formdet(){
+    return this.updateForm.controls;
+}
 
-  updateVehicleT(){
-    var id = this.type.vehicletypeId;
-    var val = {description : this.Description1};
-    this.service.editVehicleType(id, val).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-    this.alert = true;
+  onSubmit() {
+    console.log(this.updateForm.value)
+    /*this.service.editVehicleType(this.route.snapshot.params['id'], this.updateForm.value).subscribe(
+      res => {
+        if (confirm('Are you sure you want to Update this Vehicle Type?')) {
+          this._snackbar.open("Success, you have Update a Vehicle Type!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+        else{
+          this._snackbar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+      })*/
   }
 
-  closeAlert() {
-    this.alert = false;
+  back() {
+    this.router.navigateByUrl('vehicleType')
   }
 
   public hasError = (controlName: string, errorName: string) => {
-    return this.vehicleTypeFrm.controls[controlName].hasError(errorName);
+    return this.updateForm.controls[controlName].hasError(errorName);
   }
-
- 
-
 }

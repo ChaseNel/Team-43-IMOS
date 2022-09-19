@@ -1,9 +1,10 @@
+import { Router } from '@angular/router';
 import { UploadsService } from './../../services/uploads/uploads.service';
 import { ServiceService } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormControlName, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormControlName, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { HttpEventType } from '@angular/common/http';
-
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-add-employee',
@@ -12,36 +13,52 @@ import { HttpEventType } from '@angular/common/http';
 })
 export class AddEmployeeComponent implements OnInit {
 
-  constructor( private service:ServiceService,private _uploadsService:UploadsService) {
-    
-   }
+  alert: boolean = false;
 
-  Name: any;
-  Email: any;
-  ContactNumber: any;
-  public employeeFrm!: FormGroup;
+  constructor( private service:ServiceService,private _uploadsService:UploadsService,
+    private fb:FormBuilder,private route:Router,private _snackbar: MatSnackBar)
+     {  }
 
-  progress: any;
-   message: any = "";
-   errorMessage: any = "";
-
+     Name: any;
+     Email:any;
+     ContactNumber:any;
+     public employeeFrm!: FormGroup;
+     
+     progress: any;
+     message: any = "";
+     errorMessage: any = "";
+   
   ngOnInit(): void {
     this.employeeFrm = new FormGroup({
-      Name: new FormControl('', [Validators.required]),
+      Name: new FormControl('', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]),
       Email: new FormControl('', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")]),
       ContactNumber: new FormControl('', [Validators.required ,Validators.maxLength(10), Validators.pattern("^[0-9]*$")]),
       FilePath:new FormControl('')
-    }
-    );
+    });
   }
-  
   // 
   addEmployee(){
+
     console.log(this.employeeFrm.value);
-    this.service.addEmployee(this.employeeFrm.value).subscribe((res: { toString: () => any; }) => {alert(res.toString());});
-   
+    this.service.addEmployee(this.employeeFrm.value)
+    .subscribe(res=>{
+      if (confirm('Are you sure you want to Add this Employee ?')) {
+        this._snackbar.open("Success, you have Added New  Employee!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      else {
+        this._snackbar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      
     }
 
+    )
+    }
     public uploadFile = (files:any) => {
       this.errorMessage = null;
       this.message = null;
@@ -84,11 +101,19 @@ export class AddEmployeeComponent implements OnInit {
             }
           });
       }
+
+      // add preview Helpers Method
     }
 
     public hasError = (controlName: string, errorName: string) =>{
       return this.employeeFrm.controls[controlName].hasError(errorName);
   }
-
+  
+  closeAlert() {
+    this.alert = false;
+  }
+  back(){
+    this.route.navigateByUrl("employee")
+  }
 }
  

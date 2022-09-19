@@ -31,8 +31,7 @@ namespace IMOSApi.Controllers.MaterialManagent
                 var newMaterialType = new Materialtype
                 {
                     Name=model.Name,
-                    Description= model.Description,
-                   // SupplierId=SupplierId
+                    Description= model.Description
                 };
                 _context.Materialtypes.Add(newMaterialType);
                 _context.SaveChanges();
@@ -42,66 +41,38 @@ namespace IMOSApi.Controllers.MaterialManagent
             return BadRequest(new { message });
         }
 
-       /* [HttpGet("{id}")]//gets specific material type Id from Supplier; to display supplier Name and associated material type
-        public ActionResult<GetMaterialTypeDto> GetMaterialType(int id)
+        [HttpGet("GetMaterialType/{id}")]
+        public ActionResult<GetMaterialTypeDto> GetRecord(int id)
         {
-            var recordIndb = _context.Materialtypes
+            var recordInDb = _context.Materialtypes
                 .Where(item => item.MaterialtypeId == id)
-               // .Include(item => item.Supplier)
-                .Select(item => new GetMaterialTypeDto
+                .Select(item => new GetMaterialTypeDto()
                 {
                     MaterialtypeId = item.MaterialtypeId,
                     Name = item.Name,
                     Description = item.Description,
-                   // SupplierId = item.Supplier.SupplierId,
-                   // SupplierName=item.Supplier.Name
-                }).OrderBy(item => item.Name).First();
-
-            if (recordIndb == null)
+                }).First();
+            if (recordInDb == null)
             {
                 return NotFound();
             }
-            return recordIndb;
-        }*/
-
-
-        /*[HttpGet("Supplier/GetAll/{supplierId}")]///
-        public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllSupplierMaterialTypes(int supplierId)
-        {
-            var recordsInDb = _context.Materialtypes
-                //.Where(item => item.SupplierId == supplierId)
-               // .Include(item => item.Supplier)
-                .Select(item => new GetMaterialTypeDto
-                {
-                    MaterialtypeId = item.MaterialtypeId,
-                    Name = item.Name,
-                    Description=item.Description,
-                    //SupplierId = item.Supplier.SupplierId,
-                   // SupplierName = item.Supplier.Name
-                }).OrderBy(item => item.Name).ToList();
-
-            return recordsInDb;
-        }*/
-
+            return recordInDb;
+        }
 
         [HttpGet("GetAll")]
         public ActionResult<IEnumerable<GetMaterialTypeDto>> GetAllMaterialTypes()
         {
             var recordsInDb = _context.Materialtypes
-                //.Include(item => item.Supplier)
                 .Select(item => new GetMaterialTypeDto
                 {
                     MaterialtypeId = item.MaterialtypeId,
                     Name = item.Name,
                     Description = item.Description,
-                 //   SupplierId = item.Supplier.SupplierId,
-                 //   SupplierName = item.Supplier.Name
                 }).OrderBy(item => item.Name).ToList();
-
             return recordsInDb;
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("UpdateType/{id}")]
         public IActionResult Update(AddOrUpdateGenericDto model, int id)
         {
             if (ModelState.IsValid)
@@ -123,19 +94,15 @@ namespace IMOSApi.Controllers.MaterialManagent
             return BadRequest(new { message });
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Supplier>> Delete(int id)
+        [HttpDelete("DeleteType/{id}")]
+        public async Task<ActionResult<Materialtype>> Delete(int id)
         {
             var recordInDb = await _context.Materialtypes.FindAsync(id);
             if (recordInDb == null)
             {
                 return NotFound();
             }
-            var materials = _context.Materials.Where(item => item.MaterialtypeId == recordInDb.MaterialtypeId).ToList();
-
-            _context.Materials.RemoveRange(materials);
-            await _context.SaveChangesAsync();
-
+            var materialType = _context.Materialtypes.Where(item => item.MaterialtypeId == recordInDb.MaterialtypeId).ToList();
             _context.Materialtypes.Remove(recordInDb);
             await _context.SaveChangesAsync();
             return Ok();

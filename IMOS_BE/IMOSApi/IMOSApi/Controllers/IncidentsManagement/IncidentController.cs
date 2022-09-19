@@ -17,7 +17,5 @@ namespace IMOSApi.Controllers.IncidentsManagement
         {
             _context = context;
         }
-
-
     }
 }

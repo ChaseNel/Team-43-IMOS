@@ -1,32 +1,36 @@
+import { employee } from 'src/app/services/service.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { employee, ServiceService } from './../services/service.service';
+import { Empdocument, ServiceService } from './../services/service.service';
 import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatDialog } from '@angular/material/dialog';
+import { UploadsService } from '../services/uploads/uploads.service';
 
-
-export interface Employee {
-  employeeId: number;
-  name: string;
-  email: string;
-  contactnumber: string;
+export interface Employee{
+  employeeId: number,
+  name: string,
+  email: string,
+  FileUrl: any,
+  contactNumber: number,
+  projectemployees: [],
+  users: [],
+  documents: [],
 }
-
 
 @Component({
   selector: 'app-employee',
   templateUrl: './employee.component.html',
   styleUrls: ['./employee.component.css']
 })
-export class EmployeeComponent implements OnInit {
 
+export class EmployeeComponent implements OnInit {
   // API Test
   data: employee[] = [];
+  listOfProccessedEmployees: employee[] = [];
 
-  displayedColumns: string[] = ['id', 'name', 'email', 'number', 'actions'];
+  displayedColumns: string[] = [ 'name', 'email', 'number', 'actions'];
 
   dataSource!: MatTableDataSource<Employee>;
   @ViewChild(MatPaginator) paginator!: MatPaginator
@@ -34,40 +38,33 @@ export class EmployeeComponent implements OnInit {
   posts: any;
 
   constructor(private route: Router, private service: ServiceService,
-    private _snackBar:MatSnackBar,
-    public dialog: MatDialog
+    private _snackBar:MatSnackBar, private _uploads:UploadsService
     ) {
 
     this.service.getEmployees().subscribe(x => {
       this.data = x;
       console.log(this.data);
-    })
+    });
    }
+
+   ngOnInit(): void {
+    this.GetAllEmployees()
+  }
+   
    GetAllEmployees() {
     this.service.getEmployees().subscribe(x => {
       this.data = x;
       console.log(this.data);
       this.posts = x
-
       this.dataSource = new MatTableDataSource(this.posts)
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
   }
-   
 
-  UpdateEmployee() {
-    this.route.navigateByUrl("UpdateEmployee")
-  }
-
-  addEmployee(){
-    this.route.navigateByUrl('AddEmployee')
-  }
- 
   deleteEmployee(id: number) {
     console.log(id);
-    if (confirm('Are you sure you want to delete this employee?')) {
+    if (confirm('Are you sure you want to delete this Employee?')) {
       this.service.deleteEmployee(id).subscribe(res => {
         this.GetAllEmployees();
         this._snackBar.open("Success, you have deleted an Employee", 'OK', {
@@ -78,6 +75,7 @@ export class EmployeeComponent implements OnInit {
     }
   }
 
+
   applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -86,8 +84,38 @@ export class EmployeeComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-  ngOnInit(): void {
-    this.GetAllEmployees()
+ 
+  addEmployee(){
+    this.route.navigateByUrl('AddEmployee')
+  }
+  
+  UpdateEmployee(id:number) {
+    this.route.navigateByUrl('UpdateEmployee/' + id);
   }
 
+   viewContract(item:employee, id: number){
+  
+    this.listOfProccessedEmployees=[];
+    console.log(this.listOfProccessedEmployees)
+    this._uploads.downloadEmployeeDocument(id).subscribe(res=>{
+      console.log(id);
+
+      let image = res.body as Blob;
+      let reader = new FileReader();
+      reader.addEventListener("load" ,()=>{
+      item.FileUrl=reader.result;
+        this.listOfProccessedEmployees.push(item);
+      },false);
+      if (image){
+        reader.readAsDataURL(image);
+      }
+    });
+  }
+
+  EmployeeAttendance(){
+    this.route.navigateByUrl('Employee-Attendance')
+
+  }
+ 
+  
 }

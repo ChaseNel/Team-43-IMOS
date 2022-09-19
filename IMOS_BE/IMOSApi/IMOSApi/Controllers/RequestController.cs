@@ -12,7 +12,8 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class RequestController : ControllerBase
     {
-        [HttpGet("GetRequests")]
+
+        [HttpGet("GetAll")]
         public IEnumerable<Request> Retrieve()
         {
             using (var context = new IMOSContext())

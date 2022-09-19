@@ -1,5 +1,7 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos.Project;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,20 +14,31 @@ namespace IMOSApi.Controllers
     [Route("api/[controller]")]
     public class ProjectController : ControllerBase
     {
-        private IMOSContext _dbContext;
+        private IMOSContext _context;
         public ProjectController(IMOSContext dbContext)
         {
-            _dbContext = dbContext;
+            _context = dbContext;
         }
+
         [HttpGet("GetProjects")]
-        public IEnumerable<Project> Retrieve()
+        public ActionResult<IEnumerable<GetProjectDto>> GetAll()
         {
-            using (var context = new IMOSContext())
-            {
-                return _dbContext.Projects.ToList();
-            }
+            var recordInDb = _context.Projects
+                  .Include(item => item.Constructionsite)
+                  .Include(item => item.Initialrequest)
+                  .Select(item => new GetProjectDto()
+                  {
+                      Id = item.ProjectId,
+                      Name = item.Name,
+                      Constructionsite = item.Constructionsite.Address,
+                      Request = item.Initialrequest.Description
+
+                  }).OrderBy(item => item.Name).ToList();
+            return recordInDb;
         }
-        [HttpGet("GetProject/{id}")]
+
+
+     /*   [HttpGet("GetProject/{id}")]
         public IEnumerable<Project> Get(int id)
         {
             using (var context = new IMOSContext())
@@ -33,48 +46,64 @@ namespace IMOSApi.Controllers
                 IEnumerable<Project> tmp = context.Projects.Where(emp => emp.ProjectId == id).ToList();
                 return tmp;
             }
-        }
-        [HttpPost("CreateProject")]
-        public IActionResult Create([FromBody] Project Project)
+        }*/
+
+        [HttpPost("AddProject")]
+        public IActionResult Create(AddOrUpdateProjectDto model)
         {
             var message = "";
-            if (ModelState.IsValid)//checks if model is valid then  creates new MaterialType 
+            if (ModelState.IsValid)
             {
-                /*var newProject = new Project
-                {
-                    ProjectId = ProjectId,
-                    Name = model.Name,
-                    Description = model.Description,
-                    MaterialtypeId = model.MaterialtypeId
+                var recordInDb = _context.Projects.FirstOrDefault(item => item.Name.ToLower() == model.Name.ToLower());
 
+                if (recordInDb != null)
+                {
+                    message = "Record already exist";
+                    return BadRequest(new { message });
+                }
+                var newRecord = new Project()
+                {
+                    Name = model.Name,
+                    ConstructionsiteId = model.ConstructionsiteId,
+                    InitialrequestId = model.InitialrequestId,
+                    Safetyfilecreated = true,
                 };
-                _dbContext.Project.Add(newProject);
-                _dbContext.SaveChanges();
-                return Ok();*/
+                _context.Projects.Add(newRecord);
+                _context.SaveChanges();
+                var safetyFile = new SafetyFile()
+                {
+                    ProjectId = newRecord.ProjectId
+                    //FileUrl = model.FileUrl
+                };
+                _context.SafetyFiles.Add(safetyFile);
+                _context.SaveChanges();
+                return Ok();
             }
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
 
-        [HttpPut("UpdateProject/{Id}")]
+
+       /* [HttpPut("UpdateProject/{Id}")]
         public void Update([FromBody] Project Project, [FromRoute] int Id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = _dbContext.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
+                var clie = context.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
                 //emp.
-                _dbContext.SaveChanges();
+                context.SaveChanges();
             }
-        }
-        [HttpDelete("DeleteProject/{Id}")]
+        }*/
+
+       /* [HttpDelete("DeleteProject/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
             {
-                var clie = _dbContext.Projects.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                _dbContext.Projects.Remove(clie);
-                _dbContext.SaveChanges();
+                var clie = _context.Projects.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
+                _context.Projects.Remove(clie);
+                _context.SaveChanges();
             }
-        }
+        }*/
     }
 }

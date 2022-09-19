@@ -9,12 +9,15 @@ namespace IMOSApi.Models
     {
         public int DeliveryId { get; set; }
         public int ProjectId { get; set; }
-        public int SupplierId { get; set; }
-        public int MaterialId { get; set; }
-        public DateTime? Date { get; set; }
+        public int OrderId { get; set; }
+        public DateTime Date { get; set; }
         public byte[] Deliverynote { get; set; }
+        public int WarehouseId { get; set; }
+        public int ConstructionsiteId { get; set; }
 
+        public virtual Constructionsite Constructionsite { get; set; }
+        public virtual Orderline Order { get; set; }
         public virtual Project Project { get; set; }
-        public virtual Supplierorderline Supplierorderline { get; set; }
+        public virtual Warehouse Warehouse { get; set; }
     }
 }

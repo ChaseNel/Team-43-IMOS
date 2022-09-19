@@ -54,9 +54,8 @@ export class VehicleTypeComponent implements OnInit {
     }
   }
 
-  UpdateVehicleType(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateVehicleType(id: number) {
+    this.route.navigateByUrl('updateVehicleType/' + id);
   }
 
    closeClick(){
@@ -72,10 +71,6 @@ export class VehicleTypeComponent implements OnInit {
       this.dataSource.sort = this.sort;
   })
 } 
-
-
-
-
 
   addVehicleType() {
     this.route.navigateByUrl('/addVehicleType')
