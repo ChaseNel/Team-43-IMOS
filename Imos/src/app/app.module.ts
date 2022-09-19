@@ -101,7 +101,6 @@ import { UpdateUrgencyLevelComponent } from './project/project-material-request/
 import { ReportComponent } from './report/report.component';
 import { MaterialRequestReportViewComponent } from './report/material-request-report-view/material-request-report-view.component';
 import { RequestcountreportComponent } from './report/requestcountreport/requestcountreport.component';
-import { NgChartsModule } from 'ng2-charts';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { Component } from '@angular/core';
@@ -118,6 +117,8 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { ApprovedRequestReportViewComponent } from './report/approved-request-report-view/approved-request-report-view.component';
 import { DemoUtilsModule } from '../app/demo-utils/module';
+import { NgChartsModule } from 'ng2-charts';
+
 
 const materialModules = [
   MatCardModule,
