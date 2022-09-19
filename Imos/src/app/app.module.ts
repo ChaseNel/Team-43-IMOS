@@ -120,6 +120,7 @@ import { DemoUtilsModule } from '../app/demo-utils/module';
 import { NgChartsModule } from 'ng2-charts';
 
 
+
 const materialModules = [
   MatCardModule,
   MatToolbarModule,

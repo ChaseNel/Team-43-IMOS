@@ -93,11 +93,12 @@ export class EmployeeComponent implements OnInit {
     this.route.navigateByUrl('UpdateEmployee/' + id);
   }
 
-   viewContract(item:employee){
+   viewContract(item:employee, id: number){
+  
     this.listOfProccessedEmployees=[];
     console.log(this.listOfProccessedEmployees)
-    this._uploads.downloadEmployeeDocument(item.employeeId).subscribe(res=>{
-      console.log(this.viewContract)
+    this._uploads.downloadEmployeeDocument(id).subscribe(res=>{
+      console.log(id);
 
       let image = res.body as Blob;
       let reader = new FileReader();

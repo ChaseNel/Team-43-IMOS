@@ -40,6 +40,12 @@
         <td mat-cell *matCellDef="let element"> {{element.contactNumber}} </td>
     </ng-container>
 
+    <!-- Contact File
+    <ng-container matColumnDef="file">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Contract File </th>
+        <td mat-cell *matCellDef="let element"> <a> {{element.fileUrl}} </a></td>
+    </ng-container> -->
+
     <!-- Actions -->
     <ng-container matColumnDef="actions">
 
@@ -49,7 +55,7 @@
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteEmployee(element.employeeId)">Delete</button>
             &nbsp;
-            <button mat-flat-button color="primary"(click)="viewContract(element.employeeId)">View Contract</button>
+            <button mat-flat-button color="primary" (click)="viewContract(element , element.employeeId)">View Contract</button>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -65,4 +71,3 @@
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of employees"></mat-paginator>
 
 <button (click)="addEmployee()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
-

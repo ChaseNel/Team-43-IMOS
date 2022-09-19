@@ -44,6 +44,7 @@
     "jspdf-autotable": "^3.5.25",
     "jwt-decode": "^3.1.2",
     "ng2-charts": "^4.0.0",
+    "ng2-pdf-viewer": "^9.1.2",
     "ngx-toastr": "^14.3.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
