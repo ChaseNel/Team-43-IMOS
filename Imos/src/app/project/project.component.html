@@ -5,13 +5,17 @@
 
 <h2 style="margin-left:45% ;">Manage All Projects</h2>
 
-<button (click)="projectstaff()" mat-flat-button color="primary"  class="URbtn"> Project     Staff</button>
+<button (click)="projectstaff()" mat-flat-button color="primary"  class="URbtn"> Project Staff</button>
 &nbsp;
 <button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openUrgencyDialog()"> Manage Urgency Levels</button>
 &nbsp;
 <button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openRequestStatusDialog()"> Manage Request Status</button>
 &nbsp;
 <button (click)="deliveryNote()" mat-flat-button color="primary" class="URbtn">Delievery Note</button>
+&nbsp;
+
+<button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openConstructionSite()"> Manage Construction Sites</button>
+&nbsp;
 <br>
 <!-- Material Type
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
@@ -68,7 +72,7 @@
 </mat-card>
 
 
-<br><br>
+<br><br><br><br><br><br>
 
 
 <!-- Search Field -->
@@ -94,12 +98,12 @@
     <!-- Description Column -->
     <ng-container matColumnDef="constructionSite">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction Site  </th>
-        <td mat-cell *matCellDef="let element"> {{SiteList[element.constructionsiteId]?.address}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
     </ng-container>
 
     <ng-container matColumnDef="request">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Clients  Request </th>
-        <td mat-cell *matCellDef="let element"> {{requestList[element.requestId]?.description}} </td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client's  Request </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
     <!-- Actions -->

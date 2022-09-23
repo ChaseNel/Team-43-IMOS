@@ -1,4 +1,4 @@
-import { project, constructionSite } from './../../services/service.service';
+import { project, ConstructionSite } from './../../services/service.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,15 +16,15 @@ export class UpdateProjectComponent implements OnInit {
   Project!:project;
   id!: number;
   updateForm:FormGroup;
-  ConstructionTypes: constructionSite[] = [];
+  ConstructionTypes: ConstructionSite[] = [];
 //  Supplier:supplier=new supplier();
 
-  constructor( 
-    private fb:FormBuilder, 
+  constructor(
+    private fb:FormBuilder,
     private _service:ServiceService,
     private route: ActivatedRoute,
     private router:Router,
-    private http:HttpClient, 
+    private http:HttpClient,
     private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class UpdateProjectComponent implements OnInit {
   get formdet(){
     return this.updateForm.controls;
 }
-  
+
   onSubmit(){
     this._service.UpdateProject(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{

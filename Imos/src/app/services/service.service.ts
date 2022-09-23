@@ -1,3 +1,4 @@
+
 import { FormBuilder } from '@angular/forms';
 
 import { User } from './../user/user.component';
@@ -118,6 +119,18 @@ export interface MaterialComposition{
 }
 
 
+export interface ConstructionSite{
+  id:number;
+  address: string;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -187,7 +200,7 @@ export interface suppliertype {
   suppliers: []
 }
 
-//Supplier Order 
+//Supplier Order
 export interface  orderline {
   orderId: number,
   date:Date,
@@ -256,16 +269,21 @@ export interface vehicletype {
 export interface incident {
   incidentID: number,
   description: string,
-  userIncidents: []
+  projectId : number
 }
 
-//Construction Site Interface
-export interface constructionSite {
-  constructionsiteId: number,
-  address: string,
-  projects: []
+
+export interface Task{
+  startdate: string;
+  enddate: string;
+  tasktypeDescription: string,
+  description:string;
 }
 
+export interface TaskType{
+  description: string;
+  TaskType: number;
+}
 
 //Project Interface
 export interface project {
@@ -319,7 +337,7 @@ export interface warehouse {
   materials: []
 }
 
-// add all ,safetychecklist,Item  category,Item 
+// add all ,safetychecklist,Item  category,Item
 export interface safetyfilechecklist{
   projectId:number,
   safetyfileitemId:number,
@@ -424,9 +442,9 @@ export class ServiceService {
     headers: new HttpHeaders({
       contentType: 'application/json'
     })
-  }; 
+  };
 
-  constructor(private http: HttpClient) 
+  constructor(private http: HttpClient)
     {
 
 
@@ -452,9 +470,33 @@ export class ServiceService {
     return this.http.post(this.Root_URL + '/Uploads/Vehicles/Upload/', obj
     , {reportProgress: true, observe: 'events'});
   }
-  uploadvehimg(finalform: any){
+
+  uploadVehiclePhoto222222(VehicleId: number, imageUrl: string) {
+    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/' + VehicleId, imageUrl)
+  }
+
+
+  uploadVehiclePhoto1(finalform: any){
     return this.http.put(this.Root_URL + `/Vehicle/UploadVehiclePhoto/${finalform.VehicleId}/`, finalform.imageUrl);
   }
+
+  uploadvehimg(finalform: any){
+    return this.http.put(this.Root_URL + `/Vehicle/UploadVehiclePhoto/${finalform.VehicleId}/` , finalform.imageUrl);
+  }
+
+
+
+  uploadVehiclePhoto33(id:number, finalform: any){
+    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/'+ id, finalform.imageUrl);
+  }
+
+  updateVehicleImage(id:number, imageUrl:any){
+    return this.http.put(this.Root_URL + '/Vehicle/UploadVehiclePhoto/' + id, imageUrl)
+  }
+
+
+
+
 
   //User
   //Get
@@ -508,12 +550,12 @@ export class ServiceService {
   getEmployees(): Observable<employee[]> {
     return this.http.get<employee[]>(this.Root_URL + '/Employee/GetAll')
   }
- 
-  // CSV 
+
+  // CSV
   // add employee In CSV
   addEmployeeInCSV(payload:any) {
     return this.http.post(this.Root_URL + '/Employee/AddMultiple',payload)
-    
+
   }
 
   //upload employee In CSV
@@ -522,11 +564,11 @@ export class ServiceService {
      // payload, { reportProgress: true, observe: 'events' };
   }
 
-  //add 
+  //add
   addEmployee(val: any){
     return this.http.post(this.Root_URL + '/Employee/AddEmployee',val)
   }
-  // update employee 
+  // update employee
   updateEmployee(id:number,data:any){
     return this.http.put(this.Root_URL + '/Employee/UpdateEmployee/'+id,data);
   }
@@ -536,7 +578,7 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/Employee/DeleteEmployee/' + id);
   }
 
-  //Material Http requests 
+  //Material Http requests
   //get Material By Id
   getMaterialById(id:number){
     return this.http.get(this.Root_URL + '/Material/MaterialsById/' + id);
@@ -607,6 +649,49 @@ export class ServiceService {
     return this.http.put(this.Root_URL + '/ProjectMaterialRequest/UpdateUrgencyLvl/'+id,data);
 
   }
+
+  addRequestStatus(val: any) {
+    return this.http.post(this.Root_URL + '/ProjectMaterialRequestStatus/AddRequestStatus', val)
+  }
+
+  updateRequestStatus(id:number,data:any){
+    return this.http.put(this.Root_URL + '/ProjectMaterialRequestStatus/UpdateRequestStatus/'+ id, data);
+
+  }
+
+  deleteRequestStatus(id: number) {
+    return this.http.delete(this.Root_URL + '/ProjectMaterialRequestStatus/DeleteRequestStatus/' + id);
+  }
+
+  getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
+    return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
+  }
+
+
+  addConstructionSite(val: any) {
+    return this.http.post(this.Root_URL + '/Constructionsite/AddConstructionsite', val)
+  }
+
+
+  updateConstructionSite(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Constructionsite/UpdateConstructionsite/'+ id, data);
+
+  }
+
+  deleteConstructionSite(id: number) {
+    return this.http.delete(this.Root_URL + '/Constructionsite/DeleteConstructionsite/' + id);
+  }
+
+  getConstructionSite(): Observable<ConstructionSite[]> {
+    return this.http.get<ConstructionSite[]>(this.Root_URL + '/Constructionsite/GetAllConstructionsites')
+  }
+
+
+
+
+
+
+
 
 
 
@@ -927,9 +1012,6 @@ updateclient(val: any,id: number){
 
 
 
-  getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
-    return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
-  }
 
 
 
@@ -996,7 +1078,7 @@ UpdateEquipment(id: number, data: any){
   //Delete
 
 
-  // SafetyCategory Enpoints 
+  // SafetyCategory Enpoints
   // get by Id
   /*getItemsFromCategoryById(id:number){
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/CategoryById/' + id)
@@ -1005,33 +1087,33 @@ UpdateEquipment(id: number, data: any){
   getSafetyCategory(): Observable<safetyitemcategory[]> {
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
   }
-   //Add 
+   //Add
   addSafetyCategory(val:any){
     return this.http.post(this.Root_URL + '/SafetyItemCategory/AddCategory', val)
 }
-  // put 
+  // put
 
    //Delete
    deleteSafetyItemCategory(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyItemCategory/DeleteSafetyItemCategory/' + id);
   }
-  // Safety Item Endpoints 
+  // Safety Item Endpoints
   // Get Items  By Category Id
 
   getItemsByCategoryId(id: number):  Observable<safetyItem[]> {
     return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetItemByCategory/' + id)
   }
 
-  // get By Id 
+  // get By Id
   getItemById(id:number): Observable<safetyItem[]> {
     return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetItemById/'+id)
   }
 
-  // Get All 
+  // Get All
   getSafetcyItem(): Observable<safetyItem[]> {
     return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetAll')
   }
-  // Add Item 
+  // Add Item
   addNewItem(val:any,id:number){
     return this.http.post(this.Root_URL + '/SafetyItem/AddSafetyItem/'+ id,val)
 }
@@ -1041,12 +1123,12 @@ updateItem(val: any,id: number){
 }
 
 
-  //  Delete Item 
+  //  Delete Item
   deleteItem(id: number) {
     return this.http.delete(this.Root_URL + '/SafetyItem/RemoveItem/' + id);
   }
 
-  //SafetyChecklist 
+  //SafetyChecklist
   //Get All
   getProjectChecklist(): Observable<safetyfilechecklist[]> {
     return this.http.get<safetyfilechecklist[]>(this.Root_URL + '/SafetyChecklist/GetAll')
@@ -1067,13 +1149,7 @@ updateItem(val: any,id: number){
 
   //Construction Site
   //Get
-  getConstructionSite(): Observable<constructionSite[]> {
-    return this.http.get<constructionSite[]>(this.Root_URL + '/Constructionsite/GetConstructionsites')
-  }
-  //Add
-  addConstructionSite(val: any) {
-    return this.http.post(this.Root_URL + '/Constructionsite/CreateConstructionsite', val)
-  }
+
 
   //Update
   editConstructionSite(id: any, val: any): Observable<any> {
@@ -1082,9 +1158,6 @@ updateItem(val: any,id: number){
     return this.http.put(endPointUrl, val)
   }
   //Delete
-  deleteConstructionSite(id: number) {
-    return this.http.delete(this.Root_URL + '/Constructionsite/DeleteConstructionsite/' + id);
-  }
 
   //Requeast
   //Get
@@ -1118,11 +1191,11 @@ updateItem(val: any,id: number){
   addProjectEmployee(payload:any){
     return this.http.post(this.Root_URL + '/ProjectEmployee/Assign',payload);
   }
-  
+
   // update project employees
 
   // Project Equipment Http requests
-  // Get 
+  // Get
     //Get All
     getProjectEquipment(): Observable<projectequipment[]> {
       return this.http.get<projectequipment[]>(this.Root_URL + '/ProjectEquipment/GetAll')
@@ -1132,7 +1205,7 @@ updateItem(val: any,id: number){
     addProjectEquipment(payload:any){
       return this.http.post(this.Root_URL + '/ProjectEquipment/Assign',payload)
     }
-    
+
 
 
 
@@ -1144,7 +1217,7 @@ updateItem(val: any,id: number){
   // remove Or delete employees
 
   // Supplier Order Http enpoints
-// add OR Post order 
+// add OR Post order
   addToOrderSupplierCart(payload: any) {
     return this.http.post(this.Root_URL + '/AddSupplierMaterialOrdersCart',payload);
   }
@@ -1254,7 +1327,7 @@ updateItem(val: any,id: number){
   deleteIncident(id: number) {
     return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
   }
-  
+
 
   //Delivery note
   getDeliveryNoteID(id: number) {
@@ -1279,18 +1352,7 @@ updateItem(val: any,id: number){
   deleteDeliveryNote(id: number) {
     return this.http.delete(this.Root_URL + '/Delivery/DeleteDelivery' + id);
   }
-  addRequestStatus(val: any) {
-    return this.http.post(this.Root_URL + '/ProjectMaterialRequestStatus/AddRequestStatus', val)
-  }
 
-  updateRequestStatus(id:number,data:any){
-    return this.http.put(this.Root_URL + '/ProjectMaterialRequestStatus/UpdateRequestStatus/'+ id, data);
-
-  }
-
-  deleteRequestStatus(id: number) {
-    return this.http.delete(this.Root_URL + '/ProjectMaterialRequestStatus/DeleteRequestStatus/' + id);
-  }
 
 }
 

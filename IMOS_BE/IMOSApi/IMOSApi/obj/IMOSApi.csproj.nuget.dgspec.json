@@ -1,27 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
+    "C:\\Users\\lalek\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {}
   },
   "projects": {
-    "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
+    "C:\\Users\\lalek\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "projectUniqueName": "C:\\Users\\lalek\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
         "projectName": "IMOSApi",
-        "projectPath": "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
-        "packagesPath": "C:\\Users\\chase\\.nuget\\packages\\",
-        "outputPath": "C:\\Team-43-IMOS\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
+        "projectPath": "C:\\Users\\lalek\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\IMOSApi.csproj",
+        "packagesPath": "C:\\Users\\lalek\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lalek\\Documents\\GitHub\\Team-43-IMOS\\IMOS_BE\\IMOSApi\\IMOSApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\chase\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\lalek\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net5.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -121,7 +124,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }
