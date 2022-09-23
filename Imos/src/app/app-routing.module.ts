@@ -1,3 +1,11 @@
+import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
+import { TaskTypeComponent } from './task/task-type/task-type.component';
+import { UpdateTaskComponent } from './task/update-task/update-task.component';
+import { AddTaskComponent } from './task/add-task/add-task.component';
+import { TaskComponent } from './task/task.component';
+
+
 import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
 import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
@@ -85,6 +93,7 @@ import { AddProjectStaffComponent } from './project/project-staff/add-project-st
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 
 
+
 const routes: Routes = [
 
   {path: 'reports', component: ReportComponent },
@@ -104,7 +113,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: '', pathMatch: 'full', redirectTo: '/login' }, 
 
-  
+  //user
   { path: 'user', component: UserComponent },
   { path: 'addUser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
@@ -146,6 +155,14 @@ const routes: Routes = [
   { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
   { path: 'CancelOrder/:id', component: CancelOrderComponent },
 
+  //Task
+  { path: 'Task', component: TaskComponent },
+  { path: 'UpdateTask/:id', component: UpdateTaskComponent },
+  { path: 'AddTask', component: AddTaskComponent },
+  //Material Type
+  { path: 'Tasktype', component: TaskTypeComponent },
+  { path: 'UpdateTaskType/:id', component: UpdateTaskTypeComponent },
+  { path: 'AddTaskType', component: AddTaskTypeComponent },
   
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },

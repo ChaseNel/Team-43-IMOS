@@ -701,20 +701,6 @@ export class ServiceService {
     .pipe(map(result => result))
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   //Supplier
   getSupplierById(id: number) {
     return this.http.get(this.Root_URL + '/Supplier/GetSupplierById/' + id);
@@ -768,7 +754,7 @@ export class ServiceService {
   }
   //Add
   addSupplierType(val: any) {
-    return this.http.post(this.Root_URL + '/Suppliertype/CreateSuppliertype', val)
+    return this.http.post(this.Root_URL + '/Suppliertype/AddType', val)
   }
 
   //Update
@@ -1152,6 +1138,10 @@ updateItem(val: any,id: number){
     return this.http.get<orderline[]>(this.Root_URL + '/Order/GetAllSupplierOrders')
   }
 
+  //getByID
+  TaskTypeID(id: number) {
+    return this.http.get(this.Root_URL + '/tasktype/GetTasktype/' + id);
+  }
 
   //Add
   addTaskType(val: any) {
@@ -1160,11 +1150,8 @@ updateItem(val: any,id: number){
   }
 
   //Update
-  editTaskType(id: any, val: any): Observable<any> {
-    console.log(id, val)
-    const endPointUrl = this.Root_URL + "/tasktype/updatetasktype/" + id;
-    return this.http.put(endPointUrl, val);
-
+  editTaskType(id: number, val: any) {
+    return this.http.put(this.Root_URL + '/tasktype/UpdateTasktype/' + id, val);
   }
 
 

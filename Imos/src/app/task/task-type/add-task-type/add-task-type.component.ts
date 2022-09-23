@@ -25,33 +25,30 @@ export class AddTaskTypeComponent implements OnInit {
   }
 
   addTasktype() {
-
     if (this.taskTypeFrm.valid) {
-    var val = {Description: this.Description }
-    this.service.addTaskType(val).subscribe(res => {
-      if (confirm('Are you sure you want to Add this Task Type?')) {
-        this._snackbar.open("Success, you have Add a Task Type!", 'OK', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-        });
+      console.log(this.taskTypeFrm.value);
+      this.service.addTaskType(this.taskTypeFrm.value)
+        .subscribe(res => {
+          if (confirm('Are you sure you want to Add this Task Type?')) {
+            this._snackbar.open("Success, you have Add a Task Type!", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+          }
+          else{
+            this._snackbar.open("Unsuccessful", 'OK', {
+              duration: 3000,
+              verticalPosition: 'bottom',
+            });
+          }
+        })
       }
-      else{
-        this._snackbar.open("Unsuccessful", 'OK', {
-          duration: 3000,
-          verticalPosition: 'bottom',
-        });
-      }
-    });
-    
-    
-    }
-    
-    this.Description = '';
+      this.taskTypeFrm.reset();
   }
 
  
   back(){
-    this.route.navigateByUrl("tasktype")
+    this.route.navigateByUrl("Tasktype")
   }
   
   public hasError = (controlName: string, errorName: string) => {

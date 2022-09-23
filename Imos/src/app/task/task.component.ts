@@ -108,7 +108,7 @@ export class TaskComponent implements OnInit {
  }
 
  taskType() {
-   this.route.navigateByUrl('/tasktype')
+   this.route.navigateByUrl('/Tasktype')
  }
 
  ngOnInit(): void {

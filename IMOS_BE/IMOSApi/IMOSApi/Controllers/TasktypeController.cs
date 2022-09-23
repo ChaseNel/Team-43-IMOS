@@ -1,4 +1,5 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos.Generic;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,13 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class TasktypeController : ControllerBase
     {
+        private readonly IMOSContext _context;
+
+        public TasktypeController(IMOSContext context)
+        {
+            _context = context;
+        }
+
         [HttpGet("GetTasktypes")]
         public IEnumerable<Tasktype> Retrieve()
         {
@@ -41,16 +49,28 @@ namespace IMOSApi.Controllers
         }
 
         [HttpPut("UpdateTasktype/{Id}")]
-        public void Update([FromBody] Tasktype Tasktype, [FromRoute] int Id)
+        public IActionResult Update(AddOrUpdateGenericDto model, int id)
         {
-            using (var context = new IMOSContext())
+            if (ModelState.IsValid)
             {
-                var clie = context.Tasktypes.Where(clie => clie.Tasktype1 == Id).ToList().FirstOrDefault();
-                //emp.
-                context.SaveChanges();
+                var recordInDb = _context.Tasktypes.FirstOrDefault(item => item.Tasktype1 == id);
+
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+
+                recordInDb.Description = model.Description;
+                _context.SaveChanges();
+
+                return Ok();
             }
+
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
         }
-        [HttpDelete("DeleteEmployee/{Id}")]
+        [HttpDelete("deletetasktype/{Id}")]
         public void Delete(int id)
         {
             using (var context = new IMOSContext())
