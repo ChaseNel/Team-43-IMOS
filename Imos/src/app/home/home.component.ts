@@ -8,11 +8,7 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-
-  backgroundUrl = "./../../assets/Untitled Diagram.jpg"
   constructor(private route: Router) { }
-
-
 
   employee() {
     this.route.navigateByUrl("/employee");

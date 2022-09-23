@@ -1,4 +1,4 @@
-import { ConstructionSite, project, ServiceService } from './../services/service.service';
+import { constructionSite, project, ServiceService } from './../services/service.service';
 import { map } from 'rxjs/operators';
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
 import {  request } from './../services/service.service';
@@ -12,8 +12,6 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component';
 
-
-import {ConstructionSiteComponent} from './construction-site/construction-site.component';
 
 import {
   ChangeDetectionStrategy,
@@ -153,7 +151,7 @@ export class ProjectComponent implements OnInit {
 
 
 
-  SiteList: ConstructionSite[] = [];
+  SiteList: constructionSite[] = [];
   requestList: request[] = [];
 
   // API Test
@@ -313,21 +311,6 @@ export class ProjectComponent implements OnInit {
   }
 
 
-  openConstructionSite(): void {
-    const dialogRef = this.dialog.open(ConstructionSiteComponent, {
-
-      width: '80%',
-      height:'90%'
-    }
-    );
-
-    dialogRef.afterClosed().subscribe(result => {
-
-      this.GetAllProjects();
-
-    });
-  }
-
   GetAllProjects() {
     this.service.getProject().subscribe(x => {
       this.info = x;
@@ -417,7 +400,7 @@ openUrgencyDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
-
+  
   });
 }
 

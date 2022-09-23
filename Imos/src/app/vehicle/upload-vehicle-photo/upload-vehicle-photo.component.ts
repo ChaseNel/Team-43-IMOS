@@ -1,4 +1,3 @@
-
 import { Vehicle } from './../vehicle.component';
 import { UploadFinishedEventArgs } from './../../services/service.service';
 
@@ -135,7 +134,7 @@ onFileChange(event:any) {
 
     if (!file.type.match(pattern)) {
       this._snackBar.open("Invalid Format!. Only Images can be uploaded", 'OK', {
-        duration: 7000,
+        duration: 5000,
         verticalPosition: 'bottom',
       });
       return;
@@ -147,9 +146,8 @@ onFileChange(event:any) {
       reader.onload = () => {
 
         this.imageSrc = reader.result as string;
-       // this.myform.controls['fileSource'].setValue(reader.result as string)
-
-
+       // this.myform.controls['fileSource'].setValue(reader.result as string) 
+        
 
 
         this.uploadform.patchValue({
@@ -181,7 +179,8 @@ UploadVehiclePhoto() {
 
   }
 
-// console.log((finalform.imageUrl)?.toString())
+
+ console.log(finalform.imageUrl)
 
 
 

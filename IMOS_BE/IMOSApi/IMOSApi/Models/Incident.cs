@@ -9,14 +9,12 @@ namespace IMOSApi.Models
     {
         public Incident()
         {
-           // Projects = new HashSet<Project>();
+            Userincidents = new HashSet<Userincident>();
         }
 
         public int IncidentId { get; set; }
         public string Description { get; set; }
 
-        public int ProjectId { get; set; }
-
-        public virtual Project Projects { get; set; }
+        public virtual ICollection<Userincident> Userincidents { get; set; }
     }
 }

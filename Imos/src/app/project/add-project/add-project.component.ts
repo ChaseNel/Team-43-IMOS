@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ConstructionSite, request, ServiceService } from 'src/app/services/service.service';
+import { constructionSite, request, ServiceService } from 'src/app/services/service.service';
 
 @Component({
   selector: 'app-add-project',
@@ -10,7 +10,7 @@ import { ConstructionSite, request, ServiceService } from 'src/app/services/serv
 })
 export class AddProjectComponent implements OnInit {
 
-  SiteList: ConstructionSite[] = [];
+  SiteList: constructionSite[] = [];
   projectfrm: FormGroup;
   alert: boolean = false;
   requestList: request[] = [];
@@ -42,8 +42,8 @@ export class AddProjectComponent implements OnInit {
        // add validation and WarehouseTypes "are you sure to add supplier notification"
        })
     }
-
-
+   
+ 
   }
 
   closeAlert() {
@@ -57,7 +57,7 @@ export class AddProjectComponent implements OnInit {
   back(){
     this.route.navigateByUrl("project")
   }
-
+  
   public hasError = (controlName: string, errorName: string) => {
     return this.projectfrm.controls[controlName].hasError(errorName);
   }

@@ -97,6 +97,9 @@ namespace IMOSApi.Controllers.UserFolder
                 return BadRequest(new { message });
             }
 
+            var usersIncident =_context.Userincidents.Where(item => item.UserId == id);
+            _context.Userincidents.RemoveRange(usersIncident);
+            await _context.SaveChangesAsync();
 
             var usersStockTake= _context.Stocktakes.Where(item => item.UserId == id);
             _context.Stocktakes.RemoveRange(usersStockTake);
@@ -106,6 +109,10 @@ namespace IMOSApi.Controllers.UserFolder
             _context.Equipmentchecks.RemoveRange(usersEquipmentChecks);
             await _context.SaveChangesAsync();
 
+
+            var usersTasks= _context.Tasks.Where(item => item.UserId == id);
+            _context.Tasks.RemoveRange(usersTasks);
+            await _context.SaveChangesAsync();
 
             _context.Users.Remove(recordInDb);
             await _context.SaveChangesAsync();

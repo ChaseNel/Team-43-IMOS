@@ -1,134 +1,60 @@
 ﻿using IMOSApi.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using IMOSApi.Dtos.Client;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Dynamic;
-using IMOSApi.Dtos.ConstructionSite;
 
 namespace IMOSApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class ConstructionsiteController : ControllerBase
-
-    {
-        private readonly IMOSContext _dbContext;
-
-        public ConstructionsiteController(IMOSContext context)
-        {
-            _dbContext = context;
-        }
+    {  /*
+    
+        private readonly IMOSContext _context;
 
 
-        [HttpGet("GetConstructionsites")]
-        public IEnumerable<Constructionsite> Retrieve()
+        [HttpGet("GetConstructionsite/{id}")]
+        public IEnumerable<Constructionsite> Get(int id)
         {
             using (var context = new IMOSContext())
             {
-                return context.Constructionsites.ToList();
+                IEnumerable<Constructionsite> tmp = context.Constructionsites.Where(emp => emp.ConstructionsiteId == id).ToList();
+                return tmp;
             }
         }
-        [HttpGet("GetConstructionsite/{id}")]
-        public ActionResult<GetConstructionSiteDto> GetConstructionSite(int id)
+        [HttpPost("CreateConstructionsite")]
+        public IActionResult Create([FromBody] Constructionsite Constructionsite)
         {
-            var recordiInDb = _dbContext.Constructionsites
-                .Where(item => item.ConstructionsiteId == id)
-                .Select(item => new GetConstructionSiteDto()
-                {
-                    Address = item.Address,
-
-                }).FirstOrDefault();
-
-            if (recordiInDb == null)
+            using (var context = new IMOSContext())
             {
-                return NotFound();
-            }
-
-            return recordiInDb;
-        }
-
-
-
-
-        [HttpPost("AddConstructionsite")]
-        public IActionResult AddConstructionsite([FromBody] AddOrUpdateConstructionSite model)
-        {
-
-            var message = "";
-            if (ModelState.IsValid)
-            {
-                var recordInDb = _dbContext.Constructionsites
-                    .FirstOrDefault(item => item.Address.ToLower() == model.Address.ToLower());
-
-                if (recordInDb != null)
-                {
-                    message = "Address already exist";
-                    return BadRequest(new { message });
-                }
-
-
-                var newConstructionSite = new Constructionsite()
-                {
-                    Address = model.Address
-                };
-
-                _dbContext.Constructionsites.Add(newConstructionSite);
-                _dbContext.SaveChanges();
+                context.Constructionsites.Add(Constructionsite);
+                context.SaveChanges();
                 return Ok();
-
             }
-
-            message = "Something went wrong on your side.";
-            return BadRequest(new { message });
-
-
         }
 
         [HttpPut("UpdateConstructionsite/{Id}")]
-        public IActionResult AddConstructionsite([FromBody] AddOrUpdateConstructionSite model, int Id)
+        public void Update([FromBody] Constructionsite Constructionsite, [FromRoute] int Id)
         {
-            if (ModelState.IsValid)
+            using (var context = new IMOSContext())
             {
-
-                var recordInDb = _dbContext.Constructionsites.FirstOrDefault(item => item.ConstructionsiteId == Id);
-                if (recordInDb == null)
-                {
-                    return NotFound();
-                }
-
-                recordInDb.Address = model.Address;
-                _dbContext.SaveChanges();
-                return Ok();
-
+                var clie = context.Constructionsites.Where(clie => clie.ConstructionsiteId == Id).ToList().FirstOrDefault();
+                //emp.
+                context.SaveChanges();
             }
-
-            var message = "Something went wrong on your side.";
-            return BadRequest(new { message });
-
-
         }
-
-
-
         [HttpDelete("DeleteConstructionsite/{Id}")]
-        public async Task<ActionResult<Constructionsite>> DeleteConstructionsite(int Id)
+        public void Delete(int id)
         {
-            var recordInDb = await _dbContext.Constructionsites.FindAsync(Id);
-            if (recordInDb == null)
+            using (var context = new IMOSContext())
             {
-                return NotFound();
+                var clie = context.Constructionsites.Where(clie => clie.ConstructionsiteId == id).ToList().FirstOrDefault(); ;
+                context.Constructionsites.Remove(clie);
+                context.SaveChanges();
             }
-
-            _dbContext.Constructionsites.Remove(recordInDb);
-            await _dbContext.SaveChangesAsync();
-            return Ok();
-        }
+        }*/
     }
 }

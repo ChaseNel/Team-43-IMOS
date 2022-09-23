@@ -55,7 +55,7 @@ namespace IMOSApi.Models
         public virtual DbSet<User> Users { get; set; }
 
         public virtual DbSet<UserVehicle> UserVehicle { get;set;}
-    
+        public virtual DbSet<Userincident> Userincidents { get; set; }
         public virtual DbSet<Userrole> Userroles { get; set; }
         public virtual DbSet<Vehicle> Vehicles { get; set; }
         public virtual DbSet<Vehicletype> Vehicletypes { get; set; }
@@ -267,25 +267,14 @@ namespace IMOSApi.Models
             modelBuilder.Entity<Incident>(entity =>
             {
                 entity.ToTable("INCIDENT");
-                  entity.HasIndex(e => e.ProjectId, "IPROJECT_INCIDENT");
 
                 entity.Property(e => e.IncidentId).HasColumnName("INCIDENT_ID");
-
-                entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DESCRIPTION");
-
-                entity.HasOne(d => d.Projects)
-               .WithMany(p => p.Incidents)
-               .HasForeignKey(d => d.ProjectId)
-               .OnDelete(DeleteBehavior.ClientSetNull)
-               .HasConstraintName("FK_INCIDENT_PROJECT");
             });
-
-
 
             modelBuilder.Entity<Invoice>(entity =>
             {
@@ -831,9 +820,9 @@ namespace IMOSApi.Models
             {
                 entity.ToTable("TASK");
 
-                entity.HasIndex(e => e.ProjectId, "IXProject_TASK");
+                entity.HasIndex(e => e.UserId, "CREATED_FK");
 
-                entity.HasIndex(e => e.TaskTypeId, "_______________________HAS_FK");
+                entity.HasIndex(e => e.Tasktype, "_______________________HAS_FK");
 
                 entity.Property(e => e.TaskId).HasColumnName("TASK_ID");
 
@@ -847,24 +836,21 @@ namespace IMOSApi.Models
                     .HasColumnType("datetime")
                     .HasColumnName("STARTDATE");
 
-                entity.Property(e => e.Description).HasColumnName("DESCRIPTION");
+                entity.Property(e => e.Tasktype).HasColumnName("TASKTYPE");
 
-
-                entity.Property(e => e.TaskTypeId).HasColumnName("TASKTYPE_ID");
-
-                entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
 
                 entity.HasOne(d => d.TasktypeNavigation)
                     .WithMany(p => p.Tasks)
-                    .HasForeignKey(d => d.TaskTypeId)
+                    .HasForeignKey(d => d.Tasktype)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TASK___________TASKTYPE");
 
-                entity.HasOne(d => d.Project)
+                entity.HasOne(d => d.User)
                     .WithMany(p => p.Tasks)
-                    .HasForeignKey(d => d.ProjectId)
+                    .HasForeignKey(d => d.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TASK_PROJECT");
+                    .HasConstraintName("FK_TASK_CREATED_USER");
             });
 
             modelBuilder.Entity<Taskmaterial>(entity =>
@@ -896,11 +882,11 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Tasktype>(entity =>
             {
-                entity.HasKey(e => e.TasktypeId);
+                entity.HasKey(e => e.Tasktype1);
 
                 entity.ToTable("TASKTYPE");
 
-                entity.Property(e => e.TasktypeId).HasColumnName("TASKTYPE_ID");
+                entity.Property(e => e.Tasktype1).HasColumnName("TASKTYPE");
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)
@@ -1002,7 +988,32 @@ namespace IMOSApi.Models
 
 
 
- 
+            modelBuilder.Entity<Userincident>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.IncidentId });
+
+                entity.ToTable("USERINCIDENT");
+
+                entity.HasIndex(e => e.UserId, "___HAS_FK");
+
+                entity.HasIndex(e => e.IncidentId, "__________________________HAS_FK");
+
+                entity.Property(e => e.UserId).HasColumnName("USER_ID");
+
+                entity.Property(e => e.IncidentId).HasColumnName("INCIDENT_ID");
+
+                entity.HasOne(d => d.Incident)
+                    .WithMany(p => p.Userincidents)
+                    .HasForeignKey(d => d.IncidentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERINCI___________INCIDENT");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.Userincidents)
+                    .HasForeignKey(d => d.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_USERINCI____HAS_USER");
+            });
 
             modelBuilder.Entity<Userrole>(entity =>
             {

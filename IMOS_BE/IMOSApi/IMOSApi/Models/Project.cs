@@ -17,8 +17,6 @@ namespace IMOSApi.Models
             Projectmaterials = new HashSet<Projectmaterial>();
             SafetyFiles = new HashSet<SafetyFile>();
             Safetyfilechecklists = new HashSet<Safetyfilechecklist>();
-            Tasks = new HashSet<Task>();
-            Incidents = new HashSet<Incident>();
         }
 
         public int ProjectId { get; set; }
@@ -28,8 +26,6 @@ namespace IMOSApi.Models
         public string Name { get; set; }
 
         public virtual Constructionsite Constructionsite { get; set; }
-        public virtual ICollection<Task> Tasks { get; set; }
-        public virtual ICollection<Incident> Incidents { get; set; }
         public virtual Request Initialrequest { get; set; }
         public virtual ICollection<Delivery> Deliveries { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }

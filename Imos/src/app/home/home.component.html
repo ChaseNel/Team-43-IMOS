@@ -1,11 +1,4 @@
 <app-header></app-header>
-
-
-
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
 <mat-grid-list cols="4" rowHeight="1:1" [gutterSize]="'10px'">
 
     <mat-grid-tile>
@@ -17,14 +10,11 @@
             <img mat-card-image src="./../../assets/images/employees.jpg">
 
             <mat-card-actions>
-                <button (click)="employee()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block" >Employees
-                  <span class="material-symbols-outlined">
-                    badge
-                    </span>
-                </button>
+                <button (click)="employee()" mat-button>Employees</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
+
     <mat-grid-tile>
         <mat-card class="example-card">
             <mat-card-header>
@@ -34,11 +24,7 @@
             <img mat-card-image src="./../../assets/images/users.jpg">
 
             <mat-card-actions>
-                <button (click)="user()" mat-button type="button" class="btn btn-secondary  btn-sm btn-block">Users
-                  <span class="material-symbols-outlined">
-                    account_circle
-                    </span>
-                </button>
+                <button (click)="user()" mat-button>Users</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -52,15 +38,11 @@
             <img mat-card-image src="./../../assets/images/material.jpg">
 
             <mat-card-actions>
-                <button (click)="material()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Materials
-                  <span class="material-symbols-outlined">
-                    format_paint
-                    </span>
-                </button>
+                <button (click)="material()" mat-button>Materials</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
-
+    
     <mat-grid-tile>
         <mat-card class="example-card">
             <mat-card-header>
@@ -70,11 +52,7 @@
             <img mat-card-image src="./../../assets/images/supplier.jpg">
 
             <mat-card-actions>
-                <button (click)="supplier()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Suppliers
-                  <span class="material-symbols-outlined">
-                    diversity_2
-                    </span>
-                </button>
+                <button (click)="supplier()" mat-button>Suppliers</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -86,11 +64,7 @@
             <img mat-card-image src="./../../assets/images/Vehicles.jpg">
 
             <mat-card-actions>
-                <button (click)="vehicle()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Vehicles
-                  <span class="material-symbols-outlined">
-                    local_shipping
-                    </span>
-                </button>
+                <button (click)="vehicle()" mat-button>Vehicles</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -102,11 +76,7 @@
             <img mat-card-image src="./../../assets/images/incident.jpg">
 
             <mat-card-actions>
-                <button (click)="incident()" mat-button type="button" class="btn btn-secondary  btn-sm btn-block">Incidents
-                  <span class="material-symbols-outlined">
-                    emergency_heat
-                    </span>
-                </button>
+                <button (click)="incident()" mat-button>Incidents</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -118,11 +88,7 @@
             <img mat-card-image src="./../../assets/images/projects.jpg">
 
             <mat-card-actions>
-                <button (click)="projects()" mat-button type="button" class="btn btn-secondary  btn-sm btn-block">Projects
-                  <span class="material-symbols-outlined">
-                    work
-                    </span>
-                </button>
+                <button (click)="projects()" mat-button>Projects</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -134,11 +100,7 @@
             <img mat-card-image src="./../../assets/images/clients.jpg">
 
             <mat-card-actions>
-                <button (click)="clients()" mat-button type="button" class="btn btn-secondary  btn-sm btn-block">Clients
-                  <span class="material-symbols-outlined">
-                    group
-                    </span>
-                </button>
+                <button (click)="clients()" mat-button>Clients</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -150,11 +112,7 @@
             <img mat-card-image src="./../../assets/images/warehouse.jpg">
 
             <mat-card-actions>
-                <button (click)="warehouses()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Warehouse
-                  <span class="material-symbols-outlined">
-                    warehouse
-                    </span>
-                </button>
+                <button (click)="warehouses()" mat-button>Warehouse</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -166,11 +124,7 @@
             <img mat-card-image src="./../../assets/images/equipment.jpg">
 
             <mat-card-actions>
-                <button (click)="equipment()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Equipment
-                  <span class="material-symbols-outlined">
-                    handyman
-                    </span>
-                </button>
+                <button (click)="equipment()" mat-button>Equipment</button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
@@ -183,11 +137,7 @@
           <img mat-card-image src="./../../assets/images/equipment.jpg">
 
           <mat-card-actions>
-              <button (click)="reports()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Reports
-                <span class="material-symbols-outlined">
-                  summarize
-                  </span>
-              </button>
+              <button (click)="reports()" mat-button>Reports</button>
           </mat-card-actions>
       </mat-card>
   </mat-grid-tile>
@@ -198,48 +148,6 @@
                 <mat-card-title>Safty Checklist</mat-card-title>
             </mat-card-header>
             <img mat-card-image src="./../../assets/images/safty.jpg">
-
-            <mat-card-actions>
-                <button (click)="saftyCheclist()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Safty Checklist
-                  <span class="material-symbols-outlined">
-                    list_alt
-                    </span>
-                </button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>Reports</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image src="./../../assets/images/report.png">
-            <mat-card-actions>
-                 <button (click)="Reports()" mat-button>Reporting</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
-    <mat-grid-tile>
-    <mat-card>
-            <img mat-card-image src="./../../assets/images/reports.jpg">
-
-          <mat-card-actions>
-              <button (click)="reports()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Reports
-                <span class="material-symbols-outlined">
-                  summarize
-                  </span>
-              </button>
-          </mat-card-actions>
-      </mat-card>
-  </mat-grid-tile>
-
-
-    <mat-grid-tile>
-      <mat-card class="example-card">
-          <mat-card-header>
-              <mat-card-title>Safty Checklist</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src="./../../assets/images/safty.jpg">
 
             <mat-card-actions>
                 <button (click)="saftyCheclist()" mat-button>Safty Checklist</button>
@@ -276,11 +184,7 @@
           <img mat-card-image src="./../../assets/images/safty.jpg">
 
           <mat-card-actions>
-              <button (click)="saftyCheclist()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Safty Checklist
-                  <span class="material-symbols-outlined">
-                    list_alt
-                    </span>
-                </button>
+              <button (click)="saftyCheclist()" mat-button>Safty Checklist</button>
           </mat-card-actions>
       </mat-card>
   </mat-grid-tile>
