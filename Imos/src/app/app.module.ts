@@ -119,7 +119,11 @@ import { ApprovedRequestReportViewComponent } from './report/approved-request-re
 import { DemoUtilsModule } from '../app/demo-utils/module';
 import { NgChartsModule } from 'ng2-charts';
 
+import jwt_decode from "jwt-decode";
 
+import { ConstructionSiteComponent } from './project/construction-site/construction-site.component';
+import { AddConstructionSiteComponent } from './project/construction-site/add-construction-site/add-construction-site.component';
+import { UpdateConstructionSiteComponent } from './project/construction-site/update-construction-site/update-construction-site.component';
 
 const materialModules = [
   MatCardModule,
@@ -170,6 +174,8 @@ import { UpdateMaterialRequestStatusComponent } from './project/material-request
 import { ProjectEquipmentComponent } from './equipment/project-equipment/project-equipment.component';
 import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-project-equipment/add-project-equipment.component';
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
+import { ViewProjectComponent } from './project/view-project/view-project.component';
+import { ProjectIncidentComponent } from './project/project-incident/project-incident.component';
 
 
 @NgModule({
@@ -282,7 +288,12 @@ import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/u
     UpdateMaterialRequestStatusComponent,
     ProjectEquipmentComponent,
     AddProjectEquipmentComponent,
-    UpdateProjectEquipmentComponent
+    UpdateProjectEquipmentComponent,
+    ConstructionSiteComponent,
+    AddConstructionSiteComponent,
+    UpdateConstructionSiteComponent,
+    ViewProjectComponent,
+    ProjectIncidentComponent
   ],
 
   imports: [
@@ -320,7 +331,8 @@ import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/u
     }),
     DemoUtilsModule,
     MatCheckboxModule,
-    MatExpansionModule
+    MatExpansionModule,
+
 
   ],
   providers: [

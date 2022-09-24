@@ -28,25 +28,6 @@ namespace IMOSApi.Controllers
                 return context.Tasktypes.ToList();
             }
         }
-        [HttpGet("GetTasktype/{id}")]
-        public IEnumerable<Tasktype> Get(int id)
-        {
-            using (var context = new IMOSContext())
-            {
-                IEnumerable<Tasktype> tmp = context.Tasktypes.Where(emp => emp.Tasktype1 == id).ToList();
-                return tmp;
-            }
-        }
-        [HttpPost("CreateTasktype")]
-        public IActionResult Create([FromBody] Tasktype Tasktype)
-        {
-            using (var context = new IMOSContext())
-            {
-                context.Tasktypes.Add(Tasktype);
-                context.SaveChanges();
-                return Ok();
-            }
-        }
 
         [HttpPut("UpdateTasktype/{Id}")]
         public IActionResult Update(AddOrUpdateGenericDto model, int id)

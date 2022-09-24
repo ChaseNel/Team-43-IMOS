@@ -9,11 +9,11 @@
             <mat-form-field appearance="outline">
                 <mat-label> Construction Site</mat-label>
                 <mat-select formControlName="Site">
-                    <mat-option *ngFor="let type of ConstructionTypes" [value]="type.constructionsiteId">
+                    <mat-option *ngFor="let type of ConstructionTypes" [value]="type.id">
                         {{type.address}}
                     </mat-option>
                 </mat-select>
-                
+
                 <mat-error *ngIf="formdet['Site'].touched && formdet['Site'].invalid">
                     <mat-error *ngIf="formdet['Site'].errors?.['required'] && formdet['Site'].dirty">Construction Site is required</mat-error>
                 </mat-error>
