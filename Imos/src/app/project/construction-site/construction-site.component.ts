@@ -96,7 +96,7 @@ applyFilter(event: Event) {
       }
 
       deleteConstructionSite(id: number){
-        if (confirm('Are you sure you want to delete this Urgency level')) {
+        if (confirm('Are you sure you want to delete this Construction Site')) {
           this.service.deleteConstructionSite(id)
           .subscribe( res => {
            // this.GetUrgencyLvl();

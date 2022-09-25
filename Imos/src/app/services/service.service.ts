@@ -267,22 +267,29 @@ export interface vehicletype {
 
 //Incident Interface
 export interface incident {
-  incidentID: number,
+  incidentId: number,
   description: string,
   projectId : number
 }
 
 
 export interface Task{
+  taskId: number
   startdate: string;
-  enddate: string;
-  tasktypeDescription: string,
   description:string;
+  enddate: string;
+  statusName: string;
+  tasktypeDescription:string;
 }
 
 export interface TaskType{
   description: string;
-  TaskType: number;
+  tasktypeId: number;
+}
+
+export interface TaskStatus{
+  name: string;
+  taskStatusId: number;
 }
 
 //Project Interface
@@ -666,6 +673,52 @@ export class ServiceService {
   getMaterialRequestStatus(): Observable<MaterialRequestStatus[]> {
     return this.http.get<MaterialRequestStatus[]>(this.Root_URL + '/ProjectMaterialRequest/GetAllRequestsStatus')
   }
+//task endpoints
+  getTasksByProject(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.Root_URL + '/Task/GetAllTaskStatus')
+  }
+
+
+  getTaskStatus(): Observable<TaskStatus[]> {
+    return this.http.get<TaskStatus[]>(this.Root_URL + '/Task/GetAllTaskStatus')
+  }
+
+  updateTaskStatus(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Task/UpdateTaskStatus/'+ id, data);
+
+  }
+  addTaskStatus(val: any) {
+    return this.http.post(this.Root_URL + '/Task/AddTaskStatus', val)
+  }
+
+  deleteTaskStatus(id: number) {
+    return this.http.delete(this.Root_URL + '/Task/DeleteTaskStatus/' + id);
+  }
+
+
+  getAllTaskType(): Observable<TaskType[]> {
+    return this.http.get<TaskType[]>(this.Root_URL + '/Task/GetAllTaskTypes')
+  }
+
+  getAllTaskselect(): Observable<TaskType[]> {
+    return this.http.get<[TaskType]>(this.Root_URL + '/Task/GetAllTaskTypes')
+  }
+
+  updateTasktype(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Task/UpdateTaskType/'+ id, data);
+
+  }
+  addTaskTypefinal(val: any) {
+    return this.http.post(this.Root_URL + '/Task/AddTaskType', val)
+  }
+
+  deleteTaskTypefinal(id: number) {
+    return this.http.delete(this.Root_URL + '/Task/DeleteTaskType/' + id);
+  }
+
+
+
+
 
 
   addConstructionSite(val: any) {
@@ -1004,6 +1057,30 @@ updateclient(val: any,id: number){
   }
 
 
+
+
+
+
+  getTasksByProjectfinal(id: number):  Observable<Task[]> {
+    return this.http.get<Task[]>(this.Root_URL + '/Task/GetTaskBYProject/' + id)
+  }
+
+  addTaskproject(id:number, val:any) {
+    return this.http.post(this.Root_URL + '/Task/AddTask/' + id, val)
+  }
+  updateTaskproject(id: number, val:any){
+    return this.http.put(this.Root_URL + '/Task/UpdateTask/' + id, val)
+  }
+  deleteTaskproject(id: number) {
+    return this.http.delete(this.Root_URL + '/Task/DeleteTask/' + id);
+  }
+
+
+
+
+
+
+
   getMaterialRequestByProject(Id: number):  Observable<ProjectMaterialRequest[]> {
     return this.http.get<ProjectMaterialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/GetRequestBYProject/' + Id)
   }
@@ -1242,9 +1319,7 @@ updateItem(val: any,id: number){
 
 
   //Delete
-  deleteTaskType(id: number) {
-    return this.http.delete(this.Root_URL + "/tasktype/deletetasktype/" + id);
-  }
+
 
 
 
@@ -1306,15 +1381,30 @@ updateItem(val: any,id: number){
   getIncidentById(id: number) {
     return this.http.get(this.Root_URL + '/incident/GetIncident/' + id);
   }
+
   //get
   getIncident(): Observable<incident[]> {
-    return this.http.get<incident[]>(this.Root_URL + "/incident/getincidents")
+    return this.http.get<incident[]>(this.Root_URL + "/Incident/GetAllIncidents")
   }
+
+
+  getProjectIncident(id: number):  Observable<incident[]> {
+    return this.http.get<incident[]>(this.Root_URL + '/Incident/GetIncidentBYProject/' + id)
+  }
+
+
   //Add
-  addIncident(val: any) {
-    return this.http.post(this.Root_URL + "/incident/createincident", val)
-  }
+
   //Update
+
+  //add client's request
+  addIncident(val: any, id:number) {
+    return this.http.post(this.Root_URL + '/Incident/AddIncident/' + id, val)
+  }
+
+  updateIncident(val: any,id: number){
+    return this.http.put(this.Root_URL + '/Incident/UpdateIncident/' + id, val)
+  }
   editIncident(id: any, val: any): Observable<any> {
     console.log(id, val)
     const endPointUrl = this.Root_URL + "/incident/updateincident/" + id;
@@ -1327,6 +1417,13 @@ updateItem(val: any,id: number){
   deleteIncident(id: number) {
     return this.http.delete(this.Root_URL + '/Incident/DeleteIncident/' + id);
   }
+
+
+
+
+
+
+
 
 
   //Delivery note

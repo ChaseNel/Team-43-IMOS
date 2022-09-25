@@ -14,7 +14,6 @@ table {
   'opsz' 48;
 
   font-size: 30px;
-  position: fixed;
   left: 95%;
   bottom: 70%;
 }
@@ -34,6 +33,10 @@ pre {
 }
 .calendar{
   width: 56%;
+}
+
+.Incidentbtn{
+background: green;
 }
 
 

@@ -28,7 +28,7 @@ export class AddIncidentComponent implements OnInit {
 
     if (this.incidentFrm.valid) {
     var val = { Description: this.Description }
-    this.service.addIncident(val).subscribe(res => {
+    this.service.addIncident(val,1).subscribe(res => {
       if (confirm('Are you sure you want to Add this Incident?')) {
         this._snackbar.open("Success, you have Add a Incident!", 'OK', {
           duration: 3000,
@@ -45,16 +45,16 @@ export class AddIncidentComponent implements OnInit {
 
     this.Description = '';
     console.log(val);
-   
+
     }
   }
 
-  
+
 
   back(){
     this.route.navigateByUrl("incident")
   }
-  
+
   public hasError = (controlName: string, errorName: string) => {
     return this.incidentFrm.controls[controlName].hasError(errorName);
   }

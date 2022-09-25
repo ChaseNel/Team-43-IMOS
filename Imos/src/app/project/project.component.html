@@ -16,11 +16,17 @@
 
 <button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openConstructionSite()"> Manage Construction Sites</button>
 &nbsp;
+<button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openTaskStatus()"> Manage Task Status</button>
+&nbsp;
+<button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openTaskType()"> Manage Task Type</button>
+&nbsp;
 <br>
 <!-- Material Type
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br> -->
+<br><br><br>
+
 
 <mat-card>
 
@@ -72,13 +78,15 @@
 </mat-card>
 
 
-<br><br><br><br><br><br>
+<br><br><br>
 
+<mat-card>
+  <button (click)="addProject()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
 
 <!-- Search Field -->
 <mat-form-field appearance="standard">
-    <mat-label>Search Table</mat-label>
-    <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
+  <mat-label>Search Table</mat-label>
+  <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
 
 <button (click)="addProject()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
@@ -86,49 +94,58 @@
 <!-- add [dataSource]="dataSource" when API is connected -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Equipment Name Column -->
-    <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-    </ng-container>
+  <!-- Equipment Name Column -->
+  <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
 
-    <!-- Description Column -->
-    <ng-container matColumnDef="constructionSite">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction Site  </th>
-        <td mat-cell *matCellDef="let element"> {{element.address}} </td>
-    </ng-container>
+  <!-- Description Column -->
+  <ng-container matColumnDef="constructionSite">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction Site  </th>
+      <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+  </ng-container>
 
-    <ng-container matColumnDef="request">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Client's  Request </th>
-        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
+  <ng-container matColumnDef="request">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client's  Request </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+  </ng-container>
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
+  <!-- Actions -->
+  <ng-container matColumnDef="actions">
 
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-flat-button color="primary"  (click)=" openDialogMatRequest(element.id)" > Manage Material Requests</button>
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element">
+        &nbsp;
+        <button mat-flat-button color="success">View Project </button>
+        <button (click)="openTaskdialog(element.id)" mat-flat-button color="accent">Tasks</button>
+        &nbsp;
+        <button mat-flat-button color="primary"  (click)=" openDialogMatRequest(element.id)" > Manage Material Requests</button>
+        &nbsp;
+        <button mat-flat-button color="warn"  id="Incidentbtn" (click)=" openIncidents(element.id)" > Incidents  </button>
+        &nbsp;
+          <button (click)="UpdateProject(element.id)" mat-flat-button color="accent">Edit</button>
           &nbsp;
-            <button (click)="UpdateProject(element.id)" mat-flat-button color="accent">Edit</button>
-            &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteProject(element.id)">Delete</button>
-        </td>
-    </ng-container>
+          <button mat-flat-button color="warn" (click)="deleteProject(element.id)">Delete</button>
+      </td>
+  </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-    <!-- Search: Not Found -->
-    <tr *matNoDataRow>
-        <td class="mat-cell" colspan="4">
-            Search was not found for: {{input.value}}
-        </td>
-    </tr>
+  <!-- Search: Not Found -->
+  <tr *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+          Search was not found for: {{input.value}}
+      </td>
+  </tr>
 
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Projects"></mat-paginator>
-<button (click)="addProject()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+
+
+</mat-card>
+

@@ -11,9 +11,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ProjectMaterialRequestComponent} from './project-material-request/project-material-request.component';
-
+import {ProjectIncidentComponent} from './project-incident/project-incident.component';
 
 import {ConstructionSiteComponent} from './construction-site/construction-site.component';
+import {TaskStatusComponent} from './project-task/task-status/task-status.component';
+
 
 import {
   ChangeDetectionStrategy,
@@ -47,7 +49,8 @@ import { HttpParams } from '@angular/common/http';
 import { colors } from '../demo-utils/colors';
 import { UrgencyLevelComponent } from './project-material-request/urgency-level/urgency-level.component';
 import { MaterialRequestStatusComponent } from './material-request-status/material-request-status.component';
-
+import { TaskTypeComponent} from './project-task/task-type/task-type.component';
+import { ProjectTaskComponent } from './project-task/project-task.component';
 
 
 
@@ -327,6 +330,73 @@ export class ProjectComponent implements OnInit {
 
     });
   }
+
+  openTaskStatus(): void {
+    const dialogRef = this.dialog.open(TaskStatusComponent, {
+
+      width: '40%',
+      height:'90%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.GetAllProjects();
+
+    });
+  }
+
+  openTaskType(): void {
+    const dialogRef = this.dialog.open(TaskTypeComponent, {
+
+      width: '80%',
+      height:'90%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.GetAllProjects();
+
+    });
+  }
+
+
+
+
+  openIncidents(id: number): void {
+    const dialogRef = this.dialog.open(ProjectIncidentComponent, {
+      data:{id},
+      width: '50%',
+      height:'90%',
+
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.GetAllProjects();
+
+    });
+  }
+
+  openTaskdialog(id: number): void {
+    const dialogRef = this.dialog.open(ProjectTaskComponent, {
+      data:{id},
+      width: '50%',
+      height:'90%',
+
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.GetAllProjects();
+
+    });
+  }
+
+
 
   GetAllProjects() {
     this.service.getProject().subscribe(x => {

@@ -1,18 +1,13 @@
 ﻿
+using IMOSApi.Dtos.Task;
 using IMOSApi.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-using Microsoft.AspNetCore.Http;
-using IMOSApi.Dtos.Client;
-using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.Dynamic;
-using IMOSApi.Dtos.Task;
 using System.Threading.Tasks;
+using Task = IMOSApi.Models.Task;
 
 namespace IMOSApi.Controllers
 {
@@ -46,18 +41,55 @@ namespace IMOSApi.Controllers
 
 
 
+      /*  [HttpGet("GetTaskBYProject/{id}")]
+        public List<Task> GetTaskBYProject(GetTaskDto model, int id)
+        {
+
+            var recordInDb = _dbContext.Tasks
+                .Include(item => item.Taskcompletionstatus)
+                .Include(item => item.TasktypeNavigation)
+                .Where(item => item.ProjectId == id)
+                .Select(item => new GetTaskDto()
+                {
+                    TasktypeDescription = item.TasktypeNavigation.Description,
+                    StatusName = item.Taskcompletionstatus.name,
+                    Startdate = item.Startdate.ToString("f"),
+                    Enddate = item.Enddate.ToString("f"),
+                    Description = item.Description,
+                    Qnapassed = item.Qnapassed,
+                }
+                ).OrderBy(item => item.StatusName).ToList();
+
+
+
+            return recordInDb
+
+
+
+        }*/
+
+
         [HttpGet("GetTaskBYProject/{id}")]
-        public List<Models.Task> GetTaskBYProject(int id)
+        public ActionResult<IEnumerable<GetTaskDto>> GetTaskDto(int id)
         {
             var recordInDb = _dbContext.Tasks
-                .Where(item => item.ProjectId == id).ToList();
-          
+               .Include(item => item.Taskcompletionstatus)
+               .Include(item => item.TasktypeNavigation)
+               .Where(item => item.ProjectId == id)
+               .Select(item => new GetTaskDto()
+               {
+                   TaskId = item.TaskId,
+                   TasktypeDescription = item.TasktypeNavigation.Description,
+                   StatusName = item.Taskcompletionstatus.name,
+                   Startdate = item.Startdate.ToString("f"),
+                   Enddate = item.Enddate.ToString("f"),
+                   Description = item.Description,
+                   Qnapassed = item.Qnapassed,
+               }
+               ).OrderBy(item => item.StatusName).ToList();
 
             return recordInDb;
-
         }
-
-
 
 
         [HttpPost("AddTask/{Id}")]
@@ -83,7 +115,8 @@ namespace IMOSApi.Controllers
                         Enddate = model.Enddate,
                         TaskTypeId = model.TasktypeId,
                         ProjectId = Id,
-                        Qnapassed = 1
+                        Qnapassed = 1,
+                        TaskStatusId = 2
                     };
 
 
@@ -99,7 +132,7 @@ namespace IMOSApi.Controllers
                 _dbContext.SaveChanges();
                 return Ok();
             }
-            
+
 
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
@@ -110,7 +143,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpPut("UpdateTask/{Id}")]
-        public IActionResult UpdateTask(AddOrUpdateTaskDto model, int Id)
+        public IActionResult UpdateTask([FromBody] AddOrUpdateTaskDto model, int Id)
         {
             if (ModelState.IsValid)
             {
@@ -166,6 +199,8 @@ namespace IMOSApi.Controllers
                 .Select(item => new GetTaskTypeDto()
                 {
                     Description = item.Description,
+                    TasktypeId = item.TasktypeId,
+
                 }).ToList();
 
             return recordInDb;
@@ -173,7 +208,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpPost("AddTaskType")]
-        public IActionResult AddRequestStatus(AddOrUpdateTaskType model)
+        public IActionResult AddTaskType(AddOrUpdateTaskType model)
         {
             var message = "";
 
@@ -206,30 +241,30 @@ namespace IMOSApi.Controllers
 
         }
 
-            [HttpPut("UpdateTaskType/{Id}")]
-            public IActionResult UpdateTaskType(AddOrUpdateTaskType model, int Id)
+        [HttpPut("UpdateTaskType/{Id}")]
+        public IActionResult UpdateTaskType(AddOrUpdateTaskType model, int Id)
+        {
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+
+                var recordInDb = _dbContext.Tasktypes
+                    .FirstOrDefault(item => item.TasktypeId == Id);
+
+                if (recordInDb == null)
                 {
-
-                    var recordInDb = _dbContext.Tasktypes
-                        .FirstOrDefault(item => item.TasktypeId == Id);
-
-                    if (recordInDb == null)
-                    {
-                        return NotFound();
-                    }
-
-                    recordInDb.Description = model.Description;
-
-                    _dbContext.SaveChanges();
-                    return Ok();
-
+                    return NotFound();
                 }
-                var message = "Something went wrong on your side.";
-                return BadRequest(new { message });
+
+                recordInDb.Description = model.Description;
+
+                _dbContext.SaveChanges();
+                return Ok();
 
             }
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
+        }
 
 
 
@@ -251,6 +286,99 @@ namespace IMOSApi.Controllers
         }
 
 
+        [HttpGet("GetAllTaskStatus")]
+        public ActionResult<IEnumerable<GetTaskStatus>> GetAllTaskStatus()
+        {
+            var recordInDb = _dbContext.Taskcompletionstatus
+                .Select(item => new GetTaskStatus()
+                {
+                    TaskStatusId = item.TaskStatusId,
+                    Name = item.name,
+                }).ToList();
+
+            return recordInDb;
+        }
+
+
+        [HttpPost("AddTaskStatus")]
+        public IActionResult AddTaskStatus(AddOrUpdateTaskStatus model)
+        {
+            var message = "";
+
+            if (ModelState.IsValid)
+            {
+                var recordInDb = _dbContext.Taskcompletionstatus
+                    .FirstOrDefault(item => item.name.ToLower() == model.Name.ToLower());
+
+                if (recordInDb != null)
+                {
+                    message = "Record already exist";
+                    return BadRequest(new { message });
+                }
+
+                var NewRecord = new TaskCompletionStatus()
+                {
+                    name = model.Name,
+                };
+
+                _dbContext.Taskcompletionstatus.Add(NewRecord);
+                _dbContext.SaveChanges();
+                return Ok();
+
+
+            }
+
+            message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
+
+        }
+
+
+        [HttpPut("UpdateTaskStatus/{Id}")]
+        public IActionResult UpdateTaskStatus(AddOrUpdateTaskStatus model, int Id)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var recordInDb = _dbContext.Taskcompletionstatus
+                    .FirstOrDefault(item => item.TaskStatusId == Id);
+
+                if (recordInDb == null)
+                {
+                    return NotFound();
+                }
+
+                recordInDb.name = model.Name;
+
+                _dbContext.SaveChanges();
+                return Ok();
+
+            }
+            var message = "Something went wrong on your side.";
+            return BadRequest(new { message });
+
+        }
+
+
+        [HttpDelete("DeleteTaskStatus/{Id}")]
+        public async Task<ActionResult<TaskCompletionStatus>> DeleteTaskStatus(int Id)
+        {
+            var recordInDb = await _dbContext.Taskcompletionstatus.FindAsync(Id);
+
+            if (recordInDb == null)
+            {
+                return NotFound();
+            }
+
+            _dbContext.Taskcompletionstatus.Remove(recordInDb);
+            await _dbContext.SaveChangesAsync();
+
+            return Ok();
+
+        }
+
+
     }
-    } 
+}
 

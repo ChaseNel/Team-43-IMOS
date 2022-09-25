@@ -72,11 +72,11 @@ import { AddProjectComponent } from './project/add-project/add-project.component
 import { AddIncidentComponent } from './incident/add-incident/add-incident.component';
 import { UpdateIncidentComponent } from './incident/update-incident/update-incident.component';
 import { TaskComponent } from './task/task.component';
-import { AddTaskComponent } from './task/add-task/add-task.component';
-import { UpdateTaskComponent } from './task/update-task/update-task.component';
-import { TaskTypeComponent } from './task/task-type/task-type.component';
-import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
-import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
+//import { AddTaskComponent } from './task/add-task/add-task.component';
+//import { UpdateTaskComponent } from './task/update-task/update-task.component';
+//import { TaskTypeComponent } from './task/task-type/task-type.component';
+//import { AddTaskTypeComponent } from './task/task-type/add-task-type/add-task-type.component';
+//import { UpdateTaskTypeComponent } from './task/task-type/update-task-type/update-task-type.component';
 import { ProjectStaffComponent } from './project/project-staff/project-staff.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
@@ -176,6 +176,22 @@ import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
 import { ViewProjectComponent } from './project/view-project/view-project.component';
 import { ProjectIncidentComponent } from './project/project-incident/project-incident.component';
+import { AddProjectIncidentComponent } from './project/project-incident/add-project-incident/add-project-incident.component';
+import { UpdateProjectIncidentComponent } from './project/project-incident/update-project-incident/update-project-incident.component';
+import { ProjectTaskComponent } from './project/project-task/project-task.component';
+import { TaskStatusComponent } from './project/project-task/task-status/task-status.component';
+
+import {AddTaskComponent} from './project/project-task/add-task/add-task.component';
+import {UpdateTaskComponent} from './project/project-task/update-task/update-task.component';
+
+import {TaskTypeComponent} from './project/project-task/task-type/task-type.component';
+import { AddTaskStatusComponent } from './project/project-task/task-status/add-task-status/add-task-status.component';
+import { UpdateTaskStatusComponent } from './project/project-task/task-status/update-task-status/update-task-status.component';
+
+import {AddTaskTypeComponent} from './project/project-task/task-type/add-task-type/add-task-type.component';
+import {UpdateTaskTypeComponent} from './project/project-task/task-type/update-task-type/update-task-type.component';
+
+
 
 
 @NgModule({
@@ -293,7 +309,14 @@ import { ProjectIncidentComponent } from './project/project-incident/project-inc
     AddConstructionSiteComponent,
     UpdateConstructionSiteComponent,
     ViewProjectComponent,
-    ProjectIncidentComponent
+    ProjectIncidentComponent,
+    AddProjectIncidentComponent,
+    UpdateProjectIncidentComponent,
+    ProjectTaskComponent,
+    TaskStatusComponent,
+    AddTaskStatusComponent,
+    UpdateTaskStatusComponent,
+
   ],
 
   imports: [
@@ -342,4 +365,6 @@ import { ProjectIncidentComponent } from './project/project-incident/project-inc
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }
