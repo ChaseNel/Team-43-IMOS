@@ -6,16 +6,11 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
  <!-- Search Field -->
 
  <div class='demo-app-main'>
+
+  <br>
 <mat-card>
 
-</mat-card>
-</div>
-
-
-
-
-
-<br>
+  <button (click)="openDialog(this.data.id)  " mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
 
 
 
@@ -82,6 +77,16 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Clients"></mat-paginator>
 
-<button (click)="openDialog(this.data.id)  " mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+
+
+</mat-card>
+</div>
+
+
+
+
+
+<br>
+
 
 

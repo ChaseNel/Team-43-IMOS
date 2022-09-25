@@ -33,7 +33,9 @@ export class IncidentComponent implements OnInit {
   posts: any;
   //typelist: materialType[] = [];
 
-  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+  constructor(private route: Router,
+     private service: ServiceService,
+      private _snackBar: MatSnackBar) {
     this.GetAllIncidents();
   }
 

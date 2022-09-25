@@ -51,6 +51,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Task> Tasks { get; set; }
         public virtual DbSet<Taskmaterial> Taskmaterials { get; set; }
         public virtual DbSet<Tasktype> Tasktypes { get; set; }
+        public virtual DbSet<TaskCompletionStatus> Taskcompletionstatus { get; set; }
         public virtual DbSet<Urgencylevel> Urgencylevels { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -834,6 +835,7 @@ namespace IMOSApi.Models
                 entity.HasIndex(e => e.ProjectId, "IXProject_TASK");
 
                 entity.HasIndex(e => e.TaskTypeId, "_______________________HAS_FK");
+                entity.HasIndex(e => e.TaskStatusId);
 
                 entity.Property(e => e.TaskId).HasColumnName("TASK_ID");
 
@@ -851,6 +853,8 @@ namespace IMOSApi.Models
 
 
                 entity.Property(e => e.TaskTypeId).HasColumnName("TASKTYPE_ID");
+                entity.Property(e => e.TaskStatusId).HasColumnName("TASKCOMPLETIONSTATUS_ID");
+
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
@@ -859,6 +863,12 @@ namespace IMOSApi.Models
                     .HasForeignKey(d => d.TaskTypeId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_TASK___________TASKTYPE");
+
+                entity.HasOne(d => d.Taskcompletionstatus)
+                    .WithMany(p => p.Tasks)
+                    .HasForeignKey(d => d.TaskStatusId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_TASK_TASKCOMPLETIONSTATUS");
 
                 entity.HasOne(d => d.Project)
                     .WithMany(p => p.Tasks)
@@ -907,6 +917,25 @@ namespace IMOSApi.Models
                     .IsUnicode(false)
                     .HasColumnName("DESCRIPTION");
             });
+
+            modelBuilder.Entity<TaskCompletionStatus>(entity =>
+            {
+                entity.HasKey(e => e.TaskStatusId);
+
+                entity.ToTable("TASKCOMPLETIONSTATUS");
+
+                entity.Property(e => e.TaskStatusId).HasColumnName("TASKCOMPLETIONSTATUS_ID");
+
+                entity.Property(e => e.name)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("NAME");
+            });
+
+
+
+
+
 
             modelBuilder.Entity<Urgencylevel>(entity =>
             {

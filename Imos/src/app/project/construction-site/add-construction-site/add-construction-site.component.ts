@@ -28,7 +28,7 @@ export class AddConstructionSiteComponent implements OnInit {
     private router: Router,
      private service: ServiceService,
       private snackBar: MatSnackBar,
-      private MatDialog: MatDialogRef<AddUrgencyLevelComponent>,) { }
+      private MatDialog: MatDialogRef<AddConstructionSiteComponent>,) { }
 
   ngOnInit(): void {
   }
