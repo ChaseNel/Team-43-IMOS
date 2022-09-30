@@ -21,6 +21,17 @@ export interface employee {
   documents: [],
 }
 
+export interface employeeAttednace {
+  AttendanceID: number,
+  EmployeeID: number,
+  ProjectID: number,
+  Present: boolean,
+  Date: Date,
+  projectemployees: [],
+  users: [],
+  documents: [],
+}
+
 export interface Empdocument{
   documentId:number,
   fileUrl:any,

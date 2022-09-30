@@ -176,6 +176,7 @@ import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
 import { ViewProjectComponent } from './project/view-project/view-project.component';
 import { ProjectIncidentComponent } from './project/project-incident/project-incident.component';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 @NgModule({
@@ -293,7 +294,8 @@ import { ProjectIncidentComponent } from './project/project-incident/project-inc
     AddConstructionSiteComponent,
     UpdateConstructionSiteComponent,
     ViewProjectComponent,
-    ProjectIncidentComponent
+    ProjectIncidentComponent,
+
   ],
 
   imports: [
@@ -332,7 +334,7 @@ import { ProjectIncidentComponent } from './project/project-incident/project-inc
     DemoUtilsModule,
     MatCheckboxModule,
     MatExpansionModule,
-
+    MatMenuModule
 
   ],
   providers: [
