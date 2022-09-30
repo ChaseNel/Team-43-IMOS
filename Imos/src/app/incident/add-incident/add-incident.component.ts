@@ -1,6 +1,7 @@
+
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ServiceService } from 'src/app/services/service.service';
+import { project, ServiceService } from 'src/app/services/service.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -13,22 +14,29 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AddIncidentComponent implements OnInit {
 
   Description: any;
+  Project: any;
   public incidentFrm!: FormGroup;
   alert: boolean = false;
+  ProjectList : project[] = [];
 
   constructor(private service: ServiceService, private formB: FormBuilder, private route: Router, private _snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.incidentFrm = new FormGroup({
-      Description: new FormControl('', [Validators.required, Validators.maxLength(100),  Validators.pattern("[A-Za-z ]{1,25}")])
-    })
-  }
+      Description: new FormControl('', [Validators.required, Validators.maxLength(100),  Validators.pattern("[A-Za-z ]{1,25}")]),
+      ProjectID : new FormControl('', [Validators.required])
+    });
+    this.service.getProject().subscribe(data=>{
+      this.ProjectList=data;
+      console.log(this.ProjectList);
+      
+  })
+}
 
   addIncident() {
 
     if (this.incidentFrm.valid) {
-    var val = { Description: this.Description }
-    this.service.addIncident(val).subscribe(res => {
+    this.service.addIncident(this.incidentFrm.value).subscribe(res => {
       if (confirm('Are you sure you want to Add this Incident?')) {
         this._snackbar.open("Success, you have Add a Incident!", 'OK', {
           duration: 3000,
@@ -44,7 +52,7 @@ export class AddIncidentComponent implements OnInit {
     });
 
     this.Description = '';
-    console.log(val);
+    console.log(this.incidentFrm.value);
    
     }
   }

@@ -1302,24 +1302,23 @@ updateItem(val: any,id: number){
   //Incident
   //getID
   getIncidentById(id: number) {
-    return this.http.get(this.Root_URL + '/incident/GetIncident/' + id);
+    return this.http.get(this.Root_URL + '/Incident/GetIncident/' + id);
   }
   //get
   getIncident(): Observable<incident[]> {
-    return this.http.get<incident[]>(this.Root_URL + "/incident/getincidents")
+    return this.http.get<incident[]>(this.Root_URL + "/Incident/GetIncidents")
   }
   //Add
   addIncident(val: any) {
-    return this.http.post(this.Root_URL + "/incident/createincident", val)
+    return this.http.post(this.Root_URL + "/Incident/CreateIncident", val)
   }
   //Update
   editIncident(id: any, val: any): Observable<any> {
     console.log(id, val)
-    const endPointUrl = this.Root_URL + "/incident/updateincident/" + id;
+    const endPointUrl = this.Root_URL + "/Incident/UpdateIncident/" + id;
     return this.http.put(endPointUrl, val);
 
   }
-
 
   //Delete
   deleteIncident(id: number) {
