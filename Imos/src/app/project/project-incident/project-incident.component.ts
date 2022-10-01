@@ -23,7 +23,7 @@ export class ProjectIncidentComponent implements OnInit {
 
   Incidents:incident[] =[];
 
-  displayedColumns: string[] = ['description', 'actions'];
+  displayedColumns: string[] = ['description','date', 'actions'];
 
   dataSource!: MatTableDataSource<incident>;
 

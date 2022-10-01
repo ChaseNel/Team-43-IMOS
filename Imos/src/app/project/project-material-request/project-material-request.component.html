@@ -57,8 +57,9 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
         <td mat-cell *matCellDef="let element">
           <button mat-flat-button color="primary" (click)="openViewDialog(element.materialRequestId)"> View Material Requests</button>
             &nbsp;
-
-            <button mat-flat-button color="accent" (click)="openUpdateDialog(element.materialRequestId)"  >Edit</button>
+            <button mat-flat-button color="primary" (click)="openManageRequest(element.materialRequestId)"> Update Request's Status</button>
+            &nbsp;
+            <button mat-flat-button color="accent" (click)="openManageRequest(element.materialRequestId)"  >Edit</button>
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteMaterialRequest(element.materialRequestId)">Delete</button>
         </td>

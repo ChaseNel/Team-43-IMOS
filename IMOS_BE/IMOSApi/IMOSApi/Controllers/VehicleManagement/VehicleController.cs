@@ -56,7 +56,7 @@ namespace IMOSApi.Controllers.VehicleManagement
                 .Include(item => item.Vehicletype)
                 .Select(item => new GetVehicleDto()
                 {
-                    Id = item.VehicleId,
+                    vehicleId = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
                     Year = item.Year.ToString("f"),
@@ -147,9 +147,38 @@ namespace IMOSApi.Controllers.VehicleManagement
             return Ok();
         }
 
+        [HttpGet("RemoveAssignmentVehicle/{id}")]
+        public IActionResult RemoveAssignmentVehicle( int id)
+        {
+            var message = "";
+
+            var vehilceInDb = _context.Vehicles
+            .FirstOrDefault(item => item.VehicleId == id);
+            if (vehilceInDb == null)
+            {
+                message = "Vehicle not found";
+                return BadRequest(new { message });
+            }
+
+            try
+            {
+
+                vehilceInDb.AssignedStatus = 1;
+
+                _context.SaveChanges();
 
 
+                return Ok();
 
+            }
+
+            catch (Exception ex)
+            {
+                message = ex.Message;
+                return Ok();
+            }
+
+        }
 
 
         [HttpPost("AssignForemanToVehicle")]
@@ -160,38 +189,53 @@ namespace IMOSApi.Controllers.VehicleManagement
             var ForemanInDb = _context.Users
                  .Include(item => item.Userrole)
                  .FirstOrDefault(item => item.UserId == model.UserId);
-            if (ForemanInDb.UserroleId != 1)
+            try
             {
-                message = "Only foreman can be assigned a vehicle";
+
+
+                if (ForemanInDb.UserroleId != 1)
+                {
+                    message = "Only foreman can be assigned a vehicle";
+                    return BadRequest(new { message });
+                }
+                else if (ForemanInDb == null)
+                {
+                    message = "Foreman not found";
+                    return BadRequest(new { message });
+                }
+
+                var vehilceInDb = _context.Vehicles
+                    .FirstOrDefault(item => item.VehicleId == model.VehicleId);
+                if (vehilceInDb == null)
+                {
+                    message = "Vehicle not found";
+                    return BadRequest(new { message });
+                }
+
+                var newAssignment = new UserVehicle()
+                {
+                    Vehicle_Id = vehilceInDb.VehicleId,
+                    User_Id = ForemanInDb.UserId,
+                };
+
+                _context.UserVehicle.Add(newAssignment);
+                vehilceInDb.AssignedStatus = 2;
+
+                _context.SaveChanges();
+
+
+                return Ok();
+
+            }
+
+            catch(Exception ex)
+            {
+                message = ex.InnerException.Message;
                 return BadRequest(new { message });
             }
-            else if (ForemanInDb == null)
-            {
-                message = "Foreman not found";
-                return BadRequest(new { message });
-            }
-
-            var vehilceInDb = _context.Vehicles
-                .FirstOrDefault(item => item.VehicleId == model.VehicleId);
-            if (vehilceInDb == null)
-            {
-                message = "Vehicle not found";
-                return BadRequest(new { message });
-            }
-
-            var newAssignment = new UserVehicle()
-            {
-                Vehicle_Id = vehilceInDb.VehicleId,
-                User_Id = ForemanInDb.UserId,
-            };
-
-            _context.UserVehicle.Add(newAssignment);
-            vehilceInDb.AssignedStatus = 2;
-
-            _context.SaveChanges();
 
 
-            return Ok();
+
 
         }
 
@@ -231,18 +275,16 @@ namespace IMOSApi.Controllers.VehicleManagement
                 .Where(item => item.AssignedStatus == 1)
                 .Select(item => new GetVehicleDto()
                 {
-                    Id = item.VehicleId,
+                    vehicleId = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
                     Year = item.Year.ToString("f"),
                     Color = item.Color,
-                    //  VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
                     DatePurchased = item.DatePurchased.ToString("f"),
-                    //   LastServiced = item.LastServiced,
                     AssignedStatus = item.AssignedStatus,
                     Vehicletype = item.Vehicletype.Description,
                     VehicletypeId = item.VehicletypeId
-                }).OrderBy(item => item.DatePurchased).ToList();
+                }).OrderBy(item => item.Make).ToList();
 
             if(recordInDb == null)
             {
@@ -252,9 +294,60 @@ namespace IMOSApi.Controllers.VehicleManagement
 
 
 
-
             return recordInDb;
         }
+
+        [HttpGet("GetUserVehicles")]
+        public ActionResult<IEnumerable<UserVehicleDto>> GetUserVehicles()
+        {
+            
+
+            var recordsInDb =_context.Vehicles
+                .Include(item => item.UserVehicle)
+                .Include(item => item.Vehicletype)
+                .Where(item => item.AssignedStatus == 2)
+                .Select(item => new UserVehicleDto ()
+                {
+                    vehicleId = item.VehicleId,
+                    Make= item.Make,
+                    Model = item.Model,
+                    DatePurchased= item.DatePurchased.ToString("f"),
+                    Color = item.Color,
+                    Vehicletype = item.Vehicletype.Description,
+                    Year = item.Year.ToString("f"),
+                  
+                   
+                }).OrderBy(item => item.Make).ToList();
+
+
+            return recordsInDb;
+        }
+
+        [HttpGet("GetForemanVehicles")]
+        public ActionResult<IEnumerable<UserVehicleDto>> GetForemanVehicles()
+        {
+
+
+            var recordsInDb = _context.UserVehicle
+                .Include(item => item.User.Employee)
+                .Include(item => item.Vehicle.Vehicletype)
+                .Where(item => item.Vehicle.AssignedStatus == 2)
+                .Select(item => new UserVehicleDto()
+                {
+                    vehicleId = item.Vehicle.VehicleId,
+                    Make = item.Vehicle.Make,
+                    Model = item.Vehicle.Model,
+                    DatePurchased = item.Vehicle.DatePurchased.ToString("f"),
+                    Color = item.Vehicle.Color,
+                    Vehicletype = item.Vehicle.Vehicletype.Description,
+                    Year = item.Vehicle.Year.ToString("f"),
+                    Name = item.User.Employee.Name,
+                }).OrderBy(item => item.Make).ToList();
+
+
+            return recordsInDb;
+        }
+
 
 
 

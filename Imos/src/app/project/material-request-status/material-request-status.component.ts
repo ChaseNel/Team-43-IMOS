@@ -70,6 +70,7 @@ dataSource!: MatTableDataSource<MaterialRequestStatus>;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getRequestStatuts()
 
     });
   }
@@ -84,6 +85,7 @@ dataSource!: MatTableDataSource<MaterialRequestStatus>;
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.getRequestStatuts()
 
     });
   }

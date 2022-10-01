@@ -9,6 +9,7 @@
 <button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
 <button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
 <br> -->
+
 <mat-card>
 
 
@@ -50,7 +51,11 @@
 
   <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let element">
+            &nbsp;
+            <button  mat-flat-button  (click)="openManageTaskStatus(element.taskId)" color="primary">Manage Status</button>
+            &nbsp;
               <button  mat-flat-button  (click)="openUpdateTaskStatus(element.taskId)" color="accent">Edit</button>
+
               &nbsp;
               <button mat-flat-button color="warn" (click)="deleteTask(element.taskId)">Delete</button>
           </td>

@@ -40,7 +40,7 @@ export class AddTaskTypeComponent implements OnInit {
   AddTaskTYPE(){
     if(this.AddFormGroup.valid)
     {
-      this.service.addTaskTypefinal(this.AddFormGroup.value)
+      this.service.addTaskTypeSP(this.AddFormGroup.value)
       .subscribe(() => {
         this.AddFormGroup.reset();
         this.snackBar.open(`Successfully added Task Type`, 'X', {duration: 5000});

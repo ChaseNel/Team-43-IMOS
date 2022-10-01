@@ -190,7 +190,22 @@ import { UpdateTaskStatusComponent } from './project/project-task/task-status/up
 
 import {AddTaskTypeComponent} from './project/project-task/task-type/add-task-type/add-task-type.component';
 import {UpdateTaskTypeComponent} from './project/project-task/task-type/update-task-type/update-task-type.component';
-
+import { BackUpDatabaseComponent } from './back-up-database/back-up-database.component';
+import { UpdateRequestStatusComponent } from './project/project-material-request/update-request-status/update-request-status.component';
+import { ConfirmDialogComponent } from './back-up-database/confirm-dialog/confirm-dialog.component';
+import {ManageTaskStatusComponent}  from './project/project-task/task-status/manage-task-status/manage-task-status.component';
+import { SelectForemanViewComponent } from './vehicle/unassigned-vehicle-view/select-foreman-view/select-foreman-view.component';
+import { AssignedVehiclesViewComponent } from './vehicle/assigned-vehicles-view/assigned-vehicles-view.component';
+import { ConfirmAssignmentRemovalComponent } from './vehicle/assigned-vehicles-view/confirm-assignment-removal/confirm-assignment-removal.component';
+import { ListOfTasksReportComponent } from './report/list-of-tasks-report/list-of-tasks-report.component';
+import { ListOfIncidentsReportComponent } from './report/list-of-incidents-report/list-of-incidents-report.component';
+import { ListOfVehiclesComponent } from './report/list-of-vehicles/list-of-vehicles.component';
+import { TasksBetweenDatesReportComponent } from './report/tasks-between-dates-report/tasks-between-dates-report.component';
+import { AllIncidentsComponent } from './report/all-incidents/all-incidents.component';
+import { AllTaskReportComponent } from './report/all-task-report/all-task-report.component';
+import { ProjectTasksComponent } from './report/project-tasks/project-tasks.component';
+import { AllRequestControlReportComponent } from './report/all-request-control-report/all-request-control-report.component';
+import { ProjectManagementReportComponent } from './report/project-management-report/project-management-report.component';
 
 
 
@@ -316,6 +331,22 @@ import {UpdateTaskTypeComponent} from './project/project-task/task-type/update-t
     TaskStatusComponent,
     AddTaskStatusComponent,
     UpdateTaskStatusComponent,
+    BackUpDatabaseComponent,
+    UpdateRequestStatusComponent,
+    ConfirmDialogComponent,
+    ManageTaskStatusComponent,
+    SelectForemanViewComponent,
+    AssignedVehiclesViewComponent,
+    ConfirmAssignmentRemovalComponent,
+    ListOfTasksReportComponent,
+    ListOfIncidentsReportComponent,
+    ListOfVehiclesComponent,
+    TasksBetweenDatesReportComponent,
+    AllIncidentsComponent,
+    AllTaskReportComponent,
+    ProjectTasksComponent,
+    AllRequestControlReportComponent,
+    ProjectManagementReportComponent
 
   ],
 

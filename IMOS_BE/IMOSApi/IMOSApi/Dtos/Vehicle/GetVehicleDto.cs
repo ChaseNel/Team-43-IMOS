@@ -7,7 +7,7 @@ namespace IMOSApi.Dtos.Vehicle
 {
     public class GetVehicleDto
     {
-        public int Id { get; set; }
+        public int vehicleId { get; set; }
         public string Make { get; set; }
         public string Model { get; set; }
         public string Year { get; set; }

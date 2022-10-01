@@ -71,6 +71,9 @@ function getTimezoneOffsetString(date: Date): string {
 
 
 export interface Project {
+
+  id:number;
+  request: string;
   projectId: number,
   name:string,
   constructionsiteId: number,
@@ -383,7 +386,7 @@ export class ProjectComponent implements OnInit {
   openTaskdialog(id: number): void {
     const dialogRef = this.dialog.open(ProjectTaskComponent, {
       data:{id},
-      width: '50%',
+      width: '80%',
       height:'90%',
 
     }

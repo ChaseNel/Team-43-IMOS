@@ -1,6 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Linq;
+using System.Data.SqlClient;
+
 
 #nullable disable
 
@@ -78,6 +81,15 @@ namespace IMOSApi.Models
                 optionsBuilder.UseSqlServer("Server=.;Database=IMOS;Trusted_Connection=True;Initial Catalog=IMOS;");
             }
         }
+
+        
+             public IQueryable<Tasktype> GetAllTaskTypes()
+        {
+            return this.Tasktypes.FromSqlRaw("EXECUTE SELECTALLTASKTYPES");
+        }
+
+
+    
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -273,6 +285,11 @@ namespace IMOSApi.Models
                 entity.Property(e => e.IncidentId).HasColumnName("INCIDENT_ID");
 
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
+
+                entity.Property(e => e.Date)
+                    .HasColumnType("datetime")
+                    .HasColumnName("DATE");
+
 
                 entity.Property(e => e.Description)
                     .HasMaxLength(255)

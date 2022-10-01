@@ -83,11 +83,14 @@ import { UrgencyLevelComponent } from './project/project-material-request/urgenc
 import { ReportComponent } from './report/report.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
-
+import {BackUpDatabaseComponent} from './back-up-database/back-up-database.component';
 
 const routes: Routes = [
 
   {path: 'reports', component: ReportComponent },
+
+
+  {path: 'BackUp', component:BackUpDatabaseComponent},
 
   {path:'Urgencylvl', component:UrgencyLevelComponent},
   //Default
@@ -102,9 +105,9 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent,  },
   { path: 'logout', component: LogoutComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/login' }, 
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
 
-  
+
   { path: 'user', component: UserComponent },
   { path: 'addUser', component: AddUserComponent },
   { path: 'updateuser', component: UpdateUserComponent },
@@ -121,7 +124,7 @@ const routes: Routes = [
   { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
 
    //Upload employee
-  
+
   //Material
   { path: 'material', component: MaterialComponent },
   { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
@@ -146,7 +149,7 @@ const routes: Routes = [
   { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
   { path: 'CancelOrder/:id', component: CancelOrderComponent },
 
-  
+
   //Vehicle
   { path: 'vehicle', component: VehicleComponent },
   { path: 'addVehicle', component: AddVehicleComponent },
@@ -200,7 +203,7 @@ const routes: Routes = [
    { path: 'addsaftyChecklistItems', component: AddItemsComponent },
    { path: 'updatesaftyChecklistItems/:id', component:  UpdateItemsComponent},
 
-// reporting 
+// reporting
 
   //Reports
   { path: 'reports', component: ReportsComponent },

@@ -56,6 +56,7 @@ namespace IMOSApi.Controllers.MaterialManagent
                 .Select(item => new GetMaterialDto()
                 {
                     Id = item.MaterialId,
+                    materialId= item.MaterialId,
                     Name = item.Name,
                     Description = item.Description,
                     Materialtype = item.Materialtype.Name,

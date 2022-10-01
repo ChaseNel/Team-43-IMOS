@@ -14,6 +14,7 @@ namespace IMOSApi.Dtos.Task
         public string StatusName { get; set; }
         public int Qnapassed { get; set; }
         public string Description { get; set; }
+        public string projectName { get; set; }
 
     }
 }

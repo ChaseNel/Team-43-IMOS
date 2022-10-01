@@ -8,85 +8,97 @@
 <!-- Vehicle Type -->
 <button (click)="VehicleType()" mat-flat-button color="primary" class="URbtn">Vehicle Type</button>
 &nbsp;
-<button (click)="assignVehicle()" mat-flat-button color="primary" class="URbtn">Manage Vehicle Not Assigned</button>
+<button (click)="openAssignVehicleDialog()" mat-flat-button color="primary" class="URbtn">Assign Vehicle</button>
+&nbsp;
+<button (click)="openAssignedVehicleDialog()" mat-flat-button color="primary" class="URbtn">Assigned Vehicles </button>
 <br>
 
-<!-- Search Field -->
-<mat-form-field appearance="standard">
-    <mat-label>Search Table</mat-label>
-    <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
-</mat-form-field>
+<mat-card>
 
-<!-- add [dataSource]="dataSource" when API is connected -->
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+  <button (click)="openAddVehicleDialog()"  mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+  <br>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+  <!-- Search Field -->
+  <mat-form-field appearance="standard">
+      <mat-label>Search Table</mat-label>
+      <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
+  </mat-form-field>
 
-    <!-- Material Type Column -->
-    <ng-container matColumnDef="vehicleType">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Type </th>
-        <td mat-cell *matCellDef="let element"> {{Typelist[element.vehicletypeId-1]?.description}} </td>
-    </ng-container>
+  <!-- add [dataSource]="dataSource" when API is connected -->
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
-    <!-- Vehicle Make Column -->
-    <ng-container matColumnDef="make">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Make </th>
-        <td mat-cell *matCellDef="let element"> {{element.make}} </td>
-    </ng-container>
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Vehicle Model  Column -->
-    <ng-container matColumnDef="model">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Model</th>
-        <td mat-cell *matCellDef="let element"> {{element.model}} </td>
-    </ng-container>
-    <!-- Vehicle Color Column -->
-    <ng-container matColumnDef="color">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Color</th>
-        <td mat-cell *matCellDef="let element"> {{element.color}} </td>
-    </ng-container>
-<!-- Vehicle Color Column -->
-    <ng-container matColumnDef="Year">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Year</th>
-        <td mat-cell *matCellDef="let element"> {{element.year}} </td>
-    </ng-container>
-<!-- Vehicle Color Column -->
-    <ng-container matColumnDef="DatePurchased">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> DatePurchased</th>
-        <td mat-cell *matCellDef="let element"> {{element.datePurchased}} </td>
-    </ng-container>
- 
+      <!-- Material Type Column -->
+      <ng-container matColumnDef="vehicleType">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Type </th>
+          <td mat-cell *matCellDef="let element">  {{element.vehicletype}}  </td>
+      </ng-container>
+
+      <!-- Vehicle Make Column -->
+      <ng-container matColumnDef="make">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Vehicle Make </th>
+          <td mat-cell *matCellDef="let element"> {{element.make}} </td>
+      </ng-container>
+
+      <!-- Vehicle Model  Column -->
+      <ng-container matColumnDef="model">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Model</th>
+          <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+      </ng-container>
+      <!-- Vehicle Color Column -->
+      <ng-container matColumnDef="color">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Color</th>
+          <td mat-cell *matCellDef="let element"> {{element.color}} </td>
+      </ng-container>
+  <!-- Vehicle Color Column -->
+      <ng-container matColumnDef="Year">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Year</th>
+          <td mat-cell *matCellDef="let element"> {{element.year}} </td>
+      </ng-container>
+  <!-- Vehicle Color Column -->
+      <ng-container matColumnDef="DatePurchased">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> DatePurchased</th>
+          <td mat-cell *matCellDef="let element"> {{element.datePurchased}} </td>
+      </ng-container>
 
 
 
-    <!-- Actions -->
-    <ng-container matColumnDef="actions">
 
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
-        <td mat-cell *matCellDef="let element">
-            <!-- add element id to assignVehicle-->
-            <button (click)="assignVehicle()" mat-flat-button color="accent">Assign</button>&nbsp;
-            <button (click)="openUploadVehiclePhotoDialog(element.vehicleId)" mat-flat-button color="primary">Upload </button>
-            &nbsp;
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
 
-            <button (click)="UpdateVehicle(element.id)" mat-flat-button color="accent">Edit</button>
-            &nbsp;
-            <button mat-flat-button color="warn" (click)="deleteVehicle(element.vehicleId)">Delete</button>
-        </td>
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+              <!-- add element id to assignVehicle-->
 
-    </ng-container>
+              <button (click)="openUploadVehiclePhotoDialog(element.vehicleId)" mat-flat-button color="primary">Upload </button>
+              &nbsp;
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <button (click)="UpdateVehicle(element.id)" mat-flat-button color="accent">Edit</button>
+              &nbsp;
+              <button mat-flat-button color="warn" (click)="deleteVehicle(element.vehicleId)">Delete</button>
+          </td>
 
-    <!-- Search: Not Found -->
-    <tr *matNoDataRow>
-        <td class="mat-cell" colspan="4">
-            Search was not found for: {{input.value}}
-        </td>
-    </tr>
+      </ng-container>
 
-</table>
-<mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Vehicles"></mat-paginator>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-<button (click)="openAddVehicleDialog()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+      <!-- Search: Not Found -->
+      <tr *matNoDataRow>
+          <td class="mat-cell" colspan="4">
+              Search was not found for: {{input.value}}
+          </td>
+      </tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of Vehicles"></mat-paginator>
+
+
+
+
+
+</mat-card>
+

@@ -24,6 +24,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace IMOSApi
 {
@@ -85,6 +86,11 @@ namespace IMOSApi
             services.AddControllers();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
            services.AddDbContext<IMOSContext>(options => options.UseSqlServer(connectionString));
+
+            services.AddScoped<IRepository, Repository>();
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+
             services.AddSwaggerGen( /*c => */ options=>
             {
                 options.CustomSchemaIds(type => type.ToString());

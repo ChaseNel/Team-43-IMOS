@@ -1,3 +1,4 @@
+import { UnassignedVehicleViewComponent } from './unassigned-vehicle-view/unassigned-vehicle-view.component';
 import { ServiceService, vehicle, vehicletype, user } from './../services/service.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +12,7 @@ import {AddVehicleComponent} from './add-vehicle/add-vehicle.component';
 import { Observable } from 'rxjs';
 import {UploadVehiclePhotoComponent} from './upload-vehicle-photo/upload-vehicle-photo.component';
 import {  EventEmitter, Output } from '@angular/core';
+import { AssignedVehiclesViewComponent } from './assigned-vehicles-view/assigned-vehicles-view.component';
 
 export interface Vehicle {
   vehicleId: number,
@@ -95,12 +97,13 @@ export class VehicleComponent implements OnInit {
     const dialogRef = this.dialog.open(AddVehicleComponent, {
 
       width: '60%',
-      height:'70%'
+      height:'78%'
     }
     );
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.GetAllVehicles();
 
     });
   }
@@ -118,6 +121,42 @@ export class VehicleComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+      this.GetAllVehicles();
+
+    });
+  }
+
+
+  openAssignVehicleDialog(): void {
+    const dialogRef = this.dialog.open(UnassignedVehicleViewComponent, {
+
+      width: '60%',
+      height:'70%',
+
+
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.GetAllVehicles();
+
+    });
+  }
+
+  openAssignedVehicleDialog(): void {
+    const dialogRef = this.dialog.open(AssignedVehiclesViewComponent, {
+
+      width: '60%',
+      height:'70%',
+
+
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.GetAllVehicles();
 
     });
   }

@@ -463,3 +463,10 @@ C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\n
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.csproj.CopyComplete
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\IMOSApi.genruntimeconfig.cache
 C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\obj\Debug\net5.0\ref\IMOSApi.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\AutoMapper.Collection.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+C:\Users\lalek\Documents\GitHub\Team-43-IMOS\IMOS_BE\IMOSApi\IMOSApi\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
