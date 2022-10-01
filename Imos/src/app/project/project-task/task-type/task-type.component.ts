@@ -94,7 +94,7 @@ posts: any;
 
       deleteTaskType(id: number){
         if (confirm('Are you sure you want to delete this task type')) {
-          this.service.deleteTaskTypefinal(id)
+          this.service.deleteTaskTypefinalSP(id)
           .subscribe( res => {
            // this.GetUrgencyLvl();
            this.getTaskType();

@@ -1,3 +1,4 @@
+import { ManageTaskStatusComponent } from './task-status/manage-task-status/manage-task-status.component';
 import { Task,ServiceService } from './../../services/service.service';
 
 import { Component, OnInit, ViewChild,Inject } from '@angular/core';
@@ -10,6 +11,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
+import { UpdateTaskStatusComponent } from './task-status/update-task-status/update-task-status.component';
 @Component({
   selector: 'app-project-task',
   templateUrl: './project-task.component.html',
@@ -111,6 +113,22 @@ dataSource!: MatTableDataSource<Task>;
 
         });
       }
+
+      openManageTaskStatus(id: number): void {
+        const dialogRef = this.dialog.open(ManageTaskStatusComponent, {
+          width: '35%',
+          height:'70%',
+          data: {id}
+        }
+        );
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.getTask();
+
+        });
+      }
+
 
   ngOnInit(): void {
   }

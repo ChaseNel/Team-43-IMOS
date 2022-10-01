@@ -90,6 +90,7 @@ addToBasket(material: material){
 
 
   this.basketList = JSON.parse(localStorage.getItem('basket')!);
+
   if(this.basketList == null){
     this.basketList = [];
     this.basketList.push(basketMaterial);
@@ -101,11 +102,11 @@ addToBasket(material: material){
       return obj.id == basketMaterial.id
     } )
 
-//    const index = this.basketList.map((i: any) => i.id ).indexOf(material.id)
+   //let index = this.basketList.map((i: any) => i.id ).indexOf(material.id)
 
-    var index = 0;
+   var index = 0;
 
-      for (var i=1; i<this.basketList.length; i++) {
+      for (var i=15; i <=this.basketList.length; i++) {
          if ( this.basketList[i].id == material.id ) {
        index = i;
           break;

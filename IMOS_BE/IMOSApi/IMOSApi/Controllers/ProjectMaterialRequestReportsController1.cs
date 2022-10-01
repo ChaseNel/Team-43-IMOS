@@ -84,6 +84,78 @@ namespace IMOSApi.Controllers
         }
 
         [HttpGet]
+        [Route("GetRequestDashboard/{Id}")]
+        public dynamic GetRequestDashboard(int Id)
+        {
+            var reportData =  _context.Projectmaterialrequest
+                .Include(item => item.Projectmaterialrequeststatus)
+                .Where(item => item.ProjectId == Id).ToList();
+
+            var Data = _context.Projectmaterialrequest
+                .Include(item => item.Project)
+                .Where(item => item.ProjectId == Id).ToList();
+
+
+            try
+            {
+
+                List<dynamic> RequestBoard = new List<dynamic>();
+
+                dynamic ApprovedRequest = reportData
+                    .Where(item => item.ProjectmaterialrequeststatusId == 1)
+                    .GroupBy(p => p.Projectmaterialrequeststatus.Name)
+                    .Select(b => new
+                    {
+                        RequestStatusName = b.Key,
+                        ApprovedRequest = b.Count()
+                    });
+
+                dynamic DeclinedRequest = reportData
+                  .Where(item => item.ProjectmaterialrequeststatusId == 2)
+                  .GroupBy(p => p.Projectmaterialrequeststatus.Name)
+                  .Select(b => new
+                  {
+                      RequestStatusName = b.Key,
+                      DeclindedRequest = b.Count()
+                  });
+
+                dynamic PendingRequest = reportData
+                 .Where(item => item.ProjectmaterialrequeststatusId == 3)
+                 .GroupBy(p => p.Projectmaterialrequeststatus.Name)
+                 .Select(b => new
+                 {
+                     RequestStatusName = b.Key,
+                     PendingRequest = b.Count()
+                 });
+
+                dynamic ALlRequestCount = Data
+                 .GroupBy(p => p.ProjectId)
+                 .Select(b => new
+                 {
+                     ProjectName = b.Key,
+                     TotalRequest = b.Count()
+                 });
+
+                RequestBoard.Add(ApprovedRequest);
+                RequestBoard.Add(DeclinedRequest);
+                RequestBoard.Add(PendingRequest);
+                RequestBoard.Add(ALlRequestCount);
+
+                return RequestBoard;
+
+
+            }
+
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Internal Server Error. Please contact support.");
+            }
+
+
+        }
+
+
+        [HttpGet]
         [Route("GetApprovedRequestCount")]
         public dynamic GetApprovedRequestCount()
         {
@@ -188,15 +260,15 @@ namespace IMOSApi.Controllers
 
 
       [HttpGet]
-        [Route("RequestMaterialControl")]
+        [Route("RequestMaterialControl/{projectId}")]
         
-        public dynamic RequestMaterialControl()
+        public dynamic RequestMaterialControl(int projectId)
         {
 
             var reportData = _context.Projectmaterialrequestlist
                 .Include(xx => xx.Material)
                 .Include(xx => xx.Projectmaterialrequest)
-                .Where(xx => xx.Projectmaterialrequest.ProjectmaterialrequeststatusId == 1).ToList();
+                .Where(xx => xx.Projectmaterialrequest.ProjectmaterialrequeststatusId == 1 && xx.Projectmaterialrequest.ProjectId==projectId).ToList();
 
 
             
@@ -236,6 +308,59 @@ namespace IMOSApi.Controllers
 
                 dynTableData.reportData = requestGroups;
                 return dynTableData;
+
+        }
+
+
+        [HttpGet]
+        [Route("AllRequestMaterialControlreport")]
+        public dynamic AllRequestMaterialControlreport( )
+        {
+
+            var reportData = _context.Projectmaterialrequestlist
+               .Include(xx => xx.Material)
+               .Include(xx => xx.Projectmaterialrequest)
+               .Where(xx => xx.Projectmaterialrequest.ProjectmaterialrequeststatusId == 1).ToList();
+
+
+
+            dynamic dynTableData = new ExpandoObject();
+            dynTableData.reportData = null;
+
+            var requests = reportData.GroupBy(item => item.Material.Name);
+            List<dynamic> requestGroups = new List<dynamic>();
+
+
+            foreach (var item in requests)
+            {
+                dynamic requestList = new ExpandoObject();
+
+                requestList.MaterialName = item.Key;
+                requestList.AverageQuantityRequested = Math.Round((double)item.Average(xx => xx.Quantity), 2);
+                requestList.ToTalQuantity = Math.Round((double)item.Sum(xx => xx.Quantity), 2);
+
+                List<dynamic> materialRequests = new List<dynamic>();
+
+                foreach (var request in item)
+                {
+                    dynamic requestObject = new ExpandoObject();
+                    requestObject.RequestDate = request.Projectmaterialrequest.RequestDate;
+                    requestObject.ApproveDate = request.Projectmaterialrequest.StatusUpdateDate;
+                    requestObject.requestQuantity = request.Quantity;
+
+
+                    materialRequests.Add(requestObject);
+                }
+
+                requestList.MaterialRequests = materialRequests;
+                requestGroups.Add(requestList);
+
+            }
+
+
+            dynTableData.reportData = requestGroups;
+            return dynTableData;
+
 
         }
 

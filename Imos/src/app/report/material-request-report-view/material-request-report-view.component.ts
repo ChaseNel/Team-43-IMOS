@@ -25,13 +25,14 @@ import jspdf from 'jspdf';
 
 //import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-material-request-report-view',
   templateUrl: './material-request-report-view.component.html',
   styleUrls: ['./material-request-report-view.component.css'],
   template:' {{data.id}}',
+  providers: [DatePipe]
 })
 export class MaterialRequestReportViewComponent implements OnInit {
 
@@ -42,6 +43,8 @@ export class MaterialRequestReportViewComponent implements OnInit {
   dataSource!: MatTableDataSource<ReportMaterialRequest>;
 
   posts: ReportMaterialRequest[];
+
+  myDate = new Date();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort

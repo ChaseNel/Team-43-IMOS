@@ -42,7 +42,7 @@ export class UpdateTaskTypeComponent implements OnInit {
 
       if(this.UpdateForm.valid){
 
-        this.service.updateTasktype(this.data.id, this.UpdateForm.value)
+        this.service.updateTasktypeSP(this.data.id, this.UpdateForm.value)
         .subscribe(() => {
 
           this.MatDialog.close();

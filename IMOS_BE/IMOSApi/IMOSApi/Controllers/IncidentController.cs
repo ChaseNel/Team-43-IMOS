@@ -29,6 +29,7 @@ namespace IMOSApi.Controllers
                     IncidentId = item.IncidentId,
                     ProjectId = item.ProjectId,
                     Description = item.Description,
+                    Date = item.Date.ToString("F"),
                 }).ToList();
 
             return recordInDb;
@@ -62,6 +63,7 @@ namespace IMOSApi.Controllers
                 {
                    ProjectId = Id,
                    Description = model.Description,
+                   Date = DateTime.Now,
 
                 };
 

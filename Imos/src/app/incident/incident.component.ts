@@ -72,7 +72,7 @@ export class IncidentComponent implements OnInit {
   deleteIncident(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this Incident?')) {
-      this.service.deleteIncident(id).subscribe(res => {
+      this.service.deleteTaskTypefinalSP(id).subscribe(res => {
         this.GetAllIncidents();
         this._snackBar.open("Success, you have deleted a Incident!", 'OK', {
           duration: 3000,

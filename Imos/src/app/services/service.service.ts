@@ -21,6 +21,7 @@ export interface employee {
   documents: [],
 }
 
+
 export interface Empdocument{
   documentId:number,
   fileUrl:any,
@@ -48,6 +49,13 @@ export interface user {
   tasks: [],
   userincidents: [],
   Vehicles: []
+}
+
+export interface Users {
+  id:number,
+  name: string,
+  email: string
+  description: string
 }
 
 //Material Interface
@@ -269,6 +277,7 @@ export interface vehicletype {
 export interface incident {
   incidentId: number,
   description: string,
+  date:string,
   projectId : number
 }
 
@@ -414,6 +423,9 @@ export interface task {
   userid: string,
   startdate: any,
   enddate: any,
+  description: string,
+  statusName: string,
+  tasktypeDescription: string,
   invoices: [],
   taskmaterials: []
 }
@@ -700,6 +712,11 @@ export class ServiceService {
     return this.http.get<TaskType[]>(this.Root_URL + '/Task/GetAllTaskTypes')
   }
 
+
+  getUsers(): Observable<Users[]> {
+    return this.http.get<Users[]>(this.Root_URL + '/User/GetAll/Users')
+  }
+
   getAllTaskselect(): Observable<TaskType[]> {
     return this.http.get<[TaskType]>(this.Root_URL + '/Task/GetAllTaskTypes')
   }
@@ -715,6 +732,37 @@ export class ServiceService {
   deleteTaskTypefinal(id: number) {
     return this.http.delete(this.Root_URL + '/Task/DeleteTaskType/' + id);
   }
+
+
+  updateTasktypeSP(id:number,data:any){
+    return this.http.put(this.Root_URL + '/Tasktype/UpdateTasktypes/'+ id, data);
+
+  }
+  addTaskTypeSP(val: any) {
+    return this.http.post(this.Root_URL + '/Tasktype/AddTasktypes', val)
+  }
+
+  deleteTaskTypefinalSP(id: number) {
+    return this.http.delete(this.Root_URL + '/Tasktype/DeleteTasktypes/' + id);
+  }
+
+  BackUpDataBaseSP() {
+    return this.http.get(this.Root_URL + '/BackUpDatabase/BackUpDatabase/')
+  }
+
+  RestoreDataBaseSP(val: any) {
+    return this.http.post(this.Root_URL + '/BackUpDatabase/RestoreDatabase', val)
+  }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -821,10 +869,19 @@ export class ServiceService {
     .pipe(map(result => result))
   }
 
-  getMaterialRequestControls(): Observable<any> {
-    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/RequestMaterialControl')
+  getMaterialRequestControls(id: number): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/RequestMaterialControl/' + id)
     .pipe(map(result => result))
   }
+  getMaterialRequestControlReport(): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/AllRequestMaterialControlreport/')
+    .pipe(map(result => result))
+  }
+  getRequestStatusCount(id: number): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/GetRequestDashboard/' + id)
+    .pipe(map(result => result))
+  }
+
 
   getMaterialRequest(): Observable<any> {
     return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequest/GetAllMaterialRequests')
@@ -932,6 +989,22 @@ export class ServiceService {
   getVehicle(): Observable<vehicle[]> {
     return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetAllVehicles')
   }
+  //Add
+
+
+
+    //Delete
+    RemoveVehicleAssign(id: number) {
+      return this.http.get(this.Root_URL + '/Vehicle/RemoveAssignmentVehicle/' + id);
+    }
+
+  getUnassingedVehicle(): Observable<vehicle[]> {
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetUnAssignedVehicles')
+  }
+  getAssingedVehicle(): Observable<vehicle[]> {
+    return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetUserVehicles')
+  }
+
   //Delete
   deleteVehicle(id: number) {
     return this.http.delete(this.Root_URL + '/Vehicle/DeleteVehicle/' + id);
@@ -1056,6 +1129,24 @@ updateclient(val: any,id: number){
     return this.http.get<ClientRequest[]>(this.Root_URL + '/Client/GetRequestBYClient/' + id)
   }
 
+  AssignVehicle(val: any) {
+    return this.http.post(this.Root_URL + '/Vehicle/AssignForemanToVehicle' ,val)
+  }
+
+
+
+//reports endpoints
+
+getProjectTaskReport(id: number):  Observable<Task[]> {
+  return this.http.get<Task[]>(this.Root_URL + '/Report/GetTasksPerProject/' + id)
+}
+
+getProjectIncidentreport(id: number):  Observable<incident[]> {
+  return this.http.get<incident[]>(this.Root_URL + '/Report/GetIncidentsPerProject/' + id)
+}
+getAllIncidentreport():  Observable<incident[]> {
+  return this.http.get<incident[]>(this.Root_URL + '/Report/GetALLIncidents')
+}
 
 
 
@@ -1063,6 +1154,10 @@ updateclient(val: any,id: number){
 
   getTasksByProjectfinal(id: number):  Observable<Task[]> {
     return this.http.get<Task[]>(this.Root_URL + '/Task/GetTaskBYProject/' + id)
+  }
+  getProjectTaskCount(Id: number): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/Repository/GetTaskDashboard/' + Id)
+    .pipe(map(result => result))
   }
 
   addTaskproject(id:number, val:any) {
@@ -1073,6 +1168,10 @@ updateclient(val: any,id: number){
   }
   deleteTaskproject(id: number) {
     return this.http.delete(this.Root_URL + '/Task/DeleteTask/' + id);
+  }
+
+  ManageTaskStatus( data: any) {
+    return this.http.put(this.Root_URL + `/Task/ManageTaskstatus/${data.TaskId }/${data.TaskstatusId }/`,{} );
   }
 
 

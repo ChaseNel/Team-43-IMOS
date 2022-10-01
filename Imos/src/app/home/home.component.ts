@@ -18,6 +18,9 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/employee");
   }
 
+  BackUp() {
+    this.route.navigateByUrl("/BackUp");
+  }
 
   material() {
     this.route.navigateByUrl("/material");
@@ -60,7 +63,7 @@ export class HomeComponent implements OnInit {
  Reports(){
     this.route.navigateByUrl('/Allreports')
   }
-  
+
   reports(){
     this.route.navigateByUrl('/reports')
   }

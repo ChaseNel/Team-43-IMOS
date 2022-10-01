@@ -33,6 +33,7 @@ namespace IMOSApi.Controllers
                     Startdate = item.Startdate.ToString("g"),
                     Enddate = item.Enddate.ToString("g"),
                     TasktypeDescription = item.TasktypeNavigation.Description,
+                    StatusName = item.Taskcompletionstatus.name
 
                 }).OrderBy(item => item.Description).ToList();
             return recordInDb;
@@ -41,32 +42,32 @@ namespace IMOSApi.Controllers
 
 
 
-      /*  [HttpGet("GetTaskBYProject/{id}")]
-        public List<Task> GetTaskBYProject(GetTaskDto model, int id)
-        {
+        /*  [HttpGet("GetTaskBYProject/{id}")]
+          public List<Task> GetTaskBYProject(GetTaskDto model, int id)
+          {
 
-            var recordInDb = _dbContext.Tasks
-                .Include(item => item.Taskcompletionstatus)
-                .Include(item => item.TasktypeNavigation)
-                .Where(item => item.ProjectId == id)
-                .Select(item => new GetTaskDto()
-                {
-                    TasktypeDescription = item.TasktypeNavigation.Description,
-                    StatusName = item.Taskcompletionstatus.name,
-                    Startdate = item.Startdate.ToString("f"),
-                    Enddate = item.Enddate.ToString("f"),
-                    Description = item.Description,
-                    Qnapassed = item.Qnapassed,
-                }
-                ).OrderBy(item => item.StatusName).ToList();
-
-
-
-            return recordInDb
+              var recordInDb = _dbContext.Tasks
+                  .Include(item => item.Taskcompletionstatus)
+                  .Include(item => item.TasktypeNavigation)
+                  .Where(item => item.ProjectId == id)
+                  .Select(item => new GetTaskDto()
+                  {
+                      TasktypeDescription = item.TasktypeNavigation.Description,
+                      StatusName = item.Taskcompletionstatus.name,
+                      Startdate = item.Startdate.ToString("f"),
+                      Enddate = item.Enddate.ToString("f"),
+                      Description = item.Description,
+                      Qnapassed = item.Qnapassed,
+                  }
+                  ).OrderBy(item => item.StatusName).ToList();
 
 
 
-        }*/
+              return recordInDb
+
+
+
+          }*/
 
 
         [HttpGet("GetTaskBYProject/{id}")]
@@ -379,6 +380,36 @@ namespace IMOSApi.Controllers
         }
 
 
+        [HttpPut]
+        [Route("ManageTaskstatus/{TaskId}/{TaskstatusId}")]
+
+        public object ApproveMaterialRequest(int TaskstatusId, int TaskId)
+        {
+            var recordInDB = _dbContext.Tasks
+
+                .FirstOrDefault(item => item.TaskId == TaskId);
+
+            if (recordInDB == null)
+            {
+                return NotFound();
+            }
+
+
+            try
+            {
+
+                recordInDB.TaskStatusId = TaskstatusId;
+                _dbContext.SaveChanges();
+
+                return Ok();
+
+            }
+
+            catch (Exception e)
+            {
+                Console.WriteLine(e.InnerException.Message);
+                return BadRequest(e.Message);
+            }
+        }
     }
 }
-

@@ -1,14 +1,35 @@
 
-<h2 style="margin-left:45% ;">Project Material Request Report</h2>
+<div  id="htmlData" #htmlData>
 
-<mat-form-field appearance="standard">
-  <mat-label>Search Table</mat-label>
-  <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
-</mat-form-field>
+  <mat-card>
 
-<div  id="htmlData" #htmlData >
 
-<h2> Project Material Request Report </h2>>
+
+    <mat-card-content>
+      <div class="container">
+        <img src="../../assets/images/Logo.png" class="img-fluid" alt="">  <br>
+        <p>
+          <label for="" style="font-size: 38px;">Material Request By Status Report</label>
+          <br>
+          <br>
+          <label for="" style="font-size: 28px;">Date: {{myDate | date:'medium'}}</label>
+          <br>
+          <br>
+          <label for="" style="font-size: 18px;">Created by: Hloni</label>
+
+        </p>
+
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+  <br> <br>
+
+
+
+<br><br>
+
+<mat-card>
 
 <!-- add [dataSource]="dataSource" when API is connected -->
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort  >
@@ -52,15 +73,16 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-  <!-- Search: Not Found -->
-  <tr *matNoDataRow>
-      <td class="mat-cell" colspan="4">
-          Search was not found for: {{input.value}}
-      </td>
-  </tr>
 
 
 </table>
 
+</mat-card>
+
+
+
+
 </div>
+<br>
+
 <button class="CheckoutBut" (click)="downloadPDF()"  mat-flat-button color="primary"> Download PDF</button>

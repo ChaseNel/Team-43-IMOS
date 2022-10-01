@@ -40,7 +40,7 @@ dataSource!: MatTableDataSource<UrgencyLevel>;
        {
         this.GetUrgencyLvl();
         }
-        
+
         ngOnInit(): void {
 
         }
@@ -77,6 +77,7 @@ openAddDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
+    this.GetUrgencyLvl();
 
   });
 }
@@ -91,6 +92,7 @@ openUpdateUrgencylvlDialog(id:number): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
+    this.GetUrgencyLvl();
 
   });
 }
@@ -110,5 +112,5 @@ deleteUrgencylvl(id: number){
 }
 }
 
-  
+
 }
