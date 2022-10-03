@@ -19,10 +19,15 @@
                     <input matInput placeholder="Category  Name" name="categoryName"
                         formControlName="categoryName">
                 </mat-form-field>
-               <!--  <mat-error *ngIf="hasError('categoryName', 'required')"></mat-error>-->
+                <mat-error *ngIf="hasError('categoryName', 'required')"></mat-error>
                 <mat-card-actions>
-                    <button (click)="addCategoryType()" mat-raised-button color="primary">Add</button>
-                    <button (click)="back()" mat-raised-button color="warn">back</button>
+                    <div class="btn">
+                        <button mat-raised-button color="primary" type="button" (click)="addCategoryType()"
+                            [disabled]="!SafetyCategoryFrm.valid">Add
+                        </button>
+                        &nbsp;
+                        <button mat-raised-button color="warn" type="button" (click)="back()">Back</button>
+                    </div>
                 </mat-card-actions>
             </div>
         </mat-card-content>

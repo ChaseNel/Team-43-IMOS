@@ -21,7 +21,6 @@ namespace IMOSApi.Controllers.EquipmentManagement
             _context = context;
         }
 
-
         [HttpGet("GetEquipmentById/{id}")]
         public ActionResult<GetGenericDto> GetRecord(int id)
         {
@@ -51,15 +50,15 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     Id = item.EquipmentId,
                     Name = item.Name,
                     Description = item.Description,
-                    /*Quantity = item.Quantity,
-                    WarehouseEquipments = item.WarehouseEquipments*/
-                }).OrderBy(item => item.Name).ToList();
+                    Warehouseequipments = _context.Warehouseequipments.Where(xx => xx.EquipmentId == item.EquipmentId).ToList(),
+                    //quantity=item.Warehouseequipments.
+                   // WarehouseId = _context.Warehouseequipments.Where(zz=>item.EquipmentId==item.)
+                }).OrderBy(item => item.Id).ToList();
             return recordsInDb;
         }
 
-
         [HttpPost("AddEquipment")]
-        public IActionResult Add(AddOrUpdateEquipmentDto model)
+        public  async Task< IActionResult> Add(AddOrUpdateEquipmentDto model)
         {
             var message = "";
             if (!ModelState.IsValid)
@@ -82,9 +81,9 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     Name = model.Name,
                     Description = model.Description,
                 };
-
                 _context.Equipment.Add(newEquipment);
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
 
                 foreach (var item in model.Warehouses)
                 {
@@ -97,20 +96,20 @@ namespace IMOSApi.Controllers.EquipmentManagement
                     _context.Warehouseequipments.Add(warehouseequipment);
 
                 }
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
 
             catch (Exception e)
             {
-               
-                throw  ;
+
+                return  Unauthorized(StatusCode(401));
             }
         }
     
 
         [HttpPut("UpdateEquipment/{id}")]
-        public IActionResult Update(AddOrUpdateEquipmentDto model, int id)
+        public async Task< IActionResult> Update(AddOrUpdateEquipmentDto model, int id)
         {
             var message = "";
             if (ModelState.IsValid)
@@ -136,8 +135,9 @@ namespace IMOSApi.Controllers.EquipmentManagement
                         Quantity=model.Quantity
                     };
                     _context.Warehouseequipments.Add(warehouseequipment);
-                    _context.SaveChanges();
                 }
+                int i = 3;
+                await _context.SaveChangesAsync(i);
             }
 
              message = "Something went wrong on your side.";
@@ -155,11 +155,15 @@ namespace IMOSApi.Controllers.EquipmentManagement
 
             var equipmentWarehouse = _context.Warehouseequipments.Where(item => item.EquipmentId == id);
             _context.Warehouseequipments.RemoveRange(equipmentWarehouse);
-            await _context.SaveChangesAsync();
+            int i = 3;
+            await _context.SaveChangesAsync(i);
 
+            var projectsEquipments = _context.Projectequipments.Where(item => item.EquipmentId == id);
+            _context.Projectequipments.RemoveRange(projectsEquipments);
+            await _context.SaveChangesAsync(i);
 
             _context.Equipment.Remove(recordInDb);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(i);
             return Ok();
         }
     }

@@ -494,7 +494,6 @@ openUrgencyDialog(): void {
   });
 }
 
-
 openDialogMatRequest(id: number): void {
   const dialogRef = this.dialog.open(ProjectMaterialRequestComponent, {
     data:{id},
@@ -510,6 +509,13 @@ openDialogMatRequest(id: number): void {
 
   });
 }
+
+ViewProjectInfo(){
+}
+projectmaterial(){
+  
+}
+
 
 
 

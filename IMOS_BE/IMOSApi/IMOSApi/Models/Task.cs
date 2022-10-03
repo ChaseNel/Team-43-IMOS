@@ -27,7 +27,9 @@ namespace IMOSApi.Models
         public string Description { get; set; }
         public int Qnapassed { get; set; }
 
+       
         public virtual Tasktype TasktypeNavigation { get; set; }
+
         public virtual TaskCompletionStatus Taskcompletionstatus { get; set; }
         public virtual Project Project { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }

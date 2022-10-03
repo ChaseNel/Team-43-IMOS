@@ -7,6 +7,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { safetyItem, safetyitemcategory, ServiceService } from 'src/app/services/service.service';
 import { ItemsComponent } from '../items/items.component';
+import { AddSaftyChecklistCatagoryComponent } from './add-safty-checklist-catagory/add-safty-checklist-catagory.component';
+import { UpdateSaftyChecklistCatagoryComponent } from './update-safty-checklist-catagory/update-safty-checklist-catagory.component';
 
 @Component({
   selector: 'app-safty-checklist-catagory',
@@ -27,7 +29,7 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
   requestData:safetyItem[]=[];
   CategoryId:number;
 
-  displayedColumns: string[] = ['id', 'name', 'actions'];
+  displayedColumns: string[] = [ 'name', 'actions'];
 
   dataSource!: MatTableDataSource<safetyitemcategory>;
 
@@ -36,10 +38,16 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
 
   posts: any;
 
-  constructor(private dialog:MatDialog,@Inject(MAT_DIALOG_DATA) public data:{id:number},private route: Router,
-  private _service: ServiceService, private _snackBar: MatSnackBar) {
+  constructor(private dialog:MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data:{id:number},
+    private route: Router,private _service: ServiceService,
+     private _snackBar: MatSnackBar) {
     this.GetAllSafetyitemcategories();
    }
+
+   ngOnInit(): void {
+    
+  }
      // get all http method 
      GetAllSafetyitemcategories(){
       this._service.getSafetyCategory().subscribe(x => {
@@ -65,7 +73,6 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
   });
    }
 
-
    //search 
    applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
@@ -75,10 +82,26 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
-   // update
-   UpdateSafetyItemCategory(element: any) {
- 
+  addCategoryTypes(){
+    this.route.navigateByUrl('/addSafetyCategoryType')
   }
+  updateCategoryTypes(){
+    this.route.navigateByUrl('/updateSafetyCategoryType')
+  }
+
+   // update
+  openUpdateDialog(id:number):void{
+    const dialogRef=this.dialog.open(UpdateSaftyChecklistCatagoryComponent,{
+      data:{id},
+      width: '80%',
+      height:'90%'
+     });
+     dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+
+  }
+
   // close
   closeClick(){
     this._service.getSafetyCategory().subscribe(x => {
@@ -92,24 +115,33 @@ export class SaftyChecklistCatagoryComponent implements OnInit {
   })
   }
 
-   //add 
-  addSafetyItemCategory() {
-    this.route.navigateByUrl('/AddSafetyChecklistCategory')
+  openAddDialog():void{
+    const dialogRef = this.dialog.open(AddSaftyChecklistCatagoryComponent, {
+      width: '66%',
+      height:'70%'
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+
+    });
+
+
   }
-   //delete  deleteSafetyItemCategory(
+
+   //delete   deleteSafetyItemCategory(
    removeSafetyItemCategory(id:number){
     console.log(id);
-    if (confirm('Are you sure you want to delete this Supplier Type?')) {
+    if (confirm('Are you sure you want to delete this Category Type?')) {
       this._service.deleteSafetyItemCategory(id).subscribe(res => {
         this.GetAllSafetyitemcategories();
-        this._snackBar.open("Success, you have deleted a Supplier Type!", 'OK', {
+        this._snackBar.open("Success, you have deleted a Category Type!", 'OK', {
           duration: 3000,
           verticalPosition: 'bottom',
         });
       });
     }
    }
-  ngOnInit(): void {
-    
-  }
+ 
 }

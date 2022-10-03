@@ -1,7 +1,15 @@
 export interface CurrentUser{
-   // DisplayName:string;
-    UserName:string; // To display Username oflogged In
-    Password:string;
+  userId: number,
+  userRoleId:number;
+  userrole:string;
+  userName:string; 
+  password:string;
+  token:string;
+  }
+
+  export interface User{
+    userName: string
+    otp?: string
   }
   
 

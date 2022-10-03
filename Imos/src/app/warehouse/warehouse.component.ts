@@ -31,6 +31,10 @@ export class WarehouseComponent implements OnInit {
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllWarehouses();
   }
+  
+  ngOnInit(): void {
+    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+  }
 
   GetAllWarehouses() {
     this.service.getWarehouses().subscribe(x => {
@@ -94,8 +98,6 @@ export class WarehouseComponent implements OnInit {
     this.route.navigateByUrl('warehouseEquipment');
   }
 
-  ngOnInit(): void {
-    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
-  }
+  
 
 }

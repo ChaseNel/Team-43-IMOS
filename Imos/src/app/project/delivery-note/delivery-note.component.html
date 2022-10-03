@@ -27,7 +27,7 @@
     <!-- Supplier Type Column -->
     <ng-container matColumnDef="project">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Project </th>
-        <td mat-cell *matCellDef="let element"> {{ProjectList[element.projectId-1]?.projectId}} </td>
+        <td mat-cell *matCellDef="let element"> {{ProjectList[element.projectId-1].projectId}} </td>
     </ng-container>
 
     <!-- Supplier Name Column -->

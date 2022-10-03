@@ -7,7 +7,7 @@ namespace IMOSApi.Dtos.SafetyChecklist
 {
     public class GetSafetyItemDto
     {
-        public int Id { get; set; } 
+        public int SafetyfileitemId { get; set; } 
         public string Name { get; set; }
         public string Safetyitemcategory { get; set; }
         public int SafetyitemcategoryId { get; set; }

@@ -47,6 +47,9 @@ export class ClientRequestComponent implements OnInit {
           console.log(data.id);
           this.id =data.id;
       }
+      
+      ngOnInit(): void {
+      }
 
       openDialog(id:number): void {
         const dialogRef = this.dialog.open(AddRequestComponent
@@ -73,14 +76,9 @@ export class ClientRequestComponent implements OnInit {
           height:'60%',
           data: {id}
         });
-
-
         dialogRef.afterClosed().subscribe(result => {
           console.log('The dialog was closed');
           this.GetRequestBYClient(this.data.id);
-
-
-
         });
       }
 
@@ -138,7 +136,6 @@ export class ClientRequestComponent implements OnInit {
       }
 
 
-  ngOnInit(): void {
-  }
+
 
 }

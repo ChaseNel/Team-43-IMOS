@@ -50,9 +50,6 @@ import {AddUserComponent} from 'src/app/user/add-user/add-user.component';
 import { UpdateUserComponent } from './user/update-user/update-user.component';
 import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
 import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
-import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
-import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
-import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 
 import { IncidentComponent } from './incident/incident.component';
 import { EquipmentComponent } from './equipment/equipment.component';
@@ -174,6 +171,18 @@ import { UpdateMaterialRequestStatusComponent } from './project/material-request
 import { ProjectEquipmentComponent } from './equipment/project-equipment/project-equipment.component';
 import { AddProjectEquipmentComponent } from './equipment/project-equipment/add-project-equipment/add-project-equipment.component';
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
+import { VehicleBrandComponent } from './vehicle/vehicle-brand/vehicle-brand.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { UpdateVehicleBrandComponent } from './vehicle/vehicle-brand/update-vehicle-brand/update-vehicle-brand.component';
+import { AddVehicleBrandComponent } from './vehicle/vehicle-brand/add-vehicle-brand/add-vehicle-brand.component';
+import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
+import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+import { VehicleModelComponent } from './vehicle/vehicle-model/vehicle-model.component';
+import { AddVehicleModelComponent } from './vehicle/vehicle-model/add-vehicle-model/add-vehicle-model.component';
+import { UpdateVehicleModelComponent } from './vehicle/vehicle-model/update-vehicle-model/update-vehicle-model.component';
+import { ReceiveOrderComponent } from './supplier/supplier-order/receive-order/receive-order.component';
+import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
+import { OtpComponent } from './login/otp/otp.component';
 import { ViewProjectComponent } from './project/view-project/view-project.component';
 import { ProjectIncidentComponent } from './project/project-incident/project-incident.component';
 import { AddProjectIncidentComponent } from './project/project-incident/add-project-incident/add-project-incident.component';
@@ -206,6 +215,7 @@ import { AllTaskReportComponent } from './report/all-task-report/all-task-report
 import { ProjectTasksComponent } from './report/project-tasks/project-tasks.component';
 import { AllRequestControlReportComponent } from './report/all-request-control-report/all-request-control-report.component';
 import { ProjectManagementReportComponent } from './report/project-management-report/project-management-report.component';
+import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 
 
 
@@ -242,9 +252,6 @@ import { ProjectManagementReportComponent } from './report/project-management-re
     UpdateUserComponent,
     AddVehicleComponent,
     UpdateVehicleComponent,
-    VehicleTypeComponent,
-    AddVehicleTypeComponent,
-    UpdateVehicleTypeComponent,
     IncidentComponent,
     EquipmentComponent,
     ProjectComponent,
@@ -276,6 +283,7 @@ import { ProjectManagementReportComponent } from './report/project-management-re
     UpdateSaftyChecklistCatagoryComponent,
     ClientRequestComponent,
     AddRequestComponent,
+    AddVehicleTypeComponent,
     UpdateRequestComponent,
     ProjectMaterialRequestComponent,
     UpdateMaterialRequestComponent,
@@ -346,7 +354,19 @@ import { ProjectManagementReportComponent } from './report/project-management-re
     AllTaskReportComponent,
     ProjectTasksComponent,
     AllRequestControlReportComponent,
-    ProjectManagementReportComponent
+    ProjectManagementReportComponent,
+    VehicleBrandComponent,
+    VehicleTypeComponent,
+    UpdateVehicleBrandComponent,
+    AddVehicleBrandComponent,
+    UpdateVehicleTypeComponent,
+    AddVehicleModelComponent,
+    VehicleModelComponent,
+    UpdateVehicleModelComponent,
+    ReceiveOrderComponent,
+    AddSaftyChecklistComponent,
+    OtpComponent,
+    AuditTrailsComponent
 
   ],
 
@@ -375,6 +395,7 @@ import { ProjectManagementReportComponent } from './report/project-management-re
     MatNativeDateModule,
     NgChartsModule,
     FlexLayoutModule,
+
     MatTooltipModule,
     MatProgressBarModule,
     MatListModule,

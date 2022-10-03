@@ -21,11 +21,11 @@
       <mat-form-field appearance="standard">
         <mat-label>Full Name</mat-label>
         <input matInput placeholder="Jack Foster" #nameInput formControlName="name">
-        <mat-hint>Input your Full Name(Only Letters)</mat-hint>
+        <mat-hint>Input  Full Name(Only Letters)</mat-hint>
         <mat-error *ngIf="formdet['name'].touched && formdet['name'].invalid">
           <mat-error *ngIf="formdet['name'].errors?.['required'] && formdet['name'].dirty">Name is required</mat-error>
           <mat-error *ngIf="formdet['name'].errors?.['pattern'] && formdet['name'].dirty">Please enter a letter only name</mat-error>
-          <mat-error *ngIf="formdet['name'].errors?.['maxlength'] && formdet['name'].dirty">25 Characters maximum is required for a full name</mat-error>
+          <!-- <mat-error *ngIf="formdet['name'].errors?.['maxlength'] && formdet['name'].dirty">25 Characters maximum is required for a full name</mat-error> -->
         </mat-error>
       </mat-form-field>
 
@@ -33,11 +33,11 @@
       <mat-form-field appearance="fill">
         <mat-label>Address</mat-label>
         <input matInput placeholder="62 Park Street Pretoria Gauteng" formControlName="Address" #nameInput>
-        <mat-hint>Input your Address where you are currently staying</mat-hint>
+        <mat-hint>Input Address </mat-hint>
         <mat-error *ngIf="formdet['Address'].touched && formdet['Address'].invalid">
           <mat-error *ngIf="formdet['Address'].errors?.['required'] && formdet['Address'].dirty">Address is required</mat-error>
           <mat-error *ngIf="formdet['Address'].errors?.['minlength'] && formdet['Address'].dirty">10 Characters minimum is required for address</mat-error>
-          <mat-error *ngIf="formdet['Address'].errors?.['maxlength'] && formdet['Address'].dirty">40 Characters maximum is required for address</mat-error>
+          <!-- <mat-error *ngIf="formdet['Address'].errors?.['maxlength'] && formdet['Address'].dirty">40 Characters maximum is required for address</mat-error>--> 
         </mat-error>
       </mat-form-field>
 

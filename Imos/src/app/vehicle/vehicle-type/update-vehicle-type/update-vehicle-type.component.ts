@@ -1,75 +1,72 @@
-import { vehicletype } from './../../../services/service.service';
-import { Component, OnInit, Input } from '@angular/core';
-import { ServiceService } from 'src/app/services/service.service';
-import { AbstractControlOptions, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { id } from 'date-fns/locale';
+import { ServiceService, vehicletype } from './../../../services/service.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-update-vehicle-type',
   templateUrl: './update-vehicle-type.component.html',
-  styleUrls: ['./update-vehicle-type.component.css']
+  styleUrls: ['./update-vehicle-type.component.css'],
+  template:' {{data.id}}',
+
 })
 export class UpdateVehicleTypeComponent implements OnInit {
 
-  id!: number;
-  public updateForm!: FormGroup;
-  alert: boolean = false;
-  VehcileType!: vehicletype;
+  public UpdateTypesFormGroup!: FormGroup;
+  
+  hide: boolean = false;
 
-  constructor(private service: ServiceService,private route: ActivatedRoute,
-    private router: Router,private _snackbar: MatSnackBar,
-    private fb: FormBuilder) 
-    {
-      
-     }
+  constructor(private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data:{id:number},
+    private MatDialog: MatDialogRef<UpdateVehicleTypeComponent>,
+    private router: Router,
+     private _service: ServiceService,
+     private snackBar: MatSnackBar)
+    { 
+     
+      console.log(this.data.id);
+    }
 
   ngOnInit(): void {
-    const formOptions: AbstractControlOptions = {};
-    this.updateForm = this.fb.group({
-      description: ['', [Validators.required, Validators.maxLength(40)]],
-    },formOptions);
+   this.buildUpdateTypesFormWithEmptyFields();
 
-    this.id=+this.route.snapshot.params['id'];
-    this.service.getVehicleTypeID(this.id).subscribe((res:any)=>{
-      this.VehcileType=res;
-      console.log(this.VehcileType);
-      this.updateForm=this.fb.group({
-        description:[this.VehcileType.description,[Validators.required,  Validators.minLength(10), Validators.maxLength(30)]],
-      },formOptions)
+  }
+
+  public buildUpdateTypesFormWithEmptyFields(){
+    this.UpdateTypesFormGroup = this.fb.group({
+      Description: ['',[Validators.required]]
     });
   }
 
-  get formdet(){
-    return this.updateForm.controls;
+  private buildUpdateTypesForm(role: vehicletype){
+    this.UpdateTypesFormGroup = this.fb.group({
+      Description: [role.description, [Validators.required]],
+    })
 }
 
-  onSubmit() {
-    console.log(this.updateForm.value)
-    /*this.service.editVehicleType(this.route.snapshot.params['id'], this.updateForm.value).subscribe(
-      res => {
-        if (confirm('Are you sure you want to Update this Vehicle Type?')) {
-          this._snackbar.open("Success, you have Update a Vehicle Type!", 'OK', {
-            duration: 3000,
-            verticalPosition: 'bottom',
-          });
-        }
-        else{
-          this._snackbar.open("Unsuccessful", 'OK', {
-            duration: 3000,
-            verticalPosition: 'bottom',
-          });
-        }
-      })*/
-  }
 
-  back() {
-    this.router.navigateByUrl('vehicleType')
+UpdateVehicleType(){
+  let Id =this.data.id
+  if(this.UpdateTypesFormGroup.valid){
+    this._service.updateVehicleType(this.UpdateTypesFormGroup.value,Id)
+    .subscribe(() => {
+      this.MatDialog.close();
+      this.UpdateTypesFormGroup.reset();
+      this.snackBar.open('Update Vehicle Type Successful', 'X', {duration:5000} )
+    })
   }
+}
 
-  public hasError = (controlName: string, errorName: string) => {
-    return this.updateForm.controls[controlName].hasError(errorName);
-  }
+closeAlert(){
+  this.hide = false;
+}
+
+public hasError = (controlName: string, errorName: string) => {
+  return this.UpdateTypesFormGroup.controls[controlName].hasError(errorName);
+}
+
+
 }

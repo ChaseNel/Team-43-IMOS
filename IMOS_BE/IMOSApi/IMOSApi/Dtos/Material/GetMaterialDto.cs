@@ -1,4 +1,5 @@
 ﻿
+using IMOSApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace IMOSApi.Dtos.Material
         public int MaterialtypeId { get; set; }
         public int SupplierId { get; set; }
         public string SupplierName { get; set; }
+        public List<Suppliermaterial> Suppliermaterials { get; set; }
+        public List<Warehousematerial> Warehousematerials { get; set; }
 
 
     }

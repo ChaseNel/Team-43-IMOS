@@ -13,5 +13,10 @@ namespace IMOSApi.Dtos.Order
         public int SupplierId { get; set; }
         public int Quantity { get; set; }
 
+        public string supplierName { get; set; }
+        public string orderStatus { get; set; }
+
+
+
     }
 }

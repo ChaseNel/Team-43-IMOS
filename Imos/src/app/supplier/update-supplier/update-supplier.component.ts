@@ -46,7 +46,7 @@ export class UpdateSupplierComponent implements OnInit {
       this.Supplier=res;
       console.log(this.Supplier);
       this.updateForm=this.fb.group({
-        suppliertypeId:[this.Supplier.name,[Validators.required]],
+        suppliertypeId:[this.Supplier.suppliertype,[Validators.required]],
         name:[this.Supplier.name,[Validators.required, Validators.pattern("[A-Za-z ]{1,25}"), Validators.maxLength(25)]],
         address:[this.Supplier.address,[Validators.required,  Validators.minLength(10), Validators.maxLength(40)]],
         email:[this.Supplier.email,[Validators.required, Validators.email]],
@@ -55,6 +55,7 @@ export class UpdateSupplierComponent implements OnInit {
     });
     this._service.getSupplierType().subscribe(data =>{
       this.Suppliertypes = data;
+      console.log(data);
       });
   }
 
@@ -67,7 +68,7 @@ export class UpdateSupplierComponent implements OnInit {
       res=>{
         if (confirm('Are you sure you want to Update this Supplier?')) {
             this._snackBar.open("Success, you have Update a Supplier!", 'OK', {
-              duration: 3000,
+              duration: 500,
               verticalPosition: 'bottom',
             });
         }

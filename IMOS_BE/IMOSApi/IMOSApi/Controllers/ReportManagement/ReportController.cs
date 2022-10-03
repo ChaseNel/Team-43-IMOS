@@ -19,7 +19,7 @@ namespace IMOSApi.Controllers.ReportManagement
     [ApiController]
     public class ReportController : ControllerBase
     {
-        private readonly IMOSContext db = new IMOSContext();
+        //private readonly IMOSContext db = new IMOSContext();
 
         private readonly IMOSContext _context;
 
@@ -50,7 +50,7 @@ namespace IMOSApi.Controllers.ReportManagement
                }).ToList();
 
             return recordInDb;
-               
+
         }
 
 
@@ -151,14 +151,15 @@ namespace IMOSApi.Controllers.ReportManagement
         {
             var recordInDb = _context.Vehicles
                 .Include(item => item.Vehicletype)
+                .Include(item => item.ModelId).
+                Include(item => item.Model)
                 .Select(item => new GetVehicleDto()
                 {
-                     vehicleId = item.VehicleId,
-                    Make = item.Make,
-                    Model = item.Model,
-                    Year = item.Year.ToString("f"),
-                    Color = item.Color,
-                    VehicleStatus = item.AssignedStatus,
+                    Id = item.VehicleId,
+                    ModelId = item.ModelId,
+                    BrandId = item.BrandId,
+                    Year = item.Model.Year,
+                    AssignedStatus = item.AssignedStatus,
                     DatePurchased = item.DatePurchased.ToString("f"),
                     Vehicletype = item.Vehicletype.Description,
                     VehicletypeId = item.VehicletypeId
@@ -169,4 +170,3 @@ namespace IMOSApi.Controllers.ReportManagement
         }
     }
 }
- 

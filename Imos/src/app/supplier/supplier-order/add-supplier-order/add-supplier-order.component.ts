@@ -1,4 +1,4 @@
-import { material, supplier, suppliermaterial } from './../../../services/service.service';
+import { material, orderstatus, supplier, suppliermaterial } from './../../../services/service.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ServiceService } from 'src/app/services/service.service';
@@ -17,6 +17,7 @@ export class AddSupplierOrderComponent implements OnInit {
   //form1:FormGroup;
   supplierMaterialsList:material[]=[];
   id!: number;
+  statusList:orderstatus[]=[];
 
 
   constructor(private _service: ServiceService, private fb: FormBuilder) { }
@@ -46,10 +47,10 @@ export class AddSupplierOrderComponent implements OnInit {
   
     this._service.getMaterialBySupplierId().subscribe(data=>{
       this.supplierList=data;
-      //console.log(data)
+      console.log(data)
     })
   }
-  
+
   getSuppierMaterial(id: number) {
     this._service.getSupplierMaterial(id).subscribe(res =>{
       this.supplierMaterialsList = res;
@@ -86,7 +87,7 @@ export class AddSupplierOrderComponent implements OnInit {
       let order:any={};
       order['Quantity'] = this.form.get('quantity')?.value;
       order['SupplierId'] = this.form.get('SupplierId')?.value;
-
+      
       let materialIds=this.form.get('materialId')?.value as [];
       let listOfMaterials:any[]=[];
       materialIds.forEach((element: any) => {
@@ -102,15 +103,11 @@ export class AddSupplierOrderComponent implements OnInit {
        })
     }
     
-   /* let order = {
-      SupplierId: this.form.value.SupplierId,
-      Quantity: this.form.value.Quantity,
-     // Materials: [...this.form.value.Materials,]
-     
-    }
-   ;*/
+  
   }
+
   generateSupplierOrder(){
+    //email sent to supplier 
 
   }
   

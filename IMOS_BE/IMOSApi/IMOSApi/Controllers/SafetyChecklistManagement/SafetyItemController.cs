@@ -29,7 +29,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
                 .Include(item => item.Safetyitemcategory)
                 .Select(item => new GetSafetyItemDto()
                 {
-                    Id = item.SafetyfileitemId,
+                    SafetyfileitemId = item.SafetyfileitemId,
                     Name = item.Name,
                     Safetyitemcategory = item.Safetyitemcategory.CategoryName,
                     SafetyitemcategoryId = item.SafetyitemcategoryId //navigation to category
@@ -58,8 +58,8 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
                  .Include(item => item.Safetyfilechecklists)
                 .Select(item => new GetSafetyItemDto()
                 {
-                    
-                    Id = item.SafetyfileitemId,
+
+                    SafetyfileitemId = item.SafetyfileitemId,
                     Name = item.Name,
                     Safetyitemcategory = item.Safetyitemcategory.CategoryName,
                     SafetyitemcategoryId = item.SafetyitemcategoryId,

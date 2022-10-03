@@ -12,18 +12,23 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class BackUpDatabaseController : ControllerBase
     {
+        private readonly IMOSContext _context;
+        public BackUpDatabaseController(IMOSContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet("BackUpDatabase")]
         public IActionResult BackUpDatabase()
         {
-            using var context = new IMOSContext();
+         
             var message = "";
 
             try
             {
-             
 
-                context.Database.ExecuteSqlRaw("exec IMOSDBBACKUP2");
+
+                _context.Database.ExecuteSqlRaw("exec IMOSDBBACKUP2");
                 return Ok();
 
             }
@@ -40,7 +45,7 @@ namespace IMOSApi.Controllers
         [HttpPost("RestoreDatabase")]
         public IActionResult RestoreDatabase(string backuppath)
         {
-            using var context = new IMOSContext();
+            
             var message = "";
 
             try
@@ -55,7 +60,7 @@ namespace IMOSApi.Controllers
                 };
 
 
-                context.Database.ExecuteSqlRaw("exec RESTOREIMOSDATABASE22 @backuppath", parameters: parameters);
+                _context.Database.ExecuteSqlRaw("exec RESTOREIMOSDATABASE22 @backuppath", parameters: parameters);
                 return Ok();
 
             }

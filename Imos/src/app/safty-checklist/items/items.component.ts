@@ -99,14 +99,19 @@ export class ItemsComponent implements OnInit {
 
      removeItem(id: number) {
       console.log(id);
-      if (confirm('Are you sure you want to delete this Request?')) {
+      if (confirm('Are you sure you want to delete this Safety Item!')) {
         this.service.deleteItem(id).subscribe(res => {
           this.getItemsFromCategoryById(this.data.id);
-
-          this._snackbar.open("Success, you have deleted a Request!", 'OK', {
+          this._snackbar.open("Success, you have deleted Safety Item!", 'OK', {
             duration: 3000,
             verticalPosition: 'bottom',
           });
+        })
+      }
+      else{
+        this._snackbar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
         });
       }
     }

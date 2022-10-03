@@ -1,6 +1,5 @@
 ﻿
 using IMOSApi.Infrastructure;
-using IMOSApi.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -27,14 +26,14 @@ namespace IMOSApi.Extensions
         }
 
 
-     public void NewUserNotification (int userId)
+  /*  public void NewUserNotification (int userId)
         {
 
-            var context = new IMOSContext();// add /OR pass configuration parameter
+          //  var context = new IMOSContext();// add /OR pass configuration parameter
             var to = context.Users.Where(item => item.UserId == userId)
                 .Include(item => item.Userrole).Include(item => item.Employee).Single();
 
-            var subjectLine = "[ Ngubeni and TDS Waterproofing] User Account";
+            var subjectLine = "[ Ngubeni and TDS Waterproofing]  User Account";
 
             var htmlMessageToApplicant = $"<p>Hi "+ to.Employee.Name + ",<br><br><br>You have been added as User for Ngubeni and TDS waterproofing System User" +
                   $"Use these credentials to sign in" +
@@ -48,7 +47,7 @@ namespace IMOSApi.Extensions
                                    + to.Username + ", Password: " + to.Userpassword;
 
             Email.SendGenericEmail("u18180559@tuks.co.za", " Ngubeni and TDS Waterproofing", to.Employee.Email, to.Employee.Name, subjectLine, htmlMessageToApplicant, planTextMessage);
-        }
+        }*/
 
 
     }

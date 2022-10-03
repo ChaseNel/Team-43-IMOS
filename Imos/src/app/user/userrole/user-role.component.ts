@@ -22,7 +22,7 @@ export class UserRoleComponent implements OnInit {
   // API Test
   data: userrole[] = [];
 
-  displayedColumns: string[] = ['id', 'description', 'actions'];
+  displayedColumns: string[] = [ 'description', 'actions'];
 
   dataSource!: MatTableDataSource<UserRole>;
 

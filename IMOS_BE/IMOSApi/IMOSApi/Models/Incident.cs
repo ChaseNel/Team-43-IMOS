@@ -14,10 +14,11 @@ namespace IMOSApi.Models
 
         public int IncidentId { get; set; }
         public string Description { get; set; }
+        public int ProjectId { get; set; }
 
         public DateTime Date { get; set; }
 
-        public int ProjectId { get; set; }
+       // public int ProjectId { get; set; }
 
         public virtual Project Projects { get; set; }
     }

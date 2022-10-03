@@ -14,8 +14,8 @@ namespace IMOSApi.Dtos
 
         [Required]
         public int EmployeeId { get; set; }
-
+        [Required]
         public int UserroleId { get; set; }
-
+   
     }
 }

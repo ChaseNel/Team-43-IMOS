@@ -28,7 +28,7 @@ export class SupplierComponent implements OnInit {
   // API Test
   data: supplier[] = [];
 
-  displayedColumns: string[] = ['id', 'suppliertype', 'name', 'address', 'email', 'contactNumber', 'actions'];
+  displayedColumns: string[] = [ 'suppliertype', 'name', 'address', 'email', 'contactNumber', 'actions'];
 
   dataSource!: MatTableDataSource<Supplier>;
 
@@ -53,6 +53,9 @@ export class SupplierComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
+  }
+  ngOnInit(): void {
+    this.service.getSupplierType().subscribe(x => { this.TypeList = x; console.log("type", this.TypeList) });
   }
 
   applyFilter(event: Event) {
@@ -96,8 +99,6 @@ export class SupplierComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-    this.service.getSupplierType().subscribe(x => { this.TypeList = x; console.log("type", this.TypeList) });
-  }
+
 
 }

@@ -31,7 +31,8 @@ export class UpdateRequestComponent implements OnInit {
     private MatDialog: MatDialogRef<UpdateRequestComponent>,
     private router: Router,
      private service: ServiceService,
-     private snackBar: MatSnackBar) {
+     private snackBar: MatSnackBar) 
+     {
       this.id = data.id;
       console.log(this.data.id);
       }
@@ -66,6 +67,10 @@ export class UpdateRequestComponent implements OnInit {
       })
     }
   }
+  
+public hasError = (controlName: string, errorName: string) => {
+  return this.UpdateRequestFormGroup.controls[controlName].hasError(errorName);
+}
 
 
 

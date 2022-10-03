@@ -1,66 +1,48 @@
 <app-header></app-header>
-
 <div class="main">
-
     <h1>Update Vehicle</h1>
-
     <form [formGroup]="updateForm" class="form" (ngSubmit)="onSubmit">
-
         <div class="row">
             <mat-form-field appearance="standard">
-                <mat-label> Vehicle type</mat-label>
+                <mat-label> Select Vehicle Type</mat-label>
                 <mat-select formControlName="vehicletypeId">
-                    <mat-option *ngFor="let type of Vehicletypes" [value]="type.id">
-                        {{type.description}}
+                    <mat-option *ngFor="let type of Vehicletypes" [value]="type.id" (click)="getTypeByMake(type.id)">
+                        {{type.description}
                     </mat-option>
                 </mat-select>
+                <mat-error *ngIf="hasError('vehicletypeId', 'required')">Vehicle Type Name is required
+                </mat-error>
             </mat-form-field>
-    
             <mat-form-field appearance="standard">
-                <mat-label>Make</mat-label>
-                <input matInput placeholder="Input Make name" #nameInput formControlName="make">
-                <mat-error *ngIf="hasError('make', 'required')">Make is required</mat-error>
-                <mat-error *ngIf="hasError('make', 'pattern')">Enter letters only</mat-error>
+                <mat-label> Vehicle Brands </mat-label>
+                <mat-select formControlName="brandId">
+                    <mat-option *ngFor="let type of VehicleBrandlist" [value]="type.id"  (click)="getModelsByBrand(type.id)">
+                        {{type.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('brandId', 'required')">Vehicle Make is required
+                </mat-error>
             </mat-form-field>
-   
+           
             <mat-form-field appearance="standard">
-                <mat-label>Model</mat-label>
-                <input matInput placeholder="Type  Model name" #nameInput formControlName="model">
-                <mat-error *ngIf="hasError('model', 'required')">Model is required</mat-error>
-                <mat-error *ngIf="hasError('model', 'pattern')">Enter letters only </mat-error>
-            </mat-form-field>
-       
-            <mat-form-field appearance="standard">
-                <mat-label>Vehicle Color</mat-label>
-                <input matInput placeholder="Color" #nameInput formControlName="color">
-                <mat-error *ngIf="hasError('color', 'required')">Color is required</mat-error>
-                <mat-error *ngIf="hasError('color', 'pattern')">Enter letters only</mat-error>
-            </mat-form-field>
-    
-            <mat-form-field appearance="outline">
-                <mat-label> Vehicle Model Year Date</mat-label>
-                <input matInput formControlName="modelYear" [matDatepicker]="modelYearPicker"
-                    (click)="modelYearPicker.open()">
-                <mat-datepicker-toggle matSuffix [for]="modelYearPicker"></mat-datepicker-toggle>
-                <mat-datepicker #modelYearPicker color="warn"></mat-datepicker>
+                <mat-label> Vehicle Models</mat-label>
+                <mat-select formControlName="modelId">
+                    <mat-option *ngFor="let type of VehicleModellist" [value]="type.id">
+                        {{type.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="hasError('modelId', 'required')">Vehicle Type Name is required
+                </mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="standard">
                 <mat-label>Date Purchased</mat-label>
                 <input matInput formControlName="datePurchased" [matDatepicker]="modelDatePurchasedPicker"
                     (click)="modelDatePurchasedPicker.open()">
                 <mat-datepicker-toggle matSuffix [for]="modelDatePurchasedPicker"></mat-datepicker-toggle>
                 <mat-datepicker #modelDatePurchasedPicker color="warn"></mat-datepicker>
+                <mat-error *ngIf="hasError('datePurchased', 'required')">Date Purchased is required</mat-error>
             </mat-form-field>
- 
-        <mat-form-field appearance="outline">
-            <mat-label>Last Serviced Date</mat-label>
-            <input matInput formControlName="lastServiced" [matDatepicker]="modelLastServicedPicker"
-                (click)="modelLastServicedPicker.open()">
-            <mat-datepicker-toggle matSuffix [for]="modelLastServicedPicker"></mat-datepicker-toggle>
-            <mat-datepicker #modelLastServicedPicker color="warn"></mat-datepicker>
-        </mat-form-field>
-
         <div class="btn">
             <mat-card-actions>
                 <button mat-raised-button color="primary" [disabled]="!updateForm.valid">Update</button>

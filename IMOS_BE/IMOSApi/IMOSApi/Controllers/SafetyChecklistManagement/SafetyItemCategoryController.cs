@@ -47,7 +47,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
             return recordsInDb;
         }
 
-        [HttpPut("{id}")] // update Category Description
+        [HttpPut("UpdateCategory/{id}")] // update Category Description
         public IActionResult Update(AddOrUpdateGenericNameOnlyDto model, int id)
         {
             if (ModelState.IsValid)
@@ -94,7 +94,7 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
             return BadRequest(new { message });
         }
 
-        [HttpDelete("{id}")] // Delete Category 
+        [HttpDelete("DeleteSafetyItemCategory/{id}")] // Delete Category 
         public async Task<ActionResult<Safetyitemcategory>> DeleteRecord(int id)
         {
             var recordInDb = await _context.Safetyitemcategories.FindAsync(id);

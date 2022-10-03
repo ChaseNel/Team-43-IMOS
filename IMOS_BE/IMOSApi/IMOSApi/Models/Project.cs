@@ -32,6 +32,7 @@ namespace IMOSApi.Models
         public virtual ICollection<Incident> Incidents { get; set; }
         public virtual Request Initialrequest { get; set; }
         public virtual ICollection<Delivery> Deliveries { get; set; }
+       
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<Projectemployee> Projectemployees { get; set; }
         public virtual ICollection<Projectequipment> Projectequipments { get; set; }

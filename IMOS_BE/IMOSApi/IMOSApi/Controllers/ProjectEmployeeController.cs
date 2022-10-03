@@ -45,11 +45,10 @@ namespace IMOSApi.Controllers
         [HttpGet("GetProjectemployee/{id}")]
         public IEnumerable<Projectemployee> Get(int id)
         {
-            using (var context = new IMOSContext())
-            {
-                IEnumerable<Projectemployee> tmp = context.Projectemployees.Where(emp => emp.ProjectId == id).ToList();
+            
+                IEnumerable<Projectemployee> tmp = _context.Projectemployees.Where(emp => emp.ProjectId == id).ToList();
                 return tmp;
-            }
+            
         }
 
 
@@ -85,27 +84,27 @@ namespace IMOSApi.Controllers
 
         }
 
-        [HttpPut("UpdateProjectemployee/{Id}")]
-        public void Update([FromBody] Projectemployee Projectemployee, [FromRoute] int Id)
-        {
-            using (var context = new IMOSContext())
-            {
-                var clie = context.Projectemployees.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
+        //[HttpPut("UpdateProjectemployee/{Id}")]
+        //public void Update([FromBody] Projectemployee Projectemployee, [FromRoute] int Id)
+        //{
+        //    using (var context = new IMOSContext())
+        //    {
+        //        var clie = context.Projectemployees.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
 
-                context.SaveChanges();
-            }
-        }
+        //        context.SaveChanges();
+        //    }
+        //}
 
-        [HttpDelete("DeleteProjectemployee/{Id}")]
-        public void Delete(int id)
-        {
-            using (var context = new IMOSContext())
-            {
-                var clie = context.Projectemployees.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                context.Projectemployees.Remove(clie);
-                context.SaveChanges();
-            }
-        }
+        //[HttpDelete("DeleteProjectemployee/{Id}")]
+        //public void Delete(int id)
+        //{
+        //    using (var context = new IMOSContext())
+        //    {
+        //        var clie = context.Projectemployees.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
+        //        context.Projectemployees.Remove(clie);
+        //        context.SaveChanges();
+        //    }
+        //}
     }
 
 }

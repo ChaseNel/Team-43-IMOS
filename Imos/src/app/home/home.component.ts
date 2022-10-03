@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
+import { CurrentUser } from '../services/auth/auth.types';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +10,21 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  loggedInUser:CurrentUser
+
+  constructor(private route: Router,private _AuthService:AuthService)
+   {
+    this.getUserDetails();
+
+   }
+
 
   backgroundUrl = "./../../assets/Untitled Diagram.jpg"
-  constructor(private route: Router) { }
+ 
+
+  ngOnInit(): void {
+    
+  }
 
 
 
@@ -68,6 +82,13 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl('/reports')
   }
 
-  ngOnInit(): void {
+  auditTrails() {
+    this.route.navigateByUrl("/auditTrail");
   }
+
+  private getUserDetails(){
+    //this.loggedInUser = this._AuthService.getToken;
+
+  }
+
 }

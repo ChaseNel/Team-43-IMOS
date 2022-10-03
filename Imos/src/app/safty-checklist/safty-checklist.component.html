@@ -27,7 +27,7 @@
     <!-- Supplier Name Column  safetyfileitems-->
     <ng-container matColumnDef="projectname">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Project Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.projectname}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name </td>
     </ng-container>
 
      <!-- Category  Name Column  safetyfileitems-->
@@ -62,4 +62,4 @@
     </tr>
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of checklists"></mat-paginator>
-<button (click)="addNewSafetyChecklist()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+<button (click)="openAddDialog()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>

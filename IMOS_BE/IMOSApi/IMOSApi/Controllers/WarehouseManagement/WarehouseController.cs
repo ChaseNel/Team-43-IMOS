@@ -45,13 +45,13 @@ namespace IMOSApi.Controllers.WarehouseManagement
                 Name = item.Name,
                 Id = item.WarehouseId,
                 Description=item.Location
-            }).OrderBy(item => item.Name).ToList();
+            }).OrderBy(item => item.Id).ToList();
 
             return recordsInDb;
         }
 
         [HttpPut("UpdateWarehouse/{id}")]
-        public IActionResult Update(AddOrUpdateGenericDto model, int id)
+        public async Task< IActionResult> Update(AddOrUpdateGenericDto model, int id)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,8 @@ namespace IMOSApi.Controllers.WarehouseManagement
 
                 recordInDb.Name = model.Name;
                 recordInDb.Location = model.Description;
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
             var message = "Something went wrong on your side.";
@@ -71,7 +72,7 @@ namespace IMOSApi.Controllers.WarehouseManagement
         }
 
         [HttpPost("AddWarehouse")]
-        public IActionResult Add(AddOrUpdateGenericDto model)
+        public async Task< IActionResult> Add(AddOrUpdateGenericDto model)
         {
 
             var message = "";
@@ -90,7 +91,8 @@ namespace IMOSApi.Controllers.WarehouseManagement
                     Location=model.Description
                 };
                 _context.Warehouses.Add(newRecord);
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
             message = "Something went wrong on your side.";
@@ -106,8 +108,26 @@ namespace IMOSApi.Controllers.WarehouseManagement
                 return NotFound();
             }
 
+            int i = 3;
+            
+
+            var warehouseMaterials= _context.Warehousematerials.Where(item => item.WarehouseId == id);
+      _context.Warehousematerials.RemoveRange(warehouseMaterials);
+            await _context.SaveChangesAsync(i);
+
+            var warehouseEquipments = _context.Warehouseequipments.Where(item => item.WarehouseId == id);
+      _context.Warehouseequipments.RemoveRange(warehouseEquipments);
+            await _context.SaveChangesAsync(i);
+
+            var warehouseDeliveries = _context.Deliveries.Where(item => item.WarehouseId == id);
+            _context.Deliveries.RemoveRange(warehouseDeliveries);
+            await _context.SaveChangesAsync(i);
+
+
+
             _context.Warehouses.Remove(recordInDb);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(i);
+
             return Ok();
         }
     }

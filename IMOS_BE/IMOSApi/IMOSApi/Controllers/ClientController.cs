@@ -26,7 +26,6 @@ namespace IMOSApi.Controllers
             _dbContext = dbContext;
         }
 
-
         [HttpGet("GetAllClients")]
         public ActionResult<IEnumerable<GetClients>> GetAllClients()
         {
@@ -40,11 +39,6 @@ namespace IMOSApi.Controllers
                 }).OrderBy(item => item.ClientName).ToList();
             return recordIndb;
         }
-
-
-
-
-
 
         [HttpGet("{id}")]
         public ActionResult<GetClients> GetClient(int id)
@@ -67,11 +61,8 @@ namespace IMOSApi.Controllers
             return recordiInDb;
         }
 
-
-
-
         [HttpPost("AddClient")]
-        public IActionResult AddClient(AddOrUpdateClientDto model)
+        public async Task< IActionResult> AddClient(AddOrUpdateClientDto model)
         {
             var message = "";
             if (ModelState.IsValid)
@@ -90,19 +81,18 @@ namespace IMOSApi.Controllers
                     Contactnumber = model.Contactnumber,
                 };
                 _dbContext.Clients.Add(NewClient);
-                _dbContext.SaveChanges();
+
+                int i = 3;
+                await _dbContext.SaveChangesAsync(i);
                 return Ok();
 
             }
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
-
         }
 
-
-
         [HttpPut("UpdateClient/{Id}")]
-        public IActionResult UpdateClient(AddOrUpdateClientDto model, int Id)
+        public async Task< IActionResult> UpdateClient(AddOrUpdateClientDto model, int Id)
         {
             if (ModelState.IsValid)
             {
@@ -115,18 +105,14 @@ namespace IMOSApi.Controllers
                 recordInDb.Clientname = model.ClientName;
                 recordInDb.Clientemail = model.Clientemail;
                 recordInDb.Contactnumber = model.Contactnumber; ;
-                _dbContext.SaveChanges();
+                int i = 3;
+                await _dbContext.SaveChangesAsync(i);
                 return Ok();
 
             }
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
-
-
-
-
-
 
         [HttpDelete("DeleteClient/{Id}")]
         public async Task<ActionResult<Client>> DeleteClient(int Id)
@@ -141,16 +127,11 @@ namespace IMOSApi.Controllers
                 .Where(item => item.ClientId == Id);
             _dbContext.Requests.RemoveRange(ClientRequests);
 
-
             _dbContext.Clients.Remove(recordInDb);
             await _dbContext.SaveChangesAsync();
 
             return Ok();
         }
-
-
-
-
 
         [HttpGet("GetAllRequests")]
         public ActionResult<IEnumerable<GetRequests>> GetAllRequests()

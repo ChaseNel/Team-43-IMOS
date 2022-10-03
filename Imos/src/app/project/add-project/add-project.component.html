@@ -15,7 +15,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Select  Construction Site</mat-label>
                     <mat-select formControlName="constructionsiteId">
-                        <mat-option *ngFor="let type of SiteList" [value]="type.address">
+                        <mat-option *ngFor="let type of SiteList" [value]="type.id">
                             {{type.address}}
                         </mat-option>
                       </mat-select>
@@ -24,7 +24,7 @@
                 <mat-form-field class="full-width">
                     <mat-label>Select Request</mat-label>
                     <mat-select formControlName="initialrequestId">
-                        <mat-option *ngFor="let type of requestList" [value]="type.description">
+                        <mat-option *ngFor="let type of requestList" [value]="type.requestId">
                             {{type.description}}
                         </mat-option>
                       </mat-select>

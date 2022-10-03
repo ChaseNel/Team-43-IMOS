@@ -23,7 +23,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         }
 
         [HttpPost("AddMaterialType")]
-        public IActionResult AddSupplierMaterialType(AddOrUpdateGenericDto model)//will create/add  material type specific to supplier Id in table
+        public async Task< IActionResult> AddSupplierMaterialType(AddOrUpdateGenericDto model)//will create/add  material type specific to supplier Id in table
         {
             var message = "";
             if (ModelState.IsValid)//checks if model is valid then  creates new MaterialType 
@@ -34,7 +34,9 @@ namespace IMOSApi.Controllers.MaterialManagent
                     Description= model.Description
                 };
                 _context.Materialtypes.Add(newMaterialType);
-                _context.SaveChanges();
+
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
             message = "Something went wrong on your side.";
@@ -73,7 +75,7 @@ namespace IMOSApi.Controllers.MaterialManagent
         }
 
         [HttpPut("UpdateType/{id}")]
-        public IActionResult Update(AddOrUpdateGenericDto model, int id)
+        public async Task< IActionResult> Update(AddOrUpdateGenericDto model, int id)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +88,8 @@ namespace IMOSApi.Controllers.MaterialManagent
 
                 recordInDb.Name = model.Name;
                 recordInDb.Description = model.Description;
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
 
                 return Ok();
             }
@@ -102,9 +105,11 @@ namespace IMOSApi.Controllers.MaterialManagent
             {
                 return NotFound();
             }
+
             var materialType = _context.Materialtypes.Where(item => item.MaterialtypeId == recordInDb.MaterialtypeId).ToList();
             _context.Materialtypes.Remove(recordInDb);
-            await _context.SaveChangesAsync();
+            int i = 3;
+            await _context.SaveChangesAsync(i);
             return Ok();
         }
     }

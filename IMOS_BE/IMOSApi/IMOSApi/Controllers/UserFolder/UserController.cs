@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 namespace IMOSApi.Controllers.UserFolder
@@ -48,18 +50,59 @@ namespace IMOSApi.Controllers.UserFolder
                     Name = item.Employee.Name,
                     Email=item.Employee.Email,
                     EmployeeId=item.EmployeeId
-                }).OrderBy(item => item.Username).ToList();
+                }).OrderBy(item => item.Id).ToList();
             return recordsInDb;
         }
 
+        [NonAction]
+        public void SendNewUserNotification(string UserId,string assignedPassword, string emailFor = "newUser")
+        {
+            var fromEmail = new MailAddress("u18180559@tuks.co.za", "WelCome User");
+            var fromPassword = "#Honours2023";
+            var toEmail = new MailAddress(UserId);
+
+            string subjectLine = "";
+            string body = "";
+            if (emailFor == "newUser")
+            {
+                subjectLine = "[Ngubeni and TDS Waterproofing]  User Account";
+                body = $"<p>Good day " + UserId + ",<br><br><br>You have been added as User for Ngubeni and TDS waterproofing System User" +
+                  $"Use these credentials to sign in" +
+                                         $"<br/><br/>" +
+                                         "Username: " + UserId + $"<br/><br/>" + "Auto-generated Password: "+ assignedPassword + $"<br/><br/>"+
+
+                                           $"You will have to change the auto generated password" +
+                                            $"<br/><br/>" +
+                                         "Thanks,<br/>" + $"<br/><br/>"+
+                                         "Ngubeni and TDS Waterproofing Online System";
+            }
+            var smtp = new SmtpClient
+            {
+                Host = "smtp.gmail.com",
+                Port=587,
+                EnableSsl=true,
+                DeliveryMethod=SmtpDeliveryMethod.Network,
+                UseDefaultCredentials=false,
+                Credentials=new  NetworkCredential(fromEmail.Address,fromPassword)
+            };
+
+            using (var message = new MailMessage(fromEmail, toEmail)
+            {
+                Subject = subjectLine,
+                Body = body,
+                IsBodyHtml = true
+            })
+                smtp.Send(message);
+        }
 
        [HttpPost("Register")]
-        public IActionResult  Add(AddOrUpdateUserDto model)
+        public async Task< IActionResult>  Add(AddOrUpdateUserDto model)
         {
             var message = "";
             if (ModelState.IsValid)
             {
-                var recordInDb =  _context.Users.FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
+                var recordInDb =  _context.Users
+                    .FirstOrDefault(item => item.Username.ToLower() == model.Username.ToLower());
 
                 if (recordInDb != null)
                 {
@@ -75,13 +118,18 @@ namespace IMOSApi.Controllers.UserFolder
                     Username = model.Username,
                     Userpassword =EncDscPassword.EncryptPassword(assignedPassword)
                 };
-
                  _context.Users.Add(newUser);
-                 _context.SaveChanges();
-            
+
+                int i = 3;
+                await _context.SaveChangesAsync(i);
+
+                string UserId = newUser.Username;
+                string password = assignedPassword;
+
+                SendNewUserNotification(UserId, assignedPassword,"newUser");
 
               // var notificationExtension = new NotificationsExtension(_configuration);
-               //notificationExtension.NewUserNotification(newUser.UserId);
+              //notificationExtension.NewUserNotification(newUser.UserId);
             }
             return Ok();
         }
@@ -97,8 +145,11 @@ namespace IMOSApi.Controllers.UserFolder
                 return BadRequest(new { message });
             }
 
+            return Unauthorized(StatusCode(401));
+           
 
-            var usersStockTake= _context.Stocktakes.Where(item => item.UserId == id);
+
+            /*var usersStockTake= _context.Stocktakes.Where(item => item.UserId == id);
             _context.Stocktakes.RemoveRange(usersStockTake);
             await _context.SaveChangesAsync();
 
@@ -106,10 +157,9 @@ namespace IMOSApi.Controllers.UserFolder
             _context.Equipmentchecks.RemoveRange(usersEquipmentChecks);
             await _context.SaveChangesAsync();
 
-
             _context.Users.Remove(recordInDb);
-            await _context.SaveChangesAsync();
-            return Ok();
+            await _context.SaveChangesAsync();*/
+          
         }
 
         [HttpPut("UpdateUser")]

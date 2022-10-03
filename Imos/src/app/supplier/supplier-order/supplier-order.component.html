@@ -13,21 +13,14 @@
     <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
 </mat-form-field>
 
-
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Supplier Type ID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Id. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-
     <ng-container matColumnDef="number">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Number </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Referance </th>
         <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
     </ng-container>
 
@@ -37,15 +30,21 @@
     </ng-container>
     <ng-container matColumnDef="type">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Supplier Name </th>
-        <td mat-cell *matCellDef="let element"> {{supplierList[element.supplierId-1]?.name}}</td>
+        <td mat-cell *matCellDef="let element">  {{element.supplierName}} </td>
     </ng-container>
-   
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Order Status </th>
+        <td mat-cell *matCellDef="let element"> {{element.orderStatus}} </td>
+    </ng-container>
     <!-- Actions -->
     <ng-container matColumnDef="actions">
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button (click)="cancelOrder(element.id)" mat-flat-button color="accent">Cancel Supplier Order</button>
+        <button (click)="recieveOrder(element.id)" mat-flat-button color="primary"> Receive Supplier Order</button>
+            &nbsp;
+         <button (click)="cancelOrder(element.id)" mat-flat-button color="accent">Cancel Supplier Order</button>
         </td>
     </ng-container>
 

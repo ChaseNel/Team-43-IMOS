@@ -1,14 +1,15 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import {  project, safetyItem, ServiceService } from '../services/service.service';
+import { AddSaftyChecklistComponent } from './add-safty-checklist/add-safty-checklist.component';
 
 export interface Safetyfilechecklist{
-  
   projectId:number,
   safetyfileitemId:number,
   project:string,
@@ -20,10 +21,10 @@ export interface Safetyfilechecklist{
 @Component({
   selector: 'app-safty-checklist',
   templateUrl: './safty-checklist.component.html',
-  styleUrls: ['./safty-checklist.component.css']
+  styleUrls: ['./safty-checklist.component.css'],
+  template:' {{data.id}}'
 })
 export class SaftyChecklistComponent implements OnInit {
-
 
   displayedColumns: string[] = ['id', 'projectname', 'SafetyItems','actions'];
 
@@ -37,10 +38,20 @@ export class SaftyChecklistComponent implements OnInit {
   SafetyItems:safetyItem[]=[];
   TypeList:project[]=[];
 
-  constructor(private _route: Router, private _service: ServiceService, private _snackBar: MatSnackBar) {
+  constructor(private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public data:{id:number},
+    private _router: Router, private _service: ServiceService, 
+    private _snackBar: MatSnackBar) {
     this.GetAllProjectSafetyChecklistItem();
 
    }
+
+   ngOnInit(): void {
+    this._service.getSafetyCategory().subscribe(x=>{
+    })
+    
+  }
+   
    GetAllProjectSafetyChecklistItem(){
     this._service.getProjectChecklist().subscribe(x => {
       this.posts = x;
@@ -52,6 +63,10 @@ export class SaftyChecklistComponent implements OnInit {
     })
    }
 
+   addChecklist(){
+    this._router.navigateByUrl('/addProjectChecklist')
+   }
+
    applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
@@ -61,15 +76,24 @@ export class SaftyChecklistComponent implements OnInit {
     }
   }
 
-// add method route addNewSafetyChecklist
-addNewSafetyChecklist() {
-  this._route.navigateByUrl('/AddSaftyChecklist')
+openAddDialog():void{
+
+  const dialogRef = this.dialog.open(AddSaftyChecklistComponent, {
+    width: '66%',
+    height:'70%'
+  }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+
+  });
 }
 
   // update method route
   UpdateProjectSafetyChecklist(id:number) {
     //console.log("Test " +id)
-    this._route.navigate(['UpdateProjectSafetyChecklist',id])
+    this._router.navigate(['UpdateProjectSafetyChecklist',id])
   }
 
   // delete method route   getSafetyCategory
@@ -87,12 +111,7 @@ addNewSafetyChecklist() {
   }
 
   saftychecklistcatagory(){
-    this._route.navigateByUrl('/saftyChecklistCatagory')
-  }
-
-  ngOnInit(): void {
-    this._service.getSafetyCategory().subscribe(x=>{
-    })
+    this._router.navigateByUrl('/saftyChecklistCatagory')
   }
 }
 

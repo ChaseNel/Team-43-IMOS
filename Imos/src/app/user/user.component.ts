@@ -38,7 +38,7 @@ export class UserComponent implements OnInit {
 
   data: user[] = [];
 
-  displayedColumns: string[] = ['id', 'userrole', 'name', 'userName', 'password', 'actions'];
+  displayedColumns: string[] = ['userrole', 'name', 'userName', 'password', 'actions'];
 
   dataSource!: MatTableDataSource<User>;
 
@@ -52,6 +52,15 @@ export class UserComponent implements OnInit {
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllUsers();
   }
+  
+  ngOnInit(): void {
+    this.service.getUserRole().subscribe(x =>
+      { this.rolelist = x;
+         console.log("rolelist", this.rolelist)
+        });
+    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
+  }
+
 
   GetAllUsers() {
     this.service.getUser().subscribe(x => {
@@ -74,14 +83,11 @@ export class UserComponent implements OnInit {
       this.dataSource.paginator.firstPage()
     }
   }
+
   addUser() {
     this.route.navigateByUrl('addUser')
   }
   
-  resendLoginAccountEmail(){
-    
-  }
-
   deleteUser(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this User?')) {
@@ -97,14 +103,6 @@ export class UserComponent implements OnInit {
 
   userRole() {
     this.route.navigateByUrl('userrole')
-  }
-
-  ngOnInit(): void {
-    this.service.getUserRole().subscribe(x =>
-      { this.rolelist = x;
-         console.log("rolelist", this.rolelist)
-        });
-    this.service.getEmployees().subscribe(i => { this.employeelist = i; console.log("employeelist", this.employeelist) });
   }
 
 }

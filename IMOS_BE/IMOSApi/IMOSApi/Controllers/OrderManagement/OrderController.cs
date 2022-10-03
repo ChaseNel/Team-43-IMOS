@@ -37,12 +37,11 @@ namespace IMOSApi.Controllers.OrderManagement
                     Date = item.Date.ToString(),
                     OrderNumber = item.OrderNumber,
                     SupplierId = item.SupplierId,
-
+                    supplierName=item.Supplier.Name,
+                    orderStatus=item.OrderStatusDescription
                 }).OrderBy(item => item.Date);
             return recordsInDb.ToList();
         }
-
-
 
         // Add to Supplier Order Cart 
         [HttpPost("AddSupplierMaterialOrdersCart")]
@@ -51,43 +50,50 @@ namespace IMOSApi.Controllers.OrderManagement
             var message = "";
             if (ModelState.IsValid)
             {
-                var recordIbDb = _context.Orderlines.FirstOrDefault();
-                if (recordIbDb != null)
+                try
                 {
-                    message = "Record exists in database";
-                    return BadRequest(new { message });
-                }
-
-                var orderNumber = "";
-                Orderline orderNumberExists;
-                do
-                {
-                    orderNumber = GenerateOrderNumber();
-                    orderNumberExists = _context.Orderlines.FirstOrDefault(item => item.OrderNumber == orderNumber);
-
-                } while (orderNumberExists != null);
-
-                var newOrderDetails = new Orderline()
-                {
-                    OrderNumber = orderNumber,
-                    Date = DateTime.Now,
-                    SupplierId = model.supplierId
-                };
-                _context.Orderlines.Add(newOrderDetails);
-                _context.SaveChanges();
-
-                foreach (var item in model.Materials)
-                {
-                    var supplierMaterialsOrder = new Suppliermaterialorder()
+                    var orderNumber = "";
+                    Orderline orderNumberExists;
+                    do
                     {
-                        MaterialId = item.MaterialId,
-                        OrderId = newOrderDetails.OrderId,
-                        QuantityOrdered = model.Quantity,
+                        orderNumber = GenerateOrderNumber();
+                        orderNumberExists = _context.Orderlines.FirstOrDefault(item => item.OrderNumber == orderNumber);
+                    } while (orderNumberExists != null);
+
+                    var newOrderDetails = new Orderline()
+                    {
+
+                        OrderStatusDescription = "Placed",
+                        OrderNumber = orderNumber,
+                        Date = DateTime.Now,
+                        SupplierId = model.supplierId
                     };
-                    _context.Suppliermaterialorders.Add(supplierMaterialsOrder);
+
+                    _context.Orderlines.Add(newOrderDetails);
+                    _context.SaveChanges();
+
+                    foreach (var item in model.Materials)
+                    {
+                        var supplierMaterialsOrder = new Suppliermaterialorder()
+                        {
+                            MaterialId = item.MaterialId,
+                            OrderId = newOrderDetails.OrderId,
+                            QuantityOrdered = model.Quantity,
+                        };
+                        _context.Suppliermaterialorders.Add(supplierMaterialsOrder);
+                    }
+                    _context.SaveChanges();
+
+                    var currentDateTimeStamp = DateTime.Now;
+                    //add log 
+                  
+  
                 }
-                _context.SaveChanges();
-                return Ok();
+                catch (Exception e)
+                {
+
+                    return BadRequest(e.InnerException.Message);
+                }
             }
 
             message = "Something went wrong on your side.";
@@ -101,8 +107,12 @@ namespace IMOSApi.Controllers.OrderManagement
             return new string(Enumerable.Repeat(chars, 5)
                 .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-        //update
-        // Delete 
+
+        //generate Order == sents email to supplier   // send emailusing order Id to User
+
+        // receive order == adds material quantity 
+
+        // cancel order== sent cancellation email if not greater 3 days
 
     }
 }

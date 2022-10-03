@@ -104,7 +104,7 @@ namespace IMOSApi
             #region JWT Settings 
 
             var jwtSection = Configuration.GetSection("JWTSettings");
-            services.Configure<JWTSettings>(jwtSection);
+           // services.Configure<JWTSettings>(jwtSection);
 
             var authKey = Configuration.GetValue<string>("JWTSettings:JwtKey");
 

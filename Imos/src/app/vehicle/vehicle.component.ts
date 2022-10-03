@@ -1,5 +1,5 @@
 import { UnassignedVehicleViewComponent } from './unassigned-vehicle-view/unassigned-vehicle-view.component';
-import { ServiceService, vehicle, vehicletype, user } from './../services/service.service';
+import { ServiceService, vehicle, vehicletype, user, vehiclemake, vehiclemodel } from './../services/service.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,15 +16,20 @@ import { AssignedVehiclesViewComponent } from './assigned-vehicles-view/assigned
 
 export interface Vehicle {
   vehicleId: number,
+  brandId: number,
+  name?: string,
   vehicletypeId: number,
-  make: string,
-  model: string,
-  year: string,
-  color: string,
-  status: string,
-  DatePurchased: string,
-  LastServiced: string,
+  description?: string,
+  modelId: number,
+  year?: string,
+  modelName?:string,
+  AssignedStatus: number,
   vehicletype: string,
+  DatePurchased: string,
+  status: string,
+  imageUrl: string,
+  vehiclemake: string,
+  vehiclemodel: string,
 }
 
 @Component({
@@ -42,7 +47,6 @@ export class VehicleComponent implements OnInit {
   previews: string[] = [];
   imageInfos?: Observable<any>;
 
-
   // API Test
   Vehicledata: vehicle[] = [];
   vehicleData: vehicle[];
@@ -50,16 +54,13 @@ export class VehicleComponent implements OnInit {
   UnAssignedVehicle:vehicle[];
 
 
-  displayedColumns: string[] = [ 'vehicleType','make','model','color','Year','DatePurchased','actions'];
-
+  displayedColumns: string[] = [ 'make','vehicleType','modelName','Year','status','actions'];
   dataSource!: MatTableDataSource<vehicle>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
 
   posts: any;
-  Typelist: vehicletype[] = [];
- // userlist: user[] = [];
 
   constructor(private route: Router,
     private dialog: MatDialog,
@@ -68,16 +69,18 @@ export class VehicleComponent implements OnInit {
      private _snackBar: MatSnackBar) {
     this.GetAllVehicles();
    }
+   
+   ngOnInit(): void {
+   
+    //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
+  }
 
   GetAllVehicles() {
     this.service.getVehicle().subscribe(x => {
       this.Vehicledata = x;
       console.log(this.Vehicledata);
       this.posts = x;
-
-
       this.dataSource = new MatTableDataSource(this.posts)
-
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     })
@@ -95,9 +98,8 @@ export class VehicleComponent implements OnInit {
 
   openAddVehicleDialog(): void {
     const dialogRef = this.dialog.open(AddVehicleComponent, {
-
       width: '60%',
-      height:'78%'
+      height:'70%',
     }
     );
 
@@ -172,6 +174,7 @@ export class VehicleComponent implements OnInit {
   addVehicle() {
     this.route.navigateByUrl('/addVehicle')
   }
+
   deleteVehicle(id: number) {
     console.log(id);
     if (confirm('Are you sure you want to delete this Vehicle?')) {
@@ -185,19 +188,8 @@ export class VehicleComponent implements OnInit {
     }
   }
 
-  VehicleType() {
-    this.route.navigateByUrl('/vehicleType')
+  VehicleTree() {
+    this.route.navigateByUrl('/VehicleTreeManagement')
   }
 
-  ngOnInit(): void {
-    this.service.getVehicleType().subscribe(x => { this.Typelist = x; console.log("type", this.Typelist) });
-
-
-this.service.getVehicle().subscribe((x) => {
-  this.UnAssignedVehicle = x;
-})
-
-
-    //this.service.getUser().subscribe(i => { this.userlist = i; console.log("userlist", this.userlist) });
-  }
 }

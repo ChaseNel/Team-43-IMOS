@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 
 import { FormBuilder } from '@angular/forms';
 
@@ -211,12 +212,21 @@ export interface suppliertype {
 //Supplier Order
 export interface  orderline {
   orderId: number,
-  date:Date,
+  date:string,
   orderNumber:string,
   supplierId:number,
   supplier: string,
+  supplierName?:string,
+  orderStatus: string,
+  description?:string,
   suppliermaterialorders:[],
   deliveries:[]
+}
+
+export interface orderstatus{
+  orderStatusId: number,
+  description?:string,
+  orderlines:[]
 }
 //suppliermaterial
 export interface suppliermaterial{
@@ -246,32 +256,67 @@ export interface projectequipment{
   equipment:string,
   name: string,
   description: string,
-
 }
 
 //Vehicle Interface
 export interface vehicle {
   vehicleId: number,
+  brandId: number,
+  name?: string,
   vehicletypeId: number,
-  make: string,
-  model: string,
-  year: string,
-  color: string,
+  description?: string,
+  modelId: number,
+  year?: string,
+  modelName?:string,
+  AssignedStatus: number,
+  vehicletype: string,
+  DatePurchased: string,
   status: string,
   imageUrl: string,
-  AssignedStatus: number,
-  DatePurchased: string,
-  LastServiced: string,
-  vehicletype: string,
+  vehiclemake: string,
+  vehiclemodel: string,
 }
-
+// Vehicle Brand OR Make Name
+export interface vehiclemake{
+  id:number,
+  name:string,
+  vehicletypeId: number,
+  vehicletype: string,
+  vehiclemodels: [],
+  vehicles: []
+}
 
 //Vehicle Type Interface
 export interface vehicletype {
   id: number,
   description: string,
+  vehiclemakes: [],
   vehicles: []
 }
+// Vehicle Model Interface
+export interface vehiclemodel{
+  id:number,
+  name:string,
+  year: string,
+  color: string,
+  brandId : number,
+  vehiclemake: string,
+  vehicles: []
+
+}
+// Vehicle Model Interface
+export interface vehiclemodel{
+  id:number,
+  name:string,
+  year: string,
+  color: string,
+  brandId : number,
+  vehiclemake: string,
+  vehicles: []
+
+}
+
+
 
 //Incident Interface
 export interface incident {
@@ -305,18 +350,19 @@ export interface TaskStatus{
 export interface project {
   id:number,
   name:string,
-  projectId: number,
   constructionsiteId: number,
+  projectId:string,
+  constructionsite: string,
   initialrequestId: number,
   safetyfilecreated: boolean,
-  constructionsite: string,
   initialrequest: string,
   deliveries: [],
   invoices: [],
   projectemployees: [],
   projectequipments: [],
   projectmaterialrequests: [],
-  projectmaterials: [],
+  projectmaterials: [],//
+  safetyFiles: [],//
   safetyfilechecklists: []
 }
 
@@ -372,7 +418,7 @@ export interface safetyitemcategory {
 
 
 export interface safetyItem {
-  id:number,
+  safetyfileitemId:number,
   name:string,
   safetyitemcategoryId:number,
   safetyitemcategory:string,
@@ -430,6 +476,7 @@ export interface task {
   taskmaterials: []
 }
 
+
 export interface deliveryNote {
   DeliveryID: number,
   ProjectID: string,
@@ -439,9 +486,28 @@ export interface deliveryNote {
   DeliveryNote: any,
 }
 
+export interface auditlog{
+  auditlogId:number,
+  operationtype:string,
+  tablename:string,
+  primarykey:string,
+  oldvalues:string,
+  newvalues:string,
+  datetimestap:string,
+  affectedcolumns:string,
+  userId:number,
+  user:string
+
+
+
+}
+
+
+
 export interface UploadFinishedEventArgs {
   filePath: '' //Comes from server
 }
+
 
 
 
@@ -557,8 +623,8 @@ export class ServiceService {
     return this.http.delete(this.Root_URL + '/UserRole/RemoveUserRole/' + id);
   }
   //Add
-  addUserRole(val: any) {
-    return this.http.post(this.Root_URL + '/UserRole/AddRole', val)
+  addUserRole(payload: any) {
+    return this.http.post(this.Root_URL + '/UserRole/AddRole', payload)
   }
   //Employee Http requests
   //get By Id
@@ -614,7 +680,7 @@ export class ServiceService {
   }
   //Delete
   deleteMaterial(id: number) {
-    return this.http.delete(this.Root_URL + '/Material/DeleteMaterialSupplier/' + id);
+    return this.http.delete(this.Root_URL + '/Material/DeleteMaterial/' + id);
   }
   //Add
   addMaterial(val: any) {
@@ -881,6 +947,8 @@ export class ServiceService {
     return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/GetRequestDashboard/' + id)
     .pipe(map(result => result))
   }
+  
+
 
 
   getMaterialRequest(): Observable<any> {
@@ -931,7 +999,7 @@ export class ServiceService {
 
   //Delete
   deleteSupplier(id: number) {
-    return this.http.delete(this.Root_URL + '/Supplier/' + id);
+    return this.http.delete(this.Root_URL + '/Supplier/DeleteSupplier/' + id);
   }
   //Add
   // addSupplier(val: any) {
@@ -963,7 +1031,7 @@ export class ServiceService {
   }
   //Add
   addSupplierType(val: any) {
-    return this.http.post(this.Root_URL + '/Suppliertype/CreateSuppliertype', val)
+    return this.http.post(this.Root_URL + '/Suppliertype/AddType', val)
   }
 
   //Update
@@ -978,14 +1046,17 @@ export class ServiceService {
     return this.http.get<suppliermaterial []>(this.Root_URL + '/Material/BySupplierId')
   }
 
+  getAllStatus(): Observable<orderstatus []> {
+    return this.http.get<orderstatus []>(this.Root_URL + '/OrderStatus/GetAllStatuses')
+  }
+
   //Delete
   deleteSupplierOrder(id: number) {
     return this.http.delete(this.Root_URL + '/Supplierorderlines/DeleteSupplierorderline/' + id);
   }
 
-  //Vehicle
-
-  //Get
+  //Vehicle Working  EndPoints 
+  //Get All
   getVehicle(): Observable<vehicle[]> {
     return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetAllVehicles')
   }
@@ -1005,49 +1076,103 @@ export class ServiceService {
     return this.http.get<vehicle[]>(this.Root_URL + '/Vehicle/GetUserVehicles')
   }
 
+  // add
+
+  addVehicle(val: any) {
+    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle', val)
+  }
+  //getById
+  getVehicleById(id: number) {
+    return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
+  }
+
+  //Update
+  updateVehicle(id: number, data: any) {
+    return this.http.put(this.Root_URL + '/Vehicle/updateVehicle/' + id, data)
+  }
   //Delete
   deleteVehicle(id: number) {
     return this.http.delete(this.Root_URL + '/Vehicle/DeleteVehicle/' + id);
   }
+  // Vehicle Make Or Brands
+  getAllBrands(): Observable<vehiclemake[]> {
+    return this.http.get<vehiclemake[]>(this.Root_URL + '/VehicleTreeManagement/GetAll')
+  }
 
+   //Get 
+   getBrandByType(id: number):  Observable<vehiclemake[]> {
+    return this.http.get<vehiclemake[]>(this.Root_URL + '/VehicleTreeManagement/GetBrandByType/' + id)
+  }
+  
+  deleteBrand(id: number) {
+    return this.http.delete(this.Root_URL + '/VehicleTreeManagement/DeleteBrand/' + id);
+  }
+  addBrand(val: any,id:number) {
+    return this.http.post(this.Root_URL + '/VehicleTreeManagement/AddBrand/'+ id, val)
+  }
+  updateBrand(payload: any,id: number){
+    return this.http.put(this.Root_URL + '/VehicleTreeManagement/UpdateBrand/' + id,payload);
+  }
 
   //Vehicle Type
-
   //By ID
   getVehicleTypeID(id: number) {
     return this.http.get(this.Root_URL + '/VehicleType/GetVehicleTypeById/' + id);
   }
 
-  //Get
-  getVehicleType(): Observable<vehicletype[]> {
-    return this.http.get<vehicletype[]>(this.Root_URL + '/Vehicletype/Vehicletype/GetVehicletypes')
+  //Get Vehicle Types Working  Requests
+
+  getTypes(): Observable<vehicletype[]> {
+    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleTreeManagement/GetAllVehicleTypes')
   }
 
-
-  //Add
-  addVehicleType(val: any) {
-    return this.http.post(this.Root_URL + '/Vehicletype/AddVehicleType', val)
-
+  deleteType(id: number) {
+    return this.http.delete(this.Root_URL + '/VehicleTreeManagement/DeleteVehicleType/' + id);
   }
+
+  addVehicleType(payload: any) {
+    return this.http.post(this.Root_URL + '/VehicleTreeManagement/AddVehicleType', payload)
+  }
+
+  updateVehicleType(val: any,id:number){
+    return this.http.put(this.Root_URL + '/VehicleTreeManagement/UpdateVehicleType/' + id, val)
+  }
+
+  getVehicleTypes(): Observable<vehicletype[]> {
+    return this.http.get<vehicletype[]>(this.Root_URL + '/VehicleTreeManagement/GetAllVehicleTypes')
+  }
+  // Vehicle Models Working  Enpoints
+ 
+  getByBrands(id: number):  Observable<vehiclemodel[]> {
+    return this.http.get<vehiclemodel[]>(this.Root_URL + '/VehicleTreeManagement/GetModelByBrand/' + id)
+  }
+  getModelByBrands(id: number):  Observable<vehiclemodel[]> {
+    return this.http.get<vehiclemodel[]>(this.Root_URL + '/VehicleTreeManagement/GetModelsByBrands/' + id)
+  }
+  
   //Update
-  editVehicleType(id: number, data: any): Observable<any> {
-    return this.http.put(this.Root_URL + '/VehicleType/updateVehicleType/' + id, data);
-
+  updateModelInBrand(val: any,id: number){
+    return this.http.put(this.Root_URL + '/VehicleTreeManagement/UpdateModelsBrands/' + id, val)
   }
 
-  // add vehicle
-  //Delete
-  deleteVehicleType(id: number) {
-    return this.http.delete(this.Root_URL + '/VehicleType/' + id);
+  deleteModel(id: number) {
+    return this.http.delete(this.Root_URL + '/VehicleTreeManagement/DeleteModelsBrands/' + id);
   }
 
+  addModel(val:any,id: number) {
+    return this.http.post(this.Root_URL + '/VehicleTreeManagement/AddModelBrands/'+id,val)
+  }
+  getAllModelTypes(): Observable<vehiclemodel[]> {
+    return this.http.get<vehiclemodel[]>(this.Root_URL + '/VehicleTreeManagement/GetAllModelTypes')
+  }
 
+  
 
   //Vehicle Allocations
+
   //Get All  Not assigned
   getAlllVehiclesNotAssigned() {
     return this.http.get<vehicle[]>(this.Root_URL + '/VehicleAllocation/GetAll/NotAssigned')
-
   }
 
 
@@ -1072,11 +1197,11 @@ export class ServiceService {
   }
   //Delete
   deleteProject(id: number) {
-    return this.http.delete(this.Root_URL + '/Project/DeleteProject/' + id);
+    return this.http.get(this.Root_URL + '/Project/DeleteProject/' + id);
   }
   //add Project
   addProject(val: any) {
-    return this.http.post(this.Root_URL + '/Project/CreateProject', val);
+    return this.http.post(this.Root_URL + '/Project/AddProject', val);
   }
   //Update
   UpdateProject(id: number, data: any) {
@@ -1214,11 +1339,12 @@ getAllIncidentreport():  Observable<incident[]> {
     return this.http.delete(this.Root_URL + '/Warehouse/' + id);
   }
 
-  //Equipment
+  //Equipment EndPoints
   //Get
   getEquipments(): Observable<equipment[]> {
     return this.http.get<equipment[]>(this.Root_URL + '/Equipment/GetEquipments')
   }
+
   //get by Id
   getEquipmentById(id: number) {
     return this.http.get(this.Root_URL + '/Equipment/GetEquipmentById/' + id);
@@ -1228,6 +1354,7 @@ getAllIncidentreport():  Observable<incident[]> {
 addEquipment(payload:any){
   return this.http.post(this.Root_URL + '/Equipment/AddEquipment',payload);
 }
+
 //Update
 UpdateEquipment(id: number, data: any){
   return this.http.put(this.Root_URL + '/Equipment/UpdateEquipment/' + id, data);
@@ -1237,24 +1364,10 @@ UpdateEquipment(id: number, data: any){
   deleteEquipment(id: number) {
     return this.http.delete(this.Root_URL + '/Equipment/DeleteEquipment/' + id);
   }
-  //Vehicle End Points
-  // add
-  addVehicle(val: any) {
-    return this.http.post(this.Root_URL + '/Vehicle/AddVehicle', val)
-  }
-  // Get All
-  //getById
-  getVehicleById(id: number) {
-    return this.http.get(this.Root_URL + '/Vehicle/GetVehicleById/' + id);
-  }
-  //Update
-  updateVehicle(id: number, data: any) {
-    return this.http.put(this.Root_URL + '/Vehicle/UpdateVehicle/' + id, data)
-  }
-  //Delete
 
 
-  // SafetyCategory Enpoints
+ 
+  // SafetyCategory Enpoints 
   // get by Id
   /*getItemsFromCategoryById(id:number){
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/CategoryById/' + id)
@@ -1263,11 +1376,15 @@ UpdateEquipment(id: number, data: any){
   getSafetyCategory(): Observable<safetyitemcategory[]> {
     return this.http.get<safetyitemcategory[]>(this.Root_URL + '/SafetyItemCategory/GetAll')
   }
-   //Add
-  addSafetyCategory(val:any){
-    return this.http.post(this.Root_URL + '/SafetyItemCategory/AddCategory', val)
+   //Add 
+  addSafetyCategory(paload:any){
+    return this.http.post(this.Root_URL + '/SafetyItemCategory/AddCategory',paload)
 }
-  // put
+  // put 
+  updateCategoryType(val: any,id: number){
+    return this.http.put(this.Root_URL + '/SafetyItemCategory/UpdateCategory/' + id, val)
+  }
+
 
    //Delete
    deleteSafetyItemCategory(id: number) {
@@ -1285,8 +1402,8 @@ UpdateEquipment(id: number, data: any){
     return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetItemById/'+id)
   }
 
-  // Get All
-  getSafetcyItem(): Observable<safetyItem[]> {
+  // Get All 
+  getSafetyItem(): Observable<safetyItem[]> {
     return this.http.get<safetyItem[]>(this.Root_URL + '/SafetyItem/GetAll')
   }
   // Add Item
@@ -1338,7 +1455,7 @@ updateItem(val: any,id: number){
   //Requeast
   //Get
   getRequeast(): Observable<request[]> {
-    return this.http.get<request[]>(this.Root_URL + '/Request/GetRequests')
+    return this.http.get<request[]>(this.Root_URL + '/Client/GetAllRequests')
   }
   //Add
   addRequeast(val: any) {
@@ -1395,7 +1512,7 @@ updateItem(val: any,id: number){
   // Supplier Order Http enpoints
 // add OR Post order
   addToOrderSupplierCart(payload: any) {
-    return this.http.post(this.Root_URL + '/AddSupplierMaterialOrdersCart',payload);
+    return this.http.post(this.Root_URL + '/Order/AddSupplierMaterialOrdersCart',payload);
   }
   getSupplierOrders(): Observable<orderline[]> {
     return this.http.get<orderline[]>(this.Root_URL + '/Order/GetAllSupplierOrders')
@@ -1547,6 +1664,9 @@ updateItem(val: any,id: number){
   //Delete
   deleteDeliveryNote(id: number) {
     return this.http.delete(this.Root_URL + '/Delivery/DeleteDelivery' + id);
+  }
+  getAuditTrails(): Observable<auditlog[]> {
+    return this.http.get<auditlog[]>(this.Root_URL + '/AuditTrails/GetAll')
   }
 
 

@@ -1,3 +1,4 @@
+import { id } from 'date-fns/locale';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,10 +9,13 @@ import { orderline, ServiceService, supplier } from 'src/app/services/service.se
 
 export interface Orderline {
   orderId: number,
-  date:Date,
+  date:string,
   orderNumber:string,
   supplierId:number,
   supplier: string,
+  supplierName?:string,
+  orderStatus: string,
+  description?:string,
   suppliermaterialorders:[],
   deliveries:[]
 }
@@ -26,7 +30,7 @@ export class SupplierOrderComponent implements OnInit {
 
   supplierList:supplier[]=[];
 
-  displayedColumns: string[] = ['id', 'date', 'number', 'type','actions'];
+  displayedColumns: string[] = ['date', 'number', 'type','status','actions'];
 
   dataSource!: MatTableDataSource<Orderline>;
   
@@ -37,9 +41,16 @@ export class SupplierOrderComponent implements OnInit {
 
   constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar)
  { 
+
   this.GetAllSupplierOrder();
 
  }
+
+ ngOnInit(): void {
+ 
+
+}
+
  GetAllSupplierOrder(){
   this.service.getSupplierOrders().subscribe(x=>{
     console.log(this.data);
@@ -49,7 +60,6 @@ export class SupplierOrderComponent implements OnInit {
 
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-
   })
  }
 
@@ -69,12 +79,13 @@ addSupplierOrder(){
 cancelOrder(id:number) {
   this.route.navigate(['CancelOrder',id])
 }
-report(){
-    this.route.navigateByUrl('report')
 
+recieveOrder(id:number){
+  this.route.navigate(['receiveOrder',id])
 }
 
-  ngOnInit(): void {
-  }
+report(){
+    this.route.navigateByUrl('report')
+}
 
 }

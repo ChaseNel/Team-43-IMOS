@@ -1,3 +1,7 @@
+import { AddSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/add-safty-checklist-catagory/add-safty-checklist-catagory.component';
+import { ReceiveOrderComponent } from './supplier/supplier-order/receive-order/receive-order.component';
+import { UpdateVehicleBrandComponent } from './vehicle/vehicle-brand/update-vehicle-brand/update-vehicle-brand.component';
+import { AddVehicleBrandComponent } from './vehicle/vehicle-brand/add-vehicle-brand/add-vehicle-brand.component';
 import { UpdateItemsComponent } from './safty-checklist/items/update-items/update-items.component';
 import { AddItemsComponent } from './safty-checklist/items/add-items/add-items.component';
 import { UpdateProjectEquipmentComponent } from './equipment/project-equipment/update-project-equipment/update-project-equipment.component';
@@ -51,9 +55,6 @@ import { AddSupplierTypeComponent } from './supplier/supplier-type/add-supplier-
 import { VehicleComponent } from './vehicle/vehicle.component';
 import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component';
 import { UpdateVehicleComponent } from './vehicle/update-vehicle/update-vehicle.component';
-import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
-import { AddVehicleTypeComponent } from './vehicle/vehicle-type/add-vehicle-type/add-vehicle-type.component';
-import { UpdateVehicleTypeComponent } from './vehicle/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 import { AddEquipmentComponent } from './equipment/add-equipment/add-equipment.component';
 import { UpdateEquipmentComponent } from './equipment/update-equipment/update-equipment.component';
 import { UpdateWarehouseComponent } from './warehouse/update-warehouse/update-warehouse.component';
@@ -83,7 +84,13 @@ import { UrgencyLevelComponent } from './project/project-material-request/urgenc
 import { ReportComponent } from './report/report.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
-import {BackUpDatabaseComponent} from './back-up-database/back-up-database.component';
+import { VehicleBrandComponent } from './vehicle/vehicle-brand/vehicle-brand.component';
+import { VehicleTypeComponent } from './vehicle/vehicle-type/vehicle-type.component';
+import { UpdateSaftyChecklistCatagoryComponent } from './safty-checklist/safty-checklist-catagory/update-safty-checklist-catagory/update-safty-checklist-catagory.component';
+import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklist/add-safty-checklist.component';
+import { OtpComponent } from './login/otp/otp.component';
+import { BackUpDatabaseComponent } from './back-up-database/back-up-database.component';
+import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 
 const routes: Routes = [
 
@@ -98,27 +105,27 @@ const routes: Routes = [
   //Header
   { path: 'header', component: HeaderComponent },
   //Home
-  { path: 'home', component: HomeComponent, /*canActivate:[AuthGuard] */},
+  { path: 'home', component: HomeComponent, /*canActivate:[AuthGuard]*/ },
+
+  { path: 'login', component: LoginComponent,  },
+  { path: 'logout', component: LogoutComponent },
+  { path: '', redirectTo: '/login',pathMatch: 'full'}, 
+  {path: 'otp', component:OtpComponent},
 
   //Reporting
   { path: 'Allreports', component: ReportingComponent },
 
-  { path: 'login', component: LoginComponent,  },
-  { path: 'logout', component: LogoutComponent },
-  { path: '', pathMatch: 'full', redirectTo: '/login' },
-
-
-  { path: 'user', component: UserComponent },
-  { path: 'addUser', component: AddUserComponent },
-  { path: 'updateuser', component: UpdateUserComponent },
+  { path: 'user', component: UserComponent,/*canActivate:[AuthGuard] */},
+  { path: 'addUser', component: AddUserComponent, /*canActivate:[AuthGuard]*/ },
+  { path: 'updateuser', component: UpdateUserComponent ,/*canActivate:[AuthGuard]*/ },
   //UserRole
-  { path: 'userrole', component: UserRoleComponent },
-  { path: 'AddRole', component: AddUserRoleComponent },
-   { path: 'EditUserRole/:id', component: UpdateUserRoleComponent },
+  { path: 'userrole', component: UserRoleComponent,/*canActivate:[AuthGuard]*/ },
+  { path: 'AddRole', component: AddUserRoleComponent,/*canActivate:[AuthGuard]*/ },
+   { path: 'EditUserRole/:id', component: UpdateUserRoleComponent ,/*canActivate:[AuthGuard]*/},
 
   //Employee
-  { path: 'employee', component: EmployeeComponent },
-  { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent },
+  { path: 'employee', component: EmployeeComponent ,/*canActivate:[AuthGuard] */},
+  { path: 'UpdateEmployee/:id', component: UpdateEmployeeComponent,/*canActivate:[AuthGuard]*/ },
   { path: 'AddEmployee', component: AddEmployeeComponent },
   //Employee Attendance
   { path: 'Employee-Attendance', component: EmployeeAttendanceComponent },
@@ -126,13 +133,13 @@ const routes: Routes = [
    //Upload employee
 
   //Material
-  { path: 'material', component: MaterialComponent },
-  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent },
-  { path: 'AddMaterial', component: AddMaterialComponent },
+  { path: 'material', component: MaterialComponent,/*canActivate:[AuthGuard]*/ },
+  { path: 'UpdateMaterial/:id', component: UpdateMaterialComponent,/*canActivate:[AuthGuard]*/ },
+  { path: 'AddMaterial', component: AddMaterialComponent,/*canActivate:[AuthGuard]*/ },
   //Material Type
-  { path: 'materialtype', component: MaterialTypeComponent },
-  { path: 'UpdateMaterialType/:id', component: UpdateMaterialTypeComponent },
-  { path: 'AddMaterialType', component: AddMaterialTypeComponent },
+  { path: 'materialtype', component: MaterialTypeComponent,/*canActivate:[AuthGuard]*/ },
+  { path: 'UpdateMaterialType/:id', component: UpdateMaterialTypeComponent,/*canActivate:[AuthGuard]*/ },
+  { path: 'AddMaterialType', component: AddMaterialTypeComponent,/*canActivate:[AuthGuard]*/},
   //Material Requst
   { path: 'materialRequest', component: MaterialRequestComponent },
   //Supplier
@@ -141,23 +148,37 @@ const routes: Routes = [
   { path: 'AddSupplier', component: AddSupplierComponent },
 
   //Supplier Type
-  { path: 'suppliertype', component: SupplierTypeComponent },
-  { path: 'UpdateSupplierType/:id', component: UpdateSupplierTypeComponent },
-  { path: 'AddSupplierType', component: AddSupplierTypeComponent },
+  { path: 'suppliertype', component: SupplierTypeComponent,/*canActivate:[AuthGuard]*/},
+  { path: 'UpdateSupplierType/:id', component: UpdateSupplierTypeComponent,/*canActivate:[AuthGuard]*/},
+  { path: 'AddSupplierType', component: AddSupplierTypeComponent,/*canActivate:[AuthGuard]*/ },
+
   //Supplier Order
   { path: 'supplierOrder', component: SupplierOrderComponent },
   { path: 'addSupplierOrder', component: AddSupplierOrderComponent },
+  { path: 'receiveOrder/:id', component: ReceiveOrderComponent },
   { path: 'CancelOrder/:id', component: CancelOrderComponent },
 
 
   //Vehicle
-  { path: 'vehicle', component: VehicleComponent },
-  { path: 'addVehicle', component: AddVehicleComponent },
-  { path: 'updateVehicle/:id', component: UpdateVehicleComponent },
+  { path: 'vehicle', component: VehicleComponent,/*canActivate:[AuthGuard]*/},
+  { path: 'addVehicle', component: AddVehicleComponent,/*canActivate:[AuthGuard]*/},
+  { path: 'updateVehicle/:id', component: UpdateVehicleComponent,/*canActivate:[AuthGuard]*/ },
+
+  // Vehicle Tree Routes 
+    //Brands
+    { path: 'brands', component: VehicleBrandComponent,/*canActivate:[AuthGuard]*/ },
+    { path: 'addBrand', component: AddVehicleBrandComponent ,/*canActivate:[AuthGuard]*/},
+    { path: 'updateBrand', component: UpdateVehicleBrandComponent,/*canActivate:[AuthGuard]*/ },
+
+    {path: 'vehicleType', component:VehicleTypeComponent,/*canActivate:[AuthGuard]*/},
+
+
   //Vehicle Type
-  { path: 'vehicleType', component: VehicleTypeComponent },
-  { path: 'addVehicleType', component: AddVehicleTypeComponent },
-  { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },
+
+  { path: 'VehicleTreeManagement', component: VehicleTypeComponent },
+  /*{ path: 'addVehicleType', component: AddVehicleTypeComponent },
+  { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },*/
+  
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
@@ -193,12 +214,18 @@ const routes: Routes = [
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },
   { path: 'updateEquipment/:id', component: UpdateEquipmentComponent },
-  //Safty Checklist
+  
+  //Safty Checklist 
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
+  { path: 'addProjectChecklist', component: AddSaftyChecklistComponent },
 
-  //Safty Checklist Caragory
+
+  //Safty Checklist Category
   { path: 'saftyChecklistCatagory', component: SaftyChecklistCatagoryComponent },
-  //Safty Checklist Items
+  { path: 'addSafetyCategoryType', component: AddSaftyChecklistCatagoryComponent },
+  { path: 'updateSafetyCategoryType', component: UpdateSaftyChecklistCatagoryComponent },
+
+  //Safty Checklist Items openAddDialog
    { path: 'saftyChecklistItems', component: SaftyChecklistComponent },
    { path: 'addsaftyChecklistItems', component: AddItemsComponent },
    { path: 'updatesaftyChecklistItems/:id', component:  UpdateItemsComponent},
@@ -213,6 +240,10 @@ const routes: Routes = [
   { path: 'DeliveryNote', component: DeliveryNoteComponent },
   { path: 'UpdateDeliveryNote/:id', component: UpdateDeliveryNoteComponent },
   { path: 'AddDeliveryNote', component: AddDeliveryNoteComponent },
+
+  {path: 'auditTrail', component:AuditTrailsComponent},
+
+
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@ namespace IMOSApi.Controllers
     [ApiController]
     public class InvoiceController : ControllerBase
     {
-        [HttpGet("GetInvoices")]
+      /*  [HttpGet("GetInvoices")]
         public IEnumerable<Invoice> Retrieve()
         {
             using (var context = new IMOSContext())
@@ -59,7 +59,7 @@ namespace IMOSApi.Controllers
                 context.Invoices.Remove(clie);
                 context.SaveChanges();
             }
-        }
+        }*/
     }
 }
 

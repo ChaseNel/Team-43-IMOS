@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\Document\" />
     <Folder Include="Uploads\Documents\" />
     <Folder Include="Uploads\SafetyFile\" />
   </ItemGroup>

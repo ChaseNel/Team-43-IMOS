@@ -43,4 +43,5 @@ namespace IMOSApi.Dtos.Material
         [Required]
         public int WarehouseId { get; set; }
     }
+   
 }

@@ -9,8 +9,11 @@ namespace IMOSApi.Models
     {
         public User()
         {
+            Auditlogs = new HashSet<Auditlog>();
             Equipmentchecks = new HashSet<Equipmentcheck>();
             Stocktakes = new HashSet<Stocktake>();
+            Tasks = new HashSet<Task>();
+            Vehicles = new HashSet<Vehicle>();
          
             UserVehicle = new HashSet<UserVehicle>();
 
@@ -24,8 +27,11 @@ namespace IMOSApi.Models
 
         public virtual Employee Employee { get; set; }
         public virtual Userrole Userrole { get; set; }
+        public virtual ICollection<Auditlog> Auditlogs { get; set; }
         public virtual ICollection<Equipmentcheck> Equipmentchecks { get; set; }
         public virtual ICollection<Stocktake> Stocktakes { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
+        public virtual ICollection<Vehicle> Vehicles { get; set; }
         public virtual ICollection<UserVehicle> UserVehicle { get; set; }
     }
 }

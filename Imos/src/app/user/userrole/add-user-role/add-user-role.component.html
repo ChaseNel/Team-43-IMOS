@@ -11,11 +11,11 @@
 
             <div class="row">
                 <mat-form-field appearance="standard">
-                    <input matInput placeholder="User Role Name" name="Description"
-                        formControlName="Description">
-                        <mat-error *ngIf="hasError('Description', 'required')">User Role name is required</mat-error>
-                        <mat-error *ngIf="hasError('Description', 'pattern')">Enter user role name with letters only</mat-error>
-                        <mat-error *ngIf="hasError('Description', 'maxlength')">25 characters maximum</mat-error>
+                    <input matInput placeholder="User Role Name"
+                        formControlName="description">
+                        <mat-error *ngIf="hasError('description', 'required')">User Role name is required</mat-error>
+                        <mat-error *ngIf="hasError('description', 'pattern')">Enter user role name with letters only</mat-error>
+                        <mat-error *ngIf="hasError('description', 'maxlength')">25 characters maximum</mat-error>
                 </mat-form-field>
 
                 <div class="btn">

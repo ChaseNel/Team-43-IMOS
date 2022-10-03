@@ -23,61 +23,63 @@ namespace IMOSApi.Controllers.VehicleManagement
             _context = context;
         }
 
-        [HttpGet("GetVehicleById/{id}")]
-        public ActionResult<GetVehicleDto> GetRecord(int id)
-        {
-            var recordInDb = _context.Vehicles
-                .Where(item => item.VehicleId == id)
-                .Include(item => item.Vehicletype)
-                .Select(item => new GetVehicleDto()
-                {
-                    Make = item.Make,
-                    Model = item.Model,
-                    Year = item.Year.ToString("f"),
-                    Color = item.Color,
-                   // VehicleStatus=item.VehicleStatus ? "Assigned" : "Not Assigned",
-                    DatePurchased = item.DatePurchased.ToString("f" +
-                    ""),
-                  ///  LastServiced = item.//LastServiced,
-                    Vehicletype = item.Vehicletype.Description,
-                    VehicletypeId = item.VehicletypeId
-                }).First();
-            if (recordInDb == null)
-            {
-                return NotFound();
-            }
-            return recordInDb;
-        }
+         [HttpGet("GetVehicleById/{id}")]
+         public ActionResult<GetVehicleDto> GetRecord(int id)
+         {
+             var recordInDb = _context.Vehicles
+                 .Where(item => item.VehicleId == id)
+                 .Include(item=>item.Vehicletype)
+                 .Include(item=>item.Brand)
+                 .Include(item=>item.Model)
+                 .Select(item => new GetVehicleDto()
+                 {
+                     Id = item.VehicleId,
+                     //Year = item.Model.Year.ToString("f" + ""),
+                     Color = item.Model.Color,
+                     //AssignedStatus=item.AssignedStatus ? "Assigned" : "Not Assigned",
+                     DatePurchased = item.DatePurchased.ToString("f" + ""),
+                     Vehicletype = item.Vehicletype.Description,
+                     VehicletypeId = item.VehicletypeId
+                 }).First();
+             if (recordInDb == null)
+             {
+                 return NotFound();
+             }
+             return recordInDb;
+         }
 
         [HttpGet("GetAllVehicles")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetAll()
         {
             var recordsInDb = _context.Vehicles
-                .Include(item => item.Vehicletype)
-                .Select(item => new GetVehicleDto()
-                {
-                    vehicleId = item.VehicleId,
-                    Make = item.Make,
-                    Model = item.Model,
-                    Year = item.Year.ToString("f"),
-                    Color = item.Color,
-                    VehicleStatus = item.AssignedStatus,
-                    DatePurchased = item.DatePurchased.ToString("f"),
-                    Vehicletype = item.Vehicletype.Description,
-                    VehicletypeId = item.VehicletypeId
-                }).OrderBy(item => item.Model).ToList();
+            .Include(item => item.Brand)
+            .Where(item => item.BrandId == item.BrandId)
+            .Include(item => item.Vehicletype)
+              .Include(item => item.Model)
+            .Select(item => new GetVehicleDto()
+            {
+                Id = item.VehicleId,
+                BrandId = item.BrandId,
+                Name = item.Brand.Name,
+                Vehicletype = item.Vehicletype.Description,
+                VehicletypeId = item.VehicletypeId,
+                ModelId = item.ModelId,
+                ModelName = item.Model.Name,
+
+                // Year = item.Model.Year.ToString("f"),
+                AssignedStatus = item.AssignedStatus,
+                // DatePurchased = item.DatePurchased.ToString("f")
+            }).OrderBy(item => item.Id).ToList();
             return recordsInDb;
         }
 
-    
         [HttpPost("AddVehicle")]
-        public IActionResult Add(AddOrUpdateVehicleDto model)
+        public async Task< IActionResult> Add(AddOrUpdateVehicleDto model)
         {
             var message = "";
             if (ModelState.IsValid)
             {
-                var recordInDb = _context.Vehicles.FirstOrDefault(item => item.Model.ToLower() == model.Model.ToLower());
-
+                var recordInDb = _context.Vehicles.FirstOrDefault(item => item.DatePurchased == model.DatePurchased);
                 if (recordInDb != null)
                 {
                     message = "Record already exist";
@@ -86,54 +88,51 @@ namespace IMOSApi.Controllers.VehicleManagement
 
                 var newRecord = new Vehicle
                 {
-                    Make = model.Make,
-                    Model=model.Model,
-                    Year=model.Year,
-                    Color=model.Color,
+                    BrandId = model.BrandId,
+                    VehicletypeId = model.VehicletypeId,
+                    ModelId = model.ModelId,
+                    DatePurchased = model.DatePurchased,
                     AssignedStatus = 1,
-                    DatePurchased =model.DatePurchased,
-                    
-                    VehicletypeId=model.VehicletypeId
                 };
+
                 _context.Vehicles.Add(newRecord);
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
 
-        [HttpPut("updateVehicle/{id}")]
-        public IActionResult Update(AddOrUpdateVehicleDto model, int id)
-        {
-            if (ModelState.IsValid)
-            {
-                var recordInDb = _context.Vehicles.FirstOrDefault(item => item.VehicleId == id);
+          [HttpPut("updateVehicle/{id}")]
+          public async Task<IActionResult> Update(AddOrUpdateVehicleDto model, int id)
+          {
+              if (ModelState.IsValid)
+              {
+                  var recordInDb = _context.Vehicles.FirstOrDefault(item => item.VehicleId == id);
 
-                if (recordInDb == null)
-                {
-                    return NotFound();
-                }
+                  if (recordInDb == null)
+                  {
+                      return NotFound();
+                  }
 
-                recordInDb.Model = model.Model;
-                recordInDb.Make = model.Make;
-                recordInDb.Year = model.Year;
-            //    recordInDb.VehicleStatus = false;
-                recordInDb.DatePurchased = model.DatePurchased;
-            //    recordInDb.LastServiced = model.LastServiced;
-                recordInDb.VehicletypeId = model.VehicletypeId;
-                _context.SaveChanges();
+                  recordInDb.BrandId = model.BrandId;
+                  recordInDb.VehicletypeId = model.VehicletypeId;
+                  recordInDb.ModelId = model.ModelId;
+              //    recordInDb.VehicleStatus = false;
+                  recordInDb.DatePurchased = model.DatePurchased;
+                //    recordInDb.LastServiced = model.LastServiced;
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
-            }
+              }
 
-            var message = "Something went wrong on your side.";
-            return BadRequest(new { message });
+              var message = "Something went wrong on your side.";
+              return BadRequest(new { message });
 
-        }
+          }
 
-      
-
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteVehicle/{id}")]
         public async Task<ActionResult<Vehicle>> Delete(int id)
         {
             var recordInDb = await _context.Vehicles.FindAsync(id);
@@ -143,12 +142,13 @@ namespace IMOSApi.Controllers.VehicleManagement
             }
 
             _context.Vehicles.Remove(recordInDb);
-            await _context.SaveChangesAsync();
+            int i = 3;
+            await _context.SaveChangesAsync(i);
             return Ok();
         }
 
         [HttpGet("RemoveAssignmentVehicle/{id}")]
-        public IActionResult RemoveAssignmentVehicle( int id)
+        public IActionResult RemoveAssignmentVehicle(int id)
         {
             var message = "";
 
@@ -228,7 +228,7 @@ namespace IMOSApi.Controllers.VehicleManagement
 
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 message = ex.InnerException.Message;
                 return BadRequest(new { message });
@@ -260,12 +260,14 @@ namespace IMOSApi.Controllers.VehicleManagement
             }
 
             vehicle.ImageUrl = model.ImageUrl;
-                _context.SaveChanges();
+            _context.SaveChanges();
             return Ok();
         }
+    }
+}
 
 
-        [HttpGet("GetUnAssignedVehicles")]
+      /*  [HttpGet("GetUnAssignedVehicles")]
         public ActionResult<IEnumerable<GetVehicleDto>> GetUnAssignedVehicles()
         {
             var message = "";
@@ -275,7 +277,7 @@ namespace IMOSApi.Controllers.VehicleManagement
                 .Where(item => item.AssignedStatus == 1)
                 .Select(item => new GetVehicleDto()
                 {
-                    vehicleId = item.VehicleId,
+                    Id = item.VehicleId,
                     Make = item.Make,
                     Model = item.Model,
                     Year = item.Year.ToString("f"),
@@ -345,7 +347,7 @@ namespace IMOSApi.Controllers.VehicleManagement
                 }).OrderBy(item => item.Make).ToList();
 
 
-            return recordsInDb;
+            return recordInDb;
         }
 
 
@@ -355,4 +357,6 @@ namespace IMOSApi.Controllers.VehicleManagement
 
 
     }
-}
+
+}*/
+

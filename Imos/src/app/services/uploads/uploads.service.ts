@@ -16,7 +16,6 @@ export class UploadsService {
       payload,{ reportProgress: true, observe: 'events' });
   }
   downloadEmployeeDocument(employeeId:number){
-    return this._httpClient.get(this.endpointBase.concat("Uploads/Employees/Documents/Download/" + employeeId),
-    { responseType: 'blob', observe: 'response' });
+    return this._httpClient.get(this.endpointBase.concat("Uploads/Employees/Documents/Download/" + employeeId))
   }
 }

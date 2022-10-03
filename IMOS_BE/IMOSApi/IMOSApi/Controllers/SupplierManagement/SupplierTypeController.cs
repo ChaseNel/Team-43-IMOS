@@ -45,11 +45,11 @@ namespace IMOSApi.Controllers.SupplierManagement
                 Id = item.SuppliertypeId
             }).OrderBy(item => item.Name).ToList();
 
-            return recordsInDb;
+            return recordsInDb.OrderBy(item => item.Id).ToList();
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(AddOrUpdateGenericNameOnlyDto model, int id)
+        public async Task< IActionResult> Update(AddOrUpdateGenericNameOnlyDto model, int id)
         {
             if (ModelState.IsValid)
             {
@@ -61,18 +61,18 @@ namespace IMOSApi.Controllers.SupplierManagement
                 }
 
                 recordInDb.Name = model.Name;
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
 
                 return Ok();
             }
 
             var message = "Something went wrong on your side.";
             return BadRequest(new { message });
-
         }
 
         [HttpPost("AddType")]
-        public IActionResult AddSupplierType(AddOrUpdateGenericNameOnlyDto model)
+        public async Task< IActionResult> AddSupplierType(AddOrUpdateGenericNameOnlyDto model)
         {
 
             var message = "";
@@ -91,7 +91,8 @@ namespace IMOSApi.Controllers.SupplierManagement
                     Name = model.Name
                 };
                 _context.Suppliertypes.Add(newRecord);
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
 
@@ -110,8 +111,8 @@ namespace IMOSApi.Controllers.SupplierManagement
             }
 
             _context.Suppliertypes.Remove(recordInDb);
-            await _context.SaveChangesAsync();
-
+            int i = 3;
+            await _context.SaveChangesAsync(i);
             return Ok();
         }
     }

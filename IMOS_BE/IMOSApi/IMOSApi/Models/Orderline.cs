@@ -17,6 +17,7 @@ namespace IMOSApi.Models
         public DateTime Date { get; set; }
         public string OrderNumber { get; set; }
         public int SupplierId { get; set; }
+        public string OrderStatusDescription { get; set; }
 
         public virtual Supplier Supplier { get; set; }
         public virtual ICollection<Delivery> Deliveries { get; set; }

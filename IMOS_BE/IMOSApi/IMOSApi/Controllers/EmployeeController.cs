@@ -37,7 +37,6 @@ namespace IMOSApi.Controllers
             return recordInDb;
         }
 
-
         [HttpGet("GetEmployeeById/{id}")]
         public ActionResult<GetEmployeeDto> GetRecord(int id)
         {
@@ -62,7 +61,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpPost("AddEmployee")]
-        public IActionResult AddEmployee(AddEmployeeDto model)
+        public async Task< IActionResult>AddEmployee(AddEmployeeDto model)
         {
             var message = "";
             if (!ModelState.IsValid)
@@ -79,21 +78,22 @@ namespace IMOSApi.Controllers
                     FileUrl=model.FilePath
                 }; 
                 _dbContext.Employees.Add(newEmployee);
-                _dbContext.SaveChanges();
 
+              int i = 3;
+              await _dbContext.SaveChangesAsync(i);
                /* var document = new Document()
                 {
                     EmployeeId = newEmployee.EmployeeId,
                     FileUrl = model.FilePath
                 };*/
 
-                /// _dbContext.Documents.Add(document);
+            /// _dbContext.Documents.Add(document);
             //    _dbContext.SaveChanges();
-              return Ok(); 
+            return Ok(); 
         }
 
         [HttpPut("UpdateEmployee/{id}")]
-        public IActionResult Update(UpdateEmployeeDto model,int id )
+        public async Task< IActionResult> Update(UpdateEmployeeDto model,int id )
         {
             var message = "";
             if (ModelState.IsValid)
@@ -109,8 +109,10 @@ namespace IMOSApi.Controllers
                 recordInDb.Email = model.Email;
                 recordInDb.Contactnumber = model.ContactNumber;
                 recordInDb.FileUrl = model.FilePath;
-                _dbContext.SaveChanges();
 
+                int i = 3;
+                await _dbContext.SaveChangesAsync(i);
+            
               /*  var document = new Document()
                 {
                     EmployeeId = recordInDb.EmployeeId,
@@ -125,7 +127,6 @@ namespace IMOSApi.Controllers
              message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
-
 
         [HttpDelete("DeleteEmployee/{id}")]
         public async Task<ActionResult<Employee>> Delete(int id)
@@ -142,7 +143,10 @@ namespace IMOSApi.Controllers
 
 
             _dbContext.Employees.Remove(recordInDb);
-            await _dbContext.SaveChangesAsync();
+
+            int i = 3;
+
+            await _dbContext.SaveChangesAsync(i);
             return Ok();
         }
 

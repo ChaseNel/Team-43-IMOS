@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace IMOSApi.Infrastructure
 {
+
     public class Email
     {
         private const string ApiKey = "";
@@ -28,5 +29,7 @@ namespace IMOSApi.Infrastructure
         {
             GenericEmail(fromEmail, fromName, toEmail, toName, subject, htmlMessage, plainTextMessage).Wait();
         }
+
+
     }
 }

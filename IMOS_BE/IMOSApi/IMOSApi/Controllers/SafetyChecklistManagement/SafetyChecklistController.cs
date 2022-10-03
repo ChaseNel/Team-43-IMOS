@@ -39,39 +39,42 @@ namespace IMOSApi.Controllers.SafetyChecklistManagement
             return Ok();
         }
 
-
-
         [HttpPost("AddChecklist")]
-        public IActionResult AddProjectChecklist(AddProjectChecklistDto model)
+        public IActionResult Assign(AddProjectChecklistDto model)
         {
-            var message = "";
-            if (!ModelState.IsValid)
+            
+            try
             {
-                message = "Something went wrong on your side.";
-                return BadRequest(new { message });
-            }
+                var checkListsInProjectDb = _context.Safetyfilechecklists;
+         
+                //if (checkListsInProjectDb != null)
+                //{
+                //    message = "Project not found";
+                //    return BadRequest(new { message });
+                //}
 
-            var projectItemsInDb = _context.Safetyfilechecklists.FirstOrDefault(item => item.ProjectId == model.ProjectId);
-            if (projectItemsInDb != null)
-            {
-                message = "Project not found";
-                return BadRequest(new { message });
-            }
-
-            foreach (var item in model.SafetyItems)
-            {
-                var record = new Safetyfilechecklist()
+                foreach (var item in model.SafetyItems)
                 {
-                    ProjectId = model.ProjectId,
-                    SafetyfileitemId = item.SafetyfileitemId
-                };
-                _context.Safetyfilechecklists.Add(record);
+                    var newRecord = new Safetyfilechecklist()
+                    {
+                        SafetyfileitemId = item.SafetyfileitemId,
+                        ProjectId=model.ProjectId
+                    };
+                    _context.Safetyfilechecklists.Add(newRecord);
+                    _context.SaveChanges();
+                  
+                }
+
+
             }
-            _context.SaveChanges();
+            catch (Exception e)
+            {
+
+                return BadRequest(e.InnerException.Message);
+            }
             return Ok();
         }
-
-
+       
         // UPDATE 
 
 

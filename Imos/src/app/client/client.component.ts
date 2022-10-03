@@ -60,6 +60,10 @@ export class ClientComponent implements OnInit {
     this.GetAllClients();
 
   }
+  
+  ngOnInit(): void {
+    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
+  }
 
   openDialog(id: number): void {
     const dialogRef = this.dialog.open(ClientRequestComponent, {
@@ -157,11 +161,7 @@ export class ClientComponent implements OnInit {
     }
   }
 
-
-
-  ngOnInit(): void {
-    //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
-  }
+ 
 
 
 

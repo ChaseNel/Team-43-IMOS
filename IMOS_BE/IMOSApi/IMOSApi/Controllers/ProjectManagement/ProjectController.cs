@@ -84,26 +84,28 @@ namespace IMOSApi.Controllers
         }
 
 
-       /* [HttpPut("UpdateProject/{Id}")]
-        public void Update([FromBody] Project Project, [FromRoute] int Id)
-        {
-            using (var context = new IMOSContext())
-            {
-                var clie = context.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
-                //emp.
-                context.SaveChanges();
-            }
-        }*/
+        /* [HttpPut("UpdateProject/{Id}")]
+         public void Update([FromBody] Project Project, [FromRoute] int Id)
+         {
+             using (var context = new IMOSContext())
+             {
+                 var clie = context.Projects.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
+                 //emp.
+                 context.SaveChanges();
+             }
+         }*/
 
-       /* [HttpDelete("DeleteProject/{Id}")]
-        public void Delete(int id)
+        [HttpDelete("DeleteProject/{id}")]
+        public async Task<ActionResult<Project>> Delete(int id)
         {
-            using (var context = new IMOSContext())
+            var message = "";
+            var recordInDb = await _context.Projects.FindAsync(id);
+            if (recordInDb != null)
             {
-                var clie = _context.Projects.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                _context.Projects.Remove(clie);
-                _context.SaveChanges();
+                message = "Project has relational entities,delete relational entities!.";
+                return BadRequest(new { message });
             }
-        }*/
+            return Ok();
+        }
     }
 }

@@ -59,12 +59,12 @@ namespace IMOSApi.Controllers.SupplierManagement
 
                     Suppliertype = item.Suppliertype.Name,
                     SuppliertypeId = item.SuppliertypeId
-                }).OrderBy(item => item.Name).ToList();
+                }).OrderBy(item => item.Id).ToList();
             return recordsInDb;
         }
 
         [HttpPost("AddSupplier")]
-        public IActionResult Add(AddOrUpdateSupplierDto model)
+        public async Task< IActionResult> Add(AddOrUpdateSupplierDto model)
         {
             var message = "";
             if (ModelState.IsValid)
@@ -86,17 +86,16 @@ namespace IMOSApi.Controllers.SupplierManagement
                     SuppliertypeId = model.SuppliertypeId
                 };
                 _context.Suppliers.Add(newRecord);
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
             message = "Something went wrong on your side.";
             return BadRequest(new { message });
         }
 
-
-
         [HttpPut("updateSupplier/{id}")]
-        public IActionResult Update(AddOrUpdateSupplierDto model, int id)
+        public async Task< IActionResult>Update(AddOrUpdateSupplierDto model, int id)
         {
             if (ModelState.IsValid)
             {
@@ -112,7 +111,8 @@ namespace IMOSApi.Controllers.SupplierManagement
                 recordInDb.Email = model.Email;
                 recordInDb.Contactnumber = model.ContactNumber;
                 recordInDb.SuppliertypeId = model.SuppliertypeId;
-                _context.SaveChanges();
+                int i = 3;
+                await _context.SaveChangesAsync(i);
                 return Ok();
             }
 
@@ -120,7 +120,7 @@ namespace IMOSApi.Controllers.SupplierManagement
             return BadRequest(new { message });
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteSupplier/{id}")]
         public async Task<ActionResult<Supplier>> Delete(int id)
         {
             var recordInDb = await _context.Suppliers.FindAsync(id);
@@ -130,7 +130,8 @@ namespace IMOSApi.Controllers.SupplierManagement
             }
 
             _context.Suppliers.Remove(recordInDb);
-            await _context.SaveChangesAsync();
+            int i = 3;
+            await _context.SaveChangesAsync(i);
             return Ok();
         }
     }

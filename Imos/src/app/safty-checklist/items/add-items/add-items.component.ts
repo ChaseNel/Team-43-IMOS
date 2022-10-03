@@ -14,7 +14,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 })
 export class AddItemsComponent implements OnInit {
 
-  ObserveItems:Observable<safetyItem[]>=this._service.getSafetcyItem();
+  ObserveItems:Observable<safetyItem[]>=this._service.getSafetyItem();
   public addForm:FormGroup;
   requestData:safetyItem[]=[];
   APIdata:safetyitemcategory[]=[];

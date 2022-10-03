@@ -41,11 +41,11 @@ namespace IMOSApi.Controllers
         [HttpGet("GetProjectequipment/{id}")]
         public IEnumerable<Projectequipment> Get(int id)
         {
-            using (var context = new IMOSContext())
-            {
-                IEnumerable<Projectequipment> tmp = context.Projectequipments.Where(emp => emp.ProjectId == id).ToList();
+            
+            
+                IEnumerable<Projectequipment> tmp = _context.Projectequipments.Where(emp => emp.ProjectId == id).ToList();
                 return tmp;
-            }
+            
         }
 
         [HttpPost("Assign")]
@@ -79,26 +79,26 @@ namespace IMOSApi.Controllers
 
         }
 
-        [HttpPut("UpdateProjectequipment/{Id}")]
-        public void Update([FromBody] Projectequipment Projectequipment, [FromRoute] int Id)
-        {
-            using (var context = new IMOSContext())
-            {
-                var clie = context.Projectequipments.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
-                //emp.
-                context.SaveChanges();
-            }
-        }
-        [HttpDelete("DeleteProjectequipment/{Id}")]
-        public void Delete(int id)
-        {
-            using (var context = new IMOSContext())
-            {
-                var clie = context.Projectequipments.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
-                context.Projectequipments.Remove(clie);
-                context.SaveChanges();
-            }
-        }
+        //[HttpPut("UpdateProjectequipment/{Id}")]
+        //public void Update([FromBody] Projectequipment Projectequipment, [FromRoute] int Id)
+        //{
+        //    using (var context = new IMOSContext())
+        //    {
+        //        var clie = context.Projectequipments.Where(clie => clie.ProjectId == Id).ToList().FirstOrDefault();
+        //        //emp.
+        //        context.SaveChanges();
+        //    }
+        //}
+        //[HttpDelete("DeleteProjectequipment/{Id}")]
+        //public void Delete(int id)
+        //{
+        //    using (var context = new IMOSContext())
+        //    {
+        //        var clie = context.Projectequipments.Where(clie => clie.ProjectId == id).ToList().FirstOrDefault(); ;
+        //        context.Projectequipments.Remove(clie);
+        //        context.SaveChanges();
+        //    }
+        //}
 
     }
 }

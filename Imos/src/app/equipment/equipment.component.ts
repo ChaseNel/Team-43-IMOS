@@ -74,7 +74,7 @@ export class EquipmentComponent implements OnInit {
 
   deleteEquipment(id: number) {
     console.log(id);
-    if (confirm('Are you sure you want to delete this Equipment?')) {
+    if (confirm('Are you sure you want to delete this Equipment? Related Equipments data will be permanently deleted!!!')) {
       this.service.deleteEquipment(id).subscribe(res => {
         this.GetAllEquipment();
         this._snackBar.open("Success, you have deleted an Equipment!", 'OK', {

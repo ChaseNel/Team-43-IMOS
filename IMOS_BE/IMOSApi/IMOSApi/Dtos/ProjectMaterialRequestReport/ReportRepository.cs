@@ -5,10 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMOSApi.Dtos.ProjectMaterialRequestReport;
 using IMOSApi.Models;
-
 namespace IMOSApi.Dtos.ProjectMaterialRequestReport
 {
-    public class ReportRepository: IRepository
+ /*  public class ReportRepository: IRepository
     {
         private readonly IMOSContext _context;
 
@@ -22,14 +21,14 @@ namespace IMOSApi.Dtos.ProjectMaterialRequestReport
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<Projectmaterialrequest[]> GetMaterialRequestDashboardReportAsync()
+       public async Task<Projectmaterialrequest[]> GetMaterialRequestDashboardReportAsync()
         {
             IQueryable<Projectmaterialrequest> query = _context.Projectmaterialrequest
                 .Include(p => p.Projectmaterialrequeststatus)
                 .Include(p => p.Urgencylevel);
-
-            return await query.ToArrayAsync();
+             return await query.ToArrayAsync();
+        
         }
 
-    }
+    }*/
 }

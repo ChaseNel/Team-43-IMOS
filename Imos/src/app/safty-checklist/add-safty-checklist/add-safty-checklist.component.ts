@@ -1,7 +1,9 @@
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { id } from 'date-fns/locale';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
-import { project, safetyItem, safetyitemcategory, ServiceService } from 'src/app/services/service.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { project, safetyItem, ServiceService } from 'src/app/services/service.service';
 
 @Component({
   selector: 'app-add-safty-checklist',
@@ -11,61 +13,77 @@ import { Router } from '@angular/router';
 export class AddSaftyChecklistComponent implements OnInit {
 
   alert: boolean = false;
-  form:FormGroup; 
+  public addForm!:FormGroup; 
    SafetyItems:safetyItem[]=[];
    TypeList:project[]=[];
   
-
-  constructor( private fb: FormBuilder, private _service:ServiceService, private route: Router) { }
+  constructor(private fb: FormBuilder, private _service:ServiceService,
+     private router: Router,private _snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
-    this.buildAddForm();``
+    this.buildAddForm();
   }
+ 
   private buildAddForm(){
-    this.form=this.fb.group({
-  //    id: ['', [Validators.required]], // project
-      id :['', [Validators.required]] // safety Items 
+    this.addForm=this.fb.group({
+      safetyfileitemId: ['', [Validators.required]],  // safety Items 
+      id :['', [Validators.required]] // project
     })
     this._service.getProject().subscribe(data=>{
       this.TypeList=data;
       console.log(data)
     });
 
-    this._service.getSafetcyItem().subscribe(data=>{
+    this._service.getSafetyItem().subscribe(data=>{
       this.SafetyItems=data;
       console.log(data)
     });
   }
- 
-  addNewChecklist(){
-    if(this.form.valid){
-      let payload:any;
 
-      //payload['Id'] = this.form.get('id')?.value;
+  AddProjectChecklist(){
+    if(this.addForm.valid){
+      let payload:any={};
+      payload['ProjectId'] = this.addForm.get('id')?.value;
 
       //Processes Safety Items 
-      let SafetyItemsIds = this.form.get('id')?.value as [];
+      let SafetyItemsIds = this.addForm.get('safetyfileitemId')?.value as [];
       let listOfSafetyItems:any[] = [];
       SafetyItemsIds.forEach((element: any) => {
        let safetyItemObj:any = {};
-       safetyItemObj['Id'] = element as number;
+       safetyItemObj['SafetyfileitemId'] = element as number;
        listOfSafetyItems.push(safetyItemObj);
       });
      
-
       payload['SafetyItems'] = listOfSafetyItems;
       console.log(listOfSafetyItems)
-    /*  this._service.addProjectChecklist(payload).subscribe(res=>{
-        console.log(res)
-      })*/
+      console.log(payload)
+   this._service.addProjectChecklist(payload).subscribe(res=>{
+      if (confirm('Are you sure you want to Add this Safety Items To Project!')) {
+        this._snackBar.open("Success, you have Add Safety Items!", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      else{
+        this._snackBar.open("Unsuccessful", 'OK', {
+          duration: 3000,
+          verticalPosition: 'bottom',
+        });
+      }
+      
+      })
 
     }
-
   }
+
   closeAlert() {
     this.alert = false;
   }
   back(){
-    this.route.navigateByUrl("project")
+    this.router.navigateByUrl("project")
   }
+  public hasError = (controlName: string, errorName: string) => {
+    return this.addForm.controls[controlName].hasError(errorName);
+  }
+
 }

@@ -93,21 +93,23 @@ export class EmployeeComponent implements OnInit {
     this.route.navigateByUrl('UpdateEmployee/' + id);
   }
 
-   viewContract(item:employee, id: number){
-  
+   viewContract(item:number){
     this.listOfProccessedEmployees=[];
+    let foudEmp;
     console.log(this.listOfProccessedEmployees)
-    this._uploads.downloadEmployeeDocument(id).subscribe(res=>{
-      console.log(id);
+    this._uploads.downloadEmployeeDocument(item).subscribe(res=>{
+      foudEmp=res;
+      console.log(this.viewContract)
 
-      let image = res.body as Blob;
+      let image = foudEmp ;
       let reader = new FileReader();
       reader.addEventListener("load" ,()=>{
-      item.FileUrl=reader.result;
-        this.listOfProccessedEmployees.push(item);
+      foudEmp=reader.result;
+       // this.listOfProccessedEmployees.push(foudEmp);
       },false);
+
       if (image){
-        reader.readAsDataURL(image);
+        //reader.readAsDataURL(image);
       }
     });
   }

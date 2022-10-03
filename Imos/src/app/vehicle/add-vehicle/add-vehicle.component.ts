@@ -1,19 +1,25 @@
-import { ServiceService, vehicletype } from './../../services/service.service';
+import { ServiceService, vehiclemake, vehiclemodel, vehicletype } from './../../services/service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { id } from 'date-fns/locale';
 
 export interface Vehicle {
   vehicleId: number,
+  brandId: number,
+  name?: string,
   vehicletypeId: number,
-  make: string,
-  model: string,
-  year: string,
-  color: string,
+  description?: string,
+  modelId: number,
+  year?: string,
+  AssignedStatus: number,
+  vehicletype: string,
+  DatePurchased: string,
   status: string,
-  datePurchased: string,
-  vehicletype: string
+  imageUrl: string,
+  vehiclemake: string,
+  vehiclemodel: string,
 }
 
 @Component({
@@ -22,36 +28,39 @@ export interface Vehicle {
   styleUrls: ['./add-vehicle.component.css']
 })
 export class AddVehicleComponent implements OnInit {
+
   addForm!:FormGroup;
   Vehicletypes:vehicletype[]=[];
-
+  VehicleModellist: vehiclemodel[] = [];
+  VehicleBrandlist: vehiclemake[] = [];
+  id!:number;
 
   constructor(
     private fb: FormBuilder,
     private _service:ServiceService,
     private _snackbar: MatSnackBar,
     private route: Router
-  ) { }
+  ) {
+
+   }
 
   ngOnInit(): void {
     this.buildAddForm();
-
   }
+
   private buildAddForm()
   {
     this.addForm=this.fb.group({
-      make: ['', [Validators.required,Validators.pattern("[A-Za-z ]{1,25}")]],
-      model: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
-      color: ['', [Validators.required, Validators.pattern("[A-Za-z ]{1,25}")]],
-      year: ['', [Validators.required]],
+      brandId: ['', [Validators.required]],
+      vehicletypeId: ['', [Validators.required]],
+      modelId: ['', [Validators.required]],
       datePurchased: ['', [Validators.required]],
-      vehicletypeId: ['', [Validators.required]]
     });
-    this._service.getVehicleType().subscribe(data=>{
+    this._service.getVehicleTypes().subscribe(data=>{
       this.Vehicletypes=data;
     });
-
   }
+  
   AddVehicle(){
     if(this.addForm.valid){
       console.log(this.addForm.value);
@@ -74,6 +83,18 @@ export class AddVehicleComponent implements OnInit {
     }
   }
 
+ getTypeByMake(id:number)
+ {
+  this._service.getBrandByType(id).subscribe(data=>{
+    this.VehicleBrandlist=data;
+  });
+ }
+ getModelsByBrand(id:number)
+ {
+  this._service.getModelByBrands(id).subscribe(data=>{
+    this.VehicleModellist=data;
+  });
+ }
   back(){
     this.route.navigateByUrl('/vehicle')
   }

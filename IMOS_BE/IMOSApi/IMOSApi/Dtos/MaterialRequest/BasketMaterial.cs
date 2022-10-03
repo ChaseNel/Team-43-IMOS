@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using IMOSApi.Models;
 
 
+
 namespace IMOSApi.Dtos.MaterialRequest
 {
     public class BasketMaterial
@@ -17,7 +18,6 @@ namespace IMOSApi.Dtos.MaterialRequest
         public int MaterialTypeId { get; set; }
         public int quantity { get; set; }
         public string Description { get; set; }
-
 
       //  public virtual Materialtype MaterialType { get; set; }
 

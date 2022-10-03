@@ -1,11 +1,5 @@
 <app-header></app-header>
-
-
-
-
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-
 <mat-grid-list cols="4" rowHeight="1:1" [gutterSize]="'10px'">
 
     <mat-grid-tile>
@@ -78,6 +72,7 @@
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
+
     <mat-grid-tile>
         <mat-card class="example-card">
             <mat-card-header>
@@ -87,13 +82,14 @@
 
             <mat-card-actions>
                 <button (click)="vehicle()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Vehicles
-                  <span class="material-symbols-outlined">
+                  <span class="material-symbols-outlined" >
                     local_shipping
                     </span>
                 </button>
             </mat-card-actions>
         </mat-card>
     </mat-grid-tile>
+
     <mat-grid-tile>
         <mat-card class="example-card">
             <mat-card-header>
@@ -176,11 +172,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-card class="example-card">
-          <mat-card-header>
-              <mat-card-title>Reports</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src="./../../assets/images/equipment.jpg">
+        <mat-card class="example-card">
+            <mat-card-header>
+                <mat-card-title>Safty Checklist</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="./../../assets/images/safty.jpg">
 
           <mat-card-actions>
               <button (click)="reports()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block">Reports
@@ -237,15 +233,17 @@
     <mat-grid-tile>
       <mat-card class="example-card">
           <mat-card-header>
-              <mat-card-title>Safty Checklist</mat-card-title>
+              <mat-card-title>Reports</mat-card-title>
           </mat-card-header>
-          <img mat-card-image src="./../../assets/images/safty.jpg">
+          <img mat-card-image src="./../../assets/images/equipment.jpg">
 
-            <mat-card-actions>
-                <button (click)="saftyCheclist()" mat-button>Safty Checklist</button>
-            </mat-card-actions>
-        </mat-card>
-    </mat-grid-tile>
+          <mat-card-actions>
+              <button (click)="reports()" mat-button>Reports</button>
+          </mat-card-actions>
+      </mat-card>
+  </mat-grid-tile>
+
+    
     <mat-grid-tile>
         <mat-card class="example-card">
             <mat-card-header>
@@ -260,7 +258,6 @@
     <mat-grid-tile>
     <mat-card>
             <img mat-card-image src="./../../assets/images/reports.jpg">
-
             <mat-card-actions>
                 <button (click)="reports()" mat-button>Reports</button>
             </mat-card-actions>
@@ -301,5 +298,23 @@
         </mat-card-actions>
     </mat-card>
 </mat-grid-tile>
+<mat-grid-tile>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>Audit Trails</mat-card-title>
+
+        </mat-card-header>
+        <img mat-card-image src="./../../assets/images/AuditTrail.jpeg">
+
+        <mat-card-actions>
+            <button (click)="auditTrails()" mat-button  type="button" class="btn btn-secondary  btn-sm btn-block" >Audit Trails 
+              <span class="material-symbols-outlined">
+                badge
+                </span>
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</mat-grid-tile>
+
 
 </mat-grid-list>

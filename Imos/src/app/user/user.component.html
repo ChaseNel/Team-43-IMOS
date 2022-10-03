@@ -23,10 +23,6 @@
           The actual rendered columns are set as a property on the row definition" -->
 
     <!-- UserID Column -->
-    <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>
-        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
 
     <!-- UserRole Column -->
     <ng-container matColumnDef="userrole">
@@ -57,8 +53,6 @@
 
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-            <button  (click)="resendLoginAccountEmail"><mat-icon> mail_outline</mat-icon> </button>
-            &nbsp;
             <button mat-flat-button color="warn" (click)="deleteUser(element.id)">Delete</button>
         </td>
     </ng-container>
@@ -75,4 +69,4 @@
 </table>
 <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-labels="select page of employees"></mat-paginator>
 
-<button (click)="addUser()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>
+<button class="addBtn" (click)="addUser()" mat-mini-fab color="primary" class="material-symbols-outlined">add_circle</button>

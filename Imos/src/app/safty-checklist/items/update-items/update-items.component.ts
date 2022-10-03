@@ -27,6 +27,10 @@ export class UpdateItemsComponent implements OnInit {
 
    }
 
+   ngOnInit(): void {
+    this.id=this.data.id;
+  }
+
    public buildUpdateFormWithEmptyFields(){
     this.updateForm=this.fb.group({
       name: ['',[Validators.required]],
@@ -50,11 +54,12 @@ export class UpdateItemsComponent implements OnInit {
        {duration:5000})
     });
    }
-   }
-
-
-  ngOnInit(): void {
-    this.id=this.data.id;
+   else{
+    this.snackbar.open("Unsuccessful", 'OK', {
+      duration: 3000,
+      verticalPosition: 'bottom',
+    });
   }
+   }
 
 }

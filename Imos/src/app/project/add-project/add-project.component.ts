@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +16,8 @@ export class AddProjectComponent implements OnInit {
   alert: boolean = false;
   requestList: request[] = [];
 
-  constructor(private service: ServiceService, private fb: FormBuilder, private route: Router) { }
+  constructor(private service: ServiceService, private fb: FormBuilder, private route: Router,
+    private _snackBar:MatSnackBar) { }
 
   ngOnInit(): void {
     this.buildAddForm();
@@ -31,6 +33,7 @@ export class AddProjectComponent implements OnInit {
     });
     this.service.getRequeast().subscribe(data=>{
   this.requestList=data;
+  console.log(data)
 });
   }
   addProject() {
@@ -38,8 +41,20 @@ export class AddProjectComponent implements OnInit {
       console.log(this.projectfrm.value);
        this.service.addProject(this.projectfrm.value)
        .subscribe(res=>{
-       console.log(res);
-       // add validation and WarehouseTypes "are you sure to add supplier notification"
+        if (confirm('Are you sure you want to Add this Project?')) {
+          this._snackBar.open("Success, you have Add New Project!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+       
+        }
+        
+        else{
+          this._snackBar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
        })
     }
 

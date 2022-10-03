@@ -1,4 +1,5 @@
-﻿using IMOSApi.Models;
+﻿using IMOSApi.Dtos.ConstructionSite;
+using IMOSApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +11,7 @@ using IMOSApi.Dtos.Client;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Dynamic;
-using IMOSApi.Dtos.ConstructionSite;
+
 
 namespace IMOSApi.Controllers
 {
@@ -27,14 +28,15 @@ namespace IMOSApi.Controllers
         }
 
 
-        [HttpGet("GetConstructionsites")]
+      /*  [HttpGet("GetConstructionsites")]
         public IEnumerable<Constructionsite> Retrieve()
         {
             using (var context = new IMOSContext())
             {
                 return context.Constructionsites.ToList();
             }
-        }
+        }*/
+
         [HttpGet("GetConstructionsite/{id}")]
         public ActionResult<GetConstructionSiteDto> GetConstructionSite(int id)
         {

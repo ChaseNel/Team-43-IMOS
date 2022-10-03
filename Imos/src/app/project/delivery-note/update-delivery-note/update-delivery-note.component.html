@@ -10,8 +10,8 @@
             <mat-form-field appearance="standard">
                 <mat-label>Project</mat-label>
                 <mat-select formControlName="projectID">
-                    <mat-option *ngFor="let type of Project" [value]="type.projectId">
-                        {{type.projectId}}
+                    <mat-option *ngFor="let type of Project" [value]="type.id">
+                        {{type.id}}
                     </mat-option>
                 </mat-select>
                 <mat-error *ngIf="formdet['projectID'].touched && formdet['projectID'].invalid">

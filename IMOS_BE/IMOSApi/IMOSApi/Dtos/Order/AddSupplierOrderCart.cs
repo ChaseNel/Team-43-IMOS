@@ -8,7 +8,8 @@ namespace IMOSApi.Dtos.Order
 {
     public class AddSupplierOrderCart
     {
-        [Required]
+
+       // public string Status { get; set; }
         public int Quantity { get; set; }
         public int supplierId { get; set; }
 

@@ -55,7 +55,7 @@
             &nbsp;
             <button mat-flat-button color="warn" (click)="deleteEmployee(element.employeeId)">Delete</button>
             &nbsp;
-            <button mat-flat-button color="primary" (click)="viewContract(element , element.employeeId)">View Contract</button>
+            <button mat-flat-button color="primary" (click)="viewContract( element.employeeId)">View Contract</button>
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -25,7 +26,8 @@ export class UpdateEmployeeComponent implements OnInit {
 
 
   constructor(private _service:ServiceService,private _uploadsService:UploadsService,
-    private fb:FormBuilder,private http:HttpClient,private _route:Router,private route: ActivatedRoute)
+    private fb:FormBuilder,private http:HttpClient,private _route:Router,
+    private route: ActivatedRoute,private _snackBar:MatSnackBar)
     { 
       
 
@@ -57,6 +59,19 @@ export class UpdateEmployeeComponent implements OnInit {
 
     this._service.updateEmployee(this.route.snapshot.params['id'],this.updateForm.value).subscribe(
       res=>{
+        if (confirm('Are you sure you want to Add this Employee ?')) {
+          this._snackBar.open("Success, you have Updated Employee!", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+        else {
+          this._snackBar.open("Unsuccessful", 'OK', {
+            duration: 3000,
+            verticalPosition: 'bottom',
+          });
+        }
+
        console.log(this.updateForm.value);
       });
 
