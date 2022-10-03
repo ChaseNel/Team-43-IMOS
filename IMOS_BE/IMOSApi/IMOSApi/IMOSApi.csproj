@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Dtos\NewFolder1\**" />
+    <Content Remove="Dtos\NewFolder1\**" />
+    <EmbeddedResource Remove="Dtos\NewFolder1\**" />
+    <None Remove="Dtos\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNet.Identity.Owin" Version="2.2.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
@@ -27,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Dtos\Document\" />
+    <Folder Include="Dtos\NewFolder\" />
     <Folder Include="Uploads\Documents\" />
     <Folder Include="Uploads\SafetyFile\" />
   </ItemGroup>
