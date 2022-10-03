@@ -25,6 +25,42 @@
   </mat-card>
   <br> <br>
 
+<mat-card>
+
+  <h2 style="margin-left:45% ;"> Projects Details</h2>
+
+    <table mat-table [dataSource]="ProjectdataSource" class="mat-elevation-z8" matSort>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name  </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="request">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Request  </th>
+      <td mat-cell *matCellDef="let element"> {{element.request}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="constructionsite">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Construction Site  </th>
+      <td mat-cell *matCellDef="let element"> {{element.constructionsite}} </td>
+    </ng-container>
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.clientName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="clientEmail">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Email  </th>
+      <td mat-cell *matCellDef="let element"> {{element.clientEmail}} </td>
+    </ng-container>
+        <tr mat-header-row *matHeaderRowDef="ProjectdisplayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: ProjectdisplayedColumns;"></tr>
+
+    </table>
+
+
+</mat-card>
+  <br><br>
 
   <mat-card>
     <div  >
@@ -124,6 +160,128 @@
       </mat-card>
 
     <br><br>
+
+&nbsp;
+
+<mat-card>
+
+  <div   fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="50px" >
+    <mat-card  fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)">
+
+      <div  >
+
+        <div >
+        <div *ngIf = "chartsLoaded">
+
+          <div   >
+            <div  >
+              <div  >
+                <canvas baseChart
+                [data] = "ProjectMaterialData"
+                [type]="'pie'"
+                [options] = "ProjectMaterialOptions"
+                >
+
+                </canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+        </div>
+
+
+    </mat-card>
+
+    <br><br>
+
+
+    <mat-card  fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" >
+
+
+      <div  >
+
+        <div >
+        <div *ngIf = "chartsLoaded">
+
+          <div   >
+            <div  >
+              <div  >
+                <canvas baseChart
+                [data] = "ProjectMaterialData"
+                [type]="'bar'"
+                [options] = "ProjectMaterialOptions"
+                >
+
+                </canvas>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+        </div>
+
+
+    </mat-card>
+
+  </div>
+
+  &nbsp;
+  <br><br>
+   <mat-card>
+    <h2 style="margin-left:45% ;">All Project Material</h2>
+
+<!-- Material Type
+<button (click)="materialType()" mat-flat-button color="primary" class="URbtn">Material Type</button>
+<button (click)="materialRequest()" mat-flat-button color="primary" class="URbtn">Material Request</button>
+<br> -->
+
+
+
+<table mat-table [dataSource]="ProjMaterialdataSource" class="mat-elevation-z8" matSort>
+
+  <ng-container matColumnDef="materialName">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Name  </th>
+    <td mat-cell *matCellDef="let element"> {{element.materialName}} </td>
+</ng-container>
+
+<ng-container matColumnDef="materialTypeName">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Material Type   </th>
+  <td mat-cell *matCellDef="let element"> {{element.materialTypeName}} </td>
+</ng-container>
+
+<ng-container matColumnDef="typeDescription">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Type Description   </th>
+<td mat-cell *matCellDef="let element"> {{element.typeDescription}} </td>
+</ng-container>
+
+
+<ng-container matColumnDef="quantity">
+<th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity    </th>
+<td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+</ng-container>
+
+
+
+<tr mat-header-row *matHeaderRowDef="displayedColumnsProjmaterial"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumnsProjmaterial;"></tr>
+
+
+
+</table>
+
+
+
+&nbsp;&nbsp;&nbsp;<br>
+   </mat-card>
+
+
+
+</mat-card>
+
+
     <br>
 <mat-card>
 

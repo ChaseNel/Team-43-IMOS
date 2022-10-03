@@ -76,6 +76,15 @@ export interface material {
   warehouseId: number
 }
 
+export interface materialtask{
+  id:number,
+  materialtype: string,
+  name: string,
+  description: string,
+
+}
+
+
 //Material Type Interface
 export interface materialtype {
   materialtypeId: number,
@@ -155,8 +164,23 @@ export interface ProjectMaterialRequest{
   requestDate :string,
   statusName:string,
   statusUpdateDate: string,
+}
 
-
+export interface ProjectMaterial{
+  projectMaterialId:number,
+  projectId: number,
+  typeDescription:string,
+  materialName: string,
+  materialTypeName: string,
+  quantity: number,
+}
+export interface TaskMaterial{
+  TaskMaterialId: number;
+  projectMaterialId:number,
+  projectId: number,
+  materialName: string,
+  materialTypeName: string,
+  quantity: number,
 }
 
 //Material Request Interface/incomoplete
@@ -318,6 +342,17 @@ export interface project {
   projectmaterialrequests: [],
   projectmaterials: [],
   safetyfilechecklists: []
+}
+
+
+export interface projectDetails{
+  id: string,
+  name:string,
+  request: string,
+  constructionsite: string,
+  clientName: string,
+  clientEmail: string,
+  clientNo: string,
 }
 
 //Request Interface
@@ -831,6 +866,22 @@ export class ServiceService {
   }
 
 
+  AddProjectMaterial(basketMaterials: any){
+    return this.http.post(this.Root_URL + `/Projectmaterial/CreateProjectmaterial/${basketMaterials.projectId}/` , basketMaterials.basketMaterial);
+  }
+
+  AddTaskMaterial(basketMaterials: any){
+    return this.http.post(this.Root_URL + `/Taskmaterial/CreatetTaskmaterial/${basketMaterials.projectmaterialId}/${basketMaterials.taskId}/` , basketMaterials.basketMaterial);
+  }
+
+
+  AddMaterialTask(basketMaterials: any){
+    return this.http.post(this.Root_URL + `/Taskmaterial/CreateTaskmaterial/${basketMaterials.projectmaterialId }/${basketMaterials.taskId }/` , basketMaterials.basketMaterial);
+  }
+
+
+
+
 
 
 
@@ -866,6 +917,12 @@ export class ServiceService {
 
   getMaterialCompositonCount(): Observable<any> {
     return this.http.get<any>(this.Root_URL + '/ProjectMaterialRequestReportsController1/MaterialCompositionCount')
+    .pipe(map(result => result))
+  }
+
+
+  getProjectMaterialCount(id: number): Observable<any> {
+    return this.http.get<any>(this.Root_URL + '/Projectmaterial/GetProjectMaterial/' + id)
     .pipe(map(result => result))
   }
 
@@ -1155,6 +1212,15 @@ getAllIncidentreport():  Observable<incident[]> {
   getTasksByProjectfinal(id: number):  Observable<Task[]> {
     return this.http.get<Task[]>(this.Root_URL + '/Task/GetTaskBYProject/' + id)
   }
+
+
+  getMaterialbyIdFINAL(id: number):  Observable<material[]> {
+    return this.http.get<material[]>(this.Root_URL + '/Material/GetBYMaterialID/' + id)
+  }
+
+
+
+
   getProjectTaskCount(Id: number): Observable<any> {
     return this.http.get<any>(this.Root_URL + '/Repository/GetTaskDashboard/' + Id)
     .pipe(map(result => result))
@@ -1184,8 +1250,21 @@ getAllIncidentreport():  Observable<incident[]> {
     return this.http.get<ProjectMaterialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/GetRequestBYProject/' + Id)
   }
 
+  getProjectMateiral(Id: number):  Observable<ProjectMaterial[]> {
+    return this.http.get<ProjectMaterial[]>(this.Root_URL + '/Projectmaterial/GetProjectMaterial/' + Id)
+  }
 
+  getTaskMateiral(Id: number):  Observable<TaskMaterial[]> {
+    return this.http.get<TaskMaterial[]>(this.Root_URL + '/Taskmaterial/GetProjectTaskMaterial/' + Id)
+  }
 
+  getProjectMateiralReport(Id: number):  Observable<ProjectMaterial[]> {
+    return this.http.get<ProjectMaterial[]>(this.Root_URL + '/Report/GetProjectMaterial/' + Id)
+  }
+
+  getProjectDetailsReport(Id: number):  Observable<projectDetails[]> {
+    return this.http.get<projectDetails[]>(this.Root_URL + '/Project/GetProjectsBYID/' + Id)
+  }
 
 
 

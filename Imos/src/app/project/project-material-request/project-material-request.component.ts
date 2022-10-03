@@ -26,11 +26,6 @@ import { UpdateRequestStatusComponent } from './update-request-status/update-req
 export class ProjectMaterialRequestComponent implements OnInit {
 
 
-
-
-
-
-
   info: ProjectMaterialRequest[] =[];
 
   displayedColumns: string[] = ['urgencylevelName','RequestDate', 'statusName','statusUpdateDate', 'actions'];

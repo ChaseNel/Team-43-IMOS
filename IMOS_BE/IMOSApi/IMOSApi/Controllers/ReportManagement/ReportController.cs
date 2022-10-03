@@ -12,6 +12,7 @@ using System.Dynamic;
 using IMOSApi.Dtos.Task;
 using IMOSApi.Dtos.Incident;
 using IMOSApi.Dtos.Vehicle;
+using IMOSApi.Dtos.ProjectMaterials;
 
 namespace IMOSApi.Controllers.ReportManagement
 {
@@ -122,6 +123,29 @@ namespace IMOSApi.Controllers.ReportManagement
 
             return recordInDb;
         }
+
+        [HttpGet]
+        [Route("GetProjectMaterial/{Id}")]
+        public dynamic GetProjectMaterial(int Id)
+        {
+            var recordInDb = _context.Projectmaterial
+                .Include(item => item.Material)
+                .Include(item => item.Project)
+                .Where(item => item.ProjectId == Id)
+                .Select(item => new GetProjectMaterialDto
+                {
+                    MaterialName = item.Material.Name,
+                    MaterialTypeName = item.Material.Materialtype.Name,
+                    TypeDescription = item.Material.Materialtype.Description,
+                    Quantity = item.Quantity
+                    
+                }).OrderBy(item => item.MaterialName).ToList();
+                
+
+            return recordInDb;
+        }
+
+
 
 
 

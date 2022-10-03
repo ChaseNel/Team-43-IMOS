@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using IMOSApi.Models;
+using IMOSApi.Dtos.ProjectMaterials;
 
 
 namespace IMOSApi.Dtos.ProjectMaterials
 {
-    public class BasketMaterial
+    public class ProjectBasketMaterial
     {
         public int id { get; set; }
 
