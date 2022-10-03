@@ -572,14 +572,16 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Projectmaterial>(entity =>
             {
-                entity.HasKey(e => new { e.ProjectId, e.MaterialId });
+                entity.HasKey(e => e.ProjectMateriadId);
 
                 entity.ToTable("PROJECTMATERIAL");
+              
 
                 entity.HasIndex(e => e.ProjectId, "IS_ALLOCATED_FK");
 
                 entity.HasIndex(e => e.MaterialId, "IS_TAKEN_FK");
 
+                entity.Property(e => e.ProjectMateriadId).HasColumnName("PROJECTMATERIAL_ID");
                 entity.Property(e => e.ProjectId).HasColumnName("PROJECT_ID");
 
                 entity.Property(e => e.MaterialId).HasColumnName("MATERIAL_ID");
@@ -956,9 +958,14 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Taskmaterial>(entity =>
             {
-                entity.HasKey(e => new { e.MaterialId, e.TaskId });
+                entity.HasKey(e => new { e.ProjectMaterialId, e.TaskId });
 
                 entity.ToTable("TASKMATERIAL");
+
+                entity.Property(e => e.TaskMaterialId).HasColumnName("TASKMATERIAL_ID");
+
+
+                entity.Property(e => e.ProjectMaterialId).HasColumnName("PROJECTMATERIAL_ID");
 
                 entity.HasIndex(e => e.TaskId, "_HAS_FK");
 
@@ -968,11 +975,11 @@ namespace IMOSApi.Models
 
                 entity.Property(e => e.TaskId).HasColumnName("TASK_ID");
 
-                entity.HasOne(d => d.Material)
+                entity.HasOne(d => d.Projectmaterial)
                     .WithMany(p => p.Taskmaterials)
-                    .HasForeignKey(d => d.MaterialId)
+                    .HasForeignKey(d => d.ProjectMaterialId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TASKMATE___________MATERIAL");
+                    .HasConstraintName("FK_TASKMATERIAL_PROJECTMATERIAL");
 
                 entity.HasOne(d => d.Task)
                     .WithMany(p => p.Taskmaterials)

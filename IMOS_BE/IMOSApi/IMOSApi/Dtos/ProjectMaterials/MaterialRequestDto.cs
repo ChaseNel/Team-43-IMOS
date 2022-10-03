@@ -8,6 +8,6 @@ namespace IMOSApi.Dtos.ProjectMaterials
 {
     public class MaterialRequestDto
     {
-        public List<BasketMaterial> BasketMaterials { get; set; }
+        public List<ProjectBasketMaterial> BasketMaterials { get; set; }
     }
 }

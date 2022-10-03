@@ -51,6 +51,7 @@ import { UrgencyLevelComponent } from './project-material-request/urgency-level/
 import { MaterialRequestStatusComponent } from './material-request-status/material-request-status.component';
 import { TaskTypeComponent} from './project-task/task-type/task-type.component';
 import { ProjectTaskComponent } from './project-task/project-task.component';
+import { ProjectMaterialComponent } from './project-material/project-material.component';
 
 
 
@@ -382,6 +383,23 @@ export class ProjectComponent implements OnInit {
 
     });
   }
+
+  openProjectMaterial(id: number): void {
+    const dialogRef = this.dialog.open(ProjectMaterialComponent, {
+      data:{id},
+      width: '50%',
+      height:'90%',
+
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.GetAllProjects();
+
+    });
+  }
+
 
   openTaskdialog(id: number): void {
     const dialogRef = this.dialog.open(ProjectTaskComponent, {

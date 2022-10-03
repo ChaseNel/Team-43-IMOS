@@ -1,4 +1,4 @@
-import { incident, material } from './../../services/service.service';
+import { incident, material, ProjectMaterial, projectDetails } from './../../services/service.service';
 
 import { ChartData, ChartOptions} from 'chart.js';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -31,11 +31,26 @@ import { Router } from '@angular/router';
 })
 export class ProjectManagementReportComponent implements OnInit {
 
-
+cardData: any;
 
   displayedColumns: string[] = ['description','tasktypeDescription','startdate','enddate','statusName'];
 
   dataSource!: MatTableDataSource<Task>;
+
+  projectmaterialdata : ProjectMaterial[] = [] ;
+
+displayedColumnsProjmaterial: string[] = ['materialName','materialTypeName','typeDescription', 'quantity'];
+
+ProjMaterialdataSource!: MatTableDataSource<ProjectMaterial>;
+
+
+
+//projec details
+
+ProjectdisplayedColumns: string[] = ['name','request','constructionsite','clientName','clientEmail'];
+
+ProjectdataSource!: MatTableDataSource<projectDetails>;
+
 
 
 
@@ -62,6 +77,8 @@ export class ProjectManagementReportComponent implements OnInit {
 
   posts: any;
   incidentdata:any;
+  projmaterialData: any;
+  projectData:any;
 
   chartsLoaded:boolean = false;
   RequestchartsLoaded:boolean = false;
@@ -167,6 +184,22 @@ export class ProjectManagementReportComponent implements OnInit {
         ],
       };
 
+      ProjectMaterialData:ChartData<'bar'> ={
+        labels: [],
+        datasets: [
+          { data: [],
+            backgroundColor: ['rgb(105,105,105)',
+             'rgb(0, 255, 0)','rgb(22, 99, 200)'
+             ,'rgb(255, 0, 0)','rgb(159, 22, 128)',
+             'rgb(255,215,0)'
+
+            ]
+
+          },
+
+        ],
+      };
+
 
       MaterialCompOptions: ChartOptions = {
         responsive: true,
@@ -177,6 +210,18 @@ export class ProjectManagementReportComponent implements OnInit {
           },
         },
       };
+
+
+      ProjectMaterialOptions: ChartOptions = {
+        responsive: true,
+        plugins: {
+          title: {
+            display:true,
+            text:'# Material In Project Material  ',
+          },
+        },
+      };
+
 
 
 
@@ -192,6 +237,32 @@ export class ProjectManagementReportComponent implements OnInit {
                   this.dataSource.paginator = this.paginator;
                 this.dataSource.sort = this.sort;
         })
+
+
+        console.log(this.data.id);
+        this.service.getProjectMateiralReport(this.data.id)
+        .subscribe(x=> {
+
+          this.projmaterialData = x;
+
+          this.ProjMaterialdataSource = new MatTableDataSource(this.projmaterialData)
+
+          this.ProjMaterialdataSource.paginator = this.paginator;
+        this.ProjMaterialdataSource.sort = this.sort;
+        })
+
+        this.service.getProjectDetailsReport(this.data.id)
+        .subscribe(x=> {
+
+          this.projectData = x;
+
+          this.ProjectdataSource = new MatTableDataSource(this.projectData)
+
+          this.ProjectdataSource.paginator = this.paginator;
+        this.ProjectdataSource.sort = this.sort;
+        })
+
+
 
 
 
@@ -279,6 +350,27 @@ export class ProjectManagementReportComponent implements OnInit {
             this.snackBar.open(reponsive.error, 'X', {duration:5000})
           }
         })
+
+
+        this.service.getProjectMaterialCount(this.data.id)
+        .subscribe(result => {
+
+          console.log(result)
+
+          result.forEach((element: { materialName: string;  quantity:number;}) => {
+            this.ProjectMaterialData.labels?.push(element.materialName)
+            this.ProjectMaterialData.datasets[0].data.push(element.quantity)
+          });
+
+          this.chartsLoaded = true;
+
+        }, (reponsive: HttpErrorResponse) => {
+          if (reponsive.status === 500){
+            this.snackBar.open(reponsive.error, 'X', {duration:5000})
+          }
+        })
+
+
 
 
 

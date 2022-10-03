@@ -38,15 +38,39 @@ namespace IMOSApi.Controllers
         }
 
 
-     /*   [HttpGet("GetProject/{id}")]
-        public IEnumerable<Project> Get(int id)
+
+        [HttpGet("GetProjectsBYID/{projectId}")]
+        public ActionResult<IEnumerable<GetProjectDto>> GetProjectsBYID(int projectId)
         {
-            using (var context = new IMOSContext())
-            {
-                IEnumerable<Project> tmp = context.Projects.Where(emp => emp.ProjectId == id).ToList();
-                return tmp;
-            }
-        }*/
+            var recordInDb = _context.Projects
+                  .Include(item => item.Constructionsite)
+                  .Include(item => item.Initialrequest)
+                  .Include(item => item.Initialrequest.Client)
+                  .Where(item => item.ProjectId == projectId)
+                  .Select(item => new GetProjectDto()
+                  {
+
+                      Id = item.ProjectId,
+                      Name = item.Name,
+                      Constructionsite = item.Constructionsite.Address,
+                      Request = item.Initialrequest.Description,
+                      ClientName = item.Initialrequest.Client.Clientname,
+                      ClientEmail = item.Initialrequest.Client.Clientemail,
+                      ClientNo = item.Initialrequest.Client.Contactnumber,
+                  }).OrderBy(item => item.Name).ToList();
+            return recordInDb;
+        }
+
+
+        /*   [HttpGet("GetProject/{id}")]
+           public IEnumerable<Project> Get(int id)
+           {
+               using (var context = new IMOSContext())
+               {
+                   IEnumerable<Project> tmp = context.Projects.Where(emp => emp.ProjectId == id).ToList();
+                   return tmp;
+               }
+           }*/
 
         [HttpPost("AddProject")]
         public IActionResult Create(AddOrUpdateProjectDto model)

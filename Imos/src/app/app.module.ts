@@ -215,6 +215,12 @@ import { AllTaskReportComponent } from './report/all-task-report/all-task-report
 import { ProjectTasksComponent } from './report/project-tasks/project-tasks.component';
 import { AllRequestControlReportComponent } from './report/all-request-control-report/all-request-control-report.component';
 import { ProjectManagementReportComponent } from './report/project-management-report/project-management-report.component';
+import { ProjectMaterialComponent } from './project/project-material/project-material.component';
+import { AddProjectMaterialComponent } from './project/project-material/add-project-material/add-project-material.component';
+import { ProjectBasketComponent } from './project/project-material/project-basket/project-basket.component';
+import { TaskMaterialComponent } from './project/project-task/task-material/task-material.component';
+import { AddTaskMaterialComponent } from './project/project-task/task-material/add-task-material/add-task-material.component';
+import { ConfirmMaterialComponent } from './project/project-task/task-material/confirm-material/confirm-material.component';
 import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
 
 
@@ -355,6 +361,12 @@ import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
     ProjectTasksComponent,
     AllRequestControlReportComponent,
     ProjectManagementReportComponent,
+    ProjectMaterialComponent,
+    AddProjectMaterialComponent,
+    ProjectBasketComponent,
+    TaskMaterialComponent,
+    AddTaskMaterialComponent,
+    ConfirmMaterialComponent,
     VehicleBrandComponent,
     VehicleTypeComponent,
     UpdateVehicleBrandComponent,

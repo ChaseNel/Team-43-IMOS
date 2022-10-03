@@ -45,6 +45,26 @@ namespace IMOSApi.Controllers.MaterialManagent
             return recordInDb;
         }
 
+        [HttpGet("GetBYMaterialID/{materialId}")]
+        public object GetBYMaterialID(int materialId)
+        {
+            var recordInDb = _context.Materials
+               .Include(item => item.Materialtype)
+               .Where(item => item.MaterialId == materialId)
+               .Select(item => new GetMaterialDto()
+               {
+                  Id = item.MaterialId,
+                  MaterialtypeId= item.MaterialtypeId,
+                  Name = item.Name,
+                  Description= item.Description,
+                  Materialtype = item.Materialtype.Name
+
+               }).OrderBy(x => x.Name).ToList();
+           
+            return recordInDb;
+        }
+
+
         [HttpGet("GetMaterials")]//gets materials with supplier name ,material type, warehouse and quantity in that located.
         public ActionResult<IEnumerable<GetMaterialDto>> GetAll()
         {
