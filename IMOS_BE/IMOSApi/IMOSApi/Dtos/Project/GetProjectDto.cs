@@ -13,5 +13,8 @@ namespace IMOSApi.Dtos.Project
         public int RequestId { get; set; }
         public string Constructionsite { get; set; }
         public int ConstructionsiteId { get; set; }
+        public string ClientName { get; set; }
+        public string ClientEmail { get; set; }
+        public string ClientNo { get; set; }
     }
 }

@@ -1,3 +1,4 @@
+import { TaskMaterialComponent } from './task-material/task-material.component';
 import { ManageTaskStatusComponent } from './task-status/manage-task-status/manage-task-status.component';
 import { Task,ServiceService } from './../../services/service.service';
 
@@ -116,6 +117,21 @@ dataSource!: MatTableDataSource<Task>;
 
       openManageTaskStatus(id: number): void {
         const dialogRef = this.dialog.open(ManageTaskStatusComponent, {
+          width: '35%',
+          height:'70%',
+          data: {id}
+        }
+        );
+
+        dialogRef.afterClosed().subscribe(result => {
+          console.log('The dialog was closed');
+          this.getTask();
+
+        });
+      }
+
+      openTaskMaterial(id: number): void {
+        const dialogRef = this.dialog.open(TaskMaterialComponent, {
           width: '35%',
           height:'70%',
           data: {id}

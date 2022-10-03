@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using IMOSApi.Dtos.ProjectMaterials;
 using Microsoft.EntityFrameworkCore;
+using IMOSApi.Dtos.MaterialRequest;
 
 namespace IMOSApi.Controllers
 {
@@ -25,34 +26,84 @@ namespace IMOSApi.Controllers
         }
 
 
-
-
-     /*   [HttpPost]
-        [Route("CreateProjectmaterial/{projectId}")]
-        public object AddMaterialToProject(BasketMaterial[] basketMaterial, int projectId)
+        [HttpGet("GetProjectMaterial/{Id}")]
+        public ActionResult<IEnumerable<GetProjectMaterialDto>> GetProjectMaterial(int Id)
         {
+            var recordInDb = _context.Projectmaterial
+                .Include(item => item.Material)
+                .Where(item => item.ProjectId == Id)
+                .Select(item => new GetProjectMaterialDto()
+                {
+                    ProjectMaterialId = item.ProjectMateriadId,
+                    ProjectId = item.ProjectId,
+                    MaterialName = item.Material.Name,
+                    MaterialId = item.MaterialId,
+                    MaterialTypeName = item.Material.Materialtype.Name,
+                    Quantity = item.Quantity
+                }).OrderBy(item => item.MaterialName).ToList();
+
+            return recordInDb;
+
+
+        }
+
+
+
+      [HttpPost]
+        [Route("CreateProjectmaterial/{projectId}")]
+        public object AddMaterialToProject( [FromBody] BasketMaterial[] basketMaterial, int projectId)
+        {
+
+            /*  var materialInDb = _context.Projectmaterial
+                  .Where(item => item.MaterialId == basketMaterial.id)*/
+
+
+            var message = "";
+                
             try
             {
 
-
-
                 foreach (var item in basketMaterial)
                 {
-                    Projectmaterial projectmaterial = new Projectmaterial
+                  var  recordInDb = _context.Projectmaterial
+                        .Where(xx => xx.MaterialId == item.id)
+                      
+                        .FirstOrDefault();
+                    if (recordInDb == null)
                     {
-                        ProjectId = projectId,
-                        MaterialId = item.id,
-                        Quantity = item.quantity,
+                        Projectmaterial projectmaterial = new Projectmaterial
+                        {
+                            ProjectId = projectId,
+                            MaterialId = item.id,
+                            Quantity = item.quantity,
+                            Material = db.Materials.Find(item.id),
 
-                    };
 
-                    db.Projectmaterial.Add(projectmaterial);
+                        };
+
+                        db.Projectmaterial.Add(projectmaterial);
+                    
+
+                    }
+                    else
+                    {
+
+                        if (item.id == recordInDb.MaterialId)
+                        {
+
+                            recordInDb.Quantity = recordInDb.Quantity + item.quantity;
+
+                        }
+                        _context.SaveChanges();
+
+                    }
+
+
+                   
                 }
 
-
-
+                db.SaveChanges();
                 return Ok();
-
             }
 
             catch (Exception e)
@@ -62,7 +113,7 @@ namespace IMOSApi.Controllers
                 return BadRequest(e.Message);
 
             }
-        }*/
+        }
 
     }
 }

@@ -153,9 +153,6 @@ namespace IMOSApi.Controllers
         public object CreateMaterialRequest([FromBody] BasketMaterial[] basketmaterial, int projectid, int urgencyLevelId)
         {
 
-
-
-
             Projectmaterialrequest requestCreate = new Projectmaterialrequest()
             {
                 RequestDate = DateTime.Now,
@@ -164,7 +161,6 @@ namespace IMOSApi.Controllers
                 UrgencylevelId = urgencyLevelId,
            
                 ProjectmaterialrequeststatusId = 3,
-
 
             };
 
@@ -179,7 +175,6 @@ namespace IMOSApi.Controllers
                         MaterialId = item.id,
                         Material = db.Materials.Find(item.id),
                         Quantity = item.quantity,
-
                     };
 
                     db.Projectmaterialrequestlist.Add(projectmaterialrequestlist);
@@ -189,14 +184,12 @@ namespace IMOSApi.Controllers
                 db.SaveChanges();
 
                 return Ok();
-
             }
 
             catch (Exception e)
             {
                 Console.WriteLine(e.InnerException.Message);
                 return BadRequest(e.Message);
-
 
             }
 

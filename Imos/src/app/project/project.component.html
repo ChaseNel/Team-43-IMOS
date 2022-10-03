@@ -120,7 +120,8 @@
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let element">
         &nbsp;
-        <button mat-flat-button color="success">View Project </button>
+        <button (click)="openProjectMaterial(element.id)" mat-flat-button color="primary"> Project Material</button>
+        &nbsp;
         <button (click)="openTaskdialog(element.id)" mat-flat-button color="accent">Tasks</button>
         &nbsp;
         <button mat-flat-button color="primary"  (click)=" openDialogMatRequest(element.id)" > Manage Material Requests</button>
