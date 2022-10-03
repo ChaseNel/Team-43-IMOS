@@ -39,7 +39,7 @@ export class TaskTypeComponent implements OnInit {
     this.GetAllTaskTypes();
   }
 
-  GetAllTaskTypes(){
+  GetAllTaskTypes() {
     this.service.getTaskType().subscribe(x => {
       this.data = x;
       console.log(this.data);
@@ -61,27 +61,9 @@ export class TaskTypeComponent implements OnInit {
     }
   }
 
-  UpdateTaskType(element: any) {
-    this.type = element;
-    this.hide = true;
+  UpdateTaskType(id: number) {
+    this.route.navigateByUrl('/UpdateTaskType/'+id)
   }
-
-   closeClick(){
-    this.hide= false;
-    this.service.getTaskType().subscribe(x => {
-      this.data = x;
-      console.log(this.data);
-      this.posts = x;
-
-      this.dataSource = new MatTableDataSource(this.posts)
-
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-  })
-} 
-
-
-
 
 
   addTaskType() {

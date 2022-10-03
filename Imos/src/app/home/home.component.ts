@@ -67,6 +67,9 @@ export class HomeComponent implements OnInit {
   projects() {
     this.route.navigateByUrl('/project')
   }
+  task(){
+    this.route.navigateByUrl('/Task')
+  }
 
   vehicle() {
     this.route.navigateByUrl('/vehicle')

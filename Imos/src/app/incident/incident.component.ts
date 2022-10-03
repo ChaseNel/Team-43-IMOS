@@ -23,7 +23,7 @@ export class IncidentComponent implements OnInit {
   // API Test
   data: incident[] = [];
 
-  displayedColumns: string[] = ['desc', 'actions'];
+  displayedColumns: string[] = ['desc', 'project', 'actions'];
 
   dataSource!: MatTableDataSource<incident>;
 
