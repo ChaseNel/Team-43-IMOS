@@ -216,7 +216,7 @@ namespace IMOSApi.Controllers
 
                             Description = "The requested" + " " + recordInDb.Material.Name + " is greater than the one in the warehouse by units" + " " + (item.quantity - recordInDb.QuantityOnHand) 
                         };
-                        requestCreate.UrgencylevelId = 5;
+                       // requestCreate.UrgencylevelId = 5;
                         db.RequestNote.Add(requestNote);
                       
                     }
