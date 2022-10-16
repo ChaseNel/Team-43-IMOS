@@ -496,6 +496,7 @@ openRequestStatusDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
+    this.GetAllProjects();
   });
 }
 openUrgencyDialog(): void {
@@ -508,6 +509,7 @@ openUrgencyDialog(): void {
 
   dialogRef.afterClosed().subscribe(result => {
     console.log('The dialog was closed');
+    this.GetAllProjects();
 
   });
 }

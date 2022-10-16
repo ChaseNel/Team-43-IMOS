@@ -20,6 +20,8 @@
     <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />
   </mat-form-field>
 
+
+
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="materialName">
@@ -46,11 +48,6 @@
 
             <button  mat-flat-button  (click)="openAddTaskMaterial(element.projectMaterialId,element.materialId,this.data.id )" color="primary"> Add Task Material</button>
             &nbsp;
-            &nbsp;
-              <button  mat-flat-button  color="accent">Edit</button>
-
-              &nbsp;
-              <button mat-flat-button color="warn" >Delete</button>
           </td>
       </ng-container>
 

@@ -127,8 +127,8 @@ export class ProjectMaterialRequestComponent implements OnInit {
         openManageRequest(id:number): void {
           const dialogRef = this.dialog.open(UpdateRequestStatusComponent
             , {
-            width: '20%',
-            height:'30%',
+            width: '30%',
+            height:'38%',
             data: {id}
           });
 

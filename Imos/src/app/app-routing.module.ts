@@ -91,13 +91,15 @@ import { AddSaftyChecklistComponent } from './safty-checklist/add-safty-checklis
 import { OtpComponent } from './login/otp/otp.component';
 import { BackUpDatabaseComponent } from './back-up-database/back-up-database.component';
 import { AuditTrailsComponent } from './audit-trails/audit-trails.component';
-
+import { HelpViewComponent } from './help-view/help-view.component';
 const routes: Routes = [
 
   {path: 'reports', component: ReportComponent },
 
 
   {path: 'BackUp', component:BackUpDatabaseComponent},
+
+  {path: 'HelpView', component:HelpViewComponent},
 
   {path:'Urgencylvl', component:UrgencyLevelComponent},
   //Default
@@ -109,7 +111,7 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent,  },
   { path: 'logout', component: LogoutComponent },
-  { path: '', redirectTo: '/login',pathMatch: 'full'}, 
+  { path: '', redirectTo: '/login',pathMatch: 'full'},
   {path: 'otp', component:OtpComponent},
 
   //Reporting
@@ -164,7 +166,7 @@ const routes: Routes = [
   { path: 'addVehicle', component: AddVehicleComponent,/*canActivate:[AuthGuard]*/},
   { path: 'updateVehicle/:id', component: UpdateVehicleComponent,/*canActivate:[AuthGuard]*/ },
 
-  // Vehicle Tree Routes 
+  // Vehicle Tree Routes
     //Brands
     { path: 'brands', component: VehicleBrandComponent,/*canActivate:[AuthGuard]*/ },
     { path: 'addBrand', component: AddVehicleBrandComponent ,/*canActivate:[AuthGuard]*/},
@@ -178,7 +180,7 @@ const routes: Routes = [
   { path: 'VehicleTreeManagement', component: VehicleTypeComponent },
   /*{ path: 'addVehicleType', component: AddVehicleTypeComponent },
   { path: 'updateVehicleType/:id', component: UpdateVehicleTypeComponent },*/
-  
+
   //Incident
   { path: 'incident', component: IncidentComponent },
   { path: 'addIncident', component: AddIncidentComponent },
@@ -214,8 +216,8 @@ const routes: Routes = [
   { path: 'equipment', component: EquipmentComponent },
   { path: 'addEquipment', component: AddEquipmentComponent },
   { path: 'updateEquipment/:id', component: UpdateEquipmentComponent },
-  
-  //Safty Checklist 
+
+  //Safty Checklist
   { path: 'saftyChecklist', component: SaftyChecklistComponent },
   { path: 'addProjectChecklist', component: AddSaftyChecklistComponent },
 

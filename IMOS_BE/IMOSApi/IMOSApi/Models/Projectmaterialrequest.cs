@@ -9,8 +9,15 @@ namespace IMOSApi.Models
     {
         public Projectmaterialrequest()
         {
-            Projectmaterialrequestlists = new HashSet<Projectmaterialrequestlist>();
+
+            Projectmaterialrequestlist = new HashSet<Projectmaterialrequestlist>();
+            RequestNotes = new HashSet<RequestNote>();
         }
+
+    
+
+
+
 
         public int ProjectmaterialrequestId { get; set; }
         public int ProjectId { get; set; }
@@ -22,6 +29,7 @@ namespace IMOSApi.Models
         public virtual Project Project { get; set; }
         public virtual Projectmaterialrequeststatus Projectmaterialrequeststatus { get; set; }
         public virtual Urgencylevel Urgencylevel { get; set; }
-        public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlists { get; set; }
+        public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
+        public virtual ICollection<RequestNote> RequestNotes { get; set; }
     }
 }

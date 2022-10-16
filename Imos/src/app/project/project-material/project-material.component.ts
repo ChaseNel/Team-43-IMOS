@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {ServiceService, ProjectMaterial} from 'src/app/services/service.service';
+
+
 @Component({
   selector: 'app-project-material',
   templateUrl: './project-material.component.html',
@@ -23,6 +25,8 @@ projectmaterialdata : ProjectMaterial[] = [] ;
 displayedColumns: string[] = ['materialName','materialTypeName', 'quantity', 'actions'];
 
 dataSource!: MatTableDataSource<ProjectMaterial>;
+
+description!: any;
 
 @ViewChild(MatPaginator) paginator!: MatPaginator
 @ViewChild(MatSort) sort!: MatSort
@@ -52,11 +56,14 @@ posts: ProjectMaterial[];
       this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     })
+
+
   }
 
   applyFilter(event: Event) {
     const FilterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = FilterValue.trim().toLocaleLowerCase()
+this.description.filter = FilterValue.trim().toLowerCase()
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage()

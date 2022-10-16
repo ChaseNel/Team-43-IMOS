@@ -102,6 +102,11 @@ export interface ViewMatarialRequest{
     description: string
 }
 
+export interface RequestNote {
+  id:number,
+  description: string,
+}
+
 export interface ReportMaterialRequest{
 
   clientName: string,
@@ -914,6 +919,10 @@ export class ServiceService {
 
   getMaterialRequetsDetails(id: number): Observable<ViewMatarialRequest[]> {
     return this.http.get<ViewMatarialRequest[]>(this.Root_URL + '/ProjectMaterialRequest/ViewRequestDetails/' + id)
+  }
+
+  getNoteDetails(id: number): Observable<RequestNote[]> {
+    return this.http.get<RequestNote[]>(this.Root_URL + '/ProjectMaterialRequest/ViewNoteDetails/' + id)
   }
 
   getMaterialRequetsReport(id: number): Observable<ReportMaterialRequest[]> {

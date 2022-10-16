@@ -35,7 +35,7 @@ namespace IMOSApi.Controllers
                     UrgencyLevelName = item.Urgencylevel.Level,
                     ProjectId = item.ProjectId,
                     RequestDate = item.RequestDate,
-                    
+
 
                 }).OrderBy(item => item.RequestDate).ToList();
             return recordInDb;
@@ -43,7 +43,7 @@ namespace IMOSApi.Controllers
 
 
         [HttpGet("GetRequestBYProject/{Id}")]
-        public  ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
+        public ActionResult<IEnumerable<GetMaterialRequestDto>> GetMaterialRequestBYProject(int Id)
         {
             var recordInDb = _context.Projectmaterialrequest
                 .Where(item => item.ProjectId == Id)
@@ -51,12 +51,12 @@ namespace IMOSApi.Controllers
                 {
                     MaterialRequestId = item.ProjectmaterialrequestId,
                     ProjectId = item.ProjectId,
-                
+
                     RequestDate = item.RequestDate,
-                    StatusName= item.Projectmaterialrequeststatus.Name,
+                    StatusName = item.Projectmaterialrequeststatus.Name,
                     StatusUpdateDate = item.StatusUpdateDate,
                     UrgencyLevelName = item.Urgencylevel.Level,
-                    
+
 
                 }).OrderBy(item => item.RequestDate).ToList();
 
@@ -81,6 +81,22 @@ namespace IMOSApi.Controllers
             return recordInDb;
         }
 
+
+        [HttpGet("ViewNoteDetails/{Id}")]
+        public ActionResult<IEnumerable<GetRequestNoteDto>> ViewNoteDetails(int Id)
+        {
+            var recordInDb = db.RequestNote
+                .Include(item => item.Projectmaterialrequest)
+                .Where(item => item.ProjectmaterialrequestId == Id)
+                .OrderBy(item => item.ProjectmaterialrequestId)
+                .Select(item => new GetRequestNoteDto()
+                {
+                    Id = item.Id,
+                    Description = item.Description
+                }).ToList();
+
+            return recordInDb;
+        }
 
 
 
@@ -164,23 +180,53 @@ namespace IMOSApi.Controllers
 
             };
 
+
+           
+
             try
             {
+
+
                 foreach (var item in basketmaterial)
                 {
+                    var recordInDb = _context.Warehousematerials
+               .Include(x => x.Material)
+               .Include(x => x.Warehouse)
+               .Where(x => x.MaterialId == item.id)
+               .FirstOrDefault();
+
+
                     Projectmaterialrequestlist projectmaterialrequestlist = new Projectmaterialrequestlist
                     {
                         Projectmaterialrequest = requestCreate,
-                        ProjectmaterialrequestId = requestCreate.ProjectmaterialrequestId,
+                      //  ProjectmaterialrequestId = requestCreate.ProjectmaterialrequestId,
                         MaterialId = item.id,
                         Material = db.Materials.Find(item.id),
                         Quantity = item.quantity,
                     };
 
+                    if (item.quantity > recordInDb.QuantityOnHand)
+                    {
+                        RequestNote requestNote = new RequestNote
+                        {
+                          
+                            
+                            Projectmaterialrequest = requestCreate,
+                         
+
+                            Description = "The requested" + " " + recordInDb.Material.Name + " is greater than the one in the warehouse by units" + " " + (item.quantity - recordInDb.QuantityOnHand) 
+                        };
+                       // requestCreate.UrgencylevelId = 5;
+                        db.RequestNote.Add(requestNote);
+                      
+                    }
+
+
                     db.Projectmaterialrequestlist.Add(projectmaterialrequestlist);
 
                 }
                 db.Projectmaterialrequest.Add(requestCreate);
+             
                 db.SaveChanges();
 
                 return Ok();
@@ -215,6 +261,9 @@ namespace IMOSApi.Controllers
 
                 recordInDB.ProjectmaterialrequeststatusId = projectmaterialrequeststatusId;
                 recordInDB.StatusUpdateDate = DateTime.Now;
+
+
+
 
                _context.SaveChanges();
 
