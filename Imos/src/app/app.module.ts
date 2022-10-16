@@ -60,6 +60,8 @@ import { ProjectComponent } from './project/project.component';
 import { ClientComponent } from './client/client.component';
 import { WarehouseComponent } from './warehouse/warehouse.component';
 
+import { FilterPipeModule } from 'ngx-filter-pipe';
+
 import { SupplierOrderComponent } from './supplier/supplier-order/supplier-order.component';
 import { AddEquipmentComponent } from './equipment/add-equipment/add-equipment.component';
 import { UpdateEquipmentComponent } from './equipment/update-equipment/update-equipment.component';
@@ -212,6 +214,21 @@ import { ProjectBasketComponent } from './project/project-material/project-baske
 import { TaskMaterialComponent } from './project/project-task/task-material/task-material.component';
 import { AddTaskMaterialComponent } from './project/project-task/task-material/add-task-material/add-task-material.component';
 import { ConfirmMaterialComponent } from './project/project-task/task-material/confirm-material/confirm-material.component';
+import { RequestNoteComponent } from './project/project-material-request/request-note/request-note.component';
+import { HelpViewComponent } from './help-view/help-view.component';
+import { EmployeeHelpComponent } from './help-view/employee-help/employee-help.component';
+import { UserHelpComponent } from './help-view/user-help/user-help.component';
+import { MaterialHelpComponent } from './help-view/material-help/material-help.component';
+import { EquipmentHelpComponent } from './help-view/equipment-help/equipment-help.component';
+import { VehicleHelpComponent } from './help-view/vehicle-help/vehicle-help.component';
+import { ReportsHelpComponent } from './help-view/reports-help/reports-help.component';
+import { IncidentHelpComponent } from './help-view/incident-help/incident-help.component';
+import { SupplierHelpComponent } from './help-view/supplier-help/supplier-help.component';
+import { SupplierOrderHelpComponent } from './help-view/supplier-order-help/supplier-order-help.component';
+import { ProjectHelpComponent } from './help-view/project-help/project-help.component';
+import { MaterialRequestHelpComponent } from './help-view/material-request-help/material-request-help.component';
+import { ClientHelpComponent } from './help-view/client-help/client-help.component';
+import { WarehouseHelpComponent } from './help-view/warehouse-help/warehouse-help.component';
 
 
 
@@ -358,12 +375,28 @@ import { ConfirmMaterialComponent } from './project/project-task/task-material/c
     ProjectBasketComponent,
     TaskMaterialComponent,
     AddTaskMaterialComponent,
-    ConfirmMaterialComponent
+    ConfirmMaterialComponent,
+    RequestNoteComponent,
+    HelpViewComponent,
+    EmployeeHelpComponent,
+    UserHelpComponent,
+    MaterialHelpComponent,
+    EquipmentHelpComponent,
+    VehicleHelpComponent,
+    ReportsHelpComponent,
+    IncidentHelpComponent,
+    SupplierHelpComponent,
+    SupplierOrderHelpComponent,
+    ProjectHelpComponent,
+    MaterialRequestHelpComponent,
+    ClientHelpComponent,
+    WarehouseHelpComponent
 
   ],
 
   imports: [
     BrowserModule,
+    FilterPipeModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatCardModule,

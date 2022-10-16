@@ -3,6 +3,11 @@ href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:ops
 
 <h2 style="margin-left:45% ;">Project's Material Request Details</h2>
 
+<button  class="Urgencylvlbutton" mat-flat-button color="primary" (click)="openViewNoteDialog(this.data.id)"> View Note</button>
+&nbsp;
+
+<br>
+
 <mat-form-field appearance="standard">
   <mat-label>Search Table</mat-label>
   <input matInput placeholder="search" (keyup)="applyFilter($event)" #input />

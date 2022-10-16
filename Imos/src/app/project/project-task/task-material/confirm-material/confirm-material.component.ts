@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 
 import { HttpErrorResponse } from '@angular/common/http';
 
@@ -36,7 +37,7 @@ export class ConfirmMaterialComponent implements OnInit {
   basketList: any;
   form: FormGroup;
 
-
+results: any;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort
@@ -116,10 +117,29 @@ console.log(this.data.projectMaterialId,this.data.taskId)
 
       this.service.AddMaterialTask(basketMaterials)
       .subscribe((res:any) => {
-        this.requestAlert()
-        localStorage.removeItem('basket')
 
-      } )
+     // this.results = res.map((x: { status: any; }) =>x.status);
+        this.results =res;
+        /*  res((element: any) => {
+            this.results = element.status;
+          });*/
+
+      console.log(this.results)
+
+        if(this.results === 403){
+          this._snackBar.open('The Task Status is either Complete or Discountinued', 'X', {duration: 5000});
+        }
+
+        else{
+          this.requestAlert()
+          localStorage.removeItem('basket')
+
+        }
+
+
+      }
+
+      )
 
     }
 

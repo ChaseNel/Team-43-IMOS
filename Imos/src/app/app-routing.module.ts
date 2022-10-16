@@ -84,13 +84,15 @@ import { ReportComponent } from './report/report.component';
 import { AddProjectStaffComponent } from './project/project-staff/add-project-staff/add-project-staff.component';
 import { UpdateProjectStaffComponent } from './project/project-staff/update-project-staff/update-project-staff.component';
 import {BackUpDatabaseComponent} from './back-up-database/back-up-database.component';
-
+import { HelpViewComponent } from './help-view/help-view.component';
 const routes: Routes = [
 
   {path: 'reports', component: ReportComponent },
 
 
   {path: 'BackUp', component:BackUpDatabaseComponent},
+
+  {path: 'HelpView', component:HelpViewComponent},
 
   {path:'Urgencylvl', component:UrgencyLevelComponent},
   //Default

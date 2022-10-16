@@ -41,6 +41,7 @@ namespace IMOSApi.Models
         public virtual DbSet<Projectmaterialrequest> Projectmaterialrequest { get; set; }
         public virtual DbSet<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
         public virtual DbSet<Projectmaterialrequeststatus> Projectmaterialrequeststatus { get; set; }
+        public virtual DbSet<RequestNote> RequestNote { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<SafetyFile> SafetyFiles { get; set; }
         public virtual DbSet<Safetyfilechecklist> Safetyfilechecklists { get; set; }
@@ -605,7 +606,7 @@ namespace IMOSApi.Models
 
             modelBuilder.Entity<Projectmaterialrequestlist>(entity =>
             {
-                entity.HasKey(e => new { e.MaterialId, e.ProjectmaterialrequestId });
+               entity.HasKey(e => new { e.ProjectmaterialrequestlistId });
 
                 entity.ToTable("PROJECTMATERIALREQUESTLIST");
 
@@ -655,6 +656,49 @@ namespace IMOSApi.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_REQUEST_MAKES_CLIENT");
             });
+
+            modelBuilder.Entity<RequestNote>(entity =>
+            {
+                entity.HasKey(e => new { e.Id });
+
+                entity.ToTable("REQUESTNOTE");
+
+
+                entity.HasIndex(e => e.Id);
+
+              //  entity.HasIndex(e => e.ProjectmaterialrequestListId);
+
+                entity.HasIndex(e => e.ProjectmaterialrequestId);
+
+                entity.Property(e => e.Id).HasColumnName("REQUESTNOTE_ID");
+
+              //  entity.Property(e => e.ProjectmaterialrequestListId).HasColumnName("PROJECTMATERIALREQUESTLIST_ID");
+
+                entity.Property(e => e.ProjectmaterialrequestId).HasColumnName("PROJECTMATERIALREQUEST_ID");
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false)
+                    .HasColumnName("DESCRIPTION");
+
+           /*     entity.HasOne(d => d.Projectmaterialrequestlist)
+                    .WithMany(p => p.Requestnote)
+                    .HasForeignKey(d => d.ProjectmaterialrequestListId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_REQUESTNOTE_PROJECTMATERIALREQUESTLIST");*/
+
+                entity.HasOne(d => d.Projectmaterialrequest)
+                 .WithMany(p => p.RequestNotes)
+                 .HasForeignKey(d => d.ProjectmaterialrequestId)
+                 .OnDelete(DeleteBehavior.ClientSetNull)
+                 .HasConstraintName("FK_REQUESTNOTE_PROJECTMATERIALREQUEST");
+            });
+
+
+
+
+
+
 
             modelBuilder.Entity<SafetyFile>(entity =>
             {

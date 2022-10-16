@@ -1,3 +1,4 @@
+import { RequestNoteComponent } from './../request-note/request-note.component';
 import { HttpErrorResponse } from '@angular/common/http';
 
 
@@ -48,6 +49,7 @@ materialRequestData: MaterialRequestStatus[];
 
   constructor( @Inject(MAT_DIALOG_DATA) public data:{id:number},
   private route: Router,
+  private dialog: MatDialog,
    private service: ServiceService,
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,)
@@ -139,5 +141,21 @@ materialRequestData: MaterialRequestStatus[];
          id: e.target.value
        })
    }
+
+
+   openViewNoteDialog(id:number): void {
+    const dialogRef = this.dialog.open(RequestNoteComponent, {
+      width: '40%',
+      height:'70%',
+      data:{id}
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.ViewMaterialRequest(this.data.id);
+
+    });
+  }
 
 }

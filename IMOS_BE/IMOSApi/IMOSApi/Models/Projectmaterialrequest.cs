@@ -12,7 +12,11 @@ namespace IMOSApi.Models
         {
 
             Projectmaterialrequestlist = new HashSet<Projectmaterialrequestlist>();
+            RequestNotes = new HashSet<RequestNote>();
         }
+
+    
+
 
 
 
@@ -32,5 +36,6 @@ namespace IMOSApi.Models
         public virtual Project Project { get; set; }
         public virtual Urgencylevel Urgencylevel { get; set; }
         public virtual ICollection<Projectmaterialrequestlist> Projectmaterialrequestlist { get; set; }
+        public virtual ICollection<RequestNote> RequestNotes { get; set; }
     }
 }

@@ -22,6 +22,10 @@ export class HomeComponent implements OnInit {
     this.route.navigateByUrl("/BackUp");
   }
 
+  HelpView() {
+    this.route.navigateByUrl("/HelpView");
+  }
+
   material() {
     this.route.navigateByUrl("/material");
   }

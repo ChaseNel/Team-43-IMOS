@@ -30,7 +30,7 @@ namespace IMOSApi.Controllers
         [HttpGet("GetProjectTaskMaterial/{Id}")]
         public ActionResult<IEnumerable<GetTaskMaterialDto>> GetProjectTaskMaterial(int Id)
         {
-            var recordInDb = _context.Taskmaterials
+            var recordInDb = db.Taskmaterials
                 .Include(item => item.Projectmaterial)
                 .Include(item => item.Task)
                 .Where(item => item.TaskId == Id)
@@ -51,66 +51,106 @@ namespace IMOSApi.Controllers
 
         public object CreateTaskmaterial( [FromBody] BasketMaterial[] basketMaterial, int projectmaterialId, int taskId)
         {
-
+            
 
             var message = "";
+            int status;
 
             try
             {
+                var taskrecord = db.Tasks
+                .Include(item => item.Taskmaterials)
+                .Where(item => item.TaskId == taskId)
+                .FirstOrDefault();
 
-                foreach (var item in basketMaterial)
+
+                var taskmaterialrecord = db.Taskmaterials
+                .Include(item => item.Task)
+                .Where(item => item.TaskId == taskId)
+                .FirstOrDefault();
+
+
+                if (taskrecord.TaskStatusId == 6 || taskrecord.TaskStatusId == 1 )
+                {
+                    return status = 403;
+                        message = "Task is already complete";
+                }
+
+
+
+           
+
+                else
                 {
 
-                    var recordInDb = _context.Taskmaterials
-                      .Where(xx => xx.MaterialId == item.id)
-                      .FirstOrDefault();
-                    var recordOutDb = _context.Projectmaterial.Where(xx => xx.MaterialId == item.id)
-                        .FirstOrDefault();
 
-                    
-
-                    if (recordInDb != null)
+                    foreach (var item in basketMaterial)
                     {
 
-                        if (item.quantity > recordOutDb.Quantity)
-                        {
-                            recordInDb.Quantity = recordInDb.Quantity + recordOutDb.Quantity;
+                        var recordInDb = db.Taskmaterials
+                          .Where(xx => xx.MaterialId == item.id && xx.TaskId == taskId )
+                          .FirstOrDefault();
 
-                            recordOutDb.Quantity = 0;
+                      
 
-                    }
-                        else if (item.quantity <= recordOutDb.Quantity && item.id == recordInDb.MaterialId)
+                        var recordOutDb = db.Projectmaterial.Where(xx => xx.MaterialId == item.id)
+                            .FirstOrDefault();
+
+                        if (recordOutDb.Quantity == 0)
                         {
-                            recordInDb.Quantity = recordInDb.Quantity + item.quantity;
-                            recordOutDb.Quantity = recordOutDb.Quantity - item.quantity; 
+                            return message = "Material Not found in Project Material";
+
                         }
 
-                    }
-
-                    
-        
-                    else
-                    {
-                        Taskmaterial taskmaterial = new Taskmaterial()
+                        else if (taskmaterialrecord == null)
                         {
-                            TaskId = taskId,
-                            MaterialId = item.id,
-                            ProjectMaterialId = projectmaterialId,
-                            Quantity = item.quantity,
-                        };
 
-                        db.Taskmaterials.Add(taskmaterial);
 
-                        recordOutDb.Quantity = recordOutDb.Quantity - item.quantity;
+                            Taskmaterial taskmaterial = new Taskmaterial()
+                            {
+                                TaskId = taskId,
+                                MaterialId = item.id,
+                                ProjectMaterialId = projectmaterialId,
+                                Quantity = item.quantity,
+                            };
+
+                            db.Taskmaterials.Add(taskmaterial);
+
+                            recordOutDb.Quantity = recordOutDb.Quantity - item.quantity;
+
+                        }
+
+                        else /*if (recordInDb != null)*/
+                        {
+
+
+                            if (item.quantity > recordOutDb.Quantity)
+                            {
+                                recordInDb.Quantity = recordInDb.Quantity + recordOutDb.Quantity;
+
+                                recordOutDb.Quantity = 0;
+
+                            }
+                            else if (item.quantity <= recordOutDb.Quantity && item.id == recordInDb.MaterialId)
+                            {
+                                recordInDb.Quantity = recordInDb.Quantity + item.quantity;
+                                recordOutDb.Quantity = recordOutDb.Quantity - item.quantity;
+                            }
+
+                            db.SaveChanges();
+
+
+                        }
+
+
+
+                        db.SaveChanges();
+
+
                     }
-
-                  
-                    
-                       
-                        _context.SaveChanges();
-                    
 
                 }
+
 
                 db.SaveChanges();
                 return Ok();

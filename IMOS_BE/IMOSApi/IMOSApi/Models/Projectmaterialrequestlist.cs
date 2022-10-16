@@ -9,6 +9,13 @@ namespace IMOSApi.Models
 {
     public partial class Projectmaterialrequestlist
     {
+      /*  public Projectmaterialrequestlist()
+        {
+            Requestnote = new HashSet<RequestNote>();
+        }*/
+
+
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProjectmaterialrequestlistId { get; set; }
         public int MaterialId { get; set; }
@@ -17,5 +24,7 @@ namespace IMOSApi.Models
 
         public virtual Material Material { get; set; }
         public virtual Projectmaterialrequest Projectmaterialrequest { get; set; }
+
+      //  public virtual ICollection<RequestNote> Requestnote { get; set; }    
     }
 }
