@@ -393,6 +393,17 @@ export interface warehouse {
   materials: []
 }
 
+
+export interface warehouseMaterial{
+  wareHouseId: number;
+  wareHouseName: string;
+  materialName: string;
+  materialType:string;
+  quantityONHand: number
+}
+
+
+
 // add all ,safetychecklist,Item  category,Item
 export interface safetyfilechecklist{
   projectId:number,
@@ -1222,6 +1233,9 @@ getAllIncidentreport():  Observable<incident[]> {
     return this.http.get<Task[]>(this.Root_URL + '/Task/GetTaskBYProject/' + id)
   }
 
+  getWarehouseMaterial(id: number):  Observable<warehouseMaterial[]> {
+    return this.http.get<warehouseMaterial[]>(this.Root_URL + '/WarehouseMaterial/GetWareHouseMaterial/' + id)
+  }
 
   getMaterialbyIdFINAL(id: number):  Observable<material[]> {
     return this.http.get<material[]>(this.Root_URL + '/Material/GetBYMaterialID/' + id)

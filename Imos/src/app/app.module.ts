@@ -229,6 +229,7 @@ import { ProjectHelpComponent } from './help-view/project-help/project-help.comp
 import { MaterialRequestHelpComponent } from './help-view/material-request-help/material-request-help.component';
 import { ClientHelpComponent } from './help-view/client-help/client-help.component';
 import { WarehouseHelpComponent } from './help-view/warehouse-help/warehouse-help.component';
+import { WarehouseMaterialComponent } from './warehouse/warehouse-material/warehouse-material.component';
 
 
 
@@ -390,7 +391,8 @@ import { WarehouseHelpComponent } from './help-view/warehouse-help/warehouse-hel
     ProjectHelpComponent,
     MaterialRequestHelpComponent,
     ClientHelpComponent,
-    WarehouseHelpComponent
+    WarehouseHelpComponent,
+    WarehouseMaterialComponent
 
   ],
 

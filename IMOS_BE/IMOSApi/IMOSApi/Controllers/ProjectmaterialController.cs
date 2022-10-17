@@ -65,12 +65,20 @@ namespace IMOSApi.Controllers
 
                 foreach (var item in basketMaterial)
                 {
-                  var  recordInDb = _context.Projectmaterial
+                  var  recordInDb = db.Projectmaterial
                         .Where(xx => xx.MaterialId == item.id)
-                      
+
                         .FirstOrDefault();
+
+
+                    var wareHouseMat = db.Warehousematerials
+                        .Where(xx => xx.MaterialId == item.id)
+                        .FirstOrDefault();
+
+
                     if (recordInDb == null)
                     {
+
                         Projectmaterial projectmaterial = new Projectmaterial
                         {
                             ProjectId = projectId,
@@ -90,11 +98,20 @@ namespace IMOSApi.Controllers
 
                         if (item.id == recordInDb.MaterialId)
                         {
-
-                            recordInDb.Quantity = recordInDb.Quantity + item.quantity;
+                            if (item.quantity > wareHouseMat.QuantityOnHand)
+                            {
+                                recordInDb.Quantity = recordInDb.Quantity + wareHouseMat.QuantityOnHand;
+                                wareHouseMat.QuantityOnHand = 0;
+                            }
+                             else if (item.quantity <= wareHouseMat.QuantityOnHand)
+                            {
+                                recordInDb.Quantity = recordInDb.Quantity + item.quantity;
+                                wareHouseMat.QuantityOnHand = wareHouseMat.QuantityOnHand - item.quantity;
+                            }
+                           
 
                         }
-                        _context.SaveChanges();
+                        db.SaveChanges();
 
                     }
 

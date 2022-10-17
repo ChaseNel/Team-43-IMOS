@@ -1,11 +1,12 @@
+import { WarehouseMaterialComponent } from './warehouse-material/warehouse-material.component';
 import { ServiceService, warehouse, equipment } from './../services/service.service';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 @Component({
   selector: 'app-warehouse',
   templateUrl: './warehouse.component.html',
@@ -28,7 +29,10 @@ export class WarehouseComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort
   posts: any;
 
-  constructor(private route: Router, private service: ServiceService, private _snackBar: MatSnackBar) {
+  constructor(private route: Router,
+    private dialog: MatDialog,
+   // @Inject(MAT_DIALOG_DATA) public info:{id:number},
+    private service: ServiceService, private _snackBar: MatSnackBar) {
     this.GetAllWarehouses();
   }
 
@@ -97,5 +101,21 @@ export class WarehouseComponent implements OnInit {
   ngOnInit(): void {
     //this.service.getMaterialType().subscribe(x => { this.typelist = x; console.log("typelist", this.typelist) });
   }
+
+  openWareHousematerial(id: number): void {
+    const dialogRef = this.dialog.open(WarehouseMaterialComponent, {
+      width: '50%',
+      height:'60%',
+      data: {id}
+    }
+    );
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.GetAllWarehouses();
+
+    });
+  }
+
 
 }
